@@ -1,0 +1,30 @@
+% $Id: historian.lbx,v 0.4 2010/08/22 gliboff $
+
+\ProvidesFile{czech.lbx}
+
+\InheritBibliographyExtras{english}
+\InheritBibliographyStrings{english}
+
+%Turabian calls for mostly abbreviated bibstrings in the footnotes, but mostly long forms in the bibliography. Here the entire list of bibstrings from the english.lbx file is redefined to select strings by bibliography vs. footnote environment, rather than long vs. short.
+
+\DeclareBibliographyExtras{
+  \protected\def\mkbibordinal#1{#1\adddot}
+  \protected\def\nameprint#1#2{#2\space#1}
+}
+
+\DeclareBibliographyStrings{%
+  volume={{díl}{d\adddot}},
+  edition={{vydání}{vyd\adddot}},
+  page={{strana}{s\adddot}},
+  pages={{strany}{s\adddot}},
+  andothers={{a další}{aj\adddot}},
+  volume={{ročník}{roč\adddot}},
+  jourvol={{ročník}{roč\adddot}},
+  number={{číslo}{č\adddot}},
+  urlseen={{citováno}{cit\adddot}},
+  url = {{Dostupný také z WWW}{WWW}},
+  %urlcited = {{citováno},{cit\adddot}}
+}
+
+
+\endinput

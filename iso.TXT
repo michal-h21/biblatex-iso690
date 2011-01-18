@@ -1,0 +1,83 @@
+mografie >elektronické
+  autor
+  titulek+
+    :title
+    :subtitle
+    :volume
+    :part
+  >nosič
+    [online][cd-rom][online databáze][počítačový program na CD-ROM][elektronická knihovna][elektronická pošta]
+  podřízená odpovědnost
+    :editor
+    :translator    
+  vydání
+    :edition (musí být číslo)
+  nakladatel
+    :location
+    :publisher
+    :year+
+   >citování 
+    :urldate
+   stránky
+    :pagetotal+
+   edice
+    :series
+   komentáře  
+    :note
+   lokace   
+    >:url
+    >:eprint
+      :eprintclass
+      :eprinttype
+    >:doi
+    :isbn
+    
+article >online
+  autuři.
+  titulek.
+    :title
+    :subtitle
+  journal.
+    :journaltitle
+  rok,
+    :year
+    :date
+  ročník,
+    :volume
+  číslo,
+    :number
+  stránky.
+    :pages
+  lokace.
+    >:url
+    >:eprint
+      :eprintclass
+      :eprinttype
+    >:doi
+    :issn
+kapitola >online
+  autor
+  titulek+
+    :booktitle
+    :booksubtitle
+    :volume
+    :part
+  >nosič
+    [online][cd-rom][online databáze][počítačový program na CD-ROM][elektronická knihovna][elektronická pošta]
+  podřízená odpovědnost
+    :editor
+    :translator    
+  vydání
+    :edition (musí být číslo)
+  nakladatel
+    :location
+    :publisher
+    :year+
+  číslo kapitoly (pokud není v textu, je v hranaté závorce),
+    :chapter
+  název kapitoly,
+    :title 
+  stránky.
+    :pages
+    
+    
