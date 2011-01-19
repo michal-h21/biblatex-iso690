@@ -1,0 +1,44 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[english,czech]{babel}
+\usepackage{fontspec,realscripts}
+%\usepackage{unicode-math}
+\usepackage{csquotes}
+\usepackage[margin=1.5cm]{geometry}
+
+\DeclareQuoteStyle{czech}%     [variant]{style}
+  {\quotedblbase }%                   opening outer mark
+  {\textquotedblleft}%                  closing outer mark
+  {\textquoteleft}%                      opening inner mark
+  {\textquoteright}%    
+%\DeclarePlainStyle{,,}{''}{,}{'}
+\setquotestyle{czech}
+
+%\setmainfont{OFL Sorts Mill Goudy}
+\setmainfont{TeX Gyre Termes}
+%\setmainfont{Inconsolata}
+\defaultfontfeatures{Scale=MatchLowercase,Ligatures=TeX}
+%\setsansfont{TeX Gyre Adventor}
+%\setmathfont{asana-math.otf}
+%\setsansfont[Scale=MatchLowercase]{Latin Modern Sans}
+%\setmonofont{Inconsolata}
+\usepackage[
+   backend=biber
+  ,style=iso
+  ,sorting=nyt
+  ,autocite=footnote
+  ,maxnames=5
+  ,minnames=3
+  ,babel=other
+  ,spacecolon=true
+  ]
+  {biblatex}
+%\usepackage[authordate]{biblatex-chicago}
+
+\bibliography{mybib}
+\begin{document}
+\textquote{pokus}\footcite{small,big,kniha,koll,prispevek1} no a \emph{taky}\footnote{\cite{cs,cr,kniha2,kniha3,kap,knuth}}
+
+Více isbn je třeba zadávat oddělené čárkou. Zpracovájí se pomocí makra docsvfield.
+ 
+\printbibliography
+\end{document}
