@@ -14,16 +14,19 @@
 %commands
 %select main language of bibliography. this is needed in fields like number of pages etc.
 %main language is last in babel params list. so if we have \usepackage[english,czech]{babel}, main language is czech
-\newcommand\mainlanguage{\expandafter\selectlanguage\expandafter{\bbl@main@language}}%
+\newlength{\trashlength}
+%\def\ignoreoutput#1{\begingroup\globaldefs1\settowidth{\trashlength}{#1}\endgroup}
+%\newcommand\mainlanguage{\expandafter\selectlanguage\expandafter\bbl@main@language}%
 
-\newcommand\mainlanguage@n{\expandafter\bbl@set@language\expandafter{\bbl@main@language}}
+%\newcommand\mainlanguage@n{\expandafter\bbl@set@language\expandafter{\bbl@main@language}}
+\newcommand\mainlanguage@n{\expandafter\bbl@set@language\expandafter{\bbl@main@language}{\settowidth{\trashlength}{\expandafter\bbl@set@language\expandafter{\bbl@main@language}}\kern-\dimexpr \trashlength\relax}}%
 %\newcommand\mainlanguage@n{\languagename}
 %\newcommand\mainlanguage@n{\expandafter\blx@langsetup\expandafter{\bbl@main@language}}
 %\newcommand\mainlanguage@n{\global\edef\blx@languagename{\bbl@main@language}}
 %\newcommand\mainlanguage@n{\blx@lbxinput\expandafter{\bbl@main@language}}
 %\newcommand\mainlanguage@n{\blx@langsetup\bbl@main@language}
-\newcommand\mainsstring[1]{\ignorespaces\mainlanguage@n\printtext{\bibsstring{#1}}}
-\newcommand\mainlstring[1]{\ignorespaces\mainlanguage@n\printtext{\biblstring{#1}}}
+\newcommand\mainsstring[1]{\mainlanguage@n{}\bibsstring{#1}}
+\newcommand\mainlstring[1]{\mainlanguage@n{}\biblstring{#1}}
 
 \newcommand\tcolon{%colon between location and publisher, title and subtitle etc.
 \def\colo@n{\printtext{:}}
@@ -116,7 +119,7 @@
     test {\ifnumequal{\value{listcount}}{\value{liststop}}}%
     and%
     test \ifmorenames%
-}{\nopunct\mainsstring{andothers}}%
+}{\addspace\mainsstring{andothers}}%
 {}%
 }
 
@@ -187,7 +190,8 @@
 {\printfield{pagetotal}\usebibmacro{loc:pages}}%
 }
 \newbibmacro{book:vol}{%
-\printfield{edition}\usebibmacro{loc:bookvol}%
+\iffieldundef{edition}{}%
+{\printfield{edition}\usebibmacro{loc:bookvol}}%
 }
 
 \newbibmacro{titles}[1]{%
@@ -214,7 +218,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Localisation macros
-\newbibmacro{loc:pages}{\mainsstring{pages}}%\printtext{s}}
+\newbibmacro{loc:pages}{\space\mainsstring{pages}}%\printtext{s}}
 
 \newbibmacro{loc:bookvol}{\addspace\bibsstring{edition}}
 
@@ -287,6 +291,36 @@
 \printfield[colon]{subtitle}
 \setunit*{\addcomma}%
 \printfield{pages}
+\newunit\newblock
+\printfield{note}
+\newunit\newblock
+\usebibmacro{availability}
+\newunit\newblock
+\printfield{isbn}
+\newunit\newblock
+\finentry}
+
+\DeclareBibliographyDriver{incollection}{%
+%\printnames{author}%
+\usebibmacro{names:primary}
+\newunit\newblock
+\printfield{title}
+\printfield[colon]{subtitle}
+\newunit\newblock
+\mainsstring{in}
+\printnames{editor}
+\newunit\newblock
+\usebibmacro{pub:title}
+\newunit\newblock
+\usebibmacro{book:vol}
+\newunit\newblock
+\printfield{number}
+\newunit\newblock
+\usebibmacro{book:pubinfo}
+\newunit\newblock
+\usebibmacro{pagecount}
+\newunit\newblock
+\printfield{series}
 \newunit\newblock
 \printfield{note}
 \newunit\newblock
