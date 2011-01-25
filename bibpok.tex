@@ -36,9 +36,8 @@
 
 \bibliography{mybib}
 \begin{document}
-\textquote{pokus}\footcite{small,big,kniha,koll,prispevek1} no a \emph{taky}\footnote{\cite{cs,cr,kniha2,kniha3,kap,knuth}}
-
+\nocite{*}
 Více isbn je třeba zadávat oddělené čárkou. Zpracovájí se pomocí makra docsvfield.
  
-\printbibliography
+\printbibliography[title={Seznam literatury},heading=bibnumbered]
 \end{document}
