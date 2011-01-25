@@ -43,7 +43,8 @@
      {\setlength{\leftmargin}{\bibhang}%
       \setlength{\itemindent}{-\leftmargin}%
       \setlength{\itemsep}{\bibitemsep}%
-      \setlength{\parsep}{\bibparsep}}}
+      \setlength{\parsep}{\bibparsep}}%
+      \raggedright}
   {\endlist}
   {\item}
 
@@ -58,7 +59,7 @@
 \DeclareFieldFormat*{volume}{\bibsstring{jourvol}\space#1}
 \DeclareFieldFormat*{emphatize}{\emph{#1}}
 \DeclareFieldFormat*{edition}{\mkbibordedition{#1}}
-\DeclareFieldFormat*{pages}{\mainsstring{pages}\addspace\printtext{#1}}
+\DeclareFieldFormat*{pages}{\mainsstring{pages}\space\printtext{#1}}
 \DeclareFieldFormat*{number}{\bibsstring{number}\addspace\printtext{#1}}
 \DeclareFieldFormat*{url}{\url{#1}}
 \DeclareFieldFormat*{doi}{\url{http://dx.doi.org/#1}}
@@ -250,7 +251,7 @@
 \usebibmacro{names:primary}%
 \newunit\newblock
 \printfield{title}%
-\printfield[colon]{subtitle}
+\printfield[colon]{subtitle}%
 \newunit\newblock
 \usebibmacro{jour:title}
 %\printfield[emphatize]{journaltitle}%
@@ -261,7 +262,7 @@
 \printfield{volume}%
 \setunit*{\addcomma\addspace}%
 \printfield{number}
-\setunit*{\addcomma}%
+\setunit*{\addcomma\addspace}%
 \printfield{pages}
 \newunit\newblock
 \printfield{note}
@@ -304,9 +305,9 @@
 %\printnames{author}%
 \usebibmacro{names:primary}
 \newunit\newblock
-\printfield{title}
-\printfield[colon]{subtitle}
-\newunit\newblock
+\printfield{title}%
+\printfield[colon]{subtitle}%
+\newunit
 \mainsstring{in}
 \printnames{editor}
 \newunit\newblock
