@@ -10,21 +10,18 @@
 
 \ExecuteBibliographyOptions{%
   %spacecolon=true
+  sorting=nyt
+  ,maxnames=5
+  ,minnames=3
+  ,babel=other
 }
+\newbibmacro*{begentry}{}
 %commands
 %select main language of bibliography. this is needed in fields like number of pages etc.
 %main language is last in babel params list. so if we have \usepackage[english,czech]{babel}, main language is czech
 \newlength{\trashlength}
-%\def\ignoreoutput#1{\begingroup\globaldefs1\settowidth{\trashlength}{#1}\endgroup}
-%\newcommand\mainlanguage{\expandafter\selectlanguage\expandafter\bbl@main@language}%
-
-%\newcommand\mainlanguage@n{\expandafter\bbl@set@language\expandafter{\bbl@main@language}}
 \newcommand\mainlanguage@n{\expandafter\bbl@set@language\expandafter{\bbl@main@language}{\settowidth{\trashlength}{\expandafter\bbl@set@language\expandafter{\bbl@main@language}}\kern-\dimexpr \trashlength\relax}}%
-%\newcommand\mainlanguage@n{\languagename}
-%\newcommand\mainlanguage@n{\expandafter\blx@langsetup\expandafter{\bbl@main@language}}
-%\newcommand\mainlanguage@n{\global\edef\blx@languagename{\bbl@main@language}}
-%\newcommand\mainlanguage@n{\blx@lbxinput\expandafter{\bbl@main@language}}
-%\newcommand\mainlanguage@n{\blx@langsetup\bbl@main@language}
+
 \newcommand\mainsstring[1]{\mainlanguage@n{}\bibsstring{#1}}
 \newcommand\mainlstring[1]{\mainlanguage@n{}\biblstring{#1}}
 
@@ -35,7 +32,7 @@
 
 \renewcommand\subtitlepunct{\tcolon}
 \renewcommand\andmoredelim{}
-
+\renewcommand\multinamedelim{\addsemicolon\addspace}
 
 \defbibenvironment{bibliography}
   {\list
@@ -111,7 +108,7 @@
 
 \newbibmacro{names:separator}{%
 \ifthenelse{\value{listcount}<\value{liststop}}%
-{\addsemicolon\addspace}%
+{\multinamedelim}%\addsemicolon\addspace}%
 {}%
 }
 
@@ -122,6 +119,14 @@
     test \ifmorenames%
 }{\addspace\mainsstring{andothers}}%
 {}%
+}
+
+\renewbibmacro*{editor}{%
+  \ifnameundef{editor}%
+  {}%
+  {\printnames{editor}%
+    \addspace\mkbibparens{\mainsstring{editor}}%
+  }%
 }
 
 \newbibmacro*{online-test}[2]{%
@@ -152,7 +157,7 @@
 }%
 {\printfield{url}}%
 }%
-}
+}%
 }
 
 \newbibmacro{availability}{%
@@ -217,6 +222,11 @@
 \usebibmacro{online}
 }
 
+\newbibmacro*{in}{%
+\mainsstring{in}%
+%\addspace%
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Localisation macros
 \newbibmacro{loc:pages}{\space\mainsstring{pages}}%\printtext{s}}
@@ -226,6 +236,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \DeclareBibliographyDriver{book}{%
+\usebibmacro{bibindex}%
+\usebibmacro{begentry}%
 %\printnames{author}%
 \usebibmacro{names:primary}
 \newunit\newblock
@@ -248,6 +260,8 @@
 \finentry}
 
 \DeclareBibliographyDriver{article}{%
+\usebibmacro{bibindex}%
+\usebibmacro{begentry}%
 \usebibmacro{names:primary}%
 \newunit\newblock
 \printfield{title}%
@@ -275,6 +289,8 @@
 
 \DeclareBibliographyDriver{inbook}{%
 %\printnames{author}%
+\usebibmacro{bibindex}%
+\usebibmacro{begentry}%
 \printnames{bookauthor}
 \newunit\newblock
 \printfield{booktitle}
@@ -303,15 +319,17 @@
 
 \DeclareBibliographyDriver{incollection}{%
 %\printnames{author}%
+\usebibmacro{bibindex}%
+\usebibmacro{begentry}%
 \usebibmacro{names:primary}
 \newunit\newblock
 \printfield{title}%
 \printfield[colon]{subtitle}%
 \newunit
-\mainsstring{in}
-\printnames{editor}
-\newunit\newblock
-\usebibmacro{pub:title}
+\usebibmacro{in}
+\usebibmacro{editor}%
+\newunit\newblock%
+\usebibmacro{pub:title}%
 \newunit\newblock
 \usebibmacro{book:vol}
 \newunit\newblock
