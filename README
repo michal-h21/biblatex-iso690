@@ -1,0 +1,33 @@
+Style ISO 690 for bibLaTeX
+
+Usage: 
+...
+\usepackage{english,czech}{babel} % main language of the document must be last
+\usepackage[
+   backend=biber      % if we want unicode 
+  ,style=iso          
+  ,babel=other        % to support multiple languages in bibliography
+  ,sortlocale=cs_CZ   % locale of main language, it is for sorting
+  ,bibencoding=UTF8   % this is necessary only if bibliography file is in different encoding than main document
+]{biblatex}
+... 
+
+Bibliographic fields:
+Some fields have different meaning than in plain BibTeX.
+
+1. if publication is written in another language than main document is, it should have filled "hyphenation" field
+  
+  hyphenation = {czech}
+
+2. publications with online versions should have "urldate" field. it is date when you last checked publication online
+
+  urldate = {2011-01-12},
+
+3. if publication has more isbn or issn numbers, use just one of them
+
+4. publisher and place
+
+  location = {Praha},
+  publisher = {Academia}
+  
+For more details see file mybib.bib   
