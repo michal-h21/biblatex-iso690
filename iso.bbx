@@ -8,12 +8,20 @@
 \newboolean{bbx@tcolon}
 \DeclareBibliographyOption{spacecolon}[true]{\setboolean{bbx@tcolon}{#1}}
 
+\newbibmacro*{year-label}{}
+\DeclareBibliographyOption{method}[authoryear]{%
+  \ifstrequal{#1}{authoryear}{%
+    \renewbibmacro*{year-label}{\newunit\printdateextra}%
+  }{}%
+}
+
 \ExecuteBibliographyOptions{%
   %spacecolon=true
-  sorting=nyt
+   sorting=nyt
   ,maxnames=5
   ,minnames=3
   ,babel=other
+  ,method=authoryear
 }
 \newbibmacro*{begentry}{}
 %commands
@@ -41,7 +49,7 @@
       \setlength{\itemindent}{-\leftmargin}%
       \setlength{\itemsep}{\bibitemsep}%
       \setlength{\parsep}{\bibparsep}}%
-      \raggedright}
+      }%\raggedright}
   {\endlist}
   {\item}
 
@@ -99,6 +107,7 @@
 
 \newbibmacro*{names:primary}{%
   \printnames{author}%
+  \usebibmacro{year-label}
 }
 
 \newbibmacro*{names:iso}[4]{%

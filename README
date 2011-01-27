@@ -12,12 +12,24 @@ Usage:
 ]{biblatex}
 ... 
 
+Custom options:
+  spacecolon 
+    space before colon in publisher and title:
+      [true]  Praha : Academia
+      [false] Praha: Academia
+   method
+     method of citing
+       [authoryear]   - default
+       [numeric]
+       [footnote]
+       [reading]      - this one is for annotated bibliographies 
+
 Bibliographic fields:
 Some fields have different meaning than in plain BibTeX.
 
-1. if publication is written in another language than main document is, it should have filled "hyphenation" field
+1. if publication is written in another language than the main document is, it should have filled "hyphenation" field
   
-  hyphenation = {czech}
+  hyphenation = {czech} 
 
 2. publications with online versions should have "urldate" field. it is date when you last checked publication online
 
