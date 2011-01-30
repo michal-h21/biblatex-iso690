@@ -180,11 +180,11 @@
 }
 
 %prefix - url, orig ,...; separator
-\newbibmacro*{isodate}[2]{%
-\printfield{#1day}\printtext{#2}\nopunct
-\printfield{#1month}\printtext{#2}\nopunct
-\printfield{#1year}\nopunct
-}
+%\newbibmacro*{isodate}[2]{%
+%\printfield{#1day}\printtext{#2}\nopunct
+%\printfield{#1month}\printtext{#2}\nopunct
+%\printfield{#1year}\nopunct
+%}
 \newbibmacro*{date-urldate}{%
   \iffieldundef{date}%
   {\printfield{year}}%
@@ -199,7 +199,7 @@
     \addspace
     \printurldate
     %\usebibmacro{isodate}{url}{-}\nopunct%
-  }\printtext{.}}%hack. otherwise there will be no dot between this and next field
+  }}%\printtext{.}}%hack. otherwise there will be no dot between this and next field
 }
 
 
@@ -348,8 +348,10 @@
 \printfield{number}
 \newunit\newblock
 \usebibmacro{book:pubinfo}
-\newunit\newblock
-\usebibmacro{pagecount}
+%\newunit\newblock
+\setunit*{\addcomma\addspace}
+\printfield{pages}
+%\usebibmacro{pagecount}
 \newunit\newblock
 \printfield{series}
 \newunit\newblock
