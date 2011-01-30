@@ -22,6 +22,7 @@
   ,minnames=3
   ,babel=other
   ,method=authoryear
+  ,urldate=iso8601
 }
 \newbibmacro*{begentry}{}
 %commands
@@ -195,7 +196,9 @@
   {\addspace\printtext[sbrackets]{%
     %\printtext{cit.}%
     \mainsstring{urlseen}%
-    \usebibmacro{isodate}{url}{-}\nopunct%
+    \addspace
+    \printurldate
+    %\usebibmacro{isodate}{url}{-}\nopunct%
   }\printtext{.}}%hack. otherwise there will be no dot between this and next field
 }
 
