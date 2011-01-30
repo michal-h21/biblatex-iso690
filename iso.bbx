@@ -1,5 +1,4 @@
 \ProvidesFile{iso.bbx}[2011/01/09 v1.0 biblatex bibliography style]
-\RequirePackage{trimspaces}
 \DeclareLanguageMapping{czech}{czech}
 
 %options
@@ -111,9 +110,8 @@
   \usebibmacro{year-label}
 }
 
-\newbibmacro*{names:iso}[4]{%
-\MakeUppercase{#1}%
-\ifblank{#3}{}{\addcomma\addspace#3}%
+\newbibmacro*{names:iso}[4]{%%
+\ifblank{#3}{#1}{\MakeUppercase{#1}\addcomma\addspace#3}%
 }
 
 \newbibmacro{names:separator}{%
@@ -362,4 +360,5 @@
 \printfield{isbn}
 \newunit\newblock
 \finentry}
+
 
