@@ -165,8 +165,9 @@
   {#2}%
 }
 \newbibmacro*{online}{%
-  \def\online{\printtext[sbrackets]{online}}%
-  \usebibmacro{online-test}{}{\online}%
+  %\def\online{}%
+  \iffieldundef{urlyear}{}{\printtext[sbrackets]{online}}
+  %\usebibmacro{online-test}{}{\online}%
 }
 
 \newbibmacro{comment+link}[1]{%
@@ -285,6 +286,31 @@
 \newunit\newblock
 \finentry}
 
+\DeclareBibliographyDriver{periodical}{%
+\usebibmacro{bibindex}%
+\usebibmacro{begentry}%
+%\printnames{author}%
+%\usebibmacro{names:primary}
+\newunit\newblock
+\usebibmacro{pub:title}
+%\newunit\newblock
+%\usebibmacro{book:vol}
+\newunit\newblock
+\usebibmacro{book:pubinfo}
+%\newunit\newblock
+%\usebibmacro{pagecount}
+\newunit\newblock
+\printfield{series}
+\newunit\newblock
+\printfield{note}
+\newunit\newblock
+\usebibmacro{availability}
+\newunit\newblock
+\printfield{issn}
+\newunit\newblock
+\finentry}
+
+
 \DeclareBibliographyDriver{article}{%
 \usebibmacro{bibindex}%
 \usebibmacro{begentry}%
@@ -296,8 +322,8 @@
 \usebibmacro{jour:title}
 %\printfield[emphatize]{journaltitle}%
 \newunit\newblock
-%\printfield{year}
-\usebibmacro{date-urldate}
+\printfield{year}
+%\usebibmacro{date-urldate}
 \setunit*{\addcomma\addspace}%
 \printfield{volume}%
 \setunit*{\addcomma\addspace}%
