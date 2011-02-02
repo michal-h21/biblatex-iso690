@@ -122,7 +122,9 @@
 }
 
 \newbibmacro*{names:primary}{%
-  \printnames{author}%
+  \ifnameundef{author}%
+  {\usebibmacro{editor}}%
+  {\printnames{author}}%
   \usebibmacro{year-label}
 }
 
@@ -139,7 +141,7 @@
 \newbibmacro*{names:andothers}{%
 \ifboolexpr{%
     test {\ifnumequal{\value{listcount}}{\value{liststop}}}%
-    and%
+    and%}
     test \ifmorenames%
 }{\addspace\mainsstring{andothers}}%
 {}%
@@ -149,8 +151,11 @@
   \ifnameundef{editor}%
   {}%
   {\printnames{editor}%
-    \addspace\mkbibparens{\mainsstring{editor}}%
+    \addspace\mkbibparens{\usebibmacro{editorrole}}%
   }%
+}
+\newbibmacro*{editorrole}{%
+  \iffieldundef{editortype}{\bibsstring{editor}}{\bibsstring{\thefield{editortype}}}%
 }
 
 \newbibmacro*{online-test}[2]{%
