@@ -197,17 +197,15 @@
 }
 
 \newbibmacro{urlinfo}{%
-\iffieldundef{urlyear}
-{\mainlstring{url}}%
-{\mainlstring{urlalso}}%
+\iffieldundef{urlyear}{\mainlstring{url}}{\mainlstring{urlalso}}%
 }
 \newbibmacro{availability}{%
 \usebibmacro{online-test}%
 {}%  
 {\iffieldundef{howpublished}%
 {\usebibmacro{comment+link}{\usebibmacro{urlinfo}}\usebibmacro{print-online}}%
-{\usebibmacro{comment+link}{\printfield{howpublished}\usebibmacro{print-online}}}
-}
+{\usebibmacro{comment+link}{\printfield{howpublished}\usebibmacro{print-online}}}%
+}%
 }
 
 %prefix - url, orig ,...; separator
@@ -374,7 +372,7 @@
 \newunit\newblock
 \printfield{chapter}
 \setunit*{\addcomma\addspace}%
-\printfield{title}
+\printfield{title}%
 \printfield[colon]{subtitle}
 \setunit*{\addcomma}%
 \printfield{pages}
@@ -446,4 +444,20 @@
 \printfield{isbn}
 \newunit\newblock
 \finentry}
+
+\DeclareBibliographyAlias{bookinbook}{inbook}
+\DeclareBibliographyAlias{suppbook}{inbook}
+\DeclareBibliographyAlias{booklet}{book}
+\DeclareBibliographyAlias{collection}{book}
+\DeclareBibliographyAlias{suppcollection}{incollection}
+\DeclareBibliographyAlias{manual}{book}
+\DeclareBibliographyAlias{misc}{book}
+\DeclareBibliographyAlias{suppperiodical}{article}
+\DeclareBibliographyAlias{proceedings}{collection}
+\DeclareBibliographyAlias{inproceedings}{incollection}
+\DeclareBibliographyAlias{reference}{collection}
+\DeclareBibliographyAlias{inreference}{incollection}
+\DeclareBibliographyAlias{report}{book}
+\DeclareBibliographyAlias{thesis}{book}
+\DeclareBibliographyAlias{unpublished}{book}
 \endinput
