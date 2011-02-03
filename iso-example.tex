@@ -4,10 +4,13 @@
 %\usepackage{tgpagella}
 \usepackage[T1]{fontenc}
 \usepackage{microtype}
+\usepackage{hanging}
 
 
 \def\t|#1|{\texttt{#1}}
-\def\c#1{\noindent\fullcite{#1}}
+\def\c#1{%
+\hangpara{3em}{1}%
+\fullcite{#1}}
 
 \usepackage[
    backend=biber
@@ -66,9 +69,9 @@ Pro správnou podporu lokalizace je tøeba pou¾ít balíèek babel. V seznamu jazykù 
 
 \t|biblatex| podporuje mno¾ství polí, které ve standartním \t|bibtexu| chybìly. Zde je nìkolik pøíkladù bibliografických záznamù a jejich \t|bibtexového| kódu.
 
-\begin{description}
+%\begin{description}
 
-\item[Kniha] \hfill\\
+\paragraph{Kniha} \hfill\\
 \c{t01}
 \begin{verbatim}
 @BOOK{t01,
@@ -84,9 +87,10 @@ Pro správnou podporu lokalizace je tøeba pou¾ít balíèek babel. V seznamu jazykù 
   hyphenation =   {english}
 }
 \end{verbatim} 
-\t|edition| je vydání, je povinným údajem jen pokud je jiné, ne¾ první. Zapisuje se èíslicí nebo slovnì. \t|pagetotal| je poèet stran. \t|hyphenation| udává jazyk dokumentu, je nutné ho zadat u dokumentù napsaných v jiném, ne¾ ve kterém je napsaný hlavní text. Tato volba ovlivòuje výpis nìkterých øetìzcù, jako je napøíklad vydání.
 
-\item[Èlánek ve sborníku] \hfill\\
+\t|edition| je vydání, je povinným údajem pouze pokud je jiné, ne¾ první. Zapisuje se èíslicí nebo slovnì. \t|pagetotal| je poèet stran. \t|hyphenation| udává jazyk dokumentu, je nutné ho zadat u dokumentù napsaných v jiném, ne¾ ve kterém je napsaný hlavní text. Tato volba ovlivòuje výpis nìkterých øetìzcù, jako je napøíklad vydání.
+
+\paragraph{Èlánek ve sborníku} \hfill\\
 \c{t02}
 \begin{verbatim}
 @INCOLLECTION{t02,
@@ -132,7 +136,7 @@ Pro správnou podporu lokalizace je tøeba pou¾ít balíèek babel. V seznamu jazykù 
  
  V záznamu \t|sbornik| nemusíme zadávat booktitle, \t|biber| automaticky pøi vlo¾ení do jiného záznamu automaticky pøevede \t|title| na \t|booktitle|. 
  
- \item[Èlánek v èasopise]\hfill\\
+ \paragraph{Èlánek v èasopise}\hfill\\
  
  \c{t03}
  \begin{verbatim}
@@ -150,7 +154,8 @@ Pro správnou podporu lokalizace je tøeba pou¾ít balíèek babel. V seznamu jazykù 
   hyphenation   =   {english} 
 }
  \end{verbatim}
- Toto je èlánek v online èasopise. Pokud èasopis zároveò nevychází i ti¹tìnì, cituje se jako online zdroj. Toho docílíme pou¾itím pole \t|urldate|. Naproti tomu 
+ 
+\noindent Toto je èlánek v online èasopise. Pokud èasopis zároveò nevychází i ti¹tìnì, cituje se jako online zdroj. Toho docílíme pou¾itím pole \t|urldate|. Naproti tomu 
  
  \c{knuth}
  \begin{verbatim}
@@ -174,12 +179,14 @@ Pro správnou podporu lokalizace je tøeba pou¾ít balíèek babel. V seznamu jazykù 
   crossref      =   {tug}
 }
  \end{verbatim}
-zde jde o èlánek v ti¹tìném èasopise, který má i online verzi. Podobnì jako u èlánku ve sborníku, mù¾eme mít i samostatný záznam pro èasopis a jednotlivé èlánky na nìj odkazovat.
- \end{description}
+ 
+\noindent zde jde o èlánek v ti¹tìném èasopise, který má i online verzi. Podobnì jako u èlánku ve sborníku, mù¾eme mít i samostatný záznam pro èasopis a jednotlivé èlánky na nìj odkazovat.
+% \end{description}
 %\parencite{t01,t02}
 \nocite{*}
 
 \printbibliography[title={Ukázková bibliografie},heading={bibnumbered}]
+
 
 \section{Historie zmìn}
 \begin{changelog}
