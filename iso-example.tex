@@ -7,7 +7,7 @@
 
 
 \def\t|#1|{\texttt{#1}}
-\def\c#1{\noindent\begingroup\hangindent=4em\parindent=0pt\fullcite{#1}\endgroup}
+\def\c#1{\noindent\fullcite{#1}}
 
 \usepackage[
    backend=biber
@@ -109,7 +109,7 @@ Pro správnou podporu lokalizace je tøeba pou¾ít balíèek babel. V seznamu jazykù 
  
  Je mo¾né mít samostatný záznam sborníku a na ten se z èlánku odkazovat pomocí pole \t|crossref|:
  
-\c{prispevek1}
+\noindent\c{prispevek1}
  
  \begin{verbatim}
 @COLLECTION{sbornik,
@@ -130,6 +130,8 @@ Pro správnou podporu lokalizace je tøeba pou¾ít balíèek babel. V seznamu jazykù 
 }
  \end{verbatim}
  
+ V záznamu \t|sbornik| nemusíme zadávat booktitle, \t|biber| automaticky pøi vlo¾ení do jiného záznamu automaticky pøevede \t|title| na \t|booktitle|. 
+ 
  \item[Èlánek v èasopise]\hfill\\
  
  \c{t03}
@@ -148,9 +150,43 @@ Pro správnou podporu lokalizace je tøeba pou¾ít balíèek babel. V seznamu jazykù 
   hyphenation   =   {english} 
 }
  \end{verbatim}
+ Toto je èlánek v online èasopise. Pokud èasopis zároveò nevychází i ti¹tìnì, cituje se jako online zdroj. Toho docílíme pou¾itím pole \t|urldate|. Naproti tomu 
+ 
+ \c{knuth}
+ \begin{verbatim}
+ @PERIODICAL{tug,
+  journaltitle  =   {TUGBoat},
+  publisher     =   {TUG},
+  issn          =   {1222-3333},
+  hyphenation   =   {english},
+  year          =   {1980-},
+  url           =   {http://tugboat.tug.org/}
+}
+
+@ARTICLE{knuth,
+  author        =   {Knuth, Donald},
+  title         =   {Journeys of \TeX},
+  volume        =   {17},
+  number        =   {3},
+  year          =   {2003},
+  pages         =   {12-22},
+  url           =   {http://tugboat.tug.org/kkk.pdf},
+  crossref      =   {tug}
+}
+ \end{verbatim}
+zde jde o èlánek v ti¹tìném èasopise, který má i online verzi. Podobnì jako u èlánku ve sborníku, mù¾eme mít i samostatný záznam pro èasopis a jednotlivé èlánky na nìj odkazovat.
  \end{description}
 %\parencite{t01,t02}
 \nocite{*}
 
-\printbibliography[title={Ukázková bibliografie}]
+\printbibliography[title={Ukázková bibliografie},heading={bibnumbered}]
+
+\section{Historie zmìn}
+\begin{changelog}
+\begin{release}{0.1}{2011-02-03}
+\item První vydání
+\item Pokus o dokumentaci
+\item Podpora pro vìt¹inu typù záznamù \t|biblatexu|
+\end{release}
+\end{changelog}
 \end{document}
