@@ -191,11 +191,16 @@
 }%
 }
 
+\newbibmacro{urlinfo}{%
+\iffieldundef{urlyear}
+{\mainlstring{url}}%
+{\mainlstring{urlalso}}%
+}
 \newbibmacro{availability}{%
 \usebibmacro{online-test}%
 {}%  
 {\iffieldundef{howpublished}%
-{\usebibmacro{comment+link}{\mainlstring{url}}\usebibmacro{print-online}}%
+{\usebibmacro{comment+link}{\usebibmacro{urlinfo}}\usebibmacro{print-online}}%
 {\usebibmacro{comment+link}{\printfield{howpublished}\usebibmacro{print-online}}}
 }
 }
@@ -311,6 +316,7 @@
 \printfield{note}
 \newunit\newblock
 \usebibmacro{availability}
+%\usebibmacro{print-online}{\mainlstring{url}}{\printfield{url}}
 \newunit\newblock
 \printfield{issn}
 \newunit\newblock
@@ -410,6 +416,29 @@
 \newunit\newblock
 \finentry}
 
-\DeclareBibliographyAlias{online}{book}
-
+%\DeclareBibliographyAlias{online}{book}
+\DeclareBibliographyDriver{online}{%
+\usebibmacro{bibindex}%
+\usebibmacro{begentry}%
+%\printnames{author}%
+\usebibmacro{names:primary}
+\newunit\newblock
+\usebibmacro{pub:title}
+\newunit\newblock
+\usebibmacro{book:vol}
+\newunit\newblock
+\usebibmacro{book:pubinfo}
+\newunit\newblock
+\usebibmacro{pagecount}
+\newunit\newblock
+\printfield{series}
+\newunit\newblock
+\printfield{note}
+\newunit\newblock
+%\usebibmacro{availability}
+\usebibmacro{comment+link}{\mainlstring{url}}\usebibmacro{print-online}
+\newunit\newblock
+\printfield{isbn}
+\newunit\newblock
+\finentry}
 \endinput
