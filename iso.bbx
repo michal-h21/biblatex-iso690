@@ -14,7 +14,7 @@
 \newcommand\MethodFormat{}
 \DeclareBibliographyOption{method}[authoryear]{%
   \ifstrequal{#1}{authoryear}{%
-    \renewbibmacro*{year-label}{\newunit\printdateextra}%
+    \renewbibmacro*{year-label}{\newunit\printfield{year}\printfield{extrayear}}%
   }{}%
   \ifstrequal{#1}{numeric}{%
     \renewcommand\MethodFormat{%
@@ -66,14 +66,15 @@
       \setlength{\itemsep}{\bibitemsep}%
       \setlength{\parsep}{\bibparsep}}%
       \renewcommand*{\makelabel}[1]{\hss##1}
-      \raggedright}
+      %\raggedright}
+      }
   {\endlist}
   {\item}
 
 
 
 %%%%%%%%
-\DeclareListFormat{publisher}{\printtext[colon]{#1}}
+%\DeclareListFormat{publisher}{\printtext[colon]{#1}}
 \DeclareFieldFormat*{title}{#1}
 \DeclareFieldFormat*{subtitle}{#1}
 \DeclareFieldFormat*{chapter}{#1}
@@ -113,13 +114,17 @@
 
 
 \newbibmacro*{book:pubinfo}{%
-\printlist{location}%
-\iflistundef{publisher}
-{\setunit*{\addcomma\addspace}}
-{\setunit*{}}%
-\printlist{publisher}%
-\setunit*{\addcomma\addspace}%
-\usebibmacro{date-urldate}%
+  %\iflistundef{location}{\printtext[colon]{\printlist{publisher}}}{%
+  \iflistundef{publisher}{}{\printlist{location}\setunit{}}%
+  %    {\setunit*{\addcomma\addspace}}
+  %    {\setunit*{}}%
+  %}
+  \iflistundef{location}{\setunit{\adddot\addspace}}{%
+    \iflistundef{publisher}{}{\printtext[colon]{\printlist{publisher}}}
+  }
+  %\printlist{publisher}%
+  \setunit*{\addcomma\addspace}%
+  \usebibmacro{date-urldate}%
 }
 
 \newbibmacro*{names:primary}{%
