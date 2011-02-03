@@ -1,0 +1,156 @@
+\documentclass[a4paper,10pt]{ltxdockit}
+\usepackage[english,czech]{babel}
+\usepackage[latin2]{inputenc}
+%\usepackage{tgpagella}
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+
+
+\def\t|#1|{\texttt{#1}}
+\def\c#1{\noindent\begingroup\hangindent=4em\parindent=0pt\fullcite{#1}\endgroup}
+
+\usepackage[
+   backend=biber
+  ,style=iso
+  ,babel=other
+  ,sortlocale=cs_CZ
+  ,bibencoding=UTF8
+  %,block=ragged
+  ,method=authoryear
+]{biblatex}
+\bibliography{mybib}
+\titlepage{%
+  title={Styl ISO 690 pro biblatex},
+  subtitle={},
+  url={https://github.com/michal-h21/biblatex-iso690},
+  author={Michal Hoftich},
+  email={michal.h21@gmail.com},
+  revision={},
+  date={\today}}
+
+\begin{document}
+\printtitlepage
+\tableofcontents
+\section{Úvod}
+\t|biblatex| je systém správy bibliografických citací a odkazù pro typografický systém \LaTeX. Vychází ze star¹ího systému \t|bibtex| a nahrazuje ho. \t|biblatex-iso| je styl pro \t|biblatex|, který umo¾òuje citovat literaturu podle normy \t|ISO 690|, doporuèenou pro pou¾ití v èeských vysoko¹kolských kvalifikaèních pracích \parencite{t00}. 
+
+\section{Pou¾ití}
+\begin{verbatim}
+..
+\usepackage[english,czech]{babel}
+..
+\usepackage[
+   backend=biber
+  ,style=iso
+  ,sortlocale=cs_CZ
+  ,bibencoding=UTF8
+  ,method=authoryear
+]{biblatex}
+\bibliography{souborsdatabazi}
+..
+\printbibliography
+
+\end{verbatim}
+
+Pro správnou podporu lokalizace je tøeba pou¾ít balíèek babel. V seznamu jazykù se jako poslední uvádí jazyk dokumentu. 
+\subsection{Volby}
+\begin{description}
+\item[backend] program, kterým se generují bibliografické údaje. \t|biber| je vyvinut speciálnì pro \t|biblatex| a má proto nejvìt¹í mo¾nosti. Dal¹í mo¾nosti jsou \t|bibtex| a \t|bibtex8|, ale jejich podpora èe¹tiny nedosahuje úrovnì \t|biberu|
+\item[sortlocale] ovlivòuje øazení literatury. Je tøeba zadat \t|locale| kód hlavního jazyka dokumentu.
+\item[bibencoding] uvádí se, pokud je bibliografická databáze v jiném kódování, ne¾ dokument. 
+\item[method] zpùsob citování, kromì \t|authoryear| je mo¾ný také \t|numeric|
+
+\end{description}
+
+\subsection{Databáze}
+
+\t|biblatex| podporuje mno¾ství polí, které ve standartním \t|bibtexu| chybìly. Zde je nìkolik pøíkladù bibliografických záznamù a jejich \t|bibtexového| kódu.
+
+\begin{description}
+
+\item[Kniha] \hfill\\
+\c{t01}
+\begin{verbatim}
+@BOOK{t01,
+  author      =   {Borgman, Christine L.}, 
+  year        =   {2003},
+  title       =   {From Gutenberg to the global information infrastructure}, 
+  subtitle    =   {access to information in the networked world},
+  edition     =   {1},
+  location    =   {Cambridge (Mass)}, 
+  publisher   =   {The MIT Press},
+  pagetotal   =   {xviii, 324},
+  isbn        =   {0-262-52345-0},
+  hyphenation =   {english}
+}
+\end{verbatim} 
+\t|edition| je vydání, je povinným údajem jen pokud je jiné, ne¾ první. Zapisuje se èíslicí nebo slovnì. \t|pagetotal| je poèet stran. \t|hyphenation| udává jazyk dokumentu, je nutné ho zadat u dokumentù napsaných v jiném, ne¾ ve kterém je napsaný hlavní text. Tato volba ovlivòuje výpis nìkterých øetìzcù, jako je napøíklad vydání.
+
+\item[Èlánek ve sborníku] \hfill\\
+\c{t02}
+\begin{verbatim}
+@INCOLLECTION{t02,
+  author        =   {Greenberg, David}, 
+  year          =   {1998},
+  title         =   {Camel drivers and gatecrashers},
+  subtitle      =   {quality control in the digital research library},
+  editor        =   {Hawkins, B.L and Battin, P},
+  booktitle     =   {The mirage of continuity},
+  booksubtitle  =   {reconfiguring academic information 
+                      resources for the 21st  century}, 
+  location      =   {Washington (D.C.)}, 
+  publisher     =   {Council on Library and Information Resources; 
+                      Association of American Universities}, 
+  pages         =   {105-116},
+  hyphenation   =   {english}
+}
+\end{verbatim} 
+ \t|title| je název èlánku, \t|booktitle| název sborníku. Rozsah stran udávají \t|pages|.
+ 
+ Je mo¾né mít samostatný záznam sborníku a na ten se z èlánku odkazovat pomocí pole \t|crossref|:
+ 
+\c{prispevek1}
+ 
+ \begin{verbatim}
+@COLLECTION{sbornik,
+  title       =   {Mimoøádnì u¾iteèný sborník},
+  editor      =   {Geniální, Jiøí},
+  year        =   {2007},
+  hyphenation =   {czech},
+  location    =   {Praha},
+  publisher   =   {Academia},
+  isbn        =   {978-222-626-222-2}
+}
+
+@INCOLLECTION{prispevek1,
+  crossref    =   {sbornik},
+  title       =   {Velmi zajímavý èlánek},
+  author      =   {Vla¹tovka, Josef},
+  pages       =   {22-45}
+}
+ \end{verbatim}
+ 
+ \item[Èlánek v èasopise]\hfill\\
+ 
+ \c{t03}
+ \begin{verbatim}
+ @ARTICLE{t03,
+  author        =   {LYNCH, C.},
+  year          =   {2005},
+  title         =   {Where do we go from here?},
+  subtitle      =   {the next decade for digital libraries},
+  journaltitle  =   {DLib Magazine},
+  volume        =   {11},
+  number        =   {7/8},
+  urldate       =   {2005-08-15},
+  url           =   {http://www.dlib.org/dlib/july05/lynch/07lynch.html}, 
+  issn          =   {1082-9873},
+  hyphenation   =   {english} 
+}
+ \end{verbatim}
+ \end{description}
+%\parencite{t01,t02}
+\nocite{*}
+
+\printbibliography[title={Ukázková bibliografie}]
+\end{document}
