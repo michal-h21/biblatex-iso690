@@ -2,12 +2,14 @@
 \usepackage[english,czech]{babel}
 \usepackage[latin2]{inputenc}
 %\usepackage{tgpagella}
+%\usepackage{tex4ht}
+
 \usepackage[T1]{fontenc}
 \usepackage{microtype}
 \usepackage{hanging}
 
 
-\def\t|#1|{\texttt{#1}}
+\def\t#1{\texttt{#1}}
 \def\c#1{%
 \hangpara{3em}{1}%
 \fullcite{#1}}
@@ -16,11 +18,26 @@
    backend=biber
   ,style=iso
   ,babel=other
+  ,method=numeric
   ,sortlocale=cs_CZ
   ,bibencoding=UTF8
+  ,hyperref=true
   %,block=ragged
-  ,method=authoryear
 ]{biblatex}
+
+\DeclareCiteCommand{fullfootcite}[\mkbibfootnote]
+  {\usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \fullcite}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
+  
+\DeclareCiteCommand{\cite}
+  {\usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \ensuremath{^{\textrm{\footnotesize\printfield{labelnumber}}}}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}  
 \bibliography{mybib}
 \titlepage{%
   title={Styl ISO 690 pro biblatex},
@@ -35,7 +52,7 @@
 \printtitlepage
 \tableofcontents
 \section{Úvod}
-\t|biblatex| je systém správy bibliografických citací a odkazù pro typografický systém \LaTeX. Vychází ze star¹ího systému \t|bibtex| a nahrazuje ho. \t|biblatex-iso| je styl pro \t|biblatex|, který umo¾òuje citovat literaturu podle normy \t|ISO 690|, doporuèenou pro pou¾ití v èeských vysoko¹kolských kvalifikaèních pracích \parencite{t00}. 
+\t{biblatex} je systém správy bibliografických citací a odkazù pro typografický systém \LaTeX. Vychází ze star¹ího systému \t{bibtex} a nahrazuje ho. \t{biblatex-iso} je styl pro \t{biblatex}, který umo¾òuje citovat literaturu podle normy \t{ISO 690}, doporuèenou pro pou¾ití v èeských vysoko¹kolských\cite{t01} kvalifikaèních pracích \parencite{t00}. 
 
 \section{Pou¾ití}
 \begin{verbatim}
@@ -47,7 +64,7 @@
   ,style=iso
   ,sortlocale=cs_CZ
   ,bibencoding=UTF8
-  ,method=authoryear
+  %,method=authoryear
 ]{biblatex}
 \bibliography{souborsdatabazi}
 ..
@@ -58,16 +75,16 @@
 Pro správnou podporu lokalizace je tøeba pou¾ít balíèek babel. V seznamu jazykù se jako poslední uvádí jazyk dokumentu. 
 \subsection{Volby}
 \begin{description}
-\item[backend] program, kterým se generují bibliografické údaje. \t|biber| je vyvinut speciálnì pro \t|biblatex| a má proto nejvìt¹í mo¾nosti. Dal¹í mo¾nosti jsou \t|bibtex| a \t|bibtex8|, ale jejich podpora èe¹tiny nedosahuje úrovnì \t|biberu|
-\item[sortlocale] ovlivòuje øazení literatury. Je tøeba zadat \t|locale| kód hlavního jazyka dokumentu.
+\item[backend] program, kterým se generují bibliografické údaje. \t{biber} je vyvinut speciálnì pro \t{biblatex} a má proto nejvìt¹í mo¾nosti. Dal¹í mo¾nosti jsou \t{bibtex} a \t{bibtex8}, ale jejich podpora èe¹tiny nedosahuje úrovnì \t{biberu}
+\item[sortlocale] ovlivòuje øazení literatury. Je tøeba zadat \t{locale} kód hlavního jazyka dokumentu.
 \item[bibencoding] uvádí se, pokud je bibliografická databáze v jiném kódování, ne¾ dokument. 
-\item[method] zpùsob citování, kromì \t|authoryear| je mo¾ný také \t|numeric|
+\item[method] zpùsob citování, kromì \t{authoryear} je mo¾ný také \t{numeric}
 
 \end{description}
 
 \subsection{Databáze}
 
-\t|biblatex| podporuje mno¾ství polí, které ve standartním \t|bibtexu| chybìly. Zde je nìkolik pøíkladù bibliografických záznamù a jejich \t|bibtexového| kódu.
+\t{biblatex} podporuje mno¾ství polí, které ve standartním \t{bibtexu} chybìly. Zde je nìkolik pøíkladù bibliografických záznamù a jejich \t{bibtexového} kódu.
 
 %\begin{description}
 
@@ -88,7 +105,7 @@ Pro správnou podporu lokalizace je tøeba pou¾ít balíèek babel. V seznamu jazykù 
 }
 \end{verbatim} 
 
-\t|edition| je vydání, je povinným údajem pouze pokud je jiné, ne¾ první. Zapisuje se èíslicí nebo slovnì. \t|pagetotal| je poèet stran. \t|hyphenation| udává jazyk dokumentu, je nutné ho zadat u dokumentù napsaných v jiném, ne¾ ve kterém je napsaný hlavní text. Tato volba ovlivòuje výpis nìkterých øetìzcù, jako je napøíklad vydání.
+\t{edition} je vydání, je povinným údajem pouze pokud je jiné, ne¾ první. Zapisuje se èíslicí nebo slovnì. \t{pagetotal} je poèet stran. \t{hyphenation} udává jazyk dokumentu, je nutné ho zadat u dokumentù napsaných v jiném, ne¾ ve kterém je napsaný hlavní text. Tato volba ovlivòuje výpis nìkterých øetìzcù, jako je napøíklad vydání.
 
 \paragraph{Èlánek ve sborníku} \hfill\\
 \c{t02}
@@ -109,9 +126,9 @@ Pro správnou podporu lokalizace je tøeba pou¾ít balíèek babel. V seznamu jazykù 
   hyphenation   =   {english}
 }
 \end{verbatim} 
- \t|title| je název èlánku, \t|booktitle| název sborníku. Rozsah stran udávají \t|pages|.
+ \t{title} je název èlánku, \t{booktitle} název sborníku. Rozsah stran udávají \t{pages}.
  
- Je mo¾né mít samostatný záznam sborníku a na ten se z èlánku odkazovat pomocí pole \t|crossref|:
+ Je mo¾né mít samostatný záznam sborníku a na ten se z èlánku odkazovat pomocí pole \t{crossref}:
  
 \noindent\c{prispevek1}
  
@@ -134,7 +151,7 @@ Pro správnou podporu lokalizace je tøeba pou¾ít balíèek babel. V seznamu jazykù 
 }
  \end{verbatim}
  
- V záznamu \t|sbornik| nemusíme zadávat booktitle, \t|biber| automaticky pøi vlo¾ení do jiného záznamu automaticky pøevede \t|title| na \t|booktitle|. 
+ V záznamu \t{sbornik} nemusíme zadávat booktitle, \t{biber} automaticky pøi vlo¾ení do jiného záznamu automaticky pøevede \t{title} na \t{booktitle}. 
  
  \paragraph{Èlánek v èasopise}\hfill\\
  
@@ -155,7 +172,7 @@ Pro správnou podporu lokalizace je tøeba pou¾ít balíèek babel. V seznamu jazykù 
 }
  \end{verbatim}
  
-\noindent Toto je èlánek v online èasopise. Pokud èasopis zároveò nevychází i ti¹tìnì, cituje se jako online zdroj. Toho docílíme pou¾itím pole \t|urldate|. Naproti tomu 
+\noindent Toto je èlánek v online èasopise. Pokud èasopis zároveò nevychází i ti¹tìnì, cituje se jako online zdroj. Toho docílíme pou¾itím pole \t{urldate}. Naproti tomu 
  
  \c{knuth}
  \begin{verbatim}
@@ -183,6 +200,9 @@ Pro správnou podporu lokalizace je tøeba pou¾ít balíèek babel. V seznamu jazykù 
 \noindent zde jde o èlánek v ti¹tìném èasopise, který má i online verzi. Podobnì jako u èlánku ve sborníku, mù¾eme mít i samostatný záznam pro èasopis a jednotlivé èlánky na nìj odkazovat.
 % \end{description}
 %\parencite{t01,t02}
+\section{Citace}
+
+Tak¾e\footfullcite{t02}, pak\footfullcite{t03} a zase\footfullcite{t02}  
 \nocite{*}
 
 \printbibliography[title={Ukázková bibliografie},heading={bibnumbered}]
@@ -193,7 +213,7 @@ Pro správnou podporu lokalizace je tøeba pou¾ít balíèek babel. V seznamu jazykù 
 \begin{release}{0.1}{2011-02-03}
 \item První vydání
 \item Pokus o dokumentaci
-\item Podpora pro vìt¹inu typù záznamù \t|biblatexu|
+\item Podpora pro vìt¹inu typù záznamù \t{biblatexu}
 \end{release}
 \end{changelog}
 \end{document}
