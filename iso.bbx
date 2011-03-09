@@ -45,6 +45,7 @@
 %main language is last in babel params list. so if we have \usepackage[english,czech]{babel}, main language is czech
 \newlength{\trashlength}
 \newcommand\mainlanguage@n{\expandafter\bbl@set@language\expandafter{\bbl@main@language}{\settowidth{\trashlength}{\expandafter\bbl@set@language\expandafter{\bbl@main@language}}\kern-\dimexpr \trashlength\relax}}%
+%\newcommand\mainlanguage@n{\expandafter\setotherlanguage\expandafter{\bbl@main@language}}
 
 \newcommand\mainsstring[1]{\mainlanguage@n{}\bibsstring{#1}}
 \newcommand\mainlstring[1]{\mainlanguage@n{}\biblstring{#1}}
@@ -81,7 +82,11 @@
 \DeclareFieldFormat*{pagetotal}{#1}
 \DeclareFieldFormat*{volume}{\bibsstring{jourvol}\space#1}
 \DeclareFieldFormat*{emphatize}{\emph{#1}}
-\DeclareFieldFormat*{edition}{\mkbibordedition{#1}}
+\DeclareFieldFormat*{edition}{%
+  \ifnumeral{#1}%
+    {\mkbibordedition{#1}}%
+    {\MakeCapital{#1}}%
+}
 \DeclareFieldFormat*{pages}{\mainsstring{pages}\space\printtext{#1}}
 \DeclareFieldFormat*{number}{\bibsstring{number}\addspace\printtext{#1}}
 \DeclareFieldFormat*{url}{\url{#1}}
