@@ -31,13 +31,10 @@
    \fullcite}
   {\multicitedelim}
   {\usebibmacro{postnote}}
+    
   
-\DeclareCiteCommand{\cite}
-  {\usebibmacro{prenote}}
-  {\usebibmacro{citeindex}%
-   \ensuremath{^{\textrm{\footnotesize\printfield{labelnumber}}}}}
-  {\multicitedelim}
-  {\usebibmacro{postnote}}  
+\DeclareMultiCiteCommand{\mssscite}[\mkbibsuperscript]%
+{\cite}{\supercitedelim}
 \bibliography{mybib}
 \titlepage{%
   title={Styl ISO 690 pro biblatex},
@@ -202,7 +199,7 @@ Pro správnou podporu lokalizace je tøeba pou¾ít balíèek babel. V seznamu jazykù 
 %\parencite{t01,t02}
 \section{Citace}
 
-Tak¾e\footfullcite{t02}, pak\footfullcite{t03} a zase\footfullcite{t02}  
+Tak¾e\footfullcite{t02}, pak\footfullcite{t03} a zase\footfullcite{t02}. No a cite s více parametry\mssscite{t01,t02} a pak\supercite{t01} nebo\supercite{t01,t02} 
 \nocite{*}
 
 \printbibliography[title={Ukázková bibliografie},heading={bibnumbered}]
