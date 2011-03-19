@@ -8,7 +8,11 @@
 %Turabian calls for mostly abbreviated bibstrings in the footnotes, but mostly long forms in the bibliography. Here the entire list of bibstrings from the english.lbx file is redefined to select strings by bibliography vs. footnote environment, rather than long vs. short.
 
 \DeclareBibliographyExtras{
-  \protected\def\mkbibordinal#1{#1\adddot}
+  \protected\def\mkbibordinal#1{
+  \ifnumequal{#1}{1}{Prvn\'i}{%
+    \ifnumequal{#1}{2}{Druh\'e}{%
+      \ifnumequal{#1}{3}{T\v{r}et\'i}{%
+    #1\adddot}}}}
   %\protected\def\nameprint#1#2{#2\space#1}
 }
 
@@ -17,7 +21,7 @@
   edition={{vyd\'an\'i}{vyd\adddot}},
   page={{strana}{s\adddot}},
   pages={{strany}{s\adddot}},
-  andothers={{a dalš\'i}{aj\adddot}},
+  andothers={{a dal\v{s}\'i}{aj\adddot}},
   volume={{ro\v{c}n\'ik}{ro\v{c}\adddot}},
   jourvol={{ro\v{c}n\'ik}{ro\v{c}\adddot}},
   number={{\v{c}\'islo}{\v{c}\adddot}},
