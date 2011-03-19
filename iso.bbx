@@ -62,6 +62,7 @@
 \renewcommand\finalnamedelim{\multinamedelim}
 \renewcommand\andothersdelim{\addspace}
 
+
 \defbibenvironment{bibliography}
   {\list
      {\MethodFormat}
@@ -147,27 +148,8 @@
   \usebibmacro{year-label}
 }
 
-\newbibmacro*{names:iso}[4]{%%
-\ifblank{#3}{#1}{\MakeUppercase{#1}\addcomma\addspace#3}%
-}
 
-\newbibmacro{names:separator}{%
-\ifthenelse{\value{listcount}<\value{liststop}}%
-{\multinamedelim}%\addsemicolon\addspace}%
-{}%
-}
 
-\renewbibmacro*{name:andothers}{%
-  \ifboolexpr{
-    test {\ifnumequal{\value{listcount}}{\value{liststop}}}
-    and
-    test \ifmorenames
-  }
-    {\ifnumgreater{\value{liststop}}{1}
-       {\finalandcomma}
-       {}%
-     \andothersdelim\mainlstring{andothers}}
-    {}}
 
 \renewbibmacro*{editor}{%
   \ifnameundef{editor}%
