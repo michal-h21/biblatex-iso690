@@ -45,7 +45,7 @@
 %main language is last in babel params list. so if we have \usepackage[english,czech]{babel}, main language is czech
 \newlength{\trashlength}
 \newcommand\mainlanguage@n{\expandafter\bbl@set@language\expandafter{\bbl@main@language}{\settowidth{\trashlength}{\expandafter\bbl@set@language\expandafter{\bbl@main@language}}\kern-\dimexpr \trashlength\relax}}%
-%\newcommand\mainlanguage@n{\expandafter\setotherlanguage\expandafter{\bbl@main@language}}
+%\newcommand\mainlanguage@n{\expandafter\bbl@set@language\expandafter{\bbl@main@language}}
 
 \newcommand\mainsstring[1]{\mainlanguage@n{}\bibsstring{#1}}
 \newcommand\mainlstring[1]{\mainlanguage@n{}\biblstring{#1}}

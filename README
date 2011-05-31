@@ -1,6 +1,20 @@
-Style ISO 690 for bibLaTeX
+Style ISO 690 for biblatex
+==========================
 
-Usage: 
+Biblatex is bibliography and citation tool for LaTeX. 
+
+Install
+-------
+
+Unzip contents of the file biblatex-iso690.zip to your local texmf dir. You can
+find its location with the following command:
+
+    kpsewhich -var-value TEXMFHOME
+    
+If this directory doesn't exist, you can create it. 
+
+Usage:
+------ 
 ...
 \usepackage{english,czech}{babel} % main language of the document must be last
 \usepackage[
