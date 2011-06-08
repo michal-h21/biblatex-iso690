@@ -1,0 +1,8 @@
+\ProvidesFile{iso-authoryear.cbx}[2011/06/08]
+\RequireCitationStyle{authoryear}
+\renewbibmacro*{cite:labelyear+extrayear}{%
+  \iffieldundef{labelyear}
+    {}
+    {\addcomma\addspace\printtext[bibhyperref]{%
+       \printfield{labelyear}%
+       \printfield{extrayear}}}}

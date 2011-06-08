@@ -1,0 +1,14 @@
+\ProvidesFile{iso-numeric.bbx}[2011/06/08]
+
+\newbibmacro*{year-label}{}
+
+\newcommand\MethodFormat{%
+      \printtext[labelnumberwidth]{%
+    	\printfield{prefixnumber}%
+    	\printfield{labelnumber}}%
+    }%
+    \ExecuteBibliographyOptions{%
+       sorting=none
+      ,labelnumber
+    }
+\RequireBibliographyStyle{iso}

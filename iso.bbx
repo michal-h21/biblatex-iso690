@@ -8,31 +8,32 @@
 \newboolean{bbx@tcolon}
 \DeclareBibliographyOption{spacecolon}[true]{\setboolean{bbx@tcolon}{#1}}
 
-\newboolean{cbx@numeric}
-\setboolean{cbx@numeric}{false}
-\newbibmacro*{year-label}{}
-\newcommand\MethodFormat{}
-\DeclareBibliographyOption{method}[authoryear]{%
-  \ifstrequal{#1}{authoryear}{%
-    \renewbibmacro*{year-label}{\newunit\printfield{year}\printfield{extrayear}}%
-  }{}%
-  \ifstrequal{#1}{numeric}{%
-    \renewcommand\MethodFormat{%
-      \printtext[labelnumberwidth]{%
-    	\printfield{prefixnumber}%
-    	\printfield{labelnumber}}%
-    }%
-    \ExecuteBibliographyOptions{%
-       sorting=none
-      ,labelnumber
-    }
-    \setboolean{cbx@numeric}{true}%
-  }{}%
-}
+% \newboolean{cbx@numeric}
+% \setboolean{cbx@numeric}{false}
+% \newbibmacro*{year-label}{}
+% \newcommand\MethodFormat{}
+% \DeclareBibliographyOption{method}[authoryear]{%
+%   \ifstrequal{#1}{authoryear}{%
+%     \renewbibmacro*{year-label}{\newunit\printfield{year}\printfield{extrayear}}%
+%     \setboolean{cbx@numeric}{false}%
+%   }{}%
+%   \ifstrequal{#1}{numeric}{%
+%     \renewcommand\MethodFormat{%
+%       \printtext[labelnumberwidth]{%
+%     	\printfield{prefixnumber}%
+%     	\printfield{labelnumber}}%
+%     }%
+%     \ExecuteBibliographyOptions{%
+%        sorting=none
+%       ,labelnumber
+%     }
+%     \setboolean{cbx@numeric}{true}%
+%   }{}%
+% }
 
 \ExecuteBibliographyOptions{%
   %spacecolon=true
-   sorting=nyt
+   %sorting=nyt
   ,maxnames=5
   ,minnames=3
   ,babel=other
