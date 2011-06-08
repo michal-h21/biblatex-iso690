@@ -19,7 +19,7 @@ Usage:
 \usepackage{english,czech}{babel} % main language of the document must be last
 \usepackage[
    backend=biber      % if we want unicode 
-  ,style=iso          
+  ,style=iso-authoryear % or iso-numeric for numeric citation method          
   ,babel=other        % to support multiple languages in bibliography
   ,sortlocale=cs_CZ   % locale of main language, it is for sorting
   ,bibencoding=UTF8   % this is necessary only if bibliography file is in different encoding than main document
@@ -30,18 +30,12 @@ Custom options:
   spacecolon 
     space before colon in publisher and title:
       [true]  Praha : Academia
-      [false] Praha: Academia
-   method
-     method of citing
-       [authoryear]   - default
-       [numeric]
-       [footnote]
-       [reading]      - this one is for annotated bibliographies 
+      [false] Praha: Academia 
 
 Bibliographic fields:
 Some fields have different meaning than in plain BibTeX.
 
-1. if publication is written in another language than the main document is, it should have filled "hyphenation" field
+1. if publication is written in other language than the main document is, it should have filled "hyphenation" field
   
   hyphenation = {czech} 
 
