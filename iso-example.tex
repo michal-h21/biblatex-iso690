@@ -40,13 +40,17 @@
 \begin{verbatim}
 ..
 \usepackage[english,czech]{babel}
+% Nebo, pokud pou¾íváte xelatex, místo babelu lze pou¾ít 
+\usepackage{polyglossia}
+\setmainlanguage{czech}
+\setotherlanguage{english}
 ..
 \usepackage[
    backend=biber
-  ,style=iso
+  ,style=iso-authoryear
   ,sortlocale=cs_CZ
+  ,babel=other
   ,bibencoding=UTF8
-  ,method=authoryear
 ]{biblatex}
 \bibliography{souborsdatabazi}
 ..
@@ -54,15 +58,19 @@
 
 \end{verbatim}
 
-Pro správnou podporu lokalizace je tøeba pou¾ít balíèek babel. V seznamu jazykù se jako poslední uvádí jazyk dokumentu. 
+Podle normy se mají nìkteré údaje v bibliografických záznamech uvádìt v jazyce dokumentu, jiné v jazyce záznamu. Pokud se odkazujete na dokumenty, psané v rùzných jazycích, je tøeba v¹echny tyto jazyky nahrát balíèkem \t|babel| nebo \t|polyglossia|. Jazyk také doplòte ke ka¾dému záznamu do pole \t|hyphenation|.
+
+%Pro správnou podporu lokalizace je tøeba pou¾ít balíèek babel. V seznamu jazykù se jako poslední uvádí jazyk dokumentu. 
 \subsection{Volby}
 \begin{description}
+\item{style} po¾adovaný styl. Jsou dostupné dvì varianty, \t|iso-authoryear| pro citování tzv. harvardskou metodou a \t|iso-numeric| pro citování pomocí èíselných odkazù.
 \item[backend] program, kterým se generují bibliografické údaje. \t|biber| je vyvinut speciálnì pro \t|biblatex| a má proto nejvìt¹í mo¾nosti. Dal¹í mo¾nosti jsou \t|bibtex| a \t|bibtex8|, ale jejich podpora èe¹tiny nedosahuje úrovnì \t|biberu|
+\item[babel] ovlivòuje vypisování lokalizaèních øetìzcù a dìlení slov.
 \item[sortlocale] ovlivòuje øazení literatury. Je tøeba zadat \t|locale| kód hlavního jazyka dokumentu.
 \item[bibencoding] uvádí se, pokud je bibliografická databáze v jiném kódování, ne¾ dokument. 
-\item[method] zpùsob citování, kromì \t|authoryear| je mo¾ný také \t|numeric|
 
 \end{description}
+
 
 \subsection{Databáze}
 
@@ -71,6 +79,7 @@ Pro správnou podporu lokalizace je tøeba pou¾ít balíèek babel. V seznamu jazykù 
 %\begin{description}
 
 \paragraph{Kniha} \hfill\\
+
 \c{t01}
 \begin{verbatim}
 @BOOK{t01,
@@ -90,6 +99,7 @@ Pro správnou podporu lokalizace je tøeba pou¾ít balíèek babel. V seznamu jazykù 
 \t|edition| je vydání, je povinným údajem pouze pokud je jiné, ne¾ první. Zapisuje se èíslicí nebo slovnì. \t|pagetotal| je poèet stran. \t|hyphenation| udává jazyk dokumentu, je nutné ho zadat u dokumentù napsaných v jiném, ne¾ ve kterém je napsaný hlavní text. Tato volba ovlivòuje výpis nìkterých øetìzcù, jako je napøíklad vydání.
 
 \paragraph{Èlánek ve sborníku} \hfill\\
+
 \c{t02}
 \begin{verbatim}
 @INCOLLECTION{t02,
