@@ -51,3 +51,8 @@ Some fields have different meaning than in plain BibTeX.
   publisher = {Academia}
   
 For more details see file mybib.bib   
+
+License
+-------
+
+GNU/GPL 3
