@@ -49,7 +49,8 @@
 
 %\newcommand\mainlanguage@n{\blx@langsetup\bbl@main@language}
 % Select main document language
-\newcommand\mainlanguage@n{\setbox0=\hbox{\expandafter\bbl@set@language\expandafter{\bbl@main@language}}%
+\newcommand\mainlanguage@n{%\setbox0=\hbox{
+	\expandafter\bbl@set@language\expandafter{\bbl@main@language}%}%
 }
 %\newcommand\mainlanguage@n{\expandafter\bbl@set@language\expandafter{\bbl@main@language}}
 
@@ -448,7 +449,7 @@
 \newunit\newblock
 \printfield{note}
 \newunit\newblock
-%\usebibmacro{availability}
+%\usebibmacro{availability
 \usebibmacro{comment+link}{\mainlstring{url}}\usebibmacro{print-online}
 \newunit\newblock
 \printfield{isbn}
