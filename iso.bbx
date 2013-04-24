@@ -54,11 +54,11 @@
 }
 %\newcommand\mainlanguage@n{\expandafter\bbl@set@language\expandafter{\bbl@main@language}}
 
-%\newcommand\mainsstring[1]{\mainlanguage@n{}\bibsstring{#1}}
-\newcommand\mainsstring[1]{\mainlanguage@n\csuse{abx@sstr@#1}}
+\newcommand\mainsstring[1]{\mainlanguage@n{}\bibsstring{#1}}
+%\newcommand\mainsstring[1]{\mainlanguage@n\csuse{abx@sstr@#1}}
 
-%\newcommand\mainlstring[1]{\mainlanguage@n{}\biblstring{#1}}
-\newcommand\mainlstring[1]{\mainlanguage@n\csuse{abx@lstr@#1}}
+\newcommand\mainlstring[1]{\mainlanguage@n{}\biblstring{#1}}
+%\newcommand\mainlstring[1]{\mainlanguage@n\csuse{abx@lstr@#1}}
 \newcommand\tcolon{%colon between location and publisher, title and subtitle etc.
 \def\colo@n{\printtext{:}}
 %\ifthenelse{\boolean{bbx@tcolon}}{\addspace\colo@n}{\colo@n}%
@@ -275,8 +275,8 @@
 \usebibmacro{online}
 }
 
-\newbibmacro*{in}{%
-\mainsstring{in}%
+\newbibmacro{in}{%
+	\mainsstring{in}%
 %\addspace%
 }
 
@@ -405,7 +405,7 @@
 \newunit\newblock
 \printfield{title}%
 \printfield[colon]{subtitle}%
-\newunit
+\newunit\newblock
 \usebibmacro{in}
 \usebibmacro{editor}%
 \newunit\newblock%
