@@ -1,6 +1,6 @@
 \documentclass[a4paper,10pt]{ltxdockit}
 \usepackage[english,czech]{babel}
-\usepackage[latin2]{inputenc}
+\usepackage[utf8]{inputenc}
 %\usepackage{tgpagella}
 \usepackage[T1]{fontenc}
 \usepackage{microtype}
@@ -33,14 +33,14 @@
 \begin{document}
 \printtitlepage
 \tableofcontents
-\section{Úvod}
-\t|biblatex| je systém správy bibliografickıch citací a odkazù pro typografickı systém \LaTeX. Vychází ze star¹ího systému \t|bibtex| a nahrazuje ho. \t|biblatex-iso| je styl pro \t|biblatex|, kterı umo¾òuje citovat literaturu podle normy \t|ISO 690|, doporuèenou pro pou¾ití v èeskıch vysoko¹kolskıch kvalifikaèních pracích \parencite{t00}. 
+\section{Ãšvod}
+\t|biblatex| je systÃ©m sprÃ¡vy bibliografickÃ½ch citacÃ­ a odkazÅ¯ pro typografickÃ½ systÃ©m \LaTeX. VychÃ¡zÃ­ ze starÅ¡Ã­ho systÃ©mu \t|bibtex| a nahrazuje ho. \t|biblatex-iso| je styl pro \t|biblatex|, kterÃ½ umoÅ¾Åˆuje citovat literaturu podle normy \t|ISO 690|, doporuÄenou pro pouÅ¾itÃ­ v ÄeskÃ½ch vysokoÅ¡kolskÃ½ch kvalifikaÄnÃ­ch pracÃ­ch \parencite{t00}. 
 
-\section{Pou¾ití}
+\section{PouÅ¾itÃ­}
 \begin{verbatim}
 ..
 \usepackage[english,czech]{babel}
-% Nebo, pokud pou¾íváte xelatex, místo babelu lze pou¾ít 
+% Nebo, pokud pouÅ¾Ã­vÃ¡te xelatex, mÃ­sto babelu lze pouÅ¾Ã­t 
 \usepackage{polyglossia}
 \setmainlanguage{czech}
 \setotherlanguage{english}
@@ -58,23 +58,23 @@
 
 \end{verbatim}
 
-Podle normy se mají nìkteré údaje v bibliografickıch záznamech uvádìt v jazyce dokumentu, jiné v jazyce záznamu. Pokud se odkazujete na dokumenty, psané v rùznıch jazycích, je tøeba v¹echny tyto jazyky nahrát balíèkem \t|babel| nebo \t|polyglossia|. Jazyk také doplòte ke ka¾dému záznamu do pole \t|hyphenation|.
+Podle normy se majÃ­ nÄ›kterÃ© Ãºdaje v bibliografickÃ½ch zÃ¡znamech uvÃ¡dÄ›t v jazyce dokumentu, jinÃ© v jazyce zÃ¡znamu. Pokud se odkazujete na dokumenty, psanÃ© v rÅ¯znÃ½ch jazycÃ­ch, je tÅ™eba vÅ¡echny tyto jazyky nahrÃ¡t balÃ­Äkem \t|babel| nebo \t|polyglossia|. Jazyk takÃ© doplÅˆte ke kaÅ¾dÃ©mu zÃ¡znamu do pole \t|hyphenation|.
 
-%Pro správnou podporu lokalizace je tøeba pou¾ít balíèek babel. V seznamu jazykù se jako poslední uvádí jazyk dokumentu. 
+%Pro sprÃ¡vnou podporu lokalizace je tÅ™eba pouÅ¾Ã­t balÃ­Äek babel. V seznamu jazykÅ¯ se jako poslednÃ­ uvÃ¡dÃ­ jazyk dokumentu. 
 \subsection{Volby}
 \begin{description}
-\item{style} po¾adovanı styl. Jsou dostupné dvì varianty, \t|iso-authoryear| pro citování tzv. harvardskou metodou a \t|iso-numeric| pro citování pomocí èíselnıch odkazù.
-\item[backend] program, kterım se generují bibliografické údaje. \t|biber| je vyvinut speciálnì pro \t|biblatex| a má proto nejvìt¹í mo¾nosti. Dal¹í mo¾nosti jsou \t|bibtex| a \t|bibtex8|, ale jejich podpora èe¹tiny nedosahuje úrovnì \t|biberu|
-\item[babel] ovlivòuje vypisování lokalizaèních øetìzcù a dìlení slov.
-\item[sortlocale] ovlivòuje øazení literatury. Je tøeba zadat \t|locale| kód hlavního jazyka dokumentu.
-\item[bibencoding] uvádí se, pokud je bibliografická databáze v jiném kódování, ne¾ dokument. 
+\item{style} poÅ¾adovanÃ½ styl. Jsou dostupnÃ© dvÄ› varianty, \t|iso-authoryear| pro citovÃ¡nÃ­ tzv. harvardskou metodou a \t|iso-numeric| pro citovÃ¡nÃ­ pomocÃ­ ÄÃ­selnÃ½ch odkazÅ¯.
+\item[backend] program, kterÃ½m se generujÃ­ bibliografickÃ© Ãºdaje. \t|biber| je vyvinut speciÃ¡lnÄ› pro \t|biblatex| a mÃ¡ proto nejvÄ›tÅ¡Ã­ moÅ¾nosti. DalÅ¡Ã­ moÅ¾nosti jsou \t|bibtex| a \t|bibtex8|, ale jejich podpora ÄeÅ¡tiny nedosahuje ÃºrovnÄ› \t|biberu|
+\item[babel] ovlivÅˆuje vypisovÃ¡nÃ­ lokalizaÄnÃ­ch Å™etÄ›zcÅ¯ a dÄ›lenÃ­ slov.
+\item[sortlocale] ovlivÅˆuje Å™azenÃ­ literatury. Je tÅ™eba zadat \t|locale| kÃ³d hlavnÃ­ho jazyka dokumentu.
+\item[bibencoding] uvÃ¡dÃ­ se, pokud je bibliografickÃ¡ databÃ¡ze v jinÃ©m kÃ³dovÃ¡nÃ­, neÅ¾ dokument. 
 
 \end{description}
 
 
-\subsection{Databáze}
+\subsection{DatabÃ¡ze}
 
-\t|biblatex| podporuje mno¾ství polí, které ve standartním \t|bibtexu| chybìly. Zde je nìkolik pøíkladù bibliografickıch záznamù a jejich \t|bibtexového| kódu.
+\t|biblatex| podporuje mnoÅ¾stvÃ­ polÃ­, kterÃ© ve standartnÃ­m \t|bibtexu| chybÄ›ly. Zde je nÄ›kolik pÅ™Ã­kladÅ¯ bibliografickÃ½ch zÃ¡znamÅ¯ a jejich \t|bibtexovÃ©ho| kÃ³du.
 
 %\begin{description}
 
@@ -96,9 +96,9 @@ Podle normy se mají nìkteré údaje v bibliografickıch záznamech uvádìt v jazyce d
 }
 \end{verbatim} 
 
-\t|edition| je vydání, je povinnım údajem pouze pokud je jiné, ne¾ první. Zapisuje se èíslicí nebo slovnì. \t|pagetotal| je poèet stran. \t|hyphenation| udává jazyk dokumentu, je nutné ho zadat u dokumentù napsanıch v jiném, ne¾ ve kterém je napsanı hlavní text. Tato volba ovlivòuje vıpis nìkterıch øetìzcù, jako je napøíklad vydání.
+\t|edition| je vydÃ¡nÃ­, je povinnÃ½m Ãºdajem pouze pokud je jinÃ©, neÅ¾ prvnÃ­. Zapisuje se ÄÃ­slicÃ­ nebo slovnÄ›. \t|pagetotal| je poÄet stran. \t|hyphenation| udÃ¡vÃ¡ jazyk dokumentu, je nutnÃ© ho zadat u dokumentÅ¯ napsanÃ½ch v jinÃ©m, neÅ¾ ve kterÃ©m je napsanÃ½ hlavnÃ­ text. Tato volba ovlivÅˆuje vÃ½pis nÄ›kterÃ½ch Å™etÄ›zcÅ¯, jako je napÅ™Ã­klad vydÃ¡nÃ­.
 
-\paragraph{Èlánek ve sborníku} \hfill\\
+\paragraph{ÄŒlÃ¡nek ve sbornÃ­ku} \hfill\\
 
 \c{t02}
 \begin{verbatim}
@@ -118,16 +118,16 @@ Podle normy se mají nìkteré údaje v bibliografickıch záznamech uvádìt v jazyce d
   hyphenation   =   {english}
 }
 \end{verbatim} 
- \t|title| je název èlánku, \t|booktitle| název sborníku. Rozsah stran udávají \t|pages|.
+ \t|title| je nÃ¡zev ÄlÃ¡nku, \t|booktitle| nÃ¡zev sbornÃ­ku. Rozsah stran udÃ¡vajÃ­ \t|pages|.
  
- Je mo¾né mít samostatnı záznam sborníku a na ten se z èlánku odkazovat pomocí pole \t|crossref|:
+ Je moÅ¾nÃ© mÃ­t samostatnÃ½ zÃ¡znam sbornÃ­ku a na ten se z ÄlÃ¡nku odkazovat pomocÃ­ pole \t|crossref|:
  
 \noindent\c{prispevek1}
  
  \begin{verbatim}
 @COLLECTION{sbornik,
-  title       =   {Mimoøádnì u¾iteènı sborník},
-  editor      =   {Geniální, Jiøí},
+  title       =   {MimoÅ™Ã¡dnÄ› uÅ¾iteÄnÃ½ sbornÃ­k},
+  editor      =   {GeniÃ¡lnÃ­, JiÅ™Ã­},
   year        =   {2007},
   hyphenation =   {czech},
   location    =   {Praha},
@@ -137,15 +137,15 @@ Podle normy se mají nìkteré údaje v bibliografickıch záznamech uvádìt v jazyce d
 
 @INCOLLECTION{prispevek1,
   crossref    =   {sbornik},
-  title       =   {Velmi zajímavı èlánek},
-  author      =   {Vla¹tovka, Josef},
+  title       =   {Velmi zajÃ­mavÃ½ ÄlÃ¡nek},
+  author      =   {VlaÅ¡tovka, Josef},
   pages       =   {22-45}
 }
  \end{verbatim}
  
- V záznamu \t|sbornik| nemusíme zadávat booktitle, \t|biber| automaticky pøi vlo¾ení do jiného záznamu automaticky pøevede \t|title| na \t|booktitle|. 
+ V zÃ¡znamu \t|sbornik| nemusÃ­me zadÃ¡vat booktitle, \t|biber| automaticky pÅ™i vloÅ¾enÃ­ do jinÃ©ho zÃ¡znamu automaticky pÅ™evede \t|title| na \t|booktitle|. 
  
- \paragraph{Èlánek v èasopise}\hfill\\
+ \paragraph{ÄŒlÃ¡nek v Äasopise}\hfill\\
  
  \c{t03}
  \begin{verbatim}
@@ -164,7 +164,7 @@ Podle normy se mají nìkteré údaje v bibliografickıch záznamech uvádìt v jazyce d
 }
  \end{verbatim}
  
-\noindent Toto je èlánek v online èasopise. Pokud èasopis zároveò nevychází i ti¹tìnì, cituje se jako online zdroj. Toho docílíme pou¾itím pole \t|urldate|. Naproti tomu 
+\noindent Toto je ÄlÃ¡nek v online Äasopise. Pokud Äasopis zÃ¡roveÅˆ nevychÃ¡zÃ­ i tiÅ¡tÄ›nÄ›, cituje se jako online zdroj. Toho docÃ­lÃ­me pouÅ¾itÃ­m pole \t|urldate|. Naproti tomu 
  
  \c{knuth}
  \begin{verbatim}
@@ -189,19 +189,19 @@ Podle normy se mají nìkteré údaje v bibliografickıch záznamech uvádìt v jazyce d
 }
  \end{verbatim}
  
-\noindent zde jde o èlánek v ti¹tìném èasopise, kterı má i online verzi. Podobnì jako u èlánku ve sborníku, mù¾eme mít i samostatnı záznam pro èasopis a jednotlivé èlánky na nìj odkazovat.
+\noindent zde jde o ÄlÃ¡nek v tiÅ¡tÄ›nÃ©m Äasopise, kterÃ½ mÃ¡ i online verzi. PodobnÄ› jako u ÄlÃ¡nku ve sbornÃ­ku, mÅ¯Å¾eme mÃ­t i samostatnÃ½ zÃ¡znam pro Äasopis a jednotlivÃ© ÄlÃ¡nky na nÄ›j odkazovat.
 % \end{description}
 %\parencite{t01,t02}
 \nocite{*}
-\printbibliography[title={Ukázková bibliografie},heading={bibnumbered}]
+\printbibliography[title={UkÃ¡zkovÃ¡ bibliografie},heading={bibnumbered}]
 
 
-\section{Historie zmìn}
+\section{Historie zmÄ›n}
 \begin{changelog}
 \begin{release}{0.1}{2011-02-03}
-\item První vydání
+\item PrvnÃ­ vydÃ¡nÃ­
 \item Pokus o dokumentaci
-\item Podpora pro vìt¹inu typù záznamù \t|biblatexu|
+\item Podpora pro vÄ›tÅ¡inu typÅ¯ zÃ¡znamÅ¯ \t|biblatexu|
 \end{release}
 \end{changelog}
 \end{document}
