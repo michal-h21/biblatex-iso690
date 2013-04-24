@@ -98,12 +98,12 @@
 \DeclareFieldFormat*{emphatize}{\emph{#1}}
 \DeclareFieldFormat*{edition}{%
   \ifnumeral{#1}%
-    {\mkbibordedition{#1}}%
+	{\mkbibordedition{#1}\addnbspace\bibsstring{edition}}%
     {%
-    \ifstrequal{#1}{first}{\mkbibordedition{1}}{%
-      \ifstrequal{#1}{second}{\mkbibordedition{2}}{
-        \ifstrequal{#1}{third}{\mkbibordedition{3}}{
-    \MakeCapital{#1}}}}}%
+    %\ifstrequal{#1}{first}{\mkbibordedition{1}}{%
+    %  \ifstrequal{#1}{second}{\mkbibordedition{2}}{
+    %    \ifstrequal{#1}{third}{\mkbibordedition{3}}{
+    \MakeCapital{#1}}%}}%
 }
 \DeclareFieldFormat*{pages}{\mainsstring{pages}\space\printtext{#1}}
 \DeclareFieldFormat*{number}{\bibsstring{number}\addspace\printtext{#1}}
@@ -248,8 +248,9 @@
 {\printfield{pagetotal}\usebibmacro{loc:pages}}%
 }
 \newbibmacro{book:vol}{%
-\iffieldundef{edition}{}%
-{\printfield{edition}\usebibmacro{loc:bookvol}}%
+	\printfield{edition}
+	%\iffieldundef{edition}{}%
+%{\printfield{edition}\usebibmacro{loc:bookvol}}%
 }
 
 \newbibmacro{titles}[1]{%
@@ -283,7 +284,7 @@
 %Localisation macros
 \newbibmacro{loc:pages}{\addnbspace\mainsstring{pages}}%\printtext{s}}
 
-\newbibmacro{loc:bookvol}{\addnbspace\bibsstring{edition}}
+%\newbibmacro{loc:bookvol}{\addnbspace\bibsstring{edition}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
