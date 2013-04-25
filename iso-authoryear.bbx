@@ -1,6 +1,7 @@
 \ProvidesFile{iso-authoryear.bbx}[2011/06/08]
 \newcommand\MethodFormat{}
-\newbibmacro*{year-label}{\ifnameundef{author}{}{\ifnameundef{editor}{}{\newunit\printfield{year}\printfield{extrayear}}}}
+\def\printextrayear{\newunit\newblock\printfield{year}\printfield{extrayear}}
+\newbibmacro*{year-label}{\ifnameundef{author}{\ifnameundef{editor}{}{\printextrayear}}{\printextrayear}}
 \ExecuteBibliographyOptions{%
   %spacecolon=true
    sorting=nyt
