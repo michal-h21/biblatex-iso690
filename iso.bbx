@@ -44,14 +44,14 @@
 %commands
 %select main language of bibliography. this is needed in fields like number of pages etc.
 %main language is last in babel params list. so if we have \usepackage[english,czech]{babel}, main language is czech
-%\newlength{\trashlength}
-%\newcommand\mainlanguage@n{\expandafter\bbl@set@language\expandafter{\bbl@main@language}{\settowidth{\trashlength}{\expandafter\bbl@set@language\expandafter{\bbl@main@language}}\kern-\dimexpr \trashlength\relax}}%
+\newlength{\trashlength}
+\newcommand\mainlanguage@n{\expandafter\bbl@set@language\expandafter{\bbl@main@language}{\settowidth{\trashlength}{\expandafter\bbl@set@language\expandafter{\bbl@main@language}}\kern-\dimexpr \trashlength\relax}}%
 
 %\newcommand\mainlanguage@n{\blx@langsetup\bbl@main@language}
 % Select main document language
-\newcommand\mainlanguage@n{%\setbox0=\hbox{
-	\expandafter\bbl@set@language\expandafter{\bbl@main@language}%}%
-}
+%\newcommand\mainlanguage@n{%\setbox0=\hbox{
+%	\expandafter\bbl@set@language\expandafter{\bbl@main@language}%}%
+%}
 %\newcommand\mainlanguage@n{\expandafter\bbl@set@language\expandafter{\bbl@main@language}}
 
 \newcommand\mainsstring[1]{\mainlanguage@n{}\bibsstring{#1}}
