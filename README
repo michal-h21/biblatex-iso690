@@ -16,7 +16,7 @@ If this directory doesn't exist, you can create it.
 Usage:
 ------ 
 ...
-\usepackage{english,czech}{babel} % main language of the document must be last
+\usepackage[english,czech]{babel} % main language of the document must be last
 \usepackage[
    backend=biber      % if we want unicode 
   ,style=iso-authoryear % or iso-numeric for numeric citation method          
