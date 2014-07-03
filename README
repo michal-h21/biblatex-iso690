@@ -18,8 +18,8 @@ LuaTeX you will need to replace /tex/latex by an appropriate path. Afterwards ru
 
     texhash 
 
-This command rebuilds TeX files database. After this your system should be able 
-recognize biblatex-iso690.
+This command rebuilds TeX files database. Now your system should be able 
+to work with biblatex-iso690.
 
 
 Usage:
