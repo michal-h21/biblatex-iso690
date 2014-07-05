@@ -11,7 +11,16 @@ find its location with the following command:
 
     kpsewhich -var-value TEXMFHOME
     
-If this directory doesn't exist, you can create it. 
+If this directory doesn't exist, you can create it. Also, do not forget about latex 
+directory structure. That means you need to create (if doesn't exist yet), for example, 
+~/texmf/tex/latex/biblatex-iso690 if you use LaTeX. In case you are using XeTeX or 
+LuaTeX you will need to replace /tex/latex by an appropriate path. Afterwards run:
+
+    texhash 
+
+This command rebuilds TeX files database. Now your system should be able 
+to work with biblatex-iso690.
+
 
 Usage:
 ------ 
