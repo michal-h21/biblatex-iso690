@@ -45,20 +45,28 @@
 %select main language of bibliography. this is needed in fields like number of pages etc.
 %main language is last in babel params list. so if we have \usepackage[english,czech]{babel}, main language is czech
 \newlength{\trashlength}
-\newcommand\mainlanguage@n{\expandafter\bbl@set@language\expandafter{\bbl@main@language}{\settowidth{\trashlength}{\expandafter\bbl@set@language\expandafter{\bbl@main@language}}\kern-\dimexpr \trashlength\relax}}%
+%\newcommand\mainlanguage@n{\expandafter\bbl@set@language\expandafter{\bbl@main@language}{\settowidth{\trashlength}{\expandafter\bbl@set@language\expandafter{\bbl@main@language}}\kern-\dimexpr \trashlength\relax}}%
 
-%\newcommand\mainlanguage@n{\blx@langsetup\bbl@main@language}
+%\newcommand\mainlanguage@n{\expandafter\blx@langsetup\expandafter{\bbl@main@language}}
+\newcommand\mainlanguage@n{\csuse{abx@strings@\bbl@main@language}}
 % Select main document language
-%\newcommand\mainlanguage@n{%\setbox0=\hbox{
-%	\expandafter\bbl@set@language\expandafter{\bbl@main@language}%}%
+% \newcommand\mainlanguage@n{\setbox0=\hbox{
+% 	\expandafter\bbl@set@language\expandafter{\bbl@main@language}}%
+% }
+%\newcommand\mainlanguage@n{\edef\blx@languagename{\bbl@main@language}}
+% %\newcommand\mainlanguage@n{%
+%  \edef\languagename{\bbl@main@language}
+%  \bbl@switch{\languagename}%
 %}
 %\newcommand\mainlanguage@n{\expandafter\bbl@set@language\expandafter{\bbl@main@language}}
 
-\newcommand\mainsstring[1]{\mainlanguage@n{}\bibsstring{#1}}
+\newcommand\mainsstring[1]{\bgroup\mainlanguage@n\bibsstring{#1}\egroup}
 %\newcommand\mainsstring[1]{\mainlanguage@n\csuse{abx@sstr@#1}}
-
-\newcommand\mainlstring[1]{\mainlanguage@n{}\biblstring{#1}}
-%\newcommand\mainlstring[1]{\mainlanguage@n\csuse{abx@lstr@#1}}
+%\newcommand\mainsstring[1]{\otherlanguage{#1}\bibsstring\endotherlanguage}
+%\newcommand\mainlstring[1]{\mainlanguage@n\biblstring{#1}}
+\newcommand\mainlstring[1]{\bgroup\mainlanguage@n\csuse{abx@lstr@#1}\egroup}
+%\newcommand\mainlstring[1]{\unskip\ignorespaces\expandafter\otherlanguage\expandafter{\bbl@main@language}\unskip\biblstring{#1}\unskip\endotherlanguage\unskip}
+%\newcommand\mainlstring[1]{\blx@bibstring{czech}{abx@lstr}{#1}}
 \newcommand\tcolon{%colon between location and publisher, title and subtitle etc.
 \def\colo@n{\printtext{:}}%
 \ifthenelse{\boolean{bbx@tcolon}}{\addspace\colo@n}{\colo@n}%
