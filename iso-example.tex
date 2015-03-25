@@ -63,7 +63,7 @@ Podle normy se mají některé údaje v bibliografických záznamech uvádět v 
 %Pro správnou podporu lokalizace je třeba použít balíček babel. V seznamu jazyků se jako poslední uvádí jazyk dokumentu. 
 \subsection{Volby}
 \begin{description}
-\item{style} požadovaný styl. Jsou dostupné dvě varianty, \t|iso-authoryear| pro citování tzv. harvardskou metodou a \t|iso-numeric| pro citování pomocí číselných odkazů.
+\item[style] požadovaný styl. Jsou dostupné tři varianty, \t|iso-authoryear| pro citování tzv. harvardskou metodou, \t|iso-numeric| pro citování pomocí číselných odkazů a \t|iso-authortitle|.
 \item[backend] program, kterým se generují bibliografické údaje. \t|biber| je vyvinut speciálně pro \t|biblatex| a má proto největší možnosti. Další možnosti jsou \t|bibtex| a \t|bibtex8|, ale jejich podpora češtiny nedosahuje úrovně \t|biberu|
 \item[babel] ovlivňuje vypisování lokalizačních řetězců a dělení slov.
 \item[sortlocale] ovlivňuje řazení literatury. Je třeba zadat \t|locale| kód hlavního jazyka dokumentu.
@@ -198,6 +198,10 @@ Podle normy se mají některé údaje v bibliografických záznamech uvádět v 
 
 \section{Historie změn}
 \begin{changelog}
+\begin{release}{0.2}{2015-03-25}
+\item Nakumulované změny za čtyři roky
+\item Vyřešen problém s mezerami u tisku řetězců v jazyce dokumentu
+\end{release}
 \begin{release}{0.1}{2011-02-03}
 \item První vydání
 \item Pokus o dokumentaci
