@@ -1,4 +1,9 @@
 \ProvidesFile{iso-authoryear.cbx}[2011/06/08]
+\ExecuteBibliographyOptions{%
+	 maxcitenames=1
+	,mincitenames=1
+}
+
 \RequireCitationStyle{authoryear}
 \DeclareNameFormat{labelname}{%
 \ifthenelse{\value{listcount}=1}
