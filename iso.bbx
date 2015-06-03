@@ -183,6 +183,7 @@
   \iffieldundef{editortype}{\bibsstring{editor}}{\bibsstring{\thefield{editortype}}}%
 }
 
+
 \newbibmacro*{online-test}[2]{%
   \ifboolexpr{%
     test {\iffieldundef{url}}
@@ -204,27 +205,30 @@
   \printtext{#1}\setunit*{\addcolon\addspace}%\printtext[rbrackets]{#2}%
 }
 \newbibmacro{print-online}{%
-\printtext[rbrackets]{%
-\usebibmacro{online-test}{}{%
-\iffieldundef{url}{%
-\printfield{doi}%
-\printfield{eprint}%
-}%
-{\printfield{url}}%
-}%
-}%
+  \printtext[rbrackets]{%
+    \usebibmacro{online-test}{}{%
+      \iffieldundef{url}{%
+        \printfield{doi}%
+        \printfield{eprint}%
+      }%
+      {\printfield{url}}%
+    }%
+  }%
 }
 
 \newbibmacro{urlinfo}{%
-\iffieldundef{urlyear}{\mainlstring{urlalso}}{\mainlstring{url}}%
+  \iffieldundef{urlyear}{\mainlstring{urlalso}}{\mainlstring{url}}%
 }
+
+
 \newbibmacro{availability}{%
-\usebibmacro{online-test}%
-{}%  
-{\iffieldundef{howpublished}%
-{\usebibmacro{comment+link}{\usebibmacro{urlinfo}}\usebibmacro{print-online}}%
-{\usebibmacro{comment+link}{\printfield{howpublished}\usebibmacro{print-online}}}%
-}%
+  % test for url, eprint and doi fields
+  \usebibmacro{online-test}%
+  {}%
+  {\iffieldundef{howpublished}% when some of them is used
+    {\usebibmacro{comment+link}{\usebibmacro{urlinfo}}\usebibmacro{print-online}}%
+    {\usebibmacro{comment+link}{\printfield{howpublished}\usebibmacro{print-online}}}%
+  }%
 }
 
 %prefix - url, orig ,...; separator
