@@ -254,6 +254,9 @@
   }}%\printtext{.}}%hack. otherwise there will be no dot between this and next field
 }
 
+% we can reset this macro in author year style so we don't print year twice in 
+% reference
+\newbibmacro{journal-year}{\printfield{year}}
 
 \newbibmacro{pagecount}{%
 \iffieldundef{pagetotal}{}%
@@ -361,7 +364,8 @@
 \usebibmacro{jour:title}
 %\printfield[emphatize]{journaltitle}%
 \newunit\newblock
-\printfield{year}
+\usebibmacro{journal-year}
+%\printfield{year}
 %\usebibmacro{date-urldate}
 \setunit*{\addcomma\addspace}%
 \printfield{volume}%
