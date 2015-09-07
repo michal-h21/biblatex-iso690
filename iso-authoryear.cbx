@@ -1,16 +1,19 @@
 \ProvidesFile{iso-authoryear.cbx}[2011/06/08]
 \ExecuteBibliographyOptions{%
-	 maxcitenames=1
-	,mincitenames=1
+   maxcitenames=1
+  ,mincitenames=1
 }
 
 \RequireCitationStyle{authoryear}
 
-\DeclareNameFormat{labelname}{#1}
+\renewcommand*{\nameyeardelim}{\addcomma\addspace}
 
- \renewbibmacro*{cite:labelyear+extrayear}{%
-   \iffieldundef{labelyear}
-     {}
-     {\addcomma\addspace\printtext[bibhyperref]{%
-        \printfield{labelyear}%
-        \printfield{extrayear}}}}
+\renewbibmacro*{cite}{%
+  \iffieldundef{shorthand}
+    {\ifthenelse{\ifnameundef{labelname}\OR\iffieldundef{labelyear}}
+       {\usebibmacro{cite:label}}
+       {\printnames{labelname}}
+     \setunit{\nameyeardelim}
+     \usebibmacro{cite:labelyear+extrayear}}
+    {\usebibmacro{cite:shorthand}}}
+\endinput
