@@ -69,8 +69,8 @@
 %\newcommand\mainlstring[1]{\unskip\ignorespaces\expandafter\otherlanguage\expandafter{\bbl@main@language}\unskip\biblstring{#1}\unskip\endotherlanguage\unskip}
 %\newcommand\mainlstring[1]{\blx@bibstring{czech}{abx@lstr}{#1}}
 \newcommand\tcolon{%colon between location and publisher, title and subtitle etc.
-\def\colo@n{\printtext{:}}%
-\ifthenelse{\boolean{bbx@tcolon}}{\addspace\colo@n}{\colo@n}%
+% \def\colo@n{\printtext{:}}%
+\ifthenelse{\boolean{bbx@tcolon}}{\addspace}{}:%
 }
 
 \renewcommand\subtitlepunct{\tcolon}
