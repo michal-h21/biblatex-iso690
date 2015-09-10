@@ -8,6 +8,7 @@
 \newboolean{bbx@tcolon}
 \DeclareBibliographyOption{spacecolon}[true]{\setboolean{bbx@tcolon}{#1}}
 
+
 % \newboolean{cbx@numeric}
 % \setboolean{cbx@numeric}{false}
 % \newbibmacro*{year-label}{}
@@ -75,6 +76,7 @@
 \ifthenelse{\boolean{bbx@tcolon}}{\addspace}{}:%
 }
 
+
 \renewcommand\subtitlepunct{\tcolon}
 \renewcommand\andmoredelim{}
 \renewcommand\multinamedelim{\addsemicolon\addspace}
@@ -82,9 +84,14 @@
 \renewcommand\andothersdelim{\addspace}
 
 % Thanks Moewew for sugesting this. Make uppercase names only in biblipgraphy.
+% Default name format is ALL-CAPS
+% use something like 
+% \let\lastnameformat=\textsc
+% to change this
 
+\newcommand\lastnameformat[1]{\MakeUppercase{#1}}
 \AtBeginBibliography{%
-\renewcommand\mkbibnamelast[1]{\MakeUppercase{#1}}%
+\renewcommand\mkbibnamelast[1]{\lastnameformat{#1}}%
 }
 
 \defbibenvironment{bibliography}
@@ -512,3 +519,5 @@
 \DeclareBibliographyAlias{thesis}{book}
 \DeclareBibliographyAlias{unpublished}{book}
 \endinput
+
+% vim: ft=tex
