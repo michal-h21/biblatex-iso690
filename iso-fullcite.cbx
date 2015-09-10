@@ -1,0 +1,18 @@
+% Fix for fullcite
+\DeclareCiteCommand{\fullcite}
+  {\usebibmacro{prenote}%
+   \renewcommand*\mkbibnamelast{\lastnameformat}}
+  {\usedriver
+     {\DeclareNameAlias{sortname}{default}}
+     {\thefield{entrytype}}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
+
+\DeclareCiteCommand{\footfullcite}[\mkbibfootnote]
+  {\usebibmacro{prenote}%
+   \renewcommand*\mkbibnamelast{\textsc}}
+  {\usedriver
+     {\DeclareNameAlias{sortname}{default}}
+     {\thefield{entrytype}}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
