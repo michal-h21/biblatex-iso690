@@ -282,11 +282,49 @@
 %{\printfield{edition}\usebibmacro{loc:bookvol}}%
 }
 
+% \newbibmacro{titles}[1]{%
+%   \printfield[emphatize]{#1title}%
+%   \printfield[emph-colon]{#1subtitle}%
+%   \printfield[emphatize]{#1addon}%
+% }
 \newbibmacro{titles}[1]{%
-  \printfield[emphatize]{#1title}%
-  \printfield[emph-colon]{#1subtitle}%
-  \printfield[emphatize]{#1addon}%
-}
+  \printtext[emphatize]{%
+    \printfield{#1title}%
+    \setunit{\addspcolon\addspace}
+    \printfield{#1subtitle}%
+    \setunit{\addspace}
+    \printfield{#1addon}}}
+
+% \makeatletter
+% see biblatex2.sty for these macros
+\blx@regimcs{% let biblatex know the new macros
+  \addspsemicolon \addspcolon \addspcomma \addcolspace}
+\def\blx@addsppunct#1{% <---- new name for spaced punctuation
+  %\unspace <----- commented out
+  \ifnum\blx@spacefactor<\blx@sf@threshold@low
+    \csuse{blx@qp@#1}\csuse{abx@#1}%
+  \else
+    \ifnum\blx@spacefactor>\blx@sf@threshold@high
+      \csuse{blx@qp@#1}\csuse{abx@#1}%
+    \else
+      \ifcsdef{blx@pp@\the\csname blx@sf@#1\endcsname @\blx@spacefactor}
+        {\csuse{blx@qp@#1}\csuse{abx@#1}}
+        {\csuse{blx@qp@#1}}%
+    \fi
+  \fi
+  \csuse{blx@pq@#1}}
+% define new macros  
+% \protected\def\blx@imc@addspsemicolon{\blx@addsppunct{semicolon}}
+% \protected\def\blx@imc@addspcomma{\blx@addsppunct{comma}}
+\ifthenelse{\boolean{bbx@tcolon}}{%
+\protected\def\blx@imc@addspcolon{\blx@addsppunct{nbspace}\blx@addsppunct{colon}}%
+}{%
+\protected\def\blx@imc@addspcolon{\unspace\blx@addsppunct{colon}}%
+}%
+% \protected\def\blx@imc@addspcolon{\blx@addsppunct{colon}}
+% }{}%
+% \makeatother
+
 \newbibmacro{pub:title}{%
  \iffieldundef{maintitle}{%
   \iffieldundef{booktitle}{%
@@ -303,6 +341,13 @@
 \usebibmacro{titles}{journal}
 \usebibmacro{online}
 }
+
+\DeclareFieldFormat{journaltitle}{#1}
+\DeclareFieldFormat{booktitle}{#1}
+\DeclareFieldFormat{maintitle}{#1}
+\DeclareFieldFormat{journalsubtitle}{#1}
+\DeclareFieldFormat{booksubtitle}{#1}
+\DeclareFieldFormat{mainsubtitle}{#1}
 
 \newbibmacro{in}{%
 	\mainsstring{in}%
