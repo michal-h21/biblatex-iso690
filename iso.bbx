@@ -6,7 +6,7 @@
 
 %switch space before colon in titles etc.
 \newboolean{bbx@tcolon}
-\DeclareBibliographyOption{spacecolon}[true]{\setboolean{bbx@tcolon}{#1}}
+\DeclareBibliographyOption{spacecolon}[true]{\setboolean{bbx@tcolon}{#1}\typeout{Nastavuju: #1}}
 
 
 % \newboolean{cbx@numeric}
@@ -95,18 +95,18 @@
 }
 
 \defbibenvironment{bibliography}
-  {\list
-     {\MethodFormat}
+  {\list%
+     {\MethodFormat}%
      {\setlength{\leftmargin}{\bibhang}%
       \setlength{\itemindent}{-\leftmargin}%
       \setlength{\itemsep}{\bibitemsep}%
       \setlength{\parsep}{\bibparsep}}%
       \renewcommand*{\makelabel}[1]{\hss##1}
       %\raggedright}
-      }
-  {\endlist}
-  {\item}
-
+      }%
+  {\endlist}%
+  {\item}%
+%
 
 
 %%%%%%%%
@@ -140,15 +140,15 @@
 %We must handle more than one isbn and issn
 \DeclareFieldFormat{isbn}{%
 %\renewcommand*{\do}[1]{\printtext{ISBN}\addnbspace#1\adddot\addspace}%
-\printtext{ISBN}\addnbspace#1}
+\printtext{ISBN}\addnbspace#1}%
 %\printtext{ISBN}\addnbspace#1}
 
 \DeclareFieldFormat{issn}{%
 \renewcommand*{\do}[1]{\printtext{ISSN}\addnbspace#1\adddot\addspace}%
-\docsvfield{issn}}
+\docsvfield{issn}}%
 
-\def\addhyphen{\printtext{-}}
-\DeclareFieldFormat{urldate}{\printfield{urlyear}\addhyphen\printfield{urlmonth}\addhyphen\printfield{urlday}}
+\def\addhyphen{\printtext{-}}%
+\DeclareFieldFormat{urldate}{\printfield{urlyear}\addhyphen\printfield{urlmonth}\addhyphen\printfield{urlday}}%
 
 
 %\DeclareNameFormat{default}{%
@@ -168,7 +168,8 @@
   %    {\setunit*{}}%
   %}
   \iflistundef{location}{\setunit{\adddot\addspace}}{%
-    \iflistundef{publisher}{}{\printtext[colon]{\printlist{publisher}}}
+    % \iflistundef{publisher}{}{\printtext[colon]{\printlist{publisher}}}%
+    \iflistundef{publisher}{}{\setunit{\addspcolon\addspace}\printlist{publisher}}%
   }
   %\printlist{publisher}%
   \setunit*{\addcomma\addspace}%
@@ -298,7 +299,7 @@
 % \makeatletter
 % see biblatex2.sty for these macros
 \blx@regimcs{% let biblatex know the new macros
-  \addspsemicolon \addspcolon \addspcomma \addcolspace}
+  \addspsemicolon \addspcolon \addcolon \addspcomma }
 \def\blx@addsppunct#1{% <---- new name for spaced punctuation
   %\unspace <----- commented out
   \ifnum\blx@spacefactor<\blx@sf@threshold@low
@@ -316,11 +317,19 @@
 % define new macros  
 % \protected\def\blx@imc@addspsemicolon{\blx@addsppunct{semicolon}}
 % \protected\def\blx@imc@addspcomma{\blx@addsppunct{comma}}
-\ifthenelse{\boolean{bbx@tcolon}}{%
-\protected\def\blx@imc@addspcolon{\blx@addsppunct{nbspace}\blx@addsppunct{colon}}%
-}{%
-\protected\def\blx@imc@addspcolon{\unspace\blx@addsppunct{colon}}%
-}%
+
+% declare new punctation
+% We must test for colonspace option at begin document
+\AtBeginDocument{%
+  \ifthenelse{\boolean{bbx@tcolon}}{%
+    \protected\def\blx@imc@addspcolon{\addnbspace\blx@addsppunct{colon}}%
+    \typeout{nemeni colon}
+  }{%
+    \protected\def\blx@imc@addspcolon{\unspace\blx@addsppunct{colon}}%
+    \typeout{menime colon}
+  }%
+}
+%
 % \protected\def\blx@imc@addspcolon{\blx@addsppunct{colon}}
 % }{}%
 % \makeatother
@@ -331,15 +340,15 @@
     \usebibmacro{titles}{}%
   }{%
     \usebibmacro{titles}{book}%
-  }
+  }%
  }{%
   \usebibmacro{titles}{main}%
  }%
  \usebibmacro{online}%
-}
+}%
 \newbibmacro{jour:title}{%
-\usebibmacro{titles}{journal}
-\usebibmacro{online}
+\usebibmacro{titles}{journal}%
+\usebibmacro{online}%
 }
 
 \DeclareFieldFormat{journaltitle}{#1}
