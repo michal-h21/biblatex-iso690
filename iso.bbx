@@ -463,8 +463,9 @@
 \printnames{bookauthor}%
 \usebibmacro{year-label}%
 \newunit\newblock%
-\printfield{booktitle}%
-\printfield[emph-colon]{booksubtitle}%
+% \printfield{booktitle}%
+% \printfield[emph-colon]{booksubtitle}%
+\usebibmacro{pub:title}
 \newunit\newblock%
 \usebibmacro{book:vol}
 \newunit\newblock%
@@ -476,7 +477,8 @@
 \setunit*{\addcomma\addspace}%
 \newunit%
 \printfield{title}%
-\printfield[colon]{subtitle}%
+\setunit{\addspcolon\addspace}
+\printfield{subtitle}%
 \setunit{\addcomma\addspace}%
 \printfield{pages}%
 \newunit\newblock%
