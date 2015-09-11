@@ -424,8 +424,13 @@
 \usebibmacro{begentry}%
 \usebibmacro{names:primary}%
 \setunit{\labelnamepunct}\newblock%
+% \printfield{title}%
+% \printfield[colon]{subtitle}%
 \printfield{title}%
-\printfield[colon]{subtitle}%
+\setunit{\addspcolon\addspace}%
+\printfield{subtitle}%
+\setunit{\addspace}%
+\printfield{addon}
 \newunit\newblock%
 \usebibmacro{jour:title}%
 %\printfield[emphatize]{journaltitle}%%
@@ -495,6 +500,7 @@
 \printfield[colon]{subtitle}%
 \newunit\newblock%
 \usebibmacro{in}%
+\setunit{\addspace}
 \usebibmacro{editor}%
 \newunit\newblock%
 \usebibmacro{pub:title}%
