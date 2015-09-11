@@ -125,7 +125,7 @@
     %  \ifstrequal{#1}{second}{\mkbibordedition{2}}{
     %    \ifstrequal{#1}{third}{\mkbibordedition{3}}{
     \MakeCapital{#1}}%}}%
-}
+}%
 \DeclareFieldFormat*{pages}{\mainsstring{pages}\space\printtext{#1}}
 \DeclareFieldFormat*{number}{\bibsstring{number}\addspace\printtext{#1}}
 \DeclareFieldFormat*{url}{\url{#1}}
@@ -170,11 +170,11 @@
   \iflistundef{location}{\setunit{\adddot\addspace}}{%
     % \iflistundef{publisher}{}{\printtext[colon]{\printlist{publisher}}}%
     \iflistundef{publisher}{}{\setunit{\addspcolon\addspace}\printlist{publisher}}%
-  }
+  }%
   %\printlist{publisher}%
   \setunit*{\addcomma\addspace}%
   \usebibmacro{date-urldate}%
-}
+}%
 
 \newbibmacro*{names:primary}{%
   \ifnameundef{author}%
@@ -182,7 +182,7 @@
   {\printnames{author}}%
   \setunit{\addcomma\space}%
   \usebibmacro{year-label}%
-}
+}%
 
 
 
@@ -193,32 +193,32 @@
   {\printnames{editor}%
     \addspace\mkbibparens{\usebibmacro{editorrole}}%
   }%
-}
+}%
 \newbibmacro*{editorrole}{%
   \iffieldundef{editortype}{\bibsstring{editor}}{\bibsstring{\thefield{editortype}}}%
-}
+}%
 
 
 \newbibmacro*{online-test}[2]{%
   \ifboolexpr{%
-    test {\iffieldundef{url}}
-    and
-    test {\iffieldundef{eprint}}
-    and
-    test {\iffieldundef{doi}}
+    test {\iffieldundef{url}}%
+    and%
+    test {\iffieldundef{eprint}}%
+    and%
+    test {\iffieldundef{doi}}%
   }%
   {#1}%
   {#2}%
-}
+}%
 \newbibmacro*{online}{%
   %\def\online{}%
-  \iffieldundef{urlyear}{}{\printtext[sbrackets]{online}}
+  \iffieldundef{urlyear}{}{\printtext[sbrackets]{online}}%
   %\usebibmacro{online-test}{}{\online}%
-}
+}%
 
 \newbibmacro{comment+link}[1]{%
   \printtext{#1}\setunit*{\addcolon\addspace}%\printtext[rbrackets]{#2}%
-}
+}%
 \newbibmacro{print-online}{%
   \printtext[rbrackets]{%
     \usebibmacro{online-test}{}{%
@@ -229,11 +229,11 @@
       {\printfield{url}}%
     }%
   }%
-}
+}%
 
 \newbibmacro{urlinfo}{%
   \iffieldundef{urlyear}{\mainlstring{urlalso}}{\mainlstring{url}}%
-}
+}%
 
 
 \newbibmacro{availability}{%
@@ -244,7 +244,7 @@
     {\usebibmacro{comment+link}{\usebibmacro{urlinfo}}\usebibmacro{print-online}}%
     {\usebibmacro{comment+link}{\printfield{howpublished}\usebibmacro{print-online}}}%
   }%
-}
+}%
 
 %prefix - url, orig ,...; separator
 %\newbibmacro*{isodate}[2]{%
@@ -257,17 +257,17 @@
   {\printfield{year}}%
   {\printfield{date}}%
   \usebibmacro{urldate}
-}
+}%
 \newbibmacro*{urldate}{%
   \iffieldundef{urlyear}{}%
   {\addspace\printtext[sbrackets]{%
     %\printtext{cit.}%
     \mainsstring{urlseen}%
-    \addspace
-    \printurldate
+    \addspace%
+    \printurldate%
     %\usebibmacro{isodate}{url}{-}\nopunct%
   }}%\printtext{.}}%hack. otherwise there will be no dot between this and next field
-}
+}%
 
 % we can reset this macro in author year style so we don't print year twice in 
 % reference
@@ -276,12 +276,12 @@
 \newbibmacro{pagecount}{%
 \iffieldundef{pagetotal}{}%
 {\printfield{pagetotal}\usebibmacro{loc:pages}}%
-}
+}%
 \newbibmacro{book:vol}{%
-	\printfield{edition}
+	\printfield{edition}%
 	%\iffieldundef{edition}{}%
 %{\printfield{edition}\usebibmacro{loc:bookvol}}%
-}
+}%
 
 % \newbibmacro{titles}[1]{%
 %   \printfield[emphatize]{#1title}%
@@ -291,29 +291,29 @@
 \newbibmacro{titles}[1]{%
   \printtext[emphatize]{%
     \printfield{#1title}%
-    \setunit{\addspcolon\addspace}
+    \setunit{\addspcolon\addspace}%
     \printfield{#1subtitle}%
-    \setunit{\addspace}
-    \printfield{#1addon}}}
+    \setunit{\addspace}%
+    \printfield{#1addon}}}%
 
 % \makeatletter
 % see biblatex2.sty for these macros
 \blx@regimcs{% let biblatex know the new macros
-  \addspsemicolon \addspcolon \addcolon \addspcomma }
+  \addspsemicolon \addspcolon \addcolon \addspcomma }%
 \def\blx@addsppunct#1{% <---- new name for spaced punctuation
   %\unspace <----- commented out
   \ifnum\blx@spacefactor<\blx@sf@threshold@low
     \csuse{blx@qp@#1}\csuse{abx@#1}%
-  \else
+  \else%
     \ifnum\blx@spacefactor>\blx@sf@threshold@high
       \csuse{blx@qp@#1}\csuse{abx@#1}%
-    \else
-      \ifcsdef{blx@pp@\the\csname blx@sf@#1\endcsname @\blx@spacefactor}
-        {\csuse{blx@qp@#1}\csuse{abx@#1}}
-        {\csuse{blx@qp@#1}}%
-    \fi
-  \fi
-  \csuse{blx@pq@#1}}
+    \else%
+      \ifcsdef{blx@pp@\the\csname blx@sf@#1\endcsname @\blx@spacefactor}%
+        {\csuse{blx@qp@#1}\csuse{abx@#1}}%
+        {\csuse{blx@qp@#1}}%%
+    \fi%
+  \fi%
+  \csuse{blx@pq@#1}}%
 % define new macros  
 % \protected\def\blx@imc@addspsemicolon{\blx@addsppunct{semicolon}}
 % \protected\def\blx@imc@addspcomma{\blx@addsppunct{comma}}
@@ -323,12 +323,10 @@
 \AtBeginDocument{%
   \ifthenelse{\boolean{bbx@tcolon}}{%
     \protected\def\blx@imc@addspcolon{\addnbspace\blx@addsppunct{colon}}%
-    \typeout{nemeni colon}
   }{%
     \protected\def\blx@imc@addspcolon{\unspace\blx@addsppunct{colon}}%
-    \typeout{menime colon}
   }%
-}
+}%
 %
 % \protected\def\blx@imc@addspcolon{\blx@addsppunct{colon}}
 % }{}%
@@ -439,7 +437,7 @@
 \setunit{\addspcolon\addspace}%
 \printfield{subtitle}%
 \setunit{\addspace}%
-\printfield{addon}
+\printfield{addon}%
 \newunit\newblock%
 \usebibmacro{jour:title}%
 %\printfield[emphatize]{journaltitle}%%
