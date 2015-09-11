@@ -479,6 +479,8 @@
 \printfield{title}%
 \setunit{\addspcolon\addspace}
 \printfield{subtitle}%
+\setunit{\addspace}
+\printfield{addon}
 \setunit{\addcomma\addspace}%
 \printfield{pages}%
 \newunit\newblock%
@@ -499,7 +501,10 @@
 \usebibmacro{names:primary}%
 \setunit{\labelnamepunct}\newblock%
 \printfield{title}%%
-\printfield[colon]{subtitle}%
+\setunit{\addspcolon\addspace}
+\printfield{subtitle}%
+\setunit{\addspace}
+\printfield{addon}
 \newunit\newblock%
 \usebibmacro{in}%
 \setunit{\addspace}
