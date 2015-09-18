@@ -37,7 +37,7 @@ Usage:
 
 Custom options:
   spacecolon 
-    space before colon in publisher and title:
+    add space before colon in publisher and title:
       [true]  Praha : Academia
       [false] Praha: Academia 
 
