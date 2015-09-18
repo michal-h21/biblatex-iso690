@@ -288,10 +288,12 @@
 %   \printfield[emph-colon]{#1subtitle}%
 %   \printfield[emphatize]{#1addon}%
 % }
+
+\renewcommand*\subtitlepunct{\addspcolon\space}
 \newbibmacro{titles}[1]{%
   \printtext[emphatize]{%
     \printfield{#1title}%
-    \setunit{\addspcolon\addspace}%
+    \setunit{\subtitlepunct}%
     \printfield{#1subtitle}%
     \setunit{\addspace}%
     \printfield{#1addon}}}%
