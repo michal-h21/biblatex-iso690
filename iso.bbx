@@ -71,17 +71,18 @@
 % \newcommand\mainlstring[1]{\bgroup\mainlanguage@n\csuse{abx@lstr@#1}\egroup}
 %\newcommand\mainlstring[1]{\unskip\ignorespaces\expandafter\otherlanguage\expandafter{\bbl@main@language}\unskip\biblstring{#1}\unskip\endotherlanguage\unskip}
 %\newcommand\mainlstring[1]{\blx@bibstring{czech}{abx@lstr}{#1}}
-\newcommand\tcolon{%colon between location and publisher, title and subtitle etc.
-% \def\colo@n{\printtext{:}}%
-\ifthenelse{\boolean{bbx@tcolon}}{\addnbspace}{}:%
-}
+% \newcommand\tcolon{%colon between location and publisher, title and subtitle etc.
+% % \def\colo@n{\printtext{:}}%
+% \ifthenelse{\boolean{bbx@tcolon}}{\addnbspace}{}:%
+% }
 
 
-\renewcommand\subtitlepunct{\tcolon}
+\renewcommand*\subtitlepunct{\addspcolon\space}
 \renewcommand\andmoredelim{}
 \renewcommand\multinamedelim{\addsemicolon\addspace}
 \renewcommand\finalnamedelim{\multinamedelim}
 \renewcommand\andothersdelim{\addspace}
+\renewcommand\intitlepunct{\addspace}
 
 % Thanks Moewew for sugesting this. Make uppercase names only in biblipgraphy.
 % Default name format is ALL-CAPS
@@ -289,7 +290,6 @@
 %   \printfield[emphatize]{#1addon}%
 % }
 
-\renewcommand*\subtitlepunct{\addspcolon\space}
 \newbibmacro{titles}[1]{%
   \printtext[emphatize]{%
     \printfield{#1title}%
@@ -516,7 +516,7 @@
 \printfield{addon}
 \newunit\newblock%
 \usebibmacro{in}%
-\setunit{\addspace}
+\setunit{\intitlepunct}
 \usebibmacro{editor}%
 \newunit\newblock%
 \usebibmacro{pub:title}%
