@@ -116,7 +116,8 @@
 \DeclareFieldFormat*{subtitle}{#1}
 \DeclareFieldFormat*{chapter}{#1}
 \DeclareFieldFormat*{pagetotal}{#1}
-\DeclareFieldFormat*{volume}{\bibsstring{jourvol}\space#1}
+\DeclareFieldFormat{volume}{\bibsstring{volume}~#1}% volume of a book
+\DeclareFieldFormat[article,periodical]{volume}{\bibsstring{jourvol}~#1}% volume of a journal
 \DeclareFieldFormat*{emphatize}{\emph{#1}}
 \DeclareFieldFormat*{edition}{%
   \ifnumeral{#1}%
