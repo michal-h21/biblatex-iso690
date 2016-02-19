@@ -1,25 +1,32 @@
 Style ISO 690 for biblatex
 ==========================
 
-Biblatex is bibliography and citation tool for LaTeX. 
+Biblatex is bibliography and citation tool for LaTeX. This project provides
+support for citations in ISO 690 style.  As the norm is a little bit ambiguous
+in some details regarding formatting of records, we largely follow
+requirements of Czech interpretation, as it is required form in many Czech
+universities. Style can be used in other languages as well, of course.
 
 Install
 -------
 
-Unzip contents of the file biblatex-iso690.zip to your local texmf dir. You can
-find its location with the following command:
+Open the terminal and find location of your TEXMFHOME directory with this command.
 
     kpsewhich -var-value TEXMFHOME
     
-If this directory doesn't exist, you can create it. Also, do not forget about latex 
-directory structure. That means you need to create (if doesn't exist yet), for example, 
-~/texmf/tex/latex/biblatex-iso690 if you use LaTeX. In case you are using XeTeX or 
-LuaTeX you will need to replace /tex/latex by an appropriate path. Afterwards run:
+Open this directory using and check that directory $TEXMFHOME/tex/latex exists.
+If it doesn't exist, you must create it. You can do this from the
+command line or using a file manager.  Open the $TEXMFHOME/tex/latex directory and either
+run command 
 
-    texhash 
+    git clone git@github.com:michal-h21/biblatex-iso690.git
 
-This command rebuilds TeX files database. Now your system should be able 
-to work with biblatex-iso690.
+or unzip file
+
+    https://github.com/michal-h21/biblatex-iso690/archive/master.zip
+
+here. You should be able to use biblatex-iso690 now.
+
 
 
 Usage:
