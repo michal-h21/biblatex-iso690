@@ -1,4 +1,4 @@
-mografie >elektronické
+monografie >elektronické
   autor
   titulek+
     :title
