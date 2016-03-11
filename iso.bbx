@@ -90,9 +90,11 @@
 % \let\lastnameformat=\textsc
 % to change this
 
+\providecommand{\mkbibnamefamily}[1]{#1}
 \newcommand\lastnameformat[1]{\MakeUppercase{#1}}
 \AtBeginBibliography{%
-\renewcommand\mkbibnamelast[1]{\lastnameformat{#1}}%
+  \renewcommand\mkbibnamelast{\lastnameformat}%
+  \renewcommand\mkbibnamefamily{\lastnameformat}%
 }
 
 \defbibenvironment{bibliography}
