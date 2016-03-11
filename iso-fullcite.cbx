@@ -1,7 +1,8 @@
 % Fix for fullcite
 \DeclareCiteCommand{\fullcite}
   {\usebibmacro{prenote}%
-   \renewcommand*\mkbibnamelast{\lastnameformat}}
+   \renewcommand*\mkbibnamelast{\lastnameformat}%
+   \renewcommand*\mkbibnamefamily{\lastnameformat}}
   {\usedriver
      {\DeclareNameAlias{sortname}{default}}
      {\thefield{entrytype}}}
@@ -10,7 +11,8 @@
 
 \DeclareCiteCommand{\footfullcite}[\mkbibfootnote]
   {\usebibmacro{prenote}%
-   \renewcommand*\mkbibnamelast{\textsc}}
+   \renewcommand*\mkbibnamelast{\textsc}%
+   \renewcommand*\mkbibnamefamily{\textsc}}
   {\usedriver
      {\DeclareNameAlias{sortname}{default}}
      {\thefield{entrytype}}}
