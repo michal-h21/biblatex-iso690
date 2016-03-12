@@ -82,7 +82,7 @@
 \renewcommand\multinamedelim{\addsemicolon\addspace}
 \renewcommand\finalnamedelim{\multinamedelim}
 \renewcommand\andothersdelim{\addspace}
-\renewcommand\intitlepunct{\addspace}
+%\renewcommand\intitlepunct{\addspace}
 
 % Thanks Moewew for sugesting this. Make uppercase names only in biblipgraphy.
 % Default name format is ALL-CAPS
@@ -472,27 +472,27 @@
 %\printnames{author}%
 \usebibmacro{bibindex}%
 \usebibmacro{begentry}%
-\printnames{bookauthor}%
-\usebibmacro{year-label}%
+\usebibmacro{names:primary}%
+\setunit{\labelnamepunct}\newblock%
+\printfield{title}%
+\setunit{\addspcolon\addspace}%
+\printfield{subtitle}%
+\setunit{\addspace}%
+\printfield{addon}%
 \newunit\newblock%
-% \printfield{booktitle}%
-% \printfield[emph-colon]{booksubtitle}%
+\usebibmacro{in}%
+\printunit{\intitlepunct}%
+\printnames{bookauthor}%
+\newunit\newblock%
 \usebibmacro{pub:title}%
 \newunit\newblock%
 \usebibmacro{book:vol}%
 \newunit\newblock%
-\printnames{author}%
-\newunit\newblock%
 \usebibmacro{book:pubinfo}%
 \newunit\newblock%
-\printfield{chapter}%
-\setunit*{\addcomma\addspace}%
-\newunit%
-\printfield{title}%
-\setunit{\addspcolon\addspace}
-\printfield{subtitle}%
-\setunit{\addspace}%
-\printfield{addon}%
+%\printfield{chapter}%
+%\setunit*{\addcomma\addspace}%
+%\newunit%
 \setunit{\addcomma\addspace}%
 \printfield{pages}%
 \newunit\newblock%
@@ -502,7 +502,7 @@
 \newunit\newblock%
 \printfield{isbn}%
 \newunit\newblock%
-\setunit{\bibpagerefpunct}\newblock%                  
+\setunit{\bibpagerefpunct}\newblock%
 \usebibmacro{pageref}%
 \usebibmacro{finentry}}%
 
