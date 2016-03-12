@@ -154,6 +154,7 @@
 \def\addhyphen{\printtext{-}}%
 \DeclareFieldFormat{urldate}{\printfield{urlyear}\addhyphen\printfield{urlmonth}\addhyphen\printfield{urlday}}%
 
+\DeclareFieldFormat{chapter}{\bibstring{chapter}~#1\isdot}
 
 %\DeclareNameFormat{default}{%
 %\nameprint{#1}{#3}
@@ -490,9 +491,9 @@
 \newunit\newblock%
 \usebibmacro{book:pubinfo}%
 \newunit\newblock%
-%\printfield{chapter}%
+\printfield{chapter}%
 %\setunit*{\addcomma\addspace}%
-%\newunit%
+\newunit%
 \setunit{\addcomma\addspace}%
 \printfield{pages}%
 \newunit\newblock%
