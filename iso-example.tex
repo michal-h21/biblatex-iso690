@@ -18,6 +18,7 @@
   ,babel=other
   ,sortlocale=cs_CZ
   ,bibencoding=UTF8
+  ,spacecolon=true
   %,block=ragged
 ]{biblatex}
 \bibliography{mybib}
@@ -27,7 +28,7 @@
   url={https://github.com/michal-h21/biblatex-iso690},
   author={Michal Hoftich},
   email={michal.h21@gmail.com},
-  revision={},
+  revision={0.2.1},
   date={\today}}
 
 \begin{document}
@@ -39,6 +40,10 @@ systém \LaTeX. Vychází ze staršího systému \t|bibtex| a nahrazuje ho.
 \t|biblatex-iso| je styl pro \t|biblatex|, který umožňuje citovat literaturu
 podle normy \t|ISO 690|, doporučenou pro použití v českých vysokoškolských
 kvalifikačních pracích \parencite{t00}.
+
+\section{Poděkování}
+
+Na vývoji stylu spolupracovali Johaness Bötchner, Moewew, Dávid Lupták a další.
 
 \section{Použití}
 \begin{verbatim}
@@ -202,6 +207,11 @@ Podle normy se mají některé údaje v bibliografických záznamech uvádět v 
 
 \section{Historie změn}
 \begin{changelog}
+\begin{release}{0.2.1}{2016-03-13}
+\item Vyřešeny problémy s interpunkcí a nadbytečnými mezerami
+\item Řešení kompatibility se současnou verzí Biblatexu
+\item Přepracován formát pro \verb|inbook|
+\end{release}
 \begin{release}{0.2}{2015-03-25}
 \item Nakumulované změny za čtyři roky
 \item Vyřešen problém s mezerami u tisku řetězců v jazyce dokumentu
