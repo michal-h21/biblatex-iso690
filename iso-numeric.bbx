@@ -1,15 +1,16 @@
-\ProvidesFile{iso-numeric.bbx}[2011/06/08]
+\ProvidesFile{iso-numeric.bbx}[2016/03/12]
 
 \newbibmacro*{year-label}{}%
 \DeclareFieldFormat{labelnumberwidth}{#1\adddot}
 
 \newcommand\MethodFormat{%
-      \printtext[labelnumberwidth]{%
-    	\printfield{prefixnumber}%
-    	\printfield{labelnumber}}%
-    }%
-    \ExecuteBibliographyOptions{%
-       sorting=none
-      ,labelnumber
-    }
+  \printtext[labelnumberwidth]{%
+    \iffieldundef{labelprefix}{\printfield{prefixnumber}}{\printfield{labelprefix}}%
+    \printfield{labelnumber}}%
+}%
+
+\ExecuteBibliographyOptions{%
+   sorting=none
+  ,labelnumber
+}
 \RequireBibliographyStyle{iso}
