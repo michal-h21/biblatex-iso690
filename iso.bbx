@@ -82,7 +82,7 @@
 \renewcommand\multinamedelim{\addsemicolon\addspace}
 \renewcommand\finalnamedelim{\multinamedelim}
 \renewcommand\andothersdelim{\addspace}
-\renewcommand\intitlepunct{\addspace}
+%\renewcommand\intitlepunct{\addspace}
 
 % Thanks Moewew for sugesting this. Make uppercase names only in biblipgraphy.
 % Default name format is ALL-CAPS
@@ -154,6 +154,7 @@
 \def\addhyphen{\printtext{-}}%
 \DeclareFieldFormat{urldate}{\printfield{urlyear}\addhyphen\printfield{urlmonth}\addhyphen\printfield{urlday}}%
 
+\DeclareFieldFormat{chapter}{\bibstring{chapter}~#1\isdot}
 
 %\DeclareNameFormat{default}{%
 %\nameprint{#1}{#3}
@@ -472,29 +473,31 @@
 %\printnames{author}%
 \usebibmacro{bibindex}%
 \usebibmacro{begentry}%
-\printnames{bookauthor}%
-\usebibmacro{year-label}%
+\usebibmacro{names:primary}%
+\setunit{\labelnamepunct}\newblock%
+\printfield{title}%
+\setunit{\addspcolon\addspace}%
+\printfield{subtitle}%
+\setunit{\addspace}%
+\printfield{addon}%
 \newunit\newblock%
-% \printfield{booktitle}%
-% \printfield[emph-colon]{booksubtitle}%
+\usebibmacro{in}%
+\printunit{\intitlepunct}%
+\printnames{bookauthor}%
+\newunit\newblock%
 \usebibmacro{pub:title}%
 \newunit\newblock%
 \usebibmacro{book:vol}%
 \newunit\newblock%
-\printnames{author}%
-\newunit\newblock%
 \usebibmacro{book:pubinfo}%
 \newunit\newblock%
 \printfield{chapter}%
-\setunit*{\addcomma\addspace}%
+%\setunit*{\addcomma\addspace}%
 \newunit%
-\printfield{title}%
-\setunit{\addspcolon\addspace}
-\printfield{subtitle}%
-\setunit{\addspace}%
-\printfield{addon}%
 \setunit{\addcomma\addspace}%
 \printfield{pages}%
+\newunit\newblock%
+\printfield{series}%
 \newunit\newblock%
 \printfield{note}%
 \newunit\newblock%
@@ -502,7 +505,7 @@
 \newunit\newblock%
 \printfield{isbn}%
 \newunit\newblock%
-\setunit{\bibpagerefpunct}\newblock%                  
+\setunit{\bibpagerefpunct}\newblock%
 \usebibmacro{pageref}%
 \usebibmacro{finentry}}%
 
