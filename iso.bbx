@@ -82,7 +82,6 @@
 \renewcommand\multinamedelim{\addsemicolon\addspace}
 \renewcommand\finalnamedelim{\multinamedelim}
 \renewcommand\andothersdelim{\addspace}
-%\renewcommand\intitlepunct{\addspace}
 
 % Thanks Moewew for sugesting this. Make uppercase names only in biblipgraphy.
 % Default name format is ALL-CAPS
@@ -362,12 +361,6 @@
 \DeclareFieldFormat{booksubtitle}{#1}
 \DeclareFieldFormat{mainsubtitle}{#1}
 
-\newbibmacro{in}{%
-	\mainsstring{in}%
-%\addspace%
-}
-
-
 \newbibmacro*{finentry}{\finentry}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -483,8 +476,7 @@
 \setunit{\addspace}%
 \printfield{addon}%
 \newunit\newblock%
-\usebibmacro{in}%
-\printunit{\intitlepunct}%
+\usebibmacro{in:}%
 \printnames{bookauthor}%
 \newunit\newblock%
 \usebibmacro{pub:title}%
@@ -523,8 +515,7 @@
 \setunit{\addspace}%
 \printfield{addon}%
 \newunit\newblock%
-\usebibmacro{in}%
-\printunit{\intitlepunct}%
+\usebibmacro{in:}%
 \usebibmacro{editor}%
 \newunit\newblock%
 \usebibmacro{pub:title}%
