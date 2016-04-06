@@ -361,6 +361,15 @@
 \DeclareFieldFormat{booksubtitle}{#1}
 \DeclareFieldFormat{mainsubtitle}{#1}
 
+% redeclare in: bibmacro to use the main document language.
+% there was discussion whether literal "In:" should be used,
+% but that would look weird in non-latin languages.
+% context: https://github.com/michal-h21/biblatex-iso690/pull/33
+
+\renewbibmacro*{in:}{%
+  \printtext{\mainsstring{in}\intitlepunct}%
+}
+
 \newbibmacro*{finentry}{\finentry}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
