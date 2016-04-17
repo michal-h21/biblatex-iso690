@@ -248,6 +248,8 @@
   }%
 }%
 
+% we can reset this macro in author year style so we don't print year twice
+% in reference
 % see section 4.2.4.3 of biblatex manual for details
 \newbibmacro*{date-urldate}{%
   \usebibmacro{date}
@@ -256,10 +258,6 @@
   {\setunit*{\addspace}%
   \usebibmacro{urldate}}
 }%
-
-% we can reset this macro in author year style so we don't print year twice in 
-% reference
-\newbibmacro{journal-year}{\printfield{year}}
 
 \newbibmacro{pagecount}{%
 \iffieldundef{pagetotal}{}%
