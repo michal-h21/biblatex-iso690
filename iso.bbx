@@ -40,6 +40,7 @@
 	,citetracker=true
   %,babel=other
   %,method=authoryear
+  ,date=year
   ,urldate=iso8601
 }
 \newbibmacro*{begentry}{}
@@ -148,8 +149,7 @@
 \renewcommand*{\do}[1]{\printtext{ISSN}\addnbspace#1\adddot\addspace}%
 \docsvfield{issn}}%
 
-\def\addhyphen{\printtext{-}}%
-\DeclareFieldFormat{urldate}{\printfield{urlyear}\addhyphen\printfield{urlmonth}\addhyphen\printfield{urlday}}%
+\DeclareFieldFormat{urldate}{\mkbibbrackets{\mainsstring{urlseen}\space#1}}
 
 \DeclareFieldFormat{chapter}{\bibstring{chapter}~#1\isdot}
 
@@ -248,27 +248,13 @@
   }%
 }%
 
-%prefix - url, orig ,...; separator
-%\newbibmacro*{isodate}[2]{%
-%\printfield{#1day}\printtext{#2}\nopunct
-%\printfield{#1month}\printtext{#2}\nopunct
-%\printfield{#1year}\nopunct
-%}
+% see section 4.2.4.3 of biblatex manual for details
 \newbibmacro*{date-urldate}{%
-  \iffieldundef{date}%
-  {\printfield{year}}%
-  {\printfield{date}}%
-  \usebibmacro{urldate}
-}%
-\newbibmacro*{urldate}{%
-  \iffieldundef{urlyear}{}%
-  {\addspace\printtext[sbrackets]{%
-    %\printtext{cit.}%
-    \mainsstring{urlseen}%
-    \addspace%
-    \printurldate%
-    %\usebibmacro{isodate}{url}{-}\nopunct%
-  }}%\printtext{.}}%hack. otherwise there will be no dot between this and next field
+  \usebibmacro{date}
+  \iffieldundef{urlyear}
+  {}
+  {\setunit*{\addspace}%
+  \usebibmacro{urldate}}
 }%
 
 % we can reset this macro in author year style so we don't print year twice in 
