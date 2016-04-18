@@ -480,12 +480,12 @@
 \usebibmacro{book:vol}%
 \newunit\newblock%
 \usebibmacro{book:pubinfo}%
+\setunit*{\addcomma\addspace}%
+\printfield{pages}%
 \newunit\newblock%
 \printfield{chapter}%
 %\setunit*{\addcomma\addspace}%
-\newunit%
-\setunit{\addcomma\addspace}%
-\printfield{pages}%
+% \newunit%
 \newunit\newblock%
 \printfield{series}%
 \newunit\newblock%
@@ -519,8 +519,10 @@
 \usebibmacro{book:vol}%
 \newunit\newblock%
 \usebibmacro{book:pubinfo}%
-\newunit\newblock%
-\printfield{number}%
+% could number be even used in `incollection`? 
+% It should be at some other place in this case
+% \newunit\newblock%
+% \printfield{number}%
 %\newunit\newblock
 \setunit*{\addcomma\addspace}%
 \printfield{pages}%
