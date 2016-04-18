@@ -259,6 +259,9 @@
   \usebibmacro{urldate}}
 }%
 
+% We should reset this macro in iso-authoreyear as well
+\newbibmacro*{article-date}{\usebibmacro{date}}
+
 \newbibmacro{pagecount}{%
 \iffieldundef{pagetotal}{}%
 {\printfield{pagetotal}\usebibmacro{loc:pages}}%
@@ -434,16 +437,18 @@
 \newunit\newblock%
 \usebibmacro{book:vol}%
 \newunit\newblock%
-\usebibmacro{book:pubinfo}%
+% \usebibmacro{book:pubinfo}%
 %\printfield{year}%
+\usebibmacro{article-date}
 %\usebibmacro{date-urldate}%
 \setunit*{\addcomma\addspace}%
 \printfield{volume}%
 \setunit*{\addcomma\addspace}%
 \printfield{number}%
-%\usebibmacro{urldate}%
 \setunit*{\addcomma\addspace}%
 \printfield{pages}%
+\setunit*{\addspace}%
+\usebibmacro{urldate}%
 \newunit\newblock%
 \printfield{issn}%
 \newunit\newblock%
