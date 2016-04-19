@@ -115,7 +115,6 @@
 \DeclareFieldFormat*{title}{#1}
 \DeclareFieldFormat*{subtitle}{#1}
 \DeclareFieldFormat*{chapter}{#1}
-\DeclareFieldFormat*{pagetotal}{#1}
 \DeclareFieldFormat{volume}{\bibsstring{volume}~#1}% volume of a book
 \DeclareFieldFormat[article,periodical]{volume}{\bibsstring{jourvol}~#1}% volume of a journal
 \DeclareFieldFormat*{emphatize}{\emph{#1}}
@@ -128,7 +127,8 @@
     %    \ifstrequal{#1}{third}{\mkbibordedition{3}}{
     \MakeCapital{#1}}%}}%
 }%
-\DeclareFieldFormat*{pages}{\mainsstring{pages}\space\printtext{#1}}
+\DeclareFieldFormat*{pages}{\mkmlpageprefix[bookpagination]{#1}}
+\DeclareFieldFormat*{pagetotal}{\mkmlpagetotal[bookpagination]{#1}}
 \DeclareFieldFormat*{number}{\bibsstring{number}\addspace\printtext{#1}}
 \DeclareFieldFormat*{url}{\url{#1}}
 \DeclareFieldFormat*{doi}{\url{http://dx.doi.org/#1}}
@@ -262,10 +262,6 @@
 % We should reset this macro in iso-authoreyear as well
 \newbibmacro*{article-date}{\usebibmacro{date}}
 
-\newbibmacro{pagecount}{%
-\iffieldundef{pagetotal}{}%
-{\printfield{pagetotal}\usebibmacro{loc:pages}}%
-}%
 \newbibmacro{book:vol}{%
 	\printfield{edition}%
 	%\iffieldundef{edition}{}%
@@ -358,10 +354,73 @@
 \newbibmacro*{finentry}{\finentry}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Localisation macros
-\newbibmacro{loc:pages}{\addnbspace\mainsstring{pages}}%\printtext{s}}
+% overriding bookpagination to use document main language
 
-%\newbibmacro{loc:bookvol}{\addnbspace\bibsstring{edition}}
+\newrobustcmd*{\blx@imc@mkmlpagetotal}[1][bookpagination]{%
+  \begingroup
+  \def\blx@tempa{\blx@mkmlpagetotal{page}}%
+  \iffieldundef{#1}
+    {}
+    {\iffieldequalstr{#1}{none}
+       {\def\blx@tempa{\blx@mkmlpagetotal@i}}
+       {\iffieldbibstring{#1}
+          {\edef\blx@tempa{\blx@mkmlpagetotal{\thefield{#1}}}}
+          {\blx@warning@entry{%
+             Unknown pagination type '\strfield{#1}'}}}}%
+  \@ifnextchar[%]
+    {\blx@tempa}
+    {\blx@tempa[\@firstofone]}}
+
+\protected\long\def\blx@mkmlpagetotal#1[#2]#3{%
+  \ifnumeral{#3}
+    {\setbox\@tempboxa=\hbox{%
+       \blx@tempcnta0#3\relax
+       \ifnum\blx@tempcnta=\@ne
+         \aftergroup\@firstoftwo
+       \else
+         \aftergroup\@secondoftwo
+       \fi}%
+     {#2{#3}\ppspace\mainsstring{#1}}
+     {#2{#3}\ppspace\mainsstring{#1s}}}
+    {\def\pno{\mainsstring{#1}}%
+     \def\ppno{\mainsstring{#1s}}%
+     #2{#3}}%
+  \endgroup}
+
+\long\def\blx@mkmlpagetotal@i[#1]#2{#1{#2}\endgroup}
+
+\blx@regimcs{\mkmlpagetotal}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% overriding pagination to use document main language
+
+\newrobustcmd*{\blx@imc@mkmlpageprefix}[1][pagination]{%
+  \begingroup
+  \def\blx@tempa{\blx@mkmlpageprefix{page}}%
+  \iffieldundef{#1}
+    {}
+    {\iffieldequalstr{#1}{none}
+       {\def\blx@tempa{\blx@mkmlpageprefix@i}}
+       {\iffieldbibstring{#1}
+          {\edef\blx@tempa{\blx@mkmlpageprefix{\thefield{#1}}}}
+          {\blx@warning@entry{%
+             Unknown pagination type '\strfield{#1}'}}}}%
+  \@ifnextchar[%]
+    {\blx@tempa}
+    {\blx@tempa[\@firstofone]}}
+
+\protected\long\def\blx@mkmlpageprefix#1[#2]#3{%
+  \ifnumeral{#3}
+    {\mainsstring{#1}\ppspace}
+    {\ifnumerals{#3}
+       {\mainsstring{#1s}\ppspace}
+       {\def\pno{\mainsstring{#1}}%
+        \def\ppno{\mainsstring{#1s}}}}%
+  \blx@mkmlpageprefix@i[#2]{#3}}
+
+\long\def\blx@mkmlpageprefix@i[#1]#2{#1{#2}\endgroup}
+
+\blx@regimcs{\mkmlpageprefix}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -377,7 +436,7 @@
 \newunit\newblock%
 \usebibmacro{book:pubinfo}%
 \newunit\newblock%
-\usebibmacro{pagecount}%
+\printfield{pagetotal}%
 \newunit\newblock%
 \printfield{series}%
 \newunit\newblock%
@@ -553,7 +612,7 @@
 \newunit\newblock%
 \usebibmacro{book:pubinfo}%
 \newunit\newblock%
-\usebibmacro{pagecount}%
+\printfield{pagetotal}%
 \newunit\newblock%
 \printfield{series}%
 \newunit\newblock%
