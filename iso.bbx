@@ -130,7 +130,11 @@
 }%
 \DeclareFieldFormat*{pages}{\mainsstring{pages}\space\printtext{#1}}
 \DeclareFieldFormat*{number}{\bibsstring{number}\addspace\printtext{#1}}
-\DeclareFieldFormat*{url}{\url{#1}}
+\DeclareFieldFormat*{url}{%
+  \iffieldundef{urlyear}
+  {\mainlstring{urlalso}\addcolon\space\url{#1}}
+  {\mainlstring{urlfrom}\addcolon\space\url{#1}}
+}
 \DeclareFieldFormat*{doi}{\url{http://dx.doi.org/#1}}
 
 \DeclareFieldFormat{sbrackets}{[#1]}
@@ -230,28 +234,23 @@
   \printtext{#1}\setunit*{\addcolon\addspace}%\printtext[rbrackets]{#2}%
 }%
 \newbibmacro{print-online}{%
-  \printtext[rbrackets]{%
-    \usebibmacro{online-test}{}{%
-      \iffieldundef{url}{%
-        \printfield{doi}%
-        \printfield{eprint}%
-      }%
-      {\printfield{url}}%
+  \usebibmacro{online-test}
+  {}
+  {\iffieldundef{url}
+    {
+      \printfield{doi}%
+      \printfield{eprint}%
     }%
+    {\printfield{url}}%
   }%
 }%
-
-\newbibmacro{urlinfo}{%
-  \iffieldundef{urlyear}{\mainlstring{urlalso}}{\mainlstring{url}}%
-}%
-
 
 \newbibmacro{availability}{%
   % test for url, eprint and doi fields
   \usebibmacro{online-test}%
   {}%
   {\iffieldundef{howpublished}% when some of them is used
-    {\usebibmacro{comment+link}{\usebibmacro{urlinfo}}\usebibmacro{print-online}}%
+    {\usebibmacro{print-online}}%
     {\usebibmacro{comment+link}{\printfield{howpublished}\usebibmacro{print-online}}}%
   }%
 }%
@@ -567,8 +566,8 @@
 \newunit\newblock%
 \printfield{isbn}%
 \newunit\newblock%
-%\usebibmacro{availability}%
-\usebibmacro{comment+link}{\mainlstring{url}}\usebibmacro{print-online}%
+\usebibmacro{availability}%
+%\usebibmacro{comment+link}{\mainlstring{url}}\usebibmacro{print-online}%
 \newunit\newblock%
 \printfield{note}%
 \newunit\newblock%
