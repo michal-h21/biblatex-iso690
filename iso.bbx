@@ -129,7 +129,8 @@
     %    \ifstrequal{#1}{third}{\mkbibordedition{3}}{
     \MakeCapital{#1}}%}}%
 }%
-\DeclareFieldFormat*{pages}{\mkmlpageprefix[bookpagination]{#1}}
+% \DeclareFieldFormat*{pages}{\mkmlpageprefix[bookpagination]{#1}}
+\DeclareFieldFormat*{pages}{\mainsstring{pages}\addspace\printtext{#1}}
 \DeclareFieldFormat*{pagetotal}{\mkmlpagetotal[bookpagination]{#1}}
 \DeclareFieldFormat*{number}{\bibsstring{number}\addspace\printtext{#1}}
 \DeclareFieldFormat*{url}{\url{#1}}
