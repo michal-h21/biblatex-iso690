@@ -36,7 +36,7 @@ Usage:
 \usepackage[
    backend=biber      % if we want unicode 
   ,style=iso-authoryear % or iso-numeric for numeric citation method          
-  ,babel=other        % to support multiple languages in bibliography
+  ,autolang=other     % to support multiple languages in bibliography
   ,sortlocale=cs_CZ   % locale of main language, it is for sorting
   ,bibencoding=UTF8   % this is necessary only if bibliography file is in different encoding than main document
 ]{biblatex}
