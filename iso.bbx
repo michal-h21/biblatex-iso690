@@ -163,6 +163,14 @@
 
 \DeclareNameAlias{default}{last-first}
 
+\newbibmacro*{numeration}{%
+  \printfield{volume}%
+  \setunit*{\addcomma\addspace}%
+  \printfield{number}%
+  \setunit*{\addcomma\addspace}%
+  \printfield{chapter}%
+}
+
 \newbibmacro*{book:pubinfo}{%
   %\iflistundef{location}{\printtext[colon]{\printlist{publisher}}}{%
   \iflistundef{publisher}{}{\printlist{location}\setunit{}}%
@@ -501,9 +509,7 @@
 \usebibmacro{article-date}
 %\usebibmacro{date-urldate}%
 \setunit*{\addcomma\addspace}%
-\printfield{volume}%
-\setunit*{\addcomma\addspace}%
-\printfield{number}%
+\usebibmacro{numeration}%
 \setunit*{\addcomma\addspace}%
 \printfield{pages}%
 \setunit*{\addspace}%
@@ -540,9 +546,9 @@
 \newunit\newblock%
 \usebibmacro{book:pubinfo}%
 \setunit*{\addcomma\addspace}%
+\usebibmacro{numeration}%
+\setunit*{\addcomma\addspace}%
 \printfield{pages}%
-\newunit\newblock%
-\printfield{chapter}%
 %\setunit*{\addcomma\addspace}%
 % \newunit%
 \newunit\newblock%
@@ -583,6 +589,8 @@
 % \newunit\newblock%
 % \printfield{number}%
 %\newunit\newblock
+\setunit*{\addcomma\addspace}%
+\usebibmacro{numeration}%
 \setunit*{\addcomma\addspace}%
 \printfield{pages}%
 %\usebibmacro{pagecount}%
