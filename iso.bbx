@@ -8,6 +8,8 @@
 \newboolean{bbx@tcolon}
 \DeclareBibliographyOption{spacecolon}[true]{\setboolean{bbx@tcolon}{#1}\typeout{Nastavuju: #1}}
 
+\newboolean{bbx@totalpages}
+\DeclareBibliographyOption{pagetotal}[false]{\setboolean{bbx@totalpages}{#1}}
 
 % \newboolean{cbx@numeric}
 % \setboolean{cbx@numeric}{false}
@@ -183,6 +185,7 @@
   }%
   %\printlist{publisher}%
   \setunit*{\addcomma\addspace}%
+  \usebibmacro{totalpages}%
   \usebibmacro{date-urldate}%
 }%
 
@@ -312,6 +315,7 @@
 % \protected\def\blx@imc@addspsemicolon{\blx@addsppunct{semicolon}}
 % \protected\def\blx@imc@addspcomma{\blx@addsppunct{comma}}
 
+  \newbibmacro{totalpages}{}
 % declare new punctation
 % We must test for colonspace option at begin document
 \AtBeginDocument{%
@@ -320,6 +324,14 @@
   }{%
     \protected\def\blx@imc@addspcolon{\unspace\blx@addsppunct{colon}}%
   }%
+  \ifthenelse{\boolean{bbx@totalpages}}{%
+    \renewbibmacro{totalpages}{%
+      \iffieldundef{pagetotal}{}{%
+        \printfield{pagetotal}%
+        \setunit*{\addspace}%
+      }
+    }
+  }{}%
 }%
 %
 % \protected\def\blx@imc@addspcolon{\blx@addsppunct{colon}}
@@ -648,7 +660,7 @@
 \DeclareBibliographyAlias{reference}{collection}
 \DeclareBibliographyAlias{inreference}{incollection}
 \DeclareBibliographyAlias{report}{book}
-\DeclareBibliographyAlias{thesis}{book}
+% \DeclareBibliographyAlias{thesis}{book}
 \DeclareBibliographyAlias{unpublished}{book}
 \DeclareBibliographyAlias{patent}{book}
 \endinput
