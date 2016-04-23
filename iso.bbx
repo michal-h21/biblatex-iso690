@@ -4,9 +4,10 @@
 \NewBibliographyString{urlalso,urlcomercial}
 %options
 
-%switch space before colon in titles etc.
-\newboolean{bbx@tcolon}
-\DeclareBibliographyOption{spacecolon}[true]{\setboolean{bbx@tcolon}{#1}\typeout{Nastavuju: #1}}
+\newtoggle{bbx:spcolon}
+\DeclareBibliographyOption{spacecolon}[true]{%
+  \settoggle{bbx:spcolon}{#1}%
+  \typeout{Space colon enabled: #1}}
 
 \newboolean{bbx@totalpages}
 \DeclareBibliographyOption{pagetotal}[false]{\setboolean{bbx@totalpages}{#1}}
@@ -35,7 +36,7 @@
 % }
 
 \ExecuteBibliographyOptions{%
-  %spacecolon=true
+  spacecolon=false
    %sorting=nyt
   ,maxnames=9
   ,minnames=1
@@ -80,9 +81,15 @@
 % }
 
 
-\renewcommand*\subtitlepunct{\addspcolon\space}
+\renewcommand*\subtitlepunct{\addspacecolon\addspace}
 \renewcommand\multinamedelim{\addsemicolon\addspace}
 \renewcommand\finalnamedelim{\multinamedelim}
+
+\newcommand\addspacecolon{%
+  \iftoggle{bbx:spcolon}
+    {\addnbspace\blx@addsppunct{colon}}
+    {\unspace\blx@addsppunct{colon}}
+}
 
 % Thanks Moewew for sugesting this. Make uppercase names only in biblipgraphy.
 % Default name format is ALL-CAPS
@@ -182,7 +189,7 @@
   %}
   \iflistundef{location}{\setunit{\adddot\addspace}}{%
     % \iflistundef{publisher}{}{\printtext[colon]{\printlist{publisher}}}%
-    \iflistundef{publisher}{}{\setunit{\addspcolon\addspace}\printlist{publisher}}%
+    \iflistundef{publisher}{}{\setunit{\subtitlepunct}\printlist{publisher}}%
   }%
   %\printlist{publisher}%
   \setunit*{\addcomma\addspace}%
@@ -294,10 +301,9 @@
     \setunit{\addspace}%
     \printfield{#1addon}}}%
 
-% \makeatletter
 % see biblatex2.sty for these macros
 \blx@regimcs{% let biblatex know the new macros
-  \addspsemicolon \addspcolon \addcolon \addspcomma }%
+  \addspcolon }%
 \def\blx@addsppunct#1{% <---- new name for spaced punctuation
   %\unspace <----- commented out
   \ifnum\blx@spacefactor<\blx@sf@threshold@low
@@ -312,19 +318,16 @@
     \fi%
   \fi%
   \csuse{blx@pq@#1}}%
-% define new macros  
-% \protected\def\blx@imc@addspsemicolon{\blx@addsppunct{semicolon}}
-% \protected\def\blx@imc@addspcomma{\blx@addsppunct{comma}}
 
   \newbibmacro{totalpages}{}
 % declare new punctation
 % We must test for colonspace option at begin document
 \AtBeginDocument{%
-  \ifthenelse{\boolean{bbx@tcolon}}{%
-    \protected\def\blx@imc@addspcolon{\addnbspace\blx@addsppunct{colon}}%
-  }{%
-    \protected\def\blx@imc@addspcolon{\unspace\blx@addsppunct{colon}}%
-  }%
+  % \ifthenelse{\boolean{bbx@tcolon}}{%
+  %   \protected\def\blx@imc@addspcolon{\addnbspace\blx@addsppunct{colon}}%
+  % }{%
+  %   \protected\def\blx@imc@addspcolon{\unspace\blx@addsppunct{colon}}%
+  % }%
   \ifthenelse{\boolean{bbx@totalpages}}{%
     \renewbibmacro{totalpages}{%
       \iffieldundef{pagetotal}{}{%
@@ -334,10 +337,6 @@
     }
   }{}%
 }%
-%
-% \protected\def\blx@imc@addspcolon{\blx@addsppunct{colon}}
-% }{}%
-% \makeatother
 
 \newbibmacro{pub:title}{%
  \iffieldundef{maintitle}{%
@@ -507,7 +506,7 @@
 % \printfield{title}%
 % \printfield[colon]{subtitle}%
 \printfield{title}%
-\setunit{\addspcolon\addspace}%
+\setunit{\subtitlepunct}%
 \printfield{subtitle}%
 \setunit{\addspace}%
 \printfield{addon}%
@@ -545,7 +544,7 @@
 \usebibmacro{names:primary}%
 \setunit{\labelnamepunct}\newblock%
 \printfield{title}%
-\setunit{\addspcolon\addspace}%
+\setunit{\subtitlepunct}%
 \printfield{subtitle}%
 \setunit{\addspace}%
 \printfield{addon}%
@@ -584,7 +583,7 @@
 \usebibmacro{names:primary}%
 \setunit{\labelnamepunct}\newblock%
 \printfield{title}%
-\setunit{\addspcolon\addspace}%
+\setunit{\subtitlepunct}%
 \printfield{subtitle}%
 \setunit{\addspace}%
 \printfield{addon}%
