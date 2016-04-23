@@ -9,8 +9,10 @@
   \settoggle{bbx:spcolon}{#1}%
   \typeout{Space colon enabled: #1}}
 
-\newboolean{bbx@totalpages}
-\DeclareBibliographyOption{pagetotal}[false]{\setboolean{bbx@totalpages}{#1}}
+\newtoggle{bbx:totalpages}
+\DeclareBibliographyOption{pagetotal}[true]{%
+  \settoggle{bbx:totalpages}{#1}%
+  \typeout{Showing total pages enabled: #1}}
 
 % \newboolean{cbx@numeric}
 % \setboolean{cbx@numeric}{false}
@@ -37,6 +39,7 @@
 
 \ExecuteBibliographyOptions{%
   spacecolon=false
+  ,pagetotal=false
    %sorting=nyt
   ,maxnames=9
   ,minnames=1
@@ -181,6 +184,15 @@
   \printfield{chapter}%
 }
 
+\newbibmacro{totalpages}{%
+  \iftoggle{bbx:totalpages}
+    {\iffieldundef{pagetotal}
+      {}
+      {\printfield{pagetotal}%
+       \setunit*{\addspace}}}
+    {}
+}
+
 \newbibmacro*{book:pubinfo}{%
   %\iflistundef{location}{\printtext[colon]{\printlist{publisher}}}{%
   \iflistundef{publisher}{}{\printlist{location}\setunit{}}%
@@ -193,8 +205,9 @@
   }%
   %\printlist{publisher}%
   \setunit*{\addcomma\addspace}%
-  \usebibmacro{totalpages}%
   \usebibmacro{date-urldate}%
+  \newunit%
+  \usebibmacro{totalpages}%
 }%
 
 \newbibmacro*{names:primary}{%
@@ -318,25 +331,6 @@
     \fi%
   \fi%
   \csuse{blx@pq@#1}}%
-
-  \newbibmacro{totalpages}{}
-% declare new punctation
-% We must test for colonspace option at begin document
-\AtBeginDocument{%
-  % \ifthenelse{\boolean{bbx@tcolon}}{%
-  %   \protected\def\blx@imc@addspcolon{\addnbspace\blx@addsppunct{colon}}%
-  % }{%
-  %   \protected\def\blx@imc@addspcolon{\unspace\blx@addsppunct{colon}}%
-  % }%
-  \ifthenelse{\boolean{bbx@totalpages}}{%
-    \renewbibmacro{totalpages}{%
-      \iffieldundef{pagetotal}{}{%
-        \printfield{pagetotal}%
-        \setunit*{\addspace}%
-      }
-    }
-  }{}%
-}%
 
 \newbibmacro{pub:title}{%
  \iffieldundef{maintitle}{%
