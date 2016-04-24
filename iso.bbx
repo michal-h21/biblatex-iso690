@@ -141,6 +141,12 @@
     {\href{http://dx.doi.org/#1}{\nolinkurl{#1}}}
     {\nolinkurl{#1}}
 }
+\DeclareFieldFormat{howpublished}{\mkbibbrackets{#1}}
+\DeclareFieldFormat[online]{howpublished}{%
+  \iffieldundef{howpublished}
+    {\mkbibbrackets{online}}
+    {\mkbibbrackets{#1}}
+}
 
 \DeclareFieldFormat{sbrackets}{[#1]}
 %\DeclareFieldFormat{rbrackets}{\printtext{$\langle$}#1\printtext{$\rangle$}}
@@ -230,11 +236,13 @@
 %   {#2}%
 % }%
 
-\newbibmacro*{online}{%
-  %\def\online{}%
-  \iffieldundef{urlyear}{}{\printtext[sbrackets]{online}}%
-  %\usebibmacro{online-test}{}{\online}%
-}%
+\newbibmacro*{medium-type}{%
+  \iffieldundef{howpublished}
+    {\iffieldundef{urlyear}
+      {}
+      {\printtext{\mkbibbrackets{online}}}}
+    {\printfield{howpublished}}
+}
 
 % \newbibmacro{comment+link}[1]{%
 %   \printtext{#1}\setunit*{\addcolon\addspace}%\printtext[rbrackets]{#2}%
@@ -361,11 +369,11 @@
  }{%
   \usebibmacro{titles}{main}%
  }%
- \usebibmacro{online}%
+ \usebibmacro{medium-type}%
 }%
 \newbibmacro{jour:title}{%
 \usebibmacro{titles}{journal}%
-\usebibmacro{online}%
+\usebibmacro{medium-type}%
 }
 
 \DeclareFieldFormat{journaltitle}{#1}
