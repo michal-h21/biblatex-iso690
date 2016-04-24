@@ -164,6 +164,11 @@
 \renewcommand*{\do}[1]{\printtext{ISSN}\addnbspace#1\adddot\addspace}%
 \docsvfield{issn}}%
 
+\DeclareFieldFormat{isan}{\printtext{ISAN}\addnbspace#1}
+\DeclareFieldFormat{ismn}{\printtext{ISMN}\addnbspace#1}
+\DeclareFieldFormat{isrn}{\printtext{ISRN}\addnbspace#1}
+\DeclareFieldFormat{iswc}{\printtext{ISWC}\addnbspace#1}
+
 \DeclareFieldFormat{urldate}{\mkbibbrackets{\mainsstring{urlseen}\space#1}}
 
 \DeclareFieldFormat{chapter}{\bibstring{chapter}~#1\isdot}
@@ -283,6 +288,21 @@
        {\printfield{url}}
        {\usebibmacro{from-eprint}}}
     {\usebibmacro{from-doi}}
+}
+
+\newbibmacro*{identifier}{%
+  \printfield{isan}%
+  \newunit%
+  \printfield{isbn}%
+  \newunit%
+  \printfield{ismn}%
+  \newunit%
+  \printfield{isrn}%
+  \newunit%
+  \printfield{issn}%
+  \newunit%
+  \printfield{iswc}%
+  \newunit%
 }
 
 % we can reset this macro in author year style so we don't print year twice
@@ -418,7 +438,7 @@
 \newunit\newblock%
 \printfield{series}%
 \newunit\newblock%
-\printfield{isbn}%
+\usebibmacro{identifier}%
 \newunit\newblock%
 \usebibmacro{availability+access}%
 \newunit\newblock%
@@ -445,7 +465,7 @@
 %\printfield{series}%
 %\usebibmacro{print-online}{\mainlstring{url}}{\printfield{url}}%
 \newunit\newblock%
-\printfield{issn}%
+\usebibmacro{identifier}%
 \newunit\newblock%
 \usebibmacro{availability+access}%
 \newunit\newblock%
@@ -485,7 +505,7 @@
 \setunit*{\addspace}%
 \usebibmacro{urldate}%
 \newunit\newblock%
-\printfield{issn}%
+\usebibmacro{identifier}%
 \newunit\newblock%
 \usebibmacro{availability+access}%
 \newunit\newblock%
@@ -524,7 +544,7 @@
 \newunit\newblock%
 \printfield{series}%
 \newunit\newblock%
-\printfield{isbn}%
+\usebibmacro{identifier}%
 \newunit\newblock%
 \usebibmacro{availability+access}%
 \newunit\newblock%
@@ -567,7 +587,7 @@
 \newunit\newblock%
 \printfield{series}%
 \newunit\newblock%
-\printfield{isbn}%
+\usebibmacro{identifier}%
 \newunit\newblock%
 \usebibmacro{availability+access}%
 \newunit\newblock%
@@ -594,7 +614,7 @@
 \newunit\newblock%
 \printfield{series}%
 \newunit\newblock%
-\printfield{isbn}%
+\usebibmacro{identifier}%
 \newunit\newblock%
 \usebibmacro{availability+access}%
 %\usebibmacro{comment+link}{\mainlstring{url}}\usebibmacro{print-online}%
