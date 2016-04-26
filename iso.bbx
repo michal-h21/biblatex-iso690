@@ -494,7 +494,7 @@
 \usebibmacro{date}
 \setunit*{\addcomma\addspace}%
 \usebibmacro{numeration}%
-\setunit*{\addcomma\addspace}%
+\setunit{\bibpagespunct}%
 \printfield{pages}%
 \setunit{\addspace}%
 \usebibmacro{urldate}%
@@ -531,7 +531,7 @@
 \usebibmacro{location+publisher+date}%
 \setunit*{\addcomma\addspace}%
 \usebibmacro{numeration}%
-\setunit*{\addcomma\addspace}%
+\setunit{\bibpagespunct}%
 \printfield{pages}%
 \newunit%
 \printfield{version}%
@@ -574,7 +574,7 @@
 % It should be at some other place in this case
 \setunit*{\addcomma\addspace}%
 \usebibmacro{numeration}%
-\setunit*{\addcomma\addspace}%
+\setunit{\bibpagespunct}%
 \printfield{pages}%
 \newunit%
 \printfield{version}%
