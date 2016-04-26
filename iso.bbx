@@ -133,11 +133,11 @@
 \DeclareFieldFormat*{title}{#1}
 \DeclareFieldFormat*{subtitle}{#1}
 \DeclareFieldFormat*{chapter}{#1}
-\DeclareFieldFormat{volume}{\bibsstring{volume}~#1}% volume of a book
+\DeclareFieldFormat{volume}{\bibsstring{volume}\addnbspace#1}% volume of a book
 \DeclareFieldFormat[article,periodical]{volume}{%
   \iftoggle{bbx:shortnum}
     {\mkbibbold{#1}}
-    {\bibsstring{jourvol}~#1}% volume of a journal
+    {\bibsstring{jourvol}\addnbspace#1}% volume of a journal
 }
 \DeclareFieldFormat*{emphatize}{\emph{#1}}
 \DeclareFieldFormat*{edition}{%
@@ -184,7 +184,7 @@
 
 \DeclareFieldFormat{urldate}{\mkbibbrackets{\mainsstring{urlseen}\space#1}}
 
-\DeclareFieldFormat{chapter}{\bibstring{chapter}~#1\isdot}
+\DeclareFieldFormat{chapter}{\bibstring{chapter}\addnbspace#1\isdot}
 \DeclareFieldFormat{version}{%
   \ifnumeral{#1}%
   {\biblstring{version}\addnbspace#1}%
