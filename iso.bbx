@@ -4,12 +4,15 @@
 \NewBibliographyString{urlalso,urlcomercial}
 %options
 
-%switch space before colon in titles etc.
-\newboolean{bbx@tcolon}
-\DeclareBibliographyOption{spacecolon}[true]{\setboolean{bbx@tcolon}{#1}\typeout{Nastavuju: #1}}
+\newtoggle{bbx:spcolon}
+\DeclareBibliographyOption{spacecolon}[true]{%
+  \settoggle{bbx:spcolon}{#1}%
+  \typeout{Space colon enabled: #1}}
 
-\newboolean{bbx@totalpages}
-\DeclareBibliographyOption{pagetotal}[false]{\setboolean{bbx@totalpages}{#1}}
+\newtoggle{bbx:totalpages}
+\DeclareBibliographyOption{pagetotal}[true]{%
+  \settoggle{bbx:totalpages}{#1}%
+  \typeout{Showing total pages enabled: #1}}
 
 % \newboolean{cbx@numeric}
 % \setboolean{cbx@numeric}{false}
@@ -35,7 +38,8 @@
 % }
 
 \ExecuteBibliographyOptions{%
-  %spacecolon=true
+  spacecolon=false
+  ,pagetotal=false
    %sorting=nyt
   ,maxnames=9
   ,minnames=1
@@ -80,9 +84,15 @@
 % }
 
 
-\renewcommand*\subtitlepunct{\addspcolon\space}
+\renewcommand*\subtitlepunct{\addspacecolon\addspace}
 \renewcommand\multinamedelim{\addsemicolon\addspace}
 \renewcommand\finalnamedelim{\multinamedelim}
+
+\newcommand\addspacecolon{%
+  \iftoggle{bbx:spcolon}
+    {\addnbspace\blx@addsppunct{colon}}
+    {\unspace\blx@addsppunct{colon}}
+}
 
 % Thanks Moewew for sugesting this. Make uppercase names only in biblipgraphy.
 % Default name format is ALL-CAPS
@@ -155,6 +165,11 @@
 \DeclareFieldFormat{urldate}{\mkbibbrackets{\mainsstring{urlseen}\space#1}}
 
 \DeclareFieldFormat{chapter}{\bibstring{chapter}~#1\isdot}
+\DeclareFieldFormat{version}{%
+  \ifnumeral{#1}%
+  {\biblstring{version}\addnbspace#1}%
+  {\MakeCapital{#1}}%
+}
 
 %\DeclareNameFormat{default}{%
 %\nameprint{#1}{#3}
@@ -174,21 +189,15 @@
   \printfield{chapter}%
 }
 
-\newbibmacro*{book:pubinfo}{%
-  %\iflistundef{location}{\printtext[colon]{\printlist{publisher}}}{%
-  \iflistundef{publisher}{}{\printlist{location}\setunit{}}%
-  %    {\setunit*{\addcomma\addspace}}
-  %    {\setunit*{}}%
-  %}
-  \iflistundef{location}{\setunit{\adddot\addspace}}{%
-    % \iflistundef{publisher}{}{\printtext[colon]{\printlist{publisher}}}%
-    \iflistundef{publisher}{}{\setunit{\addspcolon\addspace}\printlist{publisher}}%
-  }%
-  %\printlist{publisher}%
-  \setunit*{\addcomma\addspace}%
-  \usebibmacro{totalpages}%
-  \usebibmacro{date-urldate}%
-}%
+\newbibmacro*{location+publisher+date}{%
+  \printlist{location}%
+  \iflistundef{publisher}
+    {\setunit*{\addcomma\space}}%
+    {\setunit*{\addcolon\space}}%
+  \printlist{publisher}%
+  \setunit*{\addcomma\space}%
+  \usebibmacro{date}%
+  \newunit}
 
 \newbibmacro*{names:primary}{%
   \ifnameundef{author}%
@@ -260,20 +269,6 @@
   }%
 }%
 
-% we can reset this macro in author year style so we don't print year twice
-% in reference
-% see section 4.2.4.3 of biblatex manual for details
-\newbibmacro*{date-urldate}{%
-  \usebibmacro{date}
-  \iffieldundef{urlyear}
-  {}
-  {\setunit*{\addspace}%
-  \usebibmacro{urldate}}
-}%
-
-% We should reset this macro in iso-authoreyear as well
-\newbibmacro*{article-date}{\usebibmacro{date}}
-
 \newbibmacro{book:vol}{%
 	\printfield{edition}%
 	%\iffieldundef{edition}{}%
@@ -294,10 +289,9 @@
     \setunit{\addspace}%
     \printfield{#1addon}}}%
 
-% \makeatletter
 % see biblatex2.sty for these macros
 \blx@regimcs{% let biblatex know the new macros
-  \addspsemicolon \addspcolon \addcolon \addspcomma }%
+  \addspcolon }%
 \def\blx@addsppunct#1{% <---- new name for spaced punctuation
   %\unspace <----- commented out
   \ifnum\blx@spacefactor<\blx@sf@threshold@low
@@ -312,32 +306,6 @@
     \fi%
   \fi%
   \csuse{blx@pq@#1}}%
-% define new macros  
-% \protected\def\blx@imc@addspsemicolon{\blx@addsppunct{semicolon}}
-% \protected\def\blx@imc@addspcomma{\blx@addsppunct{comma}}
-
-  \newbibmacro{totalpages}{}
-% declare new punctation
-% We must test for colonspace option at begin document
-\AtBeginDocument{%
-  \ifthenelse{\boolean{bbx@tcolon}}{%
-    \protected\def\blx@imc@addspcolon{\addnbspace\blx@addsppunct{colon}}%
-  }{%
-    \protected\def\blx@imc@addspcolon{\unspace\blx@addsppunct{colon}}%
-  }%
-  \ifthenelse{\boolean{bbx@totalpages}}{%
-    \renewbibmacro{totalpages}{%
-      \iffieldundef{pagetotal}{}{%
-        \printfield{pagetotal}%
-        \setunit*{\addspace}%
-      }
-    }
-  }{}%
-}%
-%
-% \protected\def\blx@imc@addspcolon{\blx@addsppunct{colon}}
-% }{}%
-% \makeatother
 
 \newbibmacro{pub:title}{%
  \iffieldundef{maintitle}{%
@@ -455,10 +423,16 @@
 \newunit\newblock%
 \usebibmacro{book:vol}%
 \newunit\newblock%
-\usebibmacro{book:pubinfo}%
+\usebibmacro{location+publisher+date}%
+\newunit%
+\printfield{version}%
+\setunit{\addspace}%
+\usebibmacro{urldate}%
 \newunit\newblock%
-%\printfield{pagetotal}%
-%\newunit\newblock%
+\iftoggle{bbx:totalpages}
+  {\printfield{pagetotal}}
+  {}%
+\newunit\newblock%
 \printfield{series}%
 \newunit\newblock%
 \printfield{isbn}%
@@ -481,7 +455,7 @@
 \newunit\newblock
 \usebibmacro{book:vol}%
 \newunit\newblock%
-\usebibmacro{book:pubinfo}%
+\usebibmacro{location+publisher+date}%
 %\newunit\newblock
 %\usebibmacro{pagecount}%
 %\newunit\newblock%
@@ -507,7 +481,7 @@
 % \printfield{title}%
 % \printfield[colon]{subtitle}%
 \printfield{title}%
-\setunit{\addspcolon\addspace}%
+\setunit{\subtitlepunct}%
 \printfield{subtitle}%
 \setunit{\addspace}%
 \printfield{addon}%
@@ -517,15 +491,12 @@
 \newunit\newblock%
 \usebibmacro{book:vol}%
 \newunit\newblock%
-% \usebibmacro{book:pubinfo}%
-%\printfield{year}%
-\usebibmacro{article-date}
-%\usebibmacro{date-urldate}%
+\usebibmacro{date}
 \setunit*{\addcomma\addspace}%
 \usebibmacro{numeration}%
 \setunit*{\addcomma\addspace}%
 \printfield{pages}%
-\setunit*{\addspace}%
+\setunit{\addspace}%
 \usebibmacro{urldate}%
 \newunit\newblock%
 \printfield{issn}%
@@ -545,7 +516,7 @@
 \usebibmacro{names:primary}%
 \setunit{\labelnamepunct}\newblock%
 \printfield{title}%
-\setunit{\addspcolon\addspace}%
+\setunit{\subtitlepunct}%
 \printfield{subtitle}%
 \setunit{\addspace}%
 \printfield{addon}%
@@ -557,13 +528,15 @@
 \newunit\newblock%
 \usebibmacro{book:vol}%
 \newunit\newblock%
-\usebibmacro{book:pubinfo}%
+\usebibmacro{location+publisher+date}%
 \setunit*{\addcomma\addspace}%
 \usebibmacro{numeration}%
 \setunit*{\addcomma\addspace}%
 \printfield{pages}%
-%\setunit*{\addcomma\addspace}%
-% \newunit%
+\newunit%
+\printfield{version}%
+\setunit{\addspace}%
+\usebibmacro{urldate}%
 \newunit\newblock%
 \printfield{series}%
 \newunit\newblock%
@@ -584,7 +557,7 @@
 \usebibmacro{names:primary}%
 \setunit{\labelnamepunct}\newblock%
 \printfield{title}%
-\setunit{\addspcolon\addspace}%
+\setunit{\subtitlepunct}%
 \printfield{subtitle}%
 \setunit{\addspace}%
 \printfield{addon}%
@@ -596,17 +569,17 @@
 \newunit\newblock%
 \usebibmacro{book:vol}%
 \newunit\newblock%
-\usebibmacro{book:pubinfo}%
+\usebibmacro{location+publisher+date}%
 % could number be even used in `incollection`? 
 % It should be at some other place in this case
-% \newunit\newblock%
-% \printfield{number}%
-%\newunit\newblock
 \setunit*{\addcomma\addspace}%
 \usebibmacro{numeration}%
 \setunit*{\addcomma\addspace}%
 \printfield{pages}%
-%\usebibmacro{pagecount}%
+\newunit%
+\printfield{version}%
+\setunit{\addspace}%
+\usebibmacro{urldate}%
 \newunit\newblock%
 \printfield{series}%
 \newunit\newblock%
@@ -631,10 +604,15 @@
 \newunit\newblock%
 \usebibmacro{book:vol}%
 \newunit\newblock%
-\usebibmacro{book:pubinfo}%
+\usebibmacro{location+publisher+date}%
+\newunit%
+\printfield{version}%
+\setunit{\addspace}%
+\usebibmacro{urldate}%
 \newunit\newblock%
-%\printfield{pagetotal}%
-%\newunit\newblock%
+\iftoggle{bbx:totalpages}
+  {\printfield{pagetotal}}
+  {}%
 \printfield{series}%
 \newunit\newblock%
 \printfield{isbn}%
