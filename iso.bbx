@@ -141,7 +141,7 @@
 }%
 % \DeclareFieldFormat*{pages}{\mkmlpageprefix[bookpagination]{#1}}
 \DeclareFieldFormat*{pages}{\mainsstring{pages}\addspace\printtext{#1}}
-\DeclareFieldFormat*{pagetotal}{\mkmlpagetotal[bookpagination]{#1}}
+\DeclareFieldFormat*{pagetotal}{\mkbibbrackets{\mkmlpagetotal[bookpagination]{#1}}}
 \DeclareFieldFormat*{number}{\bibsstring{number}\addspace\printtext{#1}}
 \DeclareFieldFormat*{url}{\url{#1}}
 \DeclareFieldFormat*{doi}{\url{http://dx.doi.org/#1}}
@@ -429,15 +429,15 @@
 \setunit{\addspace}%
 \usebibmacro{urldate}%
 \newunit\newblock%
-\iftoggle{bbx:totalpages}
-  {\printfield{pagetotal}}
-  {}%
-\newunit\newblock%
 \printfield{series}%
 \newunit\newblock%
 \printfield{isbn}%
 \newunit\newblock%
 \usebibmacro{availability}%
+\setunit{\addspace}%
+\iftoggle{bbx:totalpages}
+  {\printfield{pagetotal}}
+  {}%
 \newunit\newblock%
 \printfield{note}%
 \newunit\newblock%
@@ -610,16 +610,16 @@
 \setunit{\addspace}%
 \usebibmacro{urldate}%
 \newunit\newblock%
-\iftoggle{bbx:totalpages}
-  {\printfield{pagetotal}}
-  {}%
 \printfield{series}%
 \newunit\newblock%
 \printfield{isbn}%
 \newunit\newblock%
 %\usebibmacro{availability}%
 \usebibmacro{comment+link}{\mainlstring{url}}\usebibmacro{print-online}%
-\newunit\newblock%
+\setunit{\addspace}%
+\iftoggle{bbx:totalpages}
+  {\printfield{pagetotal}}
+  {}%
 \printfield{note}%
 \newunit\newblock%
 \setunit{\bibpagerefpunct}\newblock%
