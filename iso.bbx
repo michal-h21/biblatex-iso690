@@ -141,7 +141,7 @@
 }%
 % \DeclareFieldFormat*{pages}{\mkmlpageprefix[bookpagination]{#1}}
 \DeclareFieldFormat*{pages}{\mainsstring{pages}\addspace\printtext{#1}}
-\DeclareFieldFormat*{pagetotal}{\mkmlpagetotal[bookpagination]{#1}}
+\DeclareFieldFormat*{pagetotal}{\mkbibbrackets{\mkmlpagetotal[bookpagination]{#1}}}
 \DeclareFieldFormat*{number}{\bibsstring{number}\addspace\printtext{#1}}
 \DeclareFieldFormat*{url}{%
   \iffieldundef{urlyear}
@@ -478,15 +478,15 @@
 \setunit{\addspace}%
 \usebibmacro{urldate}%
 \newunit\newblock%
-\iftoggle{bbx:totalpages}
-  {\printfield{pagetotal}}
-  {}%
-\newunit\newblock%
 \printfield{series}%
 \newunit\newblock%
 \usebibmacro{identifier}%
 \newunit\newblock%
 \usebibmacro{availability+access}%
+\setunit{\addspace}%
+\iftoggle{bbx:totalpages}
+  {\printfield{pagetotal}}
+  {}%
 \newunit\newblock%
 \printfield{note}%
 \newunit\newblock%
@@ -659,16 +659,19 @@
 \setunit{\addspace}%
 \usebibmacro{urldate}%
 \newunit\newblock%
-\iftoggle{bbx:totalpages}
-  {\printfield{pagetotal}}
-  {}%
 \printfield{series}%
 \newunit\newblock%
 \usebibmacro{identifier}%
 \newunit\newblock%
 \usebibmacro{availability+access}%
 %\usebibmacro{comment+link}{\mainlstring{url}}\usebibmacro{print-online}%
-\newunit\newblock%
+% \newunit\newblock%
+%\usebibmacro{availability}%
+% \usebibmacro{comment+link}{\mainlstring{url}}\usebibmacro{print-online}%
+\setunit{\addspace}%
+\iftoggle{bbx:totalpages}
+  {\printfield{pagetotal}}
+  {}%
 \printfield{note}%
 \newunit\newblock%
 \setunit{\bibpagerefpunct}\newblock%
