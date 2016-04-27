@@ -14,6 +14,11 @@
   \settoggle{bbx:totalpages}{#1}%
   \typeout{Showing total pages enabled: #1}}
 
+\newtoggle{bbx:shortnum}
+\DeclareBibliographyOption{shortnumeration}[true]{%
+  \settoggle{bbx:shortnum}{#1}%
+  \typeout{Short numeration enabled: #1}}
+
 % \newboolean{cbx@numeric}
 % \setboolean{cbx@numeric}{false}
 % \newbibmacro*{year-label}{}
@@ -40,6 +45,7 @@
 \ExecuteBibliographyOptions{%
   spacecolon=false
   ,pagetotal=false
+  ,shortnumeration=true
    %sorting=nyt
   ,maxnames=9
   ,minnames=1
@@ -127,8 +133,12 @@
 \DeclareFieldFormat*{title}{#1}
 \DeclareFieldFormat*{subtitle}{#1}
 \DeclareFieldFormat*{chapter}{#1}
-\DeclareFieldFormat{volume}{\bibsstring{volume}~#1}% volume of a book
-\DeclareFieldFormat[article,periodical]{volume}{\bibsstring{jourvol}~#1}% volume of a journal
+\DeclareFieldFormat{volume}{\bibsstring{volume}\addnbspace#1}% volume of a book
+\DeclareFieldFormat[article,periodical]{volume}{%
+  \iftoggle{bbx:shortnum}
+    {\mkbibbold{#1}}
+    {\bibsstring{jourvol}\addnbspace#1}% volume of a journal
+}
 \DeclareFieldFormat*{emphatize}{\emph{#1}}
 \DeclareFieldFormat*{edition}{%
   \ifnumeral{#1}%
@@ -141,8 +151,18 @@
 }%
 % \DeclareFieldFormat*{pages}{\mkmlpageprefix[bookpagination]{#1}}
 \DeclareFieldFormat*{pages}{\mainsstring{pages}\addspace\printtext{#1}}
+\DeclareFieldFormat[article,periodical]{pages}{%
+  \iftoggle{bbx:shortnum}
+    {#1}
+    {\mainsstring{pages}\addspace\printtext{#1}}
+}
 \DeclareFieldFormat*{pagetotal}{\mkbibbrackets{\mkmlpagetotal[bookpagination]{#1}}}
 \DeclareFieldFormat*{number}{\bibsstring{number}\addspace\printtext{#1}}
+\DeclareFieldFormat[article,periodical]{number}{%
+  \iftoggle{bbx:shortnum}
+    {\mkbibparens{#1}}
+    {\bibsstring{number}\addspace\printtext{#1}}
+}
 \DeclareFieldFormat*{url}{%
   \iffieldundef{urlyear}
   {\mainlstring{urlalso}\addcolon\space\url{#1}}
@@ -184,7 +204,7 @@
 
 \DeclareFieldFormat{urldate}{\mkbibbrackets{\mainsstring{urlseen}\space#1}}
 
-\DeclareFieldFormat{chapter}{\bibstring{chapter}~#1\isdot}
+\DeclareFieldFormat{chapter}{\bibstring{chapter}\addnbspace#1\isdot}
 \DeclareFieldFormat{version}{%
   \ifnumeral{#1}%
   {\biblstring{version}\addnbspace#1}%
@@ -203,7 +223,9 @@
 
 \newbibmacro*{numeration}{%
   \printfield{volume}%
-  \setunit*{\addcomma\addspace}%
+  \iftoggle{bbx:shortnum}
+    {}
+    {\setunit*{\addcomma\addspace}}%
   \printfield{number}%
   \setunit*{\addcomma\addspace}%
   \printfield{chapter}%
