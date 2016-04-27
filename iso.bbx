@@ -395,12 +395,25 @@
 \usebibmacro{medium-type}%
 }
 
+\newbibmacro{periodical:title}{%
+  \printfield{title}%
+  \iffieldundef{issuetitle}
+    {\iffieldundef{journaltitle}
+       {}
+       {\usebibmacro{titles}{journal}}}
+    {\usebibmacro{titles}{issue}}
+  \usebibmacro{medium-type}%
+}
+
+
 \DeclareFieldFormat{journaltitle}{#1}
 \DeclareFieldFormat{booktitle}{#1}
 \DeclareFieldFormat{maintitle}{#1}
+\DeclareFieldFormat{issuetitle}{#1}
 \DeclareFieldFormat{journalsubtitle}{#1}
 \DeclareFieldFormat{booksubtitle}{#1}
 \DeclareFieldFormat{mainsubtitle}{#1}
+\DeclareFieldFormat{issuesubtitle}{#1}
 
 % redeclare in: bibmacro to use the main document language.
 % there was discussion whether literal "In:" should be used,
@@ -522,7 +535,7 @@
 %\printnames{author}%
 %\usebibmacro{names:primary}%
 \newunit\newblock%
-\usebibmacro{jour:title}%
+\usebibmacro{periodical:title}%
 \newunit\newblock
 \usebibmacro{book:vol}%
 \newunit\newblock%
