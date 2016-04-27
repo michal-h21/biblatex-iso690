@@ -15,7 +15,7 @@
   \typeout{Showing total pages enabled: #1}}
 
 \newtoggle{bbx:shortnum}
-\DeclareBibliographyOption{shortnumeration}[true]{%
+\DeclareBibliographyOption{shortnumeration}[false]{%
   \settoggle{bbx:shortnum}{#1}%
   \typeout{Short numeration enabled: #1}}
 
@@ -45,7 +45,7 @@
 \ExecuteBibliographyOptions{%
   spacecolon=false
   ,pagetotal=false
-  ,shortnumeration=true
+  ,shortnumeration=false
    %sorting=nyt
   ,maxnames=9
   ,minnames=1
