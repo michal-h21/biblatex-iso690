@@ -356,8 +356,10 @@
     \printfield{#1title}%
     \setunit{\subtitlepunct}%
     \printfield{#1subtitle}%
-    \setunit{\addspace}%
-    \printfield{#1addon}}}%
+  }
+  \setunit{\addspace}%
+  \printfield{#1titleaddon}%
+}%
 
 % see biblatex2.sty for these macros
 \blx@regimcs{% let biblatex know the new macros
@@ -405,6 +407,10 @@
 \DeclareFieldFormat{booksubtitle}{#1}
 \DeclareFieldFormat{mainsubtitle}{#1}
 \DeclareFieldFormat{issuesubtitle}{#1}
+
+\DeclareFieldFormat{titleaddon}{\mkbibbrackets{#1}}
+\DeclareFieldFormat{booktitleaddon}{\mkbibbrackets{#1}}
+\DeclareFieldFormat{maintitleaddon}{\mkbibbrackets{#1}}
 
 % redeclare in: bibmacro to use the main document language.
 % there was discussion whether literal "In:" should be used,
