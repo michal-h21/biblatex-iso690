@@ -352,8 +352,8 @@
 %   \printfield[emphatize]{#1addon}%
 % }
 
-\newbibmacro{titles}[1]{%
-  \printtext[emphatize]{%
+\newbibmacro{titles}[2]{%
+  \printtext[#2]{%
     \printfield{#1title}%
     \setunit{\subtitlepunct}%
     \printfield{#1subtitle}%
@@ -378,33 +378,23 @@
   \fi%
   \csuse{blx@pq@#1}}%
 
-\newbibmacro{pub:title}{%
- \iffieldundef{maintitle}{%
-  \iffieldundef{booktitle}{%
-    \usebibmacro{titles}{}%
-  }{%
-    \usebibmacro{titles}{book}%
-  }%
- }{%
-  \usebibmacro{titles}{main}%
- }%
- \usebibmacro{medium-type}%
+\newbibmacro{host:titles}{%
+ \iffieldundef{maintitle}
+   {\iffieldundef{booktitle}
+      {}
+      {\usebibmacro{titles}{book}{emph}}}
+   {\usebibmacro{titles}{main}{emph}}
 }%
-\newbibmacro{jour:title}{%
-\usebibmacro{titles}{journal}%
-\usebibmacro{medium-type}%
-}
 
-\newbibmacro{periodical:title}{%
-  \printfield{title}%
+\newbibmacro{periodical:titles}{%
+  \usebibmacro{titles}{}{}%
+  \newunit%
   \iffieldundef{issuetitle}
     {\iffieldundef{journaltitle}
        {}
-       {\usebibmacro{titles}{journal}}}
-    {\usebibmacro{titles}{issue}}
-  \usebibmacro{medium-type}%
+       {\usebibmacro{titles}{journal}{emph}}}
+    {\usebibmacro{titles}{issue}{emph}}
 }
-
 
 \DeclareFieldFormat{journaltitle}{#1}
 \DeclareFieldFormat{booktitle}{#1}
@@ -503,7 +493,9 @@
 %\printnames{author}%
 \usebibmacro{names:primary}%
 \setunit{\labelnamepunct}\newblock%%
-\usebibmacro{pub:title}%
+\usebibmacro{titles}{}{emph}%
+\setunit{\addspace}%
+\usebibmacro{medium-type}%
 \newunit\newblock%
 \usebibmacro{book:vol}%
 \newunit\newblock%
@@ -535,7 +527,9 @@
 %\printnames{author}%
 %\usebibmacro{names:primary}%
 \newunit\newblock%
-\usebibmacro{periodical:title}%
+\usebibmacro{periodical:titles}%
+\setunit{\addspace}%
+\usebibmacro{medium-type}%
 \newunit\newblock
 \usebibmacro{book:vol}%
 \newunit\newblock%
@@ -564,14 +558,11 @@
 \setunit{\labelnamepunct}\newblock%
 % \printfield{title}%
 % \printfield[colon]{subtitle}%
-\printfield{title}%
-\setunit{\subtitlepunct}%
-\printfield{subtitle}%
-\setunit{\addspace}%
-\printfield{addon}%
+\usebibmacro{titles}{}{}%
 \newunit\newblock%
-\usebibmacro{jour:title}%
-%\printfield[emphatize]{journaltitle}%%
+\usebibmacro{titles}{journal}{emph}%
+\setunit{\addspace}%
+\usebibmacro{medium-type}%
 \newunit\newblock%
 \usebibmacro{book:vol}%
 \newunit\newblock%
@@ -599,16 +590,14 @@
 \usebibmacro{begentry}%
 \usebibmacro{names:primary}%
 \setunit{\labelnamepunct}\newblock%
-\printfield{title}%
-\setunit{\subtitlepunct}%
-\printfield{subtitle}%
-\setunit{\addspace}%
-\printfield{addon}%
+\usebibmacro{titles}{}{}%
 \newunit\newblock%
 \usebibmacro{in:}%
 \printnames{bookauthor}%
 \newunit\newblock%
-\usebibmacro{pub:title}%
+\usebibmacro{host:titles}%
+\setunit{\addspace}%
+\usebibmacro{medium-type}%
 \newunit\newblock%
 \usebibmacro{book:vol}%
 \newunit\newblock%
@@ -640,16 +629,14 @@
 \usebibmacro{begentry}%
 \usebibmacro{names:primary}%
 \setunit{\labelnamepunct}\newblock%
-\printfield{title}%
-\setunit{\subtitlepunct}%
-\printfield{subtitle}%
-\setunit{\addspace}%
-\printfield{addon}%
+\usebibmacro{titles}{}{}%
 \newunit\newblock%
 \usebibmacro{in:}%
 \usebibmacro{editor}%
 \newunit\newblock%
-\usebibmacro{pub:title}%
+\usebibmacro{host:titles}%
+\setunit{\addspace}%
+\usebibmacro{medium-type}%
 \newunit\newblock%
 \usebibmacro{book:vol}%
 \newunit\newblock%
@@ -684,7 +671,9 @@
 %\printnames{author}%
 \usebibmacro{names:primary}%
 \setunit{\labelnamepunct}\newblock%
-\usebibmacro{pub:title}%
+\usebibmacro{titles}{}{emph}%
+\setunit{\addspace}%
+\usebibmacro{medium-type}%
 \newunit\newblock%
 \usebibmacro{book:vol}%
 \newunit\newblock%
