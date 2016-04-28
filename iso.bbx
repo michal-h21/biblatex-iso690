@@ -386,8 +386,10 @@
 }%
 
 \newbibmacro{periodical:titles}{%
-  \usebibmacro{titles}{}{}%
-  \newunit%
+  \iffieldundef{title}
+    {}
+    {\usebibmacro{titles}{}{}%
+     \newunit}
   \iffieldundef{issuetitle}
     {\iffieldundef{journaltitle}
        {}
