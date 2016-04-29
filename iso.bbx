@@ -248,7 +248,11 @@
   \usebibmacro{year-label}%
 }%
 
-
+\newbibmacro*{series+number}{%
+  \printfield{series}%
+  \setunit*{\addcomma\space}%
+  \printfield{number}%
+}%
 
 
 \renewbibmacro*{editor}{%
@@ -512,7 +516,7 @@
 \setunit{\addspace}%
 \usebibmacro{urldate}%
 \newunit\newblock%
-\printfield{series}%
+\usebibmacro{series+number}
 \newunit\newblock%
 \usebibmacro{identifier}%
 \newunit\newblock%
@@ -618,7 +622,7 @@
 \setunit{\addspace}%
 \usebibmacro{urldate}%
 \newunit\newblock%
-\printfield{series}%
+\usebibmacro{series+number}
 \newunit\newblock%
 \usebibmacro{identifier}%
 \newunit\newblock%
@@ -659,7 +663,7 @@
 \setunit{\addspace}%
 \usebibmacro{urldate}%
 \newunit\newblock%
-\printfield{series}%
+\usebibmacro{series+number}
 \newunit\newblock%
 \usebibmacro{identifier}%
 \newunit\newblock%
@@ -690,7 +694,7 @@
 \setunit{\addspace}%
 \usebibmacro{urldate}%
 \newunit\newblock%
-\printfield{series}%
+\printfield{series+number}
 \newunit\newblock%
 \usebibmacro{identifier}%
 \newunit\newblock%
