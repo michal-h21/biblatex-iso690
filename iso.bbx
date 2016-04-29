@@ -280,7 +280,7 @@
     {\iffieldundef{urlyear}
       {}
       {\printtext{\mkbibbrackets{online}}}}
-    {\printfield{howpublished}}
+    {\printfield{howpublished}}%
 }
 
 % \newbibmacro{comment+link}[1]{%
@@ -321,7 +321,7 @@
     {\iffieldundef{eprint}
        {\printfield{url}}
        {\usebibmacro{from-eprint}}}
-    {\usebibmacro{from-doi}}
+    {\usebibmacro{from-doi}}%
 }
 
 \newbibmacro*{identifier}{%
@@ -384,19 +384,19 @@
    {\iffieldundef{booktitle}
       {}
       {\usebibmacro{titles}{book}{emph}}}
-   {\usebibmacro{titles}{main}{emph}}
+   {\usebibmacro{titles}{main}{emph}}%
 }%
 
 \newbibmacro{periodical:titles}{%
   \iffieldundef{title}
     {}
     {\usebibmacro{titles}{}{}%
-     \newunit}
+     \newunit}%
   \iffieldundef{issuetitle}
     {\iffieldundef{journaltitle}
        {}
        {\usebibmacro{titles}{journal}{emph}}}
-    {\usebibmacro{titles}{issue}{emph}}
+    {\usebibmacro{titles}{issue}{emph}}%
 }
 
 \DeclareFieldFormat{journaltitle}{#1}
