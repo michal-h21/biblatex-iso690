@@ -356,12 +356,16 @@
 % }
 
 \newbibmacro{titles}[2]{%
-  \printtext[#2]{%
-    \printfield{#1title}%
-    \setunit{\subtitlepunct}%
-    \printfield{#1subtitle}%
-  }
-  \setunit{\addspace}%
+  \ifboolexpr{
+    test {\iffieldundef{#1title}}
+    and
+    test {\iffieldundef{#1subtitle}}}
+    {}
+    {\printtext[#2]{%
+       \printfield{#1title}%
+       \setunit{\subtitlepunct}%
+       \printfield{#1subtitle}}%
+       \setunit{\addspace}}%
   \printfield{#1titleaddon}%
 }%
 
@@ -392,15 +396,13 @@
 }%
 
 \newbibmacro{periodical:titles}{%
-  \iffieldundef{title}
-    {}
-    {\usebibmacro{titles}{}{}%
-     \newunit}%
+  \usebibmacro{titles}{}{emph}%
+  \newunit%
   \iffieldundef{issuetitle}
     {\iffieldundef{journaltitle}
        {}
-       {\usebibmacro{titles}{journal}{emph}}}
-    {\usebibmacro{titles}{issue}{emph}}%
+       {\usebibmacro{titles}{journal}{}}}
+    {\usebibmacro{titles}{issue}{}}%
 }
 
 \DeclareFieldFormat{journaltitle}{#1}
