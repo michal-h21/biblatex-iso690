@@ -230,6 +230,12 @@
   \printfield{chapter}%
 }
 
+\renewbibmacro*{date}{%
+  \iffieldequalstr{endyear}{}%
+    {\printdate\mbox{\addnbspace}}%
+    {\printdate}%
+}
+
 \newbibmacro*{location+publisher+date}{%
   \printlist{location}%
   \iflistundef{publisher}
