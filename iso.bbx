@@ -97,7 +97,7 @@
 \newcommand\addspacecolon{%
   \iftoggle{bbx:spcolon}
     {\addnbspace\blx@addsppunct{colon}}
-    {\unspace\blx@addsppunct{colon}}
+    {\unspace\blx@addsppunct{colon}}%
 }
 
 % Thanks Moewew for sugesting this. Make uppercase names only in biblipgraphy.
@@ -234,7 +234,7 @@
   \printlist{location}%
   \iflistundef{publisher}
     {\setunit*{\addcomma\space}}%
-    {\setunit*{\addspacecolon}}%
+    {\setunit*{\subtitlepunct}}%
   \printlist{publisher}%
   \setunit*{\addcomma\space}%
   \usebibmacro{date}%
