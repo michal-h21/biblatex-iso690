@@ -1,7 +1,7 @@
 \ProvidesFile{iso.bbx}[2011/01/09 v1.0 biblatex bibliography style]
 \DeclareLanguageMapping{czech}{czech-iso}
 \DeclareLanguageMapping{english}{english-iso}
-\NewBibliographyString{urlalso,urlcomercial}
+\NewBibliographyString{urlalso}
 %options
 
 \newtoggle{bbx:spcolon}
@@ -132,14 +132,12 @@
 %\DeclareListFormat{publisher}{\printtext[colon]{#1}}
 \DeclareFieldFormat*{title}{#1}
 \DeclareFieldFormat*{subtitle}{#1}
-\DeclareFieldFormat*{chapter}{#1}
 \DeclareFieldFormat{volume}{\bibsstring{volume}\addnbspace#1}% volume of a book
 \DeclareFieldFormat[article,periodical]{volume}{%
   \iftoggle{bbx:shortnum}
     {\mkbibbold{#1}}
     {\bibsstring{jourvol}\addnbspace#1}% volume of a journal
 }
-\DeclareFieldFormat*{emphatize}{\emph{#1}}
 \DeclareFieldFormat*{edition}{%
   \ifnumeral{#1}%
 	{\mkbibordedition{#1}\addnbspace\bibsstring{edition}}%
@@ -180,9 +178,8 @@
     {\mkbibbrackets{#1}}
 }
 
-\DeclareFieldFormat{sbrackets}{[#1]}
 %\DeclareFieldFormat{rbrackets}{\printtext{$\langle$}#1\printtext{$\rangle$}}
-\DeclareFieldFormat{rbrackets}{$\langle$#1$\rangle$}
+
 % \DeclareFieldFormat{colon}{\printtext{\tcolon}\addspace#1}
 % \DeclareFieldFormat{emph-colon}{\printtext[emphatize]{\printtext[colon]{#1}}}
 
