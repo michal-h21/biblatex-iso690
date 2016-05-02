@@ -162,6 +162,8 @@
 \DeclareFieldFormat{booktitleaddon}{\mkbibbrackets{#1}}
 \DeclareFieldFormat{maintitleaddon}{\mkbibbrackets{#1}}
 
+\DeclareFieldFormat{nameaddon}{\mkbibbrackets{#1}}
+
 %name alias
 
 \DeclareNameAlias{default}{last-first}
@@ -194,13 +196,25 @@
   \usebibmacro{date}%
   \newunit}
 
+% based on author/editor macro
 \newbibmacro*{names:primary}{%
-  \ifnameundef{author}%
-  {\usebibmacro{editor}}%
-  {\printnames{author}}%
+  \ifboolexpr{
+    test \ifuseauthor
+    and
+    not test {\ifnameundef{author}}
+  }
+    {\usebibmacro{author}}
+    {\usebibmacro{editor}}%
+  \setunit{\addspace}\printfield{nameaddon}%
   \setunit{\addcomma\space}%
   \usebibmacro{year-label}%
-}%
+}
+
+\newbibmacro*{names:subsidiary}{%
+  \usebibmacro{byeditor}%
+  \newunit%
+  \usebibmacro{bytranslator}%
+}
 
 \newbibmacro*{series+number}{%
   \printfield{series}%
@@ -209,15 +223,16 @@
 }%
 
 \renewbibmacro*{editor}{%
-  \ifnameundef{editor}%
-  {}%
-  {\printnames{editor}%
-    \addspace\mkbibparens{\usebibmacro{editorrole}}%
-  }%
-}%
-\newbibmacro*{editorrole}{%
-  \iffieldundef{editortype}{\bibsstring{editor}}{\bibsstring{\thefield{editortype}}}%
-}%
+  \ifboolexpr{
+    test \ifuseeditor
+    and
+    not test {\ifnameundef{editor}}
+  }
+    {\printnames{editor}%
+     \addspace%
+     \mkbibparens{\usebibmacro{editorstrg}}%
+     \clearname{editor}}%
+    {}}
 
 \newbibmacro*{medium-type}{%
   \iffieldundef{howpublished}
@@ -408,6 +423,8 @@
 \newunit\newblock%
 \usebibmacro{book:vol}%
 \newunit\newblock%
+\usebibmacro{names:subsidiary}%
+\newunit\newblock%
 \usebibmacro{location+publisher+date}%
 \newunit%
 \printfield{version}%
@@ -507,6 +524,8 @@
 \newunit\newblock%
 \usebibmacro{book:vol}%
 \newunit\newblock%
+\usebibmacro{names:subsidiary}%
+\newunit\newblock%
 \usebibmacro{location+publisher+date}%
 \setunit*{\addcomma\addspace}%
 \usebibmacro{numeration}%
@@ -545,6 +564,8 @@
 \newunit\newblock%
 \usebibmacro{book:vol}%
 \newunit\newblock%
+\usebibmacro{names:subsidiary}%
+\newunit\newblock%
 \usebibmacro{location+publisher+date}%
 % could number be even used in `incollection`? 
 % It should be at some other place in this case
@@ -580,6 +601,8 @@
 \usebibmacro{medium-type}%
 \newunit\newblock%
 \usebibmacro{book:vol}%
+\newunit\newblock%
+\usebibmacro{names:subsidiary}%
 \newunit\newblock%
 \usebibmacro{location+publisher+date}%
 \newunit%
