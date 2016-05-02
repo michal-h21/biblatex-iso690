@@ -1,10 +1,10 @@
-\ProvidesFile{iso-authoryear.bbx}[2011/06/08]
-\newcommand\MethodFormat{}
-%\def\printextrayear{\newunit\newblock\printfield{year}\printfield{extrayear}}
-%\newbibmacro*{year-label}{\ifnameundef{author}{\ifnameundef{editor}{}{\printextrayear}}{\printextrayear}}
-\newbibmacro*{year-label}{}
-\ExecuteBibliographyOptions{%
-  %spacecolon=true
-   sorting=nty
-}
+\ProvidesFile{iso-authortitle.bbx}[2011/06/08]
+
 \RequireBibliographyStyle{iso}
+\ExecuteBibliographyOptions{%
+  sorting=nty
+}
+
+\newbibmacro*{year-label}{}%
+
+\endinput

@@ -66,6 +66,14 @@
   \renewcommand\mkbibnamefamily{\lastnameformat}%
 }
 
+\newcommand\MethodFormat{%
+  \printtext[labelnumberwidth]{%
+    \iffieldundef{labelprefix}
+      {\printfield{prefixnumber}}
+      {\printfield{labelprefix}}%
+    \printfield{labelnumber}}%
+}%
+
 \defbibenvironment{bibliography}
   {\list%
      {\MethodFormat}%

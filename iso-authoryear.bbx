@@ -1,16 +1,23 @@
 \ProvidesFile{iso-authoryear.bbx}[2011/06/08]
-\newcommand\MethodFormat{}
+
+\RequireBibliographyStyle{iso}
+\ExecuteBibliographyOptions{%
+  sorting=nyt
+}
+
 \def\printextrayear{%
-  % \setunit*{\addcomma\addspace}%
-  %\newunit\newblock
   \printfield{year}\printfield{extrayear}%
 }
-\newbibmacro*{year-label}{\ifnameundef{author}{\ifnameundef{editor}{}{\printextrayear}}{\printextrayear}}
-\ExecuteBibliographyOptions{%
-  %spacecolon=true
-   sorting=nyt
+
+\newbibmacro*{year-label}{%
+  \ifnameundef{author}
+    {\ifnameundef{editor}
+       {}
+       {\printextrayear}}
+    {\printextrayear}%
 }
-\RequireBibliographyStyle{iso}
 
 % remove second appearance of year in a reference
-\renewbibmacro*{date}{}
+\renewbibmacro*{date}{}%
+
+\endinput
