@@ -297,7 +297,28 @@
        \printfield{#1subtitle}}%
        \setunit{\addspace}}%
   \printfield{#1titleaddon}%
+  \newunit%
 }%
+
+\newbibmacro{volume}{%
+  \iffieldundef{volume}
+    {}
+    {\printfield{volume}%
+     \printfield{part}%
+     \setunit{\addcomma\addspace}}%
+}
+
+\newbibmacro{multi:titles}{%
+  \iffieldundef{maintitle}
+    {\iffieldundef{booktitle}
+      {\usebibmacro{titles}{}{emph}}
+      {\usebibmacro{titles}{book}{emph}%
+       \usebibmacro{volume}%
+       \usebibmacro{titles}{}{}}}%
+    {\usebibmacro{titles}{main}{emph}%
+     \usebibmacro{volume}%
+     \usebibmacro{titles}{}{}}%
+}
 
 \newbibmacro{host:titles}{%
  \iffieldundef{maintitle}
@@ -425,7 +446,7 @@
 \usebibmacro{begentry}%
 \usebibmacro{names:primary}%
 \setunit{\labelnamepunct}\newblock%%
-\usebibmacro{titles}{}{emph}%
+\usebibmacro{multi:titles}%
 \setunit{\addspace}%
 \usebibmacro{medium-type}%
 \newunit\newblock%
@@ -604,7 +625,7 @@
 \usebibmacro{begentry}%
 \usebibmacro{names:primary}%
 \setunit{\labelnamepunct}\newblock%
-\usebibmacro{titles}{}{emph}%
+\usebibmacro{multi:titles}%
 \setunit{\addspace}%
 \usebibmacro{medium-type}%
 \newunit\newblock%
