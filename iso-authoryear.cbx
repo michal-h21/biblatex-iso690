@@ -1,4 +1,5 @@
 \ProvidesFile{iso-authoryear.cbx}[2011/06/08]
+
 \ExecuteBibliographyOptions{%
    maxcitenames=1
   ,mincitenames=1
@@ -8,14 +9,6 @@
 \RequireCitationStyle{iso-fullcite}
 
 \renewcommand*{\nameyeardelim}{\addcomma\addspace}
-
-\renewbibmacro*{cite}{%
-  \iffieldundef{shorthand}
-    {\ifthenelse{\ifnameundef{labelname}\OR\iffieldundef{labelyear}}
-       {\usebibmacro{cite:label}}
-       {\printnames{labelname}}
-     \setunit{\nameyeardelim}
-     \usebibmacro{cite:labelyear+extrayear}}
-    {\usebibmacro{cite:shorthand}}}
+\renewcommand*{\nonameyeardelim}{\addcomma\addspace}
 
 \endinput
