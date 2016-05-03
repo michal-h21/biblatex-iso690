@@ -190,8 +190,6 @@
     {\usebibmacro{author}}
     {\usebibmacro{editor}}%
   \setunit{\addspace}\printfield{nameaddon}%
-  \setunit{\addcomma\space}%
-  \usebibmacro{year-label}%
 }
 
 \newbibmacro*{names:subsidiary}{%
@@ -493,7 +491,9 @@
 \DeclareBibliographyDriver{periodical}{%
 \usebibmacro{bibindex}%
 \usebibmacro{begentry}%
-\newunit\newblock%
+% names macro just because of author-year style
+\usebibmacro{names:primary}%
+\setunit{\labelnamepunct}\newblock%%
 \usebibmacro{periodical:titles}%
 \setunit{\addspace}%
 \usebibmacro{medium-type}%

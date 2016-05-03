@@ -9,15 +9,81 @@
   \printfield{year}\printfield{extrayear}%
 }
 
-\newbibmacro*{year-label}{%
-  \ifnameundef{author}
-    {\ifnameundef{editor}
-       {}
-       {\printextrayear}}
-    {\printextrayear}%
-}
-
 % remove second appearance of year in a reference
 \renewbibmacro*{date}{}%
+
+% overwrite names:primary to print year right after
+% 1) author
+% 2) editor
+% 3) label/title
+% need to handle not to print editor twice (primary
+% and subsidiary names)
+\renewbibmacro*{names:primary}{%
+  \ifboolexpr{
+    test \ifuseauthor
+    and
+    not test {\ifnameundef{author}}
+  }
+    {\usebibmacro{author}}%
+    {\usebibmacro{editor}}%
+  \setunit{\addspace}\printfield{nameaddon}%
+  \setunit{\addcomma\space}\printextrayear%
+}
+
+\InitializeBibliographyStyle{\global\undef\bbx@lasthash}
+
+\newbibmacro*{bbx:savehash}{%
+  \savefield{fullhash}{\bbx@lasthash}}
+
+\newbool{bbx@inset}
+\DeclareBibliographyDriver{set}{%
+  \booltrue{bbx@inset}%
+  \entryset{}{}%
+  \newunit\newblock
+  \usebibmacro{setpageref}%
+  \finentry}
+
+\renewbibmacro*{editor}{%
+  \usebibmacro{bbx:editor}{editorstrg}}
+\newbibmacro*{bbx:editor}[1]{%
+  \ifboolexpr{
+    test \ifuseeditor
+    and
+    not test {\ifnameundef{editor}}
+  }
+    {\usebibmacro{bbx:dashcheck}
+       {\bibnamedash}
+       {\usebibmacro{bbx:savehash}%
+        \printnames{editor}%
+        \addspace%
+        \mkbibparens{\usebibmacro{#1}}}%
+     \clearname{editor}}%
+    {\global\undef\bbx@lasthash
+     \usebibmacro{labeltitle}}}%
+
+\newbibmacro*{bbx:dashcheck}[2]{%
+  \ifboolexpr{
+    test {\iffieldequals{fullhash}{\bbx@lasthash}}
+    and
+    not test \iffirstonpage
+    and
+    (
+       not bool {bbx@inset}
+       or
+       test {\iffieldequalstr{entrysetcount}{1}}
+    )
+  }
+    {#1}
+    {#2}}
+
+\newbibmacro*{labeltitle}{%
+  \iffieldundef{label}
+    {\iffieldundef{shorttitle}
+       {\usebibmacro{titles}{}{emph}%
+        \clearfield{title}%
+        \clearfield{subtitle}%
+        \clearfield{titleaddon}}
+       {\printfield{shorttitle}}}
+    {\printfield{label}}}
 
 \endinput
