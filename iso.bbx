@@ -66,17 +66,9 @@
   \renewcommand\mkbibnamefamily{\lastnameformat}%
 }
 
-\newcommand\MethodFormat{%
-  \printtext[labelnumberwidth]{%
-    \iffieldundef{labelprefix}
-      {\printfield{prefixnumber}}
-      {\printfield{labelprefix}}%
-    \printfield{labelnumber}}%
-}%
-
 \defbibenvironment{bibliography}
   {\list%
-     {\MethodFormat}%
+     {}%
      {\setlength{\leftmargin}{\bibhang}%
       \setlength{\itemindent}{-\leftmargin}%
       \setlength{\itemsep}{\bibitemsep}%

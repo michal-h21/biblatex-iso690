@@ -8,4 +8,27 @@
 
 \DeclareFieldFormat{labelnumberwidth}{#1\adddot}
 
+\@ifpackagelater{biblatex}{2016/03/27}
+  {\newcommand\MethodFormat{%
+     \printtext[labelnumberwidth]{%
+        \printfield{labelprefix}%
+        \printfield{labelnumber}}}}%
+  {\newcommand\MethodFormat{%
+     \printtext[labelnumberwidth]{%
+        \printfield{prefixnumber}%
+        \printfield{labelnumber}}}}%
+
+\defbibenvironment{bibliography}
+  {\list%
+     {\MethodFormat}%
+     {\setlength{\leftmargin}{\bibhang}%
+      \setlength{\itemindent}{-\leftmargin}%
+      \setlength{\itemsep}{\bibitemsep}%
+      \setlength{\parsep}{\bibparsep}}%
+      \renewcommand*{\makelabel}[1]{\hss##1}
+      %\raggedright}
+      }%
+  {\endlist}%
+  {\item}%
+
 \endinput
