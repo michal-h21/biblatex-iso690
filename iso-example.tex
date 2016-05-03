@@ -76,18 +76,38 @@ různých jazycích, je třeba všechny tyto jazyky nahrát balíčkem \t|babel|
 %Pro správnou podporu lokalizace je třeba použít balíček babel. V seznamu jazyků se jako poslední uvádí jazyk dokumentu. 
 \subsection{Volby}
 \begin{description}
-\item[style] požadovaný styl. Jsou dostupné tři varianty, \t|iso-authoryear| pro citování tzv. harvardskou metodou, \t|iso-numeric| pro citování pomocí číselných odkazů a \t|iso-authortitle|.
-\item[backend] program, kterým se generují bibliografické údaje. \t|biber| je vyvinut speciálně pro \t|biblatex| a má proto největší možnosti. Další možnosti jsou \t|bibtex| a \t|bibtex8|, ale jejich podpora češtiny nedosahuje úrovně \t|biberu|
+\item[style] požadovaný styl. Jsou dostupné tři varianty, \t|iso-authoryear|
+  pro citování tzv. harvardskou metodou, \t|iso-numeric| pro citování pomocí
+  číselných odkazů a \t|iso-authortitle|.
+
+\item[backend] program, kterým se generují bibliografické údaje. \t|biber| je
+  vyvinut speciálně pro \t|biblatex| a má proto největší možnosti. Další
+  možnosti jsou \t|bibtex| a \t|bibtex8|, ale jejich podpora češtiny nedosahuje
+  úrovně \t|biberu|
+
 \item[autolang] ovlivňuje vypisování lokalizačních řetězců a dělení slov.
 \item[sortlocale] ovlivňuje řazení literatury. Je třeba zadat \t|locale| kód hlavního jazyka dokumentu.
 \item[bibencoding] uvádí se, pokud je bibliografická databáze v jiném kódování, než dokument. 
 
 \end{description}
 
+\subsubsection{Speciální volby nabízené stylem}
+
+\begin{description}
+  \item[spacecolon] Tisk mezery před dvojtečkou u podnázvů a v nakladatelských údajích
+  \item[pagetotal] Podle normy není celkový počet stran vyžadovaný útvar. Tato
+    volba vypíše celkový počet stran publikace v poznámkové části
+    bibliografického záznamu.
+  \item[shortnumeration] Norma umožňuje dvojí způsob zápisu u článků, první
+    rozepisuje slovně ročník a číslo časopisu, druhý, který můžete zvolit touto
+    volbou odlišuje ročníky a články typograficky.
+\end{description}
+
 
 \subsection{Databáze}
 
-\t|biblatex| podporuje množství polí, které ve standartním \t|bibtexu| chyběly. Zde je několik příkladů bibliografických záznamů a jejich \t|bibtexového| kódu.
+\t|biblatex| podporuje množství polí, které ve standartním \t|bibtexu| chyběly.
+Zde je několik příkladů bibliografických záznamů a jejich \t|bibtexového| kódu.
 
 %\begin{description}
 
@@ -109,7 +129,11 @@ různých jazycích, je třeba všechny tyto jazyky nahrát balíčkem \t|babel|
 }
 \end{verbatim} 
 
-\t|edition| je vydání, je povinným údajem pouze pokud je jiné, než první. Zapisuje se číslicí nebo slovně. \t|pagetotal| je počet stran. \t|langid| udává jazyk dokumentu, je nutné ho zadat u dokumentů napsaných v jiném, než ve kterém je napsaný hlavní text. Tato volba ovlivňuje výpis některých řetězců, jako je například vydání.
+\t|edition| je vydání, je povinným údajem pouze pokud je jiné, než první.
+Zapisuje se číslicí nebo slovně. \t|pagetotal| je počet stran. \t|langid| udává
+jazyk dokumentu, je nutné ho zadat u dokumentů napsaných v jiném jazyce, než ve kterém
+je napsaný hlavní text. Tato volba ovlivňuje výpis některých řetězců, jako je
+například vydání.
 
 \paragraph{Článek ve sborníku} \hfill\\
 
