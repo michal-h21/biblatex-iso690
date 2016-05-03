@@ -460,7 +460,7 @@
 \setunit{\addspace}%
 \usebibmacro{urldate}%
 \newunit\newblock%
-\usebibmacro{series+number}
+\usebibmacro{series+number}%
 \newunit\newblock%
 \usebibmacro{identifier}%
 \newunit\newblock%
@@ -479,8 +479,6 @@
 \DeclareBibliographyDriver{periodical}{%
 \usebibmacro{bibindex}%
 \usebibmacro{begentry}%
-%\printnames{author}%
-%\usebibmacro{names:primary}%
 \newunit\newblock%
 \usebibmacro{periodical:titles}%
 \setunit{\addspace}%
@@ -489,11 +487,10 @@
 \usebibmacro{book:vol}%
 \newunit\newblock%
 \usebibmacro{location+publisher+date}%
-%\newunit\newblock
-%\usebibmacro{pagecount}%
-%\newunit\newblock%
-%\printfield{series}%
-%\usebibmacro{print-online}{\mainlstring{url}}{\printfield{url}}%
+\setunit*{\addcomma\addspace}%
+\usebibmacro{numeration}%
+\setunit{\addspace}%
+\usebibmacro{urldate}%
 \newunit\newblock%
 \usebibmacro{identifier}%
 \newunit\newblock%
@@ -565,7 +562,7 @@
 \setunit{\addspace}%
 \usebibmacro{urldate}%
 \newunit\newblock%
-\usebibmacro{series+number}
+\usebibmacro{series+number}%
 \newunit\newblock%
 \usebibmacro{identifier}%
 \newunit\newblock%
@@ -607,7 +604,7 @@
 \setunit{\addspace}%
 \usebibmacro{urldate}%
 \newunit\newblock%
-\usebibmacro{series+number}
+\usebibmacro{series+number}%
 \newunit\newblock%
 \usebibmacro{identifier}%
 \newunit\newblock%
@@ -639,7 +636,7 @@
 \setunit{\addspace}%
 \usebibmacro{urldate}%
 \newunit\newblock%
-\printfield{series+number}
+\usebibmacro{series+number}%
 \newunit\newblock%
 \usebibmacro{identifier}%
 \newunit\newblock%
