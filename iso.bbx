@@ -178,31 +178,7 @@
 
 %bibliography macros
 
-\newbibmacro*{numeration}{%
-  \printfield{volume}%
-  \iftoggle{bbx:shortnum}
-    {}
-    {\setunit*{\addcomma\addspace}}%
-  \printfield{number}%
-  \setunit*{\addcomma\addspace}%
-  \printfield{chapter}%
-}
-
-\renewbibmacro*{date}{%
-  \iffieldequalstr{endyear}{}%
-    {\printdate\mbox{\addnbspace}}%
-    {\printdate}%
-}
-
-\newbibmacro*{location+publisher+date}{%
-  \printlist{location}%
-  \iflistundef{publisher}
-    {\setunit*{\addcomma\space}}%
-    {\setunit*{\subtitlepunct}}%
-  \printlist{publisher}%
-  \setunit*{\addcomma\space}%
-  \usebibmacro{date}%
-  \newunit}
+%names
 
 % based on author/editor macro
 \newbibmacro*{names:primary}{%
@@ -224,12 +200,6 @@
   \usebibmacro{bytranslator}%
 }
 
-\newbibmacro*{series+number}{%
-  \printfield{series}%
-  \setunit*{\addcomma\space}%
-  \printfield{number}%
-}%
-
 \renewbibmacro*{editor}{%
   \ifboolexpr{
     test \ifuseeditor
@@ -242,48 +212,7 @@
      \clearname{editor}}%
     {}}
 
-\newbibmacro*{medium-type}{%
-  \iffieldundef{howpublished}
-    {\iffieldundef{urlyear}
-      {}
-      {\printtext{\mkbibbrackets{online}}}}
-    {\printfield{howpublished}}%
-}
-
-\newbibmacro*{from-doi}{%
-  \mainlstring{urlfrom}\addspace\printfield{doi}%
-}
-
-\newbibmacro*{from-eprint}{%
-  \mainlstring{urlfrom}\addspace\usebibmacro{eprint}%
-}
-
-\newbibmacro*{availability+access}{%
-  \iffieldundef{doi}
-    {\iffieldundef{eprint}
-       {\printfield{url}}
-       {\usebibmacro{from-eprint}}}
-    {\usebibmacro{from-doi}}%
-}
-
-\newbibmacro*{identifier}{%
-  \printfield{isan}%
-  \newunit%
-  \printfield{isbn}%
-  \newunit%
-  \printfield{ismn}%
-  \newunit%
-  \printfield{isrn}%
-  \newunit%
-  \printfield{issn}%
-  \newunit%
-  \printfield{iswc}%
-  \newunit%
-}
-
-\newbibmacro{book:vol}{%
-	\printfield{edition}%
-}%
+%titles
 
 \newbibmacro{titles}[2]{%
   \ifboolexpr{
@@ -337,6 +266,91 @@
        {\usebibmacro{titles}{journal}{}}}
     {\usebibmacro{titles}{issue}{}}%
 }
+
+%medium type
+
+\newbibmacro*{medium-type}{%
+  \iffieldundef{howpublished}
+    {\iffieldundef{urlyear}
+      {}
+      {\printtext{\mkbibbrackets{online}}}}
+    {\printfield{howpublished}}%
+}
+
+%publication info
+
+\renewbibmacro*{date}{%
+  \iffieldequalstr{endyear}{}%
+    {\printdate\mbox{\addnbspace}}%
+    {\printdate}%
+}
+
+\newbibmacro*{location+publisher+date}{%
+  \printlist{location}%
+  \iflistundef{publisher}
+    {\setunit*{\addcomma\space}}%
+    {\setunit*{\subtitlepunct}}%
+  \printlist{publisher}%
+  \setunit*{\addcomma\space}%
+  \usebibmacro{date}%
+  \newunit}
+
+%numeration
+
+\newbibmacro*{numeration}{%
+  \printfield{volume}%
+  \iftoggle{bbx:shortnum}
+    {}
+    {\setunit*{\addcomma\addspace}}%
+  \printfield{number}%
+  \setunit*{\addcomma\addspace}%
+  \printfield{chapter}%
+}
+
+%series title and number
+
+\newbibmacro*{series+number}{%
+  \printfield{series}%
+  \setunit*{\addcomma\space}%
+  \printfield{number}%
+}%
+
+%standard identifiers
+
+\newbibmacro*{identifier}{%
+  \printfield{isan}%
+  \newunit%
+  \printfield{isbn}%
+  \newunit%
+  \printfield{ismn}%
+  \newunit%
+  \printfield{isrn}%
+  \newunit%
+  \printfield{issn}%
+  \newunit%
+  \printfield{iswc}%
+  \newunit%
+}
+
+%availability and access
+
+\newbibmacro*{from-doi}{%
+  \mainlstring{urlfrom}\addspace\printfield{doi}%
+}
+
+\newbibmacro*{from-eprint}{%
+  \mainlstring{urlfrom}\addspace\usebibmacro{eprint}%
+}
+
+\newbibmacro*{availability+access}{%
+  \iffieldundef{doi}
+    {\iffieldundef{eprint}
+       {\printfield{url}}
+       {\usebibmacro{from-eprint}}}
+    {\usebibmacro{from-doi}}%
+}
+
+%other
 
 % redeclare in: bibmacro to use the main document language.
 % there was discussion whether literal "In:" should be used,
@@ -450,7 +464,7 @@
 \setunit{\addspace}%
 \usebibmacro{medium-type}%
 \newunit\newblock%
-\usebibmacro{book:vol}%
+\printfield{edition}%
 \newunit\newblock%
 \usebibmacro{names:subsidiary}%
 \newunit\newblock%
@@ -484,7 +498,7 @@
 \setunit{\addspace}%
 \usebibmacro{medium-type}%
 \newunit\newblock
-\usebibmacro{book:vol}%
+\printfield{edition}%
 \newunit\newblock%
 \usebibmacro{location+publisher+date}%
 \setunit*{\addcomma\addspace}%
@@ -514,7 +528,7 @@
 \setunit{\addspace}%
 \usebibmacro{medium-type}%
 \newunit\newblock%
-\usebibmacro{book:vol}%
+\printfield{edition}%
 \newunit\newblock%
 \usebibmacro{date}
 \setunit*{\addcomma\addspace}%
@@ -548,7 +562,7 @@
 \setunit{\addspace}%
 \usebibmacro{medium-type}%
 \newunit\newblock%
-\usebibmacro{book:vol}%
+\printfield{edition}%
 \newunit\newblock%
 \usebibmacro{names:subsidiary}%
 \newunit\newblock%
@@ -588,7 +602,7 @@
 \setunit{\addspace}%
 \usebibmacro{medium-type}%
 \newunit\newblock%
-\usebibmacro{book:vol}%
+\printfield{edition}%
 \newunit\newblock%
 \usebibmacro{names:subsidiary}%
 \newunit\newblock%
@@ -626,7 +640,7 @@
 \setunit{\addspace}%
 \usebibmacro{medium-type}%
 \newunit\newblock%
-\usebibmacro{book:vol}%
+\printfield{edition}%
 \newunit\newblock%
 \usebibmacro{names:subsidiary}%
 \newunit\newblock%
