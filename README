@@ -51,9 +51,9 @@ Custom options:
 Bibliographic fields:
 Some fields have different meaning than in plain BibTeX.
 
-1. if publication is written in other language than the main document is, it should have filled "hyphenation" field
+1. if publication is written in other language than the main document is, it should have filled "langid" field
   
-  hyphenation = {czech} 
+  langid = {czech}
 
 2. publications with online versions should have "urldate" field. it is date when you last checked publication online
 

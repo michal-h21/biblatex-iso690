@@ -68,7 +68,7 @@ Na vývoji stylu spolupracovali Johaness Bötchner, Moewew, Dávid Lupták a dal
 
 \end{verbatim}
 
-Podle normy se mají některé údaje v bibliografických záznamech uvádět v jazyce dokumentu, jiné v jazyce záznamu. Pokud se odkazujete na dokumenty, psané v různých jazycích, je třeba všechny tyto jazyky nahrát balíčkem \t|babel| nebo \t|polyglossia|. Jazyk také doplňte ke každému záznamu do pole \t|hyphenation|.
+Podle normy se mají některé údaje v bibliografických záznamech uvádět v jazyce dokumentu, jiné v jazyce záznamu. Pokud se odkazujete na dokumenty, psané v různých jazycích, je třeba všechny tyto jazyky nahrát balíčkem \t|babel| nebo \t|polyglossia|. Jazyk také doplňte ke každému záznamu do pole \t|langid|.
 
 %Pro správnou podporu lokalizace je třeba použít balíček babel. V seznamu jazyků se jako poslední uvádí jazyk dokumentu. 
 \subsection{Volby}
@@ -102,11 +102,11 @@ Podle normy se mají některé údaje v bibliografických záznamech uvádět v 
   publisher   =   {The MIT Press},
   pagetotal   =   {xviii, 324},
   isbn        =   {0-262-52345-0},
-  hyphenation =   {english}
+  langid      =   {english}
 }
 \end{verbatim} 
 
-\t|edition| je vydání, je povinným údajem pouze pokud je jiné, než první. Zapisuje se číslicí nebo slovně. \t|pagetotal| je počet stran. \t|hyphenation| udává jazyk dokumentu, je nutné ho zadat u dokumentů napsaných v jiném, než ve kterém je napsaný hlavní text. Tato volba ovlivňuje výpis některých řetězců, jako je například vydání.
+\t|edition| je vydání, je povinným údajem pouze pokud je jiné, než první. Zapisuje se číslicí nebo slovně. \t|pagetotal| je počet stran. \t|langid| udává jazyk dokumentu, je nutné ho zadat u dokumentů napsaných v jiném, než ve kterém je napsaný hlavní text. Tato volba ovlivňuje výpis některých řetězců, jako je například vydání.
 
 \paragraph{Článek ve sborníku} \hfill\\
 
@@ -125,7 +125,7 @@ Podle normy se mají některé údaje v bibliografických záznamech uvádět v 
   publisher     =   {Council on Library and Information Resources; 
                       Association of American Universities}, 
   pages         =   {105-116},
-  hyphenation   =   {english}
+  langid        =   {english}
 }
 \end{verbatim} 
  \t|title| je název článku, \t|booktitle| název sborníku. Rozsah stran udávají \t|pages|.
@@ -139,7 +139,7 @@ Podle normy se mají některé údaje v bibliografických záznamech uvádět v 
   title       =   {Mimořádně užitečný sborník},
   editor      =   {Geniální, Jiří},
   year        =   {2007},
-  hyphenation =   {czech},
+  langid      =   {czech},
   location    =   {Praha},
   publisher   =   {Academia},
   isbn        =   {978-222-626-222-2}
@@ -170,7 +170,7 @@ Podle normy se mají některé údaje v bibliografických záznamech uvádět v 
   urldate       =   {2005-08-15},
   url           =   {http://www.dlib.org/dlib/july05/lynch/07lynch.html}, 
   issn          =   {1082-9873},
-  hyphenation   =   {english} 
+  langid        =   {english}
 }
  \end{verbatim}
  
@@ -182,7 +182,7 @@ Podle normy se mají některé údaje v bibliografických záznamech uvádět v 
   journaltitle  =   {TUGBoat},
   publisher     =   {TUG},
   issn          =   {1222-3333},
-  hyphenation   =   {english},
+  langid        =   {english},
   year          =   {1980-},
   url           =   {http://tugboat.tug.org/}
 }
