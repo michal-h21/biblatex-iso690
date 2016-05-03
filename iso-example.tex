@@ -68,14 +68,17 @@ Na vývoji stylu spolupracovali Johaness Bötchner, Moewew, Dávid Lupták a dal
 
 \end{verbatim}
 
-Podle normy se mají některé údaje v bibliografických záznamech uvádět v jazyce dokumentu, jiné v jazyce záznamu. Pokud se odkazujete na dokumenty, psané v různých jazycích, je třeba všechny tyto jazyky nahrát balíčkem \t|babel| nebo \t|polyglossia|. Jazyk také doplňte ke každému záznamu do pole \t|langid|.
+Podle normy se mají některé údaje v bibliografických záznamech uvádět v jazyce
+dokumentu, jiné v jazyce záznamu. Pokud se odkazujete na dokumenty, psané v
+různých jazycích, je třeba všechny tyto jazyky nahrát balíčkem \t|babel| nebo
+\t|polyglossia|. Jazyk také doplňte ke každému záznamu do pole \t|langid|.
 
 %Pro správnou podporu lokalizace je třeba použít balíček babel. V seznamu jazyků se jako poslední uvádí jazyk dokumentu. 
 \subsection{Volby}
 \begin{description}
 \item[style] požadovaný styl. Jsou dostupné tři varianty, \t|iso-authoryear| pro citování tzv. harvardskou metodou, \t|iso-numeric| pro citování pomocí číselných odkazů a \t|iso-authortitle|.
 \item[backend] program, kterým se generují bibliografické údaje. \t|biber| je vyvinut speciálně pro \t|biblatex| a má proto největší možnosti. Další možnosti jsou \t|bibtex| a \t|bibtex8|, ale jejich podpora češtiny nedosahuje úrovně \t|biberu|
-\item[babel] ovlivňuje vypisování lokalizačních řetězců a dělení slov.
+\item[autolang] ovlivňuje vypisování lokalizačních řetězců a dělení slov.
 \item[sortlocale] ovlivňuje řazení literatury. Je třeba zadat \t|locale| kód hlavního jazyka dokumentu.
 \item[bibencoding] uvádí se, pokud je bibliografická databáze v jiném kódování, než dokument. 
 
