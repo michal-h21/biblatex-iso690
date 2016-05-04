@@ -1,0 +1,328 @@
+\documentclass[a4paper,10pt]{ltxdockit}
+\usepackage[czech,english]{babel}
+\usepackage[utf8]{inputenc}
+%\usepackage{tgpagella}
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+\usepackage{hanging}
+
+
+\def\t|#1|{\texttt{#1}}
+\def\c#1{%
+\hangpara{3em}{1}%
+\fullcite{#1}}
+
+\newcommand*{\biber}{\sty{biber}\xspace}
+\newcommand*{\biblatex}{\sty{biblatex}\xspace}
+
+\usepackage[
+   backend=biber
+  ,style=iso-authoryear
+  ,autolang=other
+  ,pagetotal=true
+  ,sortlocale=cs_CZ
+  ,bibencoding=UTF8
+  ,spacecolon=false
+  %,block=ragged
+]{biblatex}
+\addbibresource{mybib.bib}
+\titlepage{%
+  title={ISO 690 \biblatex style},
+  subtitle={},
+  url={https://github.com/michal-h21/biblatex-iso690},
+  author={Michal Hoftich},
+  email={michal.h21@gmail.com},
+  revision={0.2.1},
+  date={\today}}
+
+\begin{document}
+\printtitlepage
+\tableofcontents
+
+\section{Introduction}
+
+\subsection{About}
+
+\biblatex is bibliography and citation tool for \LaTeX. This project provides
+support for citations and references according to ISO 690 international standard.
+As the norm ISO 690 is a little bit ambiguous in some details regarding formatting of records,
+we largely follow requirements of Czech interpretation, as it is required form
+in many Czech universities. Of course, style can be used in other languages as well.
+
+\subsection{Requirements}
+
+Basically, \biblatex $\geq$ 3.4 with \biber $\geq$ 2.5 is all you need to use this package.
+No special packages different from those required by \biblatex package are used. For complete
+list of such packages, please refer to the \biblatex documentation.
+
+\subsection{License}
+
+GNU/GPL 3
+
+\subsection{Acknowledgments}
+
+Thanks to all contributors who have participated on the development of this style,
+especially Johaness Bötchner, Moewew, Dávid Lupták and others.
+
+\section{Use}
+
+\subsection{General}
+
+\begin{verbatim}
+..
+\usepackage[english,czech]{babel}
+% or in case of using xelatex, use polyglossia package instead
+\usepackage{polyglossia}
+\setmainlanguage{czech}
+\setotherlanguage{english}
+..
+\usepackage[
+   backend=biber
+  ,style=iso-authoryear
+  ,sortlocale=cs_CZ
+  ,autolang=other
+  ,bibencoding=UTF8
+]{biblatex}
+\addbibresource{filename.fileextension}
+..
+\printbibliography
+
+\end{verbatim}
+
+According to the ISO 690 norm, some of the elements of the bibliographic
+resource should be printed in the main document language (language I~am
+currently writing) while the others in the language of a resource. You can
+specify the language of a resource into the field \t|langid| on the per-entry
+basis in a resource (\t|.bib|) file. In addition, all of the languages
+specified in these fields have to be loaded by \t|babel| or \t|polyglossia|
+package respectively.\label{gen:multilang}
+
+Note that for correct support of localization functionality, \t|babel| package
+should be used. The main document language is the last one entered
+in a list of languages passed to this package.
+
+\subsection{Package options}
+
+\subsubsection{Provided by \biblatex by default}
+
+Frequently used package options are
+
+\begin{description}
+\item[style] style to be used for bibliographic references and citations.
+Three possibilities are available, \t|iso-authoryear| commonly known as
+Harvard system, \t|iso-numeric| as a numeric system and \t|iso-authortitle|.
+
+\item[backend] backend program for generating bibliographic entries. \biber
+is default backend for \biblatex package, providing a big variety
+of features. Another options are \t|bibtex| and \t|bibtex8|, but they both
+are far behind the possibilities of \biber. \biber is the recommende backend.
+
+\item[autolang] controls which language environment is used. The most
+significant value is \t|other|, which supports printing localization
+terms in language of resource or language specific hyphenation. Default
+value is \t|none|, which disable this feature.
+
+\item[sortlocale] resposible for sorting the bibliography according to the
+entered \t|locale| language identifier. The main document language one should
+be set.
+
+\item[bibencoding] specifies the encoding of the \t|bib| files. \t|<encoding>|
+needs to be explicitely specified only if the encoding of the \t|bib| file
+is different from the one of the \t|tex| file. Default value is \t|auto|, i.e.
+the encoding of the \t|bib| file is identical to the encoding of the \t|tex|
+file.
+\end{description}
+
+\subsubsection{Provided by \t|biblatex-iso690| in addition}
+
+\begin{description}
+  \item[spacecolon] if \t|true|, the space is printed before the colon
+  used in subtitles and publication information. Printing the colon this way
+  is not recommended. Default value is \t|false|.
+
+  \item[pagetotal] Number of total pages is no longer required if the item
+  is being cited as a whole. Setting this option to \t|true| will print
+  such optional information in the notes section at the end of the reference.
+  Default value is \t|false|.\label{pkg:opt:iso690:pp}
+
+  \item[shortnumeration] The standard ISO 690 allows omission of term
+  \t|volume| and terms for smaller components of a serial publication.
+  If this option is \t|true|, such terms are distinguish typografically
+  (the volume number in bold type and the part number, if required, in
+  parentheses). If \t|false|, such terms are printed with preceding
+  literal terms.
+\end{description}
+
+
+\subsection{Resource database}
+
+\t|biblatex| supports more entry fields than legacy \t|bibtex|. Hence
+some examples of bibliography entries with respective fields follow.
+
+%\begin{description}
+
+\paragraph{Book} \hfill\\
+
+\c{t01}
+\begin{verbatim}
+@BOOK{t01,
+  author      =   {Borgman, Christine L.}, 
+  year        =   {2003},
+  title       =   {From Gutenberg to the global information infrastructure}, 
+  subtitle    =   {access to information in the networked world},
+  edition     =   {1},  % should be not stated
+  location    =   {Cambridge (Mass)}, 
+  publisher   =   {The MIT Press},
+  pagetotal   =   {xviii, 324},
+  isbn        =   {0-262-52345-0},
+  langid      =   {english}
+}
+\end{verbatim} 
+
+The \t|edition| field is edition of a printed publication. It's required
+if the item is not a first edition. Use integer or literal string to fill in
+this field.
+
+The \t|pagetotal| field is total number of pages of the work. If multiple
+kinds of numeration is used in the work, e.g. arabic as well as roman numerals,
+both can be provided, separated by comma. Only for arabic numerals
+the localization term \t|pages| is appended. Note that total number of pages
+is no longer required, see also \ref{pkg:opt:iso690:pp}.
+
+The \t|langid| field is required for multilingual support of printing
+references. This affects printing of localization terms used in the reference,
+e.g. \t|edition| field. See also \ref{gen:multilang}.
+
+\paragraph{Contribution to a collection} \hfill\\
+
+\c{t02}
+\begin{verbatim}
+@INCOLLECTION{t02,
+  author        =   {Greenberg, David}, 
+  year          =   {1998},
+  title         =   {Camel drivers and gatecrashers},
+  subtitle      =   {quality control in the digital research library},
+  editor        =   {Hawkins, B.L and Battin, P},
+  booktitle     =   {The mirage of continuity},
+  booksubtitle  =   {reconfiguring academic information 
+                      resources for the 21st  century}, 
+  location      =   {Washington (D.C.)}, 
+  publisher     =   {Council on Library and Information Resources; 
+                      Association of American Universities}, 
+  pages         =   {105-116},
+  langid        =   {english}
+}
+\end{verbatim} 
+
+The \t|title| field is title of the contribution, the \t|booktitle|
+is title of the collection.
+
+The \t|pages| field is one or more page numbers or page ranges. This field
+is essential since the reference should identify the part of the item
+that is cited.
+
+It's also possible to use the cross-referencing feature to reference
+from a contribution entry (child entry) to a separate entry of collection
+(parent entry). This can be done by the field \t|crossref|
+as the following example shows:
+\newline
+
+\noindent\c{prispevek1}
+ 
+\begin{verbatim}
+@COLLECTION{sbornik,
+  title       =   {Mimořádně užitečný sborník},
+  editor      =   {Geniální, Jiří},
+  year        =   {2007},
+  langid      =   {czech},
+  location    =   {Praha},
+  publisher   =   {Academia},
+  isbn        =   {978-222-626-222-2}
+}
+
+@INCOLLECTION{prispevek1,
+  crossref    =   {sbornik},
+  title       =   {Velmi zajímavý článek},
+  author      =   {Vlaštovka, Josef},
+  pages       =   {22-45}
+}
+\end{verbatim}
+
+Now, there is no need to fill in \t|booktitle| in the \t|sbornik| entry.
+The \t|biber| backend program performs the inheritance between parent and
+child entry automatically.
+
+\paragraph{Article in a serial}\hfill\\
+
+\c{t03}
+\begin{verbatim}
+@ARTICLE{t03,
+  author        =   {LYNCH, C.},
+  year          =   {2005},
+  title         =   {Where do we go from here?},
+  subtitle      =   {the next decade for digital libraries},
+  journaltitle  =   {DLib Magazine},
+  volume        =   {11},
+  number        =   {7/8},
+  urldate       =   {2005-08-15},
+  url           =   {http://www.dlib.org/dlib/july05/lynch/07lynch.html}, 
+  issn          =   {1082-9873},
+  langid        =   {english}
+}
+\end{verbatim}
+
+The example above is an article in online magazine. If the magazine
+is available online only, i.e. it is not published in print,
+it should be cited as an electronic information resource. This can be
+achieved by providing the \t|urldate| field. On the other hand
+\newline
+
+\c{knuth}
+\begin{verbatim}
+@PERIODICAL{tug,
+  journaltitle  =   {TUGBoat},
+  publisher     =   {TUG},
+  issn          =   {1222-3333},
+  langid        =   {english},
+  date          =   {1980/},
+  url           =   {http://tugboat.tug.org/}
+}
+
+@ARTICLE{knuth,
+  author        =   {Knuth, Donald},
+  title         =   {Journeys of \TeX},
+  volume        =   {17},
+  number        =   {3},
+  year          =   {2003},
+  pages         =   {12-22},
+  url           =   {http://tugboat.tug.org/kkk.pdf},
+  crossref      =   {tug}
+}
+\end{verbatim}
+
+\noindent the example shows an article in printed magazine, which is also
+available online. Similar to the contribution to a collection,
+cross-referencing feature is possible to be used.
+
+\nocite{*}
+\printbibliography[title={Demonstrational bibliography},heading={bibnumbered}]
+
+
+\section{Revision history}
+\begin{changelog}
+\begin{release}{0.2.1}{2016-03-13}
+\item Issues about punctuation marks and redundant spaces solved
+\item Compatibility support for the latest version the \t|biblatex| package
+\item reformatted the driver for \verb|inbook| entry type
+\end{release}
+\begin{release}{0.2}{2015-03-25}
+\item Gathered changes during past four years
+\item Issue about the spacing of strings in main document language solved
+\end{release}
+\begin{release}{0.1}{2011-02-03}
+\item First release
+\item Draft of documentation
+\item Support for almost all of the entry types provided by the \t|biblatex| package
+\end{release}
+\end{changelog}
+\end{document}
