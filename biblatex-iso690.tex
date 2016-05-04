@@ -115,19 +115,19 @@ Harvard system, \t|iso-numeric| as a numeric system and \t|iso-authortitle|.
 \item[backend] backend program for generating bibliographic entries. \biber
 is default backend for \biblatex package, providing a big variety
 of features. Another options are \t|bibtex| and \t|bibtex8|, but they both
-are far behind the possibilities of \biber. \biber is the recommende backend.
+are far behind the possibilities of \biber. \biber is the recommended backend.
 
 \item[autolang] controls which language environment is used. The most
 significant value is \t|other|, which supports printing localization
 terms in language of resource or language specific hyphenation. Default
 value is \t|none|, which disable this feature.
 
-\item[sortlocale] resposible for sorting the bibliography according to the
+\item[sortlocale] responsible for sorting the bibliography according to the
 entered \t|locale| language identifier. The main document language one should
 be set.
 
 \item[bibencoding] specifies the encoding of the \t|bib| files. \t|<encoding>|
-needs to be explicitely specified only if the encoding of the \t|bib| file
+needs to be explicitly specified only if the encoding of the \t|bib| file
 is different from the one of the \t|tex| file. Default value is \t|auto|, i.e.
 the encoding of the \t|bib| file is identical to the encoding of the \t|tex|
 file.
@@ -140,21 +140,21 @@ file.
   used in subtitles and publication information. Printing the colon this way
   is not recommended. Default value is \t|false|.
 
-  \item[pagetotal] Number of total pages is no longer required if the item
+  \item[pagetotal] number of total pages is no longer required if the item
   is being cited as a whole. Setting this option to \t|true| will print
   such optional information in the notes section at the end of the reference.
   Default value is \t|false|.\label{pkg:opt:iso690:pp}
 
-  \item[shortnumeration] The standard ISO 690 allows omission of term
+  \item[shortnumeration] the standard ISO 690 allows omission of term
   \t|volume| and terms for smaller components of a serial publication.
-  If this option is \t|true|, such terms are distinguish typografically
+  If this option is \t|true|, such terms are distinguish typographically
   (the volume number in bold type and the part number, if required, in
   parentheses). If \t|false|, such terms are printed with preceding
   literal terms.
 \end{description}
 
 
-\subsection{Resource database}
+\subsection{Database guide}
 
 \t|biblatex| supports more entry fields than legacy \t|bibtex|. Hence
 some examples of bibliography entries with respective fields follow.
@@ -304,25 +304,153 @@ achieved by providing the \t|urldate| field. On the other hand
 available online. Similar to the contribution to a collection,
 cross-referencing feature is possible to be used.
 
+\subsection{Hints and Caveats}
+
+This section provides additional hints concerning \t|biblatex| package
+as well as ISO 690 standard.
+
+For now, some of the things has to be dealt with at the level of \t|bib|
+file, another ones are directly addressed in this style package.
+Everything else relies on \t|biblatex| package, so please also refer
+to the \t|biblatex| documentation.
+
+\subsubsection{Creators}
+
+The persons or organizations responsible for the cited work should be
+primarily given into the \t|author| field. If it's not appropriate,
+another fields like \t|editor| and \t|editorx| family fields or some
+specific ones (e.g. \t|translator|) can be used. Note also the field
+\t|editortype| and \t|editortypex| family fields which can be used
+to specify type of the editor. This is useful to distinguish the role
+of the creator and its relationship to the cited work. Some roles
+are supported by default, e.g. \t|editor|, \t|compiler|, \t|founder|,
+\t|reviser|, etc., in other cases the literal string can be entered.
+
+Example:
+When citing cinematographic works which are typically output of many
+individuals, title should be used as the first element of the reference.
+However, it's appropriate to include some relevant roles, e.g. director:
+
+%\begin{ltxexample}
+\begin{verbatim}
+  ..
+  editora     = {Welles, Orson}
+  editoratype = {Directed by}
+  ..
+\end{verbatim}
+%\end{ltxexample}
+
+in English, or
+
+%\begin{ltxexample}
+\begin{verbatim}
+  ..
+  editora     = {Welles, Orson}
+  editoratype = {Réžia}
+  ..
+\end{verbatim}
+%\end{ltxexample}
+
+in Slovak.
+
+The field \t|nameaddon| can be used to append additional information
+to the creator's name, e.g. variant forms of a name, name additions,
+pseudonyms, etc. This field is printed as is, in square brackets after
+creator's name.
+
+For anonymous works cited by author-year method, the term \textit{Anon}
+should be used instead of creator's name. Please, reflect this
+in \t|bib| file, since there is no other support for this for now.
+
+\subsubsection{Titles}
+
+Similar to the \t|nameaddon| field for names, \t|titleddon| serves such
+purpose for titles. This field is appropriate for providing other or
+alternative titles, elucidation of ambiguous or incorrect titles,
+substitute for no titles, translation of titles, etc.
+
+Note that also other \t|*titleaddon| fields are supported by default.
+
+\subsubsection{Medium type}
+
+The field \t|howpublished| is used for providing information about
+medium designation or type of medium. Default value for electronic
+information resources is \t|online|. This field is printed as is,
+in square brackets after title section, generally.
+
+\subsubsection{Edition}
+
+The \t|edition| field is edition of a publication. It's required
+if the item is not a first edition. Use integer or literal string
+to fill in this field. Please reflect the constraint, not to print
+the edition if the cited item is a first edition, by not providing
+this field in the \t|bib| file.
+
+The \t|version| field is used for providing information about
+updated versions of an item, usually software.
+
+\subsubsection{Date}
+
+In case no date is given and also no approximation is possible, that
+should be stated. Please reflects this in \t|bib| file by including
+the following line into the respective entry.
+
+\begin{verbatim}
+  ..
+  date = {\mkbibbrackets{\bibsstring{nodate}}}
+  ..
+\end{verbatim}
+
+Explanation of the above code:
+\t|nodate| is localization string which prints something like
+\textit{n.d.}, \textit{b.r.}, etc. depending on the language,
+\t|bibsstring| is a command to use such localization term and
+\t|mkbibbrackets| is a command used to wrap it's argument into
+the square brackets. Finally, this statement is entered into
+the date entry field to be available as a date in a reference.
+So as a result we get e.g. \textit{[n.d.]}, which conforms
+the standard.
+
+Please also note the syntax for dates -- ISO 8601 format
+(YYYY-MM-DD) is accepted. Please use slash instead of
+any kind of dash for ranges of dates. If the range is
+open ended, enter just the first date followed by a slash.
+And last, but not least, use \t|date| field instead of
+the \t|year| in general.
+
+Examples follow:
+
+\begin{verbatim}
+  date = {2012-12-21}    % exact date
+  date = {1998/2001}     % date range
+  date = {2016/}         % open ended date range
+\end{verbatim}
+
 \nocite{*}
-\printbibliography[title={Demonstrational bibliography},heading={bibnumbered}]
+\printbibliography[title={Reference bibliography},heading={bibnumbered}]
 
 
 \section{Revision history}
+
 \begin{changelog}
+
 \begin{release}{0.2.1}{2016-03-13}
 \item Issues about punctuation marks and redundant spaces solved
 \item Compatibility support for the latest version the \t|biblatex| package
-\item reformatted the driver for \verb|inbook| entry type
+\item Reformatted the driver for \verb|inbook| entry type
 \end{release}
+
 \begin{release}{0.2}{2015-03-25}
 \item Gathered changes during past four years
 \item Issue about the spacing of strings in main document language solved
 \end{release}
+
 \begin{release}{0.1}{2011-02-03}
 \item First release
 \item Draft of documentation
 \item Support for almost all of the entry types provided by the \t|biblatex| package
 \end{release}
+
 \end{changelog}
+
 \end{document}
