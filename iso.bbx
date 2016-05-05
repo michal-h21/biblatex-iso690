@@ -114,6 +114,7 @@
     {\mkbibparens{#1}}
     {\bibsstring{number}\addspace\printtext{#1}}
 }
+\DeclareFieldFormat[patent]{number}{#1}
 \DeclareFieldFormat*{url}{%
   \iffieldundef{urlyear}
   {\mainlstring{urlalso}\addcolon\space\url{#1}}
@@ -730,6 +731,37 @@
 \usebibmacro{pageref}%
 \usebibmacro{finentry}}%
 
+\DeclareBibliographyDriver{patent}{%
+\usebibmacro{bibindex}%
+\usebibmacro{begentry}%
+\usebibmacro{names:primary}%
+\setunit{\labelnamepunct}\newblock%%
+\usebibmacro{titles}{}{emph}%
+\newunit\newblock%
+\usebibmacro{names:subsidiary}%
+\newunit\newblock%
+\printfield{classification}%
+\newunit\newblock%
+\printlist{location}%
+\newunit\newblock%
+\iffieldundef{type}
+  {}
+  {\printfield{type}%
+   \setunit*{\addcomma\space}}%
+\printfield{number}%
+\newunit\newblock%
+\printdate%
+\setunit{\addspace}%
+\usebibmacro{urldate}%
+\newunit\newblock%
+\printfield{note}%
+\newunit\newblock%
+\usebibmacro{availability+access}%
+\newunit\newblock%
+\setunit{\bibpagerefpunct}\newblock%
+\usebibmacro{pageref}%
+\usebibmacro{finentry}}%
+
 %bibliography aliases
 
 \DeclareBibliographyAlias{bookinbook}{inbook}
@@ -745,9 +777,7 @@
 \DeclareBibliographyAlias{reference}{collection}
 \DeclareBibliographyAlias{inreference}{incollection}
 \DeclareBibliographyAlias{report}{book}
-% \DeclareBibliographyAlias{thesis}{book}
 \DeclareBibliographyAlias{unpublished}{book}
-\DeclareBibliographyAlias{patent}{book}
 
 \endinput
 

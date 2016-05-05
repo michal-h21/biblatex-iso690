@@ -1,4 +1,6 @@
 \ProvidesFile{iso-authoryear.dbx}[2016/05/04 supervisor for theses]
 \RequireBiber[3]
 \DeclareDatamodelFields[type=list,datatype=name]{supervisor}
+\DeclareDatamodelFields[type=field,datatype=literal]{classification}
 \DeclareDatamodelEntryfields[thesis]{supervisor}
+\DeclareDatamodelEntryfields[patent]{classification}

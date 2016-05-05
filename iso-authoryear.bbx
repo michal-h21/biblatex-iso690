@@ -6,7 +6,9 @@
 }
 
 \def\printextrayear{%
-  \printfield{year}\printfield{extrayear}%
+  \ifentrytype{patent}
+    {}
+    {\printfield{year}\printfield{extrayear}}%
 }
 
 % remove second appearance of year in a reference
