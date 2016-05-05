@@ -2,7 +2,7 @@
 
 \DeclareLanguageMapping{czech}{czech-iso}
 \DeclareLanguageMapping{english}{english-iso}
-\NewBibliographyString{urlalso}
+\NewBibliographyString{bysupervisor,urlalso}
 
 %options
 
@@ -21,11 +21,17 @@
   \settoggle{bbx:shortnum}{#1}%
   \typeout{Short numeration enabled: #1}}
 
+\newtoggle{bbx:thesisinfolast}
+\DeclareBibliographyOption{thesisinfolast}[true]{%
+  \settoggle{bbx:thesisinfolast}{#1}%
+  \typeout{Printing thesis info at the end enabled: #1}}
+
 
 \ExecuteBibliographyOptions{%
   spacecolon=false
   ,pagetotal=false
   ,shortnumeration=false
+  ,thesisinfolast=true
    %sorting=nyt
   ,maxnames=9
   ,minnames=1
@@ -126,6 +132,15 @@
     {\mkbibbrackets{#1}}
 }
 
+\DeclareFieldFormat{type}{%
+  \ifbibstring{#1}
+    {\mainlstring{#1}}
+    {#1}
+}
+
+\DeclareFieldFormat{supervisor}{%
+  \mainlstring{bysupervisor}\addspace#1}
+
 %We must handle more than one isbn and issn
 \DeclareFieldFormat{isbn}{%
 %\renewcommand*{\do}[1]{\printtext{ISBN}\addnbspace#1\adddot\addspace}%
@@ -167,6 +182,7 @@
 %name alias
 
 \DeclareNameAlias{default}{last-first}
+\DeclareNameAlias{supervisor}{first-last}
 
 %bibliography macros
 
@@ -201,6 +217,14 @@
      \mkbibparens{\usebibmacro{editorstrg}}%
      \clearname{editor}}%
     {}}
+
+\newbibmacro*{thesissupervisor}{%
+  \ifnameundef{supervisor}
+    {}
+    {\printtext{\mainlstring{bysupervisor}}%
+     \addspace%
+     \printnames{supervisor}}
+}
 
 %titles
 
@@ -655,6 +679,51 @@
 \newunit\newblock%
 \setunit{\bibpagerefpunct}\newblock%
 \usebibmacro{pageref}%%
+\usebibmacro{finentry}}%
+
+\DeclareBibliographyDriver{thesis}{%
+\usebibmacro{bibindex}%
+\usebibmacro{begentry}%
+\usebibmacro{names:primary}%
+\setunit{\labelnamepunct}\newblock%%
+\usebibmacro{titles}{}{emph}%
+\setunit{\addspace}%
+\usebibmacro{medium-type}%
+\newunit\newblock%
+\usebibmacro{location+publisher+date}%
+\newunit%
+\printfield{version}%
+\setunit{\addspace}%
+\usebibmacro{urldate}%
+\newunit\newblock%
+\usebibmacro{identifier}%
+\newunit\newblock%
+\iftoggle{bbx:thesisinfolast}
+  {}
+  {\printfield{type}
+   \newunit\newblock%
+   \printlist{institution}%
+   \newunit\newblock%
+   \usebibmacro{thesissupervisor}}%
+\newunit\newblock%
+\usebibmacro{availability+access}
+\setunit{\addspace}%
+\iftoggle{bbx:totalpages}
+  {\printfield{pagetotal}}
+  {}%
+\newunit\newblock%
+\iftoggle{bbx:thesisinfolast}
+  {\printfield{type}
+   \newunit\newblock%
+   \printlist{institution}%
+   \newunit\newblock%
+   \usebibmacro{thesissupervisor}}
+  {}%
+\newunit\newblock%
+\printfield{note}%
+\newunit\newblock%
+\setunit{\bibpagerefpunct}\newblock%
+\usebibmacro{pageref}%
 \usebibmacro{finentry}}%
 
 %bibliography aliases
