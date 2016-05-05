@@ -151,6 +151,12 @@ file.
   (the volume number in bold type and the part number, if required, in
   parentheses). If \t|false|, such terms are printed with preceding
   literal terms.
+
+  \item[thesisinfolast] whether or not to print information about
+  thesis (i.e. type, institution or supervisor) in the note section
+  is ambiguous, print it before the section \textit{availability
+  and access} is possible by setting this option to \t|false|.
+  Default value is \t|true|.
 \end{description}
 
 
@@ -304,6 +310,25 @@ achieved by providing the \t|urldate| field. On the other hand
 available online. Similar to the contribution to a collection,
 cross-referencing feature is possible to be used.
 
+\subsubsection{Specific entry types}
+
+\paragraph{Thesis}\hfill\\
+
+The entry type \t|thesis| and its aliasis \t|mastersthesis| and
+\t|phdthesis| are available by default for thesis works. Use the
+\t|type| field to specify the type of thesis -- localization
+term or literal string could be entered. For the list of supported
+localization terms, please refer to section 4.9.2.13 of the
+\t|biblatex| documentation. Names of the supervisor and school
+(institution) can be entered into the fields \t|supervisor| and
+\t|institution|, respectively.
+
+\paragraph{Patent}\hfill\\
+
+The field \t|classification| is available for the respective stuff.
+For other details regarding this type, please refer to \t|biblatex|
+documentation.
+
 \subsection{Hints and Caveats}
 
 This section provides additional hints concerning \t|biblatex| package
@@ -425,6 +450,13 @@ Examples follow:
   date = {1998/2001}     % date range
   date = {2016/}         % open ended date range
 \end{verbatim}
+
+\subsubsection{Location}
+
+If only limited number of copies of the work exists or
+location of graphic work is essential to its identification,
+such location (e.g. library or repository) should be stated
+in a reference. The field \t|library| serves for this purpose.
 
 \nocite{*}
 \printbibliography[title={Reference bibliography},heading={bibnumbered}]
