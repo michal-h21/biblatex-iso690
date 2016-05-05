@@ -2,7 +2,7 @@
 
 \DeclareLanguageMapping{czech}{czech-iso}
 \DeclareLanguageMapping{english}{english-iso}
-\NewBibliographyString{bysupervisor,urlalso}
+\NewBibliographyString{at,bysupervisor,urlalso}
 
 %options
 
@@ -164,6 +164,8 @@
     {\biblstring{version}\addnbspace#1}%
     {\MakeCapital{#1}}%
 }
+
+\DeclareFieldFormat{library}{#1}
 
 \DeclareFieldFormat{journaltitle}{#1}
 \DeclareFieldFormat{booktitle}{#1}
@@ -369,6 +371,15 @@
     {\usebibmacro{from-doi}}%
 }
 
+%location
+
+\newbibmacro*{location}{%
+  \iffieldundef{library}
+    {}
+    {\usebibmacro{at:}%
+     \printfield{library}}%
+}
+
 %other
 
 % redeclare in: bibmacro to use the main document language.
@@ -378,6 +389,10 @@
 
 \renewbibmacro*{in:}{%
   \printtext{\mainsstring{in}\intitlepunct}%
+}
+
+\newbibmacro*{at:}{%
+  \printtext{\mainsstring{at}\intitlepunct}%
 }
 
 %biblatex core
@@ -498,6 +513,8 @@
 \usebibmacro{identifier}%
 \newunit\newblock%
 \usebibmacro{availability+access}%
+\newunit\newblock%
+\usebibmacro{location}%
 \setunit{\addspace}%
 \iftoggle{bbx:totalpages}
   {\printfield{pagetotal}}
@@ -531,6 +548,8 @@
 \newunit\newblock%
 \usebibmacro{availability+access}%
 \newunit\newblock%
+\usebibmacro{location}%
+\newunit\newblock%
 \printfield{note}%
 \newunit\newblock%
 \setunit{\bibpagerefpunct}\newblock%
@@ -562,6 +581,8 @@
 \usebibmacro{identifier}%
 \newunit\newblock%
 \usebibmacro{availability+access}%
+\newunit\newblock%
+\usebibmacro{location}%
 \newunit\newblock%
 \printfield{note}%
 \setunit{\bibpagerefpunct}\newblock%
@@ -602,6 +623,8 @@
 \usebibmacro{identifier}%
 \newunit\newblock%
 \usebibmacro{availability+access}%
+\newunit\newblock%
+\usebibmacro{location}%
 \newunit\newblock%
 \printfield{note}%
 \newunit\newblock%
@@ -644,6 +667,8 @@
 \usebibmacro{identifier}%
 \newunit\newblock%
 \usebibmacro{availability+access}%
+\newunit\newblock%
+\usebibmacro{location}%
 \newunit\newblock%
 \printfield{note}%
 \newunit\newblock%
