@@ -311,12 +311,16 @@
 
 %numeration
 
-\newbibmacro*{numeration}{%
+\newbibmacro*{serial:numeration}{%
   \printfield{volume}%
   \iftoggle{bbx:shortnum}
     {}
     {\setunit*{\addcomma\addspace}}%
   \printfield{number}%
+}
+
+\newbibmacro*{book:numeration}{%
+  \printfield{volume}%
   \setunit*{\addcomma\addspace}%
   \printfield{chapter}%
 }
@@ -518,7 +522,7 @@
 \newunit\newblock%
 \usebibmacro{location+publisher+date}%
 \setunit*{\addcomma\addspace}%
-\usebibmacro{numeration}%
+\usebibmacro{serial:numeration}%
 \setunit{\addspace}%
 \usebibmacro{urldate}%
 \newunit\newblock%
@@ -548,7 +552,7 @@
 \newunit\newblock%
 \usebibmacro{date}
 \setunit*{\addcomma\addspace}%
-\usebibmacro{numeration}%
+\usebibmacro{serial:numeration}%
 \setunit{\bibpagespunct}%
 \printfield{pages}%
 \setunit{\addspace}%
@@ -584,7 +588,7 @@
 \newunit\newblock%
 \usebibmacro{location+publisher+date}%
 \setunit*{\addcomma\addspace}%
-\usebibmacro{numeration}%
+\usebibmacro{book:numeration}%
 \setunit{\bibpagespunct}%
 \printfield{pages}%
 \newunit%
@@ -626,7 +630,7 @@
 % could number be even used in `incollection`? 
 % It should be at some other place in this case
 \setunit*{\addcomma\addspace}%
-\usebibmacro{numeration}%
+\usebibmacro{book:numeration}%
 \setunit{\bibpagespunct}%
 \printfield{pages}%
 \newunit%
