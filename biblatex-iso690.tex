@@ -25,9 +25,11 @@
   ,spacecolon=false
   %,block=ragged
 ]{biblatex}
+
 \addbibresource{mybib.bib}
+
 \titlepage{%
-  title={ISO 690 \biblatex style},
+  title={ISO~690 \biblatex style},
   subtitle={},
   url={https://github.com/michal-h21/biblatex-iso690},
   author={Michal Hoftich},
@@ -35,7 +37,14 @@
   revision={0.2.1},
   date={\today}}
 
+\hypersetup{%
+  pdftitle={ISO~690 \biblatex style},
+  pdfsubject={Bibliography References and Citations by ISO~690},
+  pdfauthor={Michal Hoftich with Johaness Bötchner, Moewew and Dávid Lupták},
+  pdfkeywords={tex, latex, bibtex, biblatex, bibliography, references, citation}}
+
 \begin{document}
+
 \printtitlepage
 \tableofcontents
 
@@ -43,9 +52,9 @@
 
 \subsection{About}
 
-\biblatex is bibliography and citation tool for \LaTeX. This project provides
-support for citations and references according to ISO 690 international standard.
-As the norm ISO 690 is a little bit ambiguous in some details regarding formatting of records,
+\biblatex is a bibliography and citation tool for \LaTeX. This project provides
+support for citations and references according to the ISO~690 international standard.
+As the norm ISO~690 is a little bit ambiguous in some details regarding formatting of records,
 we largely follow requirements of Czech interpretation, as it is required form
 in many Czech universities. Of course, style can be used in other languages as well.
 
@@ -57,12 +66,17 @@ list of such packages, please refer to the \biblatex documentation.
 
 \subsection{License}
 
-GNU/GPL 3
+This project is released under GNU/GPL 3\footnote{\url{http://www.gnu.org/licenses/lgpl.txt}} license.
 
 \subsection{Acknowledgments}
 
 Thanks to all contributors who have participated on the development of this style,
 especially Johaness Bötchner, Moewew, Dávid Lupták and others.
+
+\subsection{Feedback}
+
+The project lives on the GitHub page \url{https://github.com/michal-h21/biblatex-iso690}
+so feel free to use the possibilites provided there for reporting issues and the like.
 
 \section{Use}
 
@@ -89,7 +103,7 @@ especially Johaness Bötchner, Moewew, Dávid Lupták and others.
 
 \end{verbatim}
 
-According to the ISO 690 norm, some of the elements of the bibliographic
+According to the ISO~690 norm, some of the elements of the bibliographic
 resource should be printed in the main document language (language I~am
 currently writing) while the others in the language of a resource. You can
 specify the language of a resource into the field \t|langid| on the per-entry
@@ -97,8 +111,8 @@ basis in a resource (\t|.bib|) file. In addition, all of the languages
 specified in these fields have to be loaded by \t|babel| or \t|polyglossia|
 package respectively.\label{gen:multilang}
 
-Note that for correct support of localization functionality, \t|babel| package
-should be used. The main document language is the last one entered
+Note that for correct support of localization functionality, the \t|babel|
+package should be used. The main document language is the last one entered
 in a list of languages passed to this package.
 
 \subsection{Package options}
@@ -113,14 +127,14 @@ Three possibilities are available, \t|iso-authoryear| commonly known as
 Harvard system, \t|iso-numeric| as a numeric system and \t|iso-authortitle|.
 
 \item[backend] backend program for generating bibliographic entries. \biber
-is default backend for \biblatex package, providing a big variety
+is the default one for \biblatex package, providing a big variety
 of features. Another options are \t|bibtex| and \t|bibtex8|, but they both
 are far behind the possibilities of \biber. \biber is the recommended backend.
 
 \item[autolang] controls which language environment is used. The most
 significant value is \t|other|, which supports printing localization
 terms in language of resource or language specific hyphenation. Default
-value is \t|none|, which disable this feature.
+value is \t|none|, which disables this feature.
 
 \item[sortlocale] responsible for sorting the bibliography according to the
 entered \t|locale| language identifier. The main document language one should
@@ -145,9 +159,9 @@ file.
   such optional information in the notes section at the end of the reference.
   Default value is \t|false|.\label{pkg:opt:iso690:pp}
 
-  \item[shortnumeration] the standard ISO 690 allows omission of term
+  \item[shortnumeration] the standard ISO~690 allows omission of term
   \t|volume| and terms for smaller components of a serial publication.
-  If this option is \t|true|, such terms are distinguish typographically
+  If this option is \t|true|, such terms are distinguished typographically
   (the volume number in bold type and the part number, if required, in
   parentheses). If \t|false|, such terms are printed with preceding
   literal terms.
@@ -163,7 +177,7 @@ file.
 \subsection{Database guide}
 
 \t|biblatex| supports more entry fields than legacy \t|bibtex|. Hence
-some examples of bibliography entries with respective fields follow.
+some examples of bibliography entry types with respective fields follow.
 
 %\begin{description}
 
@@ -191,9 +205,9 @@ this field.
 
 The \t|pagetotal| field is total number of pages of the work. If multiple
 kinds of numeration is used in the work, e.g. arabic as well as roman numerals,
-both can be provided, separated by comma. Only for arabic numerals
+both can be provided, separated by a comma. Only for arabic numerals
 the localization term \t|pages| is appended. Note that total number of pages
-is no longer required, see also \ref{pkg:opt:iso690:pp}.
+is no longer required by the norm itself, see also \ref{pkg:opt:iso690:pp}.
 
 The \t|langid| field is required for multilingual support of printing
 references. This affects printing of localization terms used in the reference,
@@ -228,7 +242,7 @@ is essential since the reference should identify the part of the item
 that is cited.
 
 It's also possible to use the cross-referencing feature to reference
-from a contribution entry (child entry) to a separate entry of collection
+from a contribution entry (child entry) to a separate entry of a collection
 (parent entry). This can be done by the field \t|crossref|
 as the following example shows:
 \newline
@@ -308,15 +322,15 @@ achieved by providing the \t|urldate| field. On the other hand
 
 \noindent the example shows an article in printed magazine, which is also
 available online. Similar to the contribution to a collection,
-cross-referencing feature is possible to be used.
+using cross-referencing feature can be of benefit.
 
 \subsubsection{Specific entry types}
 
 \paragraph{Thesis}\hfill\\
 
-The entry type \t|thesis| and its aliasis \t|mastersthesis| and
+The entry type \t|thesis| and its aliases \t|mastersthesis| and
 \t|phdthesis| are available by default for thesis works. Use the
-\t|type| field to specify the type of thesis -- localization
+\t|type| field to specify the type of the thesis -- localization
 term or literal string could be entered. For the list of supported
 localization terms, please refer to section 4.9.2.13 of the
 \t|biblatex| documentation. Names of the supervisor and school
@@ -326,17 +340,17 @@ localization terms, please refer to section 4.9.2.13 of the
 \paragraph{Patent}\hfill\\
 
 The field \t|classification| is available for the respective stuff.
-For other details regarding this type, please refer to \t|biblatex|
-documentation.
+For other details regarding \t|patent| type, please refer
+to the \t|biblatex| documentation.
 
 \subsection{Hints and Caveats}
 
 This section provides additional hints concerning \t|biblatex| package
-as well as ISO 690 standard.
+as well as ISO~690 standard.
 
 For now, some of the things has to be dealt with at the level of \t|bib|
 file, another ones are directly addressed in this style package.
-Everything else relies on \t|biblatex| package, so please also refer
+Everything else relies on the \t|biblatex| package, so please also refer
 to the \t|biblatex| documentation.
 
 \subsubsection{Creators}
@@ -466,20 +480,25 @@ in a reference. The field \t|library| serves for this purpose.
 
 \begin{changelog}
 
+\begin{release}{0.3}{2016-05-04}
+\item A~complete refactoring of the style to comply the latest version of the \t|bibatex| package as well as ISO~690 international standard
+\item Added english version of the documentation/user guide (this document)
+\end{release}
+
 \begin{release}{0.2.1}{2016-03-13}
-\item Issues about punctuation marks and redundant spaces solved
-\item Compatibility support for the latest version the \t|biblatex| package
+\item Solved issues about punctuation marks and redundant spaces
+\item Compatibility support for the latest version of the \t|biblatex| package
 \item Reformatted the driver for \verb|inbook| entry type
 \end{release}
 
 \begin{release}{0.2}{2015-03-25}
 \item Gathered changes during past four years
-\item Issue about the spacing of strings in main document language solved
+\item Solved issue about the spacing of strings in main document language
 \end{release}
 
 \begin{release}{0.1}{2011-02-03}
 \item First release
-\item Draft of documentation
+\item Draft of the documentation (only in Czech)
 \item Support for almost all of the entry types provided by the \t|biblatex| package
 \end{release}
 
