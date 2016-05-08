@@ -340,6 +340,17 @@ localization terms, please refer to section 4.9.2.13 of the
 \paragraph{Patent}\hfill\\
 
 The field \t|classification| is available for the respective stuff.
+Since there is no way to override global setting of date specification
+on the per-type basis, which is actually set for printing just a year
+in a reference, the field \t|fulldate| is announced as a workaround
+to print the full date, which is required in \t|patent| entry type.
+Obviously, there is no difference in filling in this field in comparison
+to a \t|date| field. However, please note that \t|fulldate| field is literal,
+which means a creator of the bib file is fully responsible for the value
+provided there. Since one of the basic principles for creating bibliography
+references is to comply a uniform style of all references in a document,
+it's strongly recommended to fill in this field in ISO 8601
+format\footnote{\url{http://www.iso.org/iso/home/standards/iso8601.htm}}.
 For other details regarding \t|patent| type, please refer
 to the \t|biblatex| documentation.
 

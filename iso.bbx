@@ -297,6 +297,12 @@
 
 %publication info
 
+\newbibmacro{fulldate}{%
+  \iffieldundef{fulldate}
+    {\printdate}
+    {\printfield{fulldate}}%
+}
+
 \renewbibmacro*{date}{%
   \iffieldequalstr{endyear}{}%
     {\printdate\mbox{\addnbspace}}%
@@ -494,7 +500,7 @@
 \usebibmacro{bibindex}%
 \usebibmacro{begentry}%
 \usebibmacro{names:primary}%
-\setunit{\labelnamepunct}\newblock%%
+\setunit{\labelnamepunct}\newblock%
 \usebibmacro{multi:titles}%
 \setunit{\addspace}%
 \usebibmacro{medium-type}%
@@ -557,7 +563,6 @@
 \usebibmacro{pageref}%
 \usebibmacro{finentry}}%
 
-
 \DeclareBibliographyDriver{article}{%
 \usebibmacro{bibindex}%
 \usebibmacro{begentry}%
@@ -588,8 +593,7 @@
 \printfield{note}%
 \setunit{\bibpagerefpunct}\newblock%
 \usebibmacro{pageref}%%
-\usebibmacro{finentry}%
-}
+\usebibmacro{finentry}}%
 
 \DeclareBibliographyDriver{inbook}{%
 \usebibmacro{bibindex}%
@@ -677,7 +681,6 @@
 \usebibmacro{pageref}%
 \usebibmacro{finentry}}%
 
-%\DeclareBibliographyAlias{online}{book}
 \DeclareBibliographyDriver{online}{%
 \usebibmacro{bibindex}%
 \usebibmacro{begentry}%
@@ -776,7 +779,7 @@
    \setunit*{\addcomma\space}}%
 \printfield{number}%
 \newunit\newblock%
-\printdate%
+\usebibmacro{fulldate}%
 \setunit{\addspace}%
 \usebibmacro{urldate}%
 \newunit\newblock%
