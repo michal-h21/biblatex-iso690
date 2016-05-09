@@ -298,9 +298,7 @@
 %publication info
 
 \newbibmacro{fulldate}{%
-  \iffieldundef{fulldate}
-    {\printdate}
-    {\printfield{fulldate}}%
+  \printtext{\csname mkbibrangeiso8601\endcsname{\thefield{date}}}%
 }
 
 \renewbibmacro*{date}{%
