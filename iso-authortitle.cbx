@@ -1,22 +1,11 @@
-\ProvidesFile{iso-authoryear.cbx}[2011/06/08]
+\ProvidesFile{iso-authortitle.cbx}[2011/06/08]
+
 \ExecuteBibliographyOptions{%
-	 maxcitenames=1
-	,mincitenames=1
+   maxcitenames=1
+  ,mincitenames=1
 }
-\RequireCitationStyle{authoryear}
+
+\RequireCitationStyle{authortitle}
 \RequireCitationStyle{iso-fullcite}
-\DeclareNameFormat{labelname}{%
-\ifthenelse{\value{listcount}=1}
-{#1%
-\ifblank{#3}{}{\addcomma\space #3}}
-{\ifblank{#3}{}{#3\space}%
-#1}%
-\ifthenelse{\value{listcount}<\value{liststop}}
-{\addcomma\space}
-{}}
-\renewbibmacro*{cite:labelyear+extrayear}{%
-  \iffieldundef{labelyear}
-    {}
-    {\addcomma\addspace\printtext[bibhyperref]{%
-       \printfield{labelyear}%
-       \printfield{extrayear}}}}
+
+\endinput
