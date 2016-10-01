@@ -1,5 +1,4 @@
-ISO 690 style for biblatex
-==========================
+# ISO 690 style for biblatex
 
 Biblatex is a bibliography and citation tool for LaTeX. This project provides
 support for citations in ISO 690 style. As the standard is a little bit ambiguous
@@ -7,8 +6,7 @@ in some details regarding formatting of records, we largely follow
 requirements of Czech interpretation, as it is required form in many Czech
 universities. The style can be used in other languages as well, of course.
 
-Install
--------
+## Install
 
 Open the terminal and find location of your `TEXMFHOME` directory with this command:
 
@@ -25,10 +23,9 @@ or unzip the file
 
     https://github.com/michal-h21/biblatex-iso690/archive/master.zip
 
-here. You should be able to use biblatex-iso690 now.
+here. You should be able to use **biblatex-iso690** now.
 
-Usage:
-------
+## Usage:
 ```
 \usepackage[english,czech]{babel} % main language of the document must be last
 \usepackage[
@@ -67,8 +64,8 @@ location = {Praha},
 publisher = {Academia}
 ```
 
-For more details see the file `mybib.bib`.
+For more details see the file [mybib.bib](https://github.com/michal-h21/biblatex-iso690/blob/master/mybib.bib).
 
-License
--------
+## License
+
 GNU/GPL 3
