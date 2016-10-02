@@ -55,22 +55,22 @@
 \biblatex is a bibliography and citation tool for \LaTeX. This project provides
 support for citations and references according to the ISO~690 international standard.
 As the norm ISO~690 is a little bit ambiguous in some details regarding formatting of records,
-we largely follow requirements of Czech interpretation, as it is required form
-in many Czech universities. Of course, style can be used in other languages as well.
+we largely follow requirements of the Czech interpretation, as it is the required form
+in many Czech universities. Of course, the style can be used in other languages as well.
 
 \subsection{Requirements}
 
 Basically, \biblatex $\geq$ 3.4 with \biber $\geq$ 2.5 is all you need to use this package.
-No special packages different from those required by \biblatex package are used. For complete
+No special packages different from those required by the \biblatex package are used. For a complete
 list of such packages, please refer to the \biblatex documentation.
 
 \subsection{License}
 
-This project is released under GNU/GPL 3\footnote{\url{http://www.gnu.org/licenses/gpl.txt}} license.
+This project is released under the GNU/GPL 3\footnote{\url{http://www.gnu.org/licenses/gpl.txt}} license.
 
 \subsection{Acknowledgments}
 
-Thanks to all contributors who have participated on the development of this style,
+Thanks to all contributors who have participated in the development of this style,
 especially Johannes Böttcher, Moewew, Dávid Lupták and others.
 
 \subsection{Feedback}
@@ -84,8 +84,8 @@ so feel free to use the possibilites provided there for reporting issues and the
 
 \begin{verbatim}
 ..
-\usepackage[english,czech]{babel}
-% or in case of using xelatex, use polyglossia package instead
+\usepackage[english,czech]{babel} % [other,main]
+% or in case of using xelatex, use the 'polyglossia' package instead
 \usepackage{polyglossia}
 \setmainlanguage{czech}
 \setotherlanguage{english}
@@ -105,13 +105,13 @@ so feel free to use the possibilites provided there for reporting issues and the
 
 According to the ISO~690 norm, some of the elements of the bibliographic
 resource should be printed in the main document language (language I~am
-currently writing) while the others in the language of a resource. You can
-specify the language of a resource into the field \t|langid| on the per-entry
+currently writing) while the others should be in the language of a resource. You can
+specify the language of a resource into the field \t|langid| on a per-entry
 basis in a resource (\t|.bib|) file. In addition, all of the languages
-specified in these fields have to be loaded by \t|babel| or \t|polyglossia|
+specified in these fields have to be loaded by the \t|babel| or \t|polyglossia|
 package respectively.\label{gen:multilang}
 
-Note that for correct support of localization functionality, the \t|babel|
+Note that for correct support of localization functionality, the \t|babel| % really?
 package should be used. The main document language is the last one entered
 in a list of languages passed to this package.
 
@@ -124,38 +124,38 @@ Frequently used package options are
 \begin{description}
 \item[style] style to be used for bibliographic references and citations.
 Three possibilities are available, \t|iso-authoryear| commonly known as
-Harvard system, \t|iso-numeric| as a numeric system and \t|iso-authortitle|.
+“Harvard system”, \t|iso-numeric| as a numeric system and \t|iso-authortitle|.
 
 \item[backend] backend program for generating bibliographic entries. \biber
-is the default one for \biblatex package, providing a big variety
-of features. Another options are \t|bibtex| and \t|bibtex8|, but they both
+is the default one for the \biblatex package, providing a large variety
+of features. Other options are \t|bibtex| and \t|bibtex8|, but they both
 are far behind the possibilities of \biber. \biber is the recommended backend.
 
 \item[autolang] controls which language environment is used. The most
 significant value is \t|other|, which supports printing localization
-terms in language of resource or language specific hyphenation. Default
-value is \t|none|, which disables this feature.
+terms in the language of the resource or language specific hyphenation. 
+Default value is \t|none|, which disables this feature.
 
 \item[sortlocale] responsible for sorting the bibliography according to the
-entered \t|locale| language identifier. The main document language one should
-be set.
+entered \t|locale| identifier. It should usually be set to one using the 
+main document language, e.g. \t|en_IN| for English as used in India.
 
-\item[bibencoding] specifies the encoding of the \t|bib| files. \t|<encoding>|
-needs to be explicitly specified only if the encoding of the \t|bib| file
-is different from the one of the \t|tex| file. Default value is \t|auto|, i.e.
-the encoding of the \t|bib| file is identical to the encoding of the \t|tex|
-file.
+\item[bibencoding] specifies the character encoding of the \t|bib| files. 
+\t|<encoding>| needs to be explicitly specified only if the encoding of the 
+\t|bib| file is different from the one of the \t|tex| file. Default value 
+is \t|auto|, i.e. the encoding of the \t|bib| file is identical to the 
+encoding of the \t|tex| file.
 \end{description}
 
 \subsubsection{Provided by \t|biblatex-iso690| in addition}
 
 \begin{description}
-  \item[spacecolon] if \t|true|, the space is printed before the colon
+  \item[spacecolon] if \t|true|, a space is printed before the colon
   used in subtitles and publication information. Printing the colon this way
   is not recommended. Default value is \t|false|.
 
-  \item[pagetotal] number of total pages is no longer required if the item
-  is being cited as a whole. Setting this option to \t|true| will print
+  \item[pagetotal] the number of total pages is no longer required if the 
+  item is being cited as a whole. Setting this option to \t|true| will print
   such optional information in the notes section at the end of the reference.
   Default value is \t|false|.\label{pkg:opt:iso690:pp}
 
@@ -166,8 +166,8 @@ file.
   parentheses). If \t|false|, such terms are printed with preceding
   literal terms.
 
-  \item[thesisinfolast] whether or not to print information about
-  thesis (i.e. type, institution or supervisor) in the note section
+  \item[thesisinfolast] whether or not to print information about a % Needs a better explanation!
+  thesis (e.g. type, institution or supervisor) in the notes section
   is ambiguous, print it before the section \textit{availability
   and access} is possible by setting this option to \t|false|.
   Default value is \t|true|.
@@ -190,7 +190,7 @@ some examples of bibliography entry types with respective fields follow.
   year        =   {2003},
   title       =   {From Gutenberg to the global information infrastructure}, 
   subtitle    =   {access to information in the networked world},
-  edition     =   {1},  % should be not stated
+  edition     =   {1},  % should not be stated
   location    =   {Cambridge (Mass)}, 
   publisher   =   {The MIT Press},
   pagetotal   =   {xviii, 324},
@@ -199,14 +199,14 @@ some examples of bibliography entry types with respective fields follow.
 }
 \end{verbatim} 
 
-The \t|edition| field is edition of a printed publication. It's required
-if the item is not a first edition. Use integer or literal string to fill in
-this field.
+The \t|edition| field is the edition of a printed publication. It is required
+if the item is not a first edition. Use an integer or a literal string to fill
+in this field.
 
-The \t|pagetotal| field is total number of pages of the work. If multiple
-kinds of numeration is used in the work, e.g. arabic as well as roman numerals,
-both can be provided, separated by a comma. Only for arabic numerals
-the localization term \t|pages| is appended. Note that total number of pages
+The \t|pagetotal| field is the total number of pages of the work. If multiple
+kinds of numeration are used in the work, e.g. arabic as well as roman numerals,
+both can be provided, separated by a comma. The localization term \t|pages| is 
+only appended for arabic numerals, though. Note that the total number of pages
 is no longer required by the norm itself, see also \ref{pkg:opt:iso690:pp}.
 
 The \t|langid| field is required for multilingual support of printing
@@ -234,16 +234,16 @@ e.g. \t|edition| field. See also \ref{gen:multilang}.
 }
 \end{verbatim} 
 
-The \t|title| field is title of the contribution, the \t|booktitle|
-is title of the collection.
+The \t|title| field is the title of the contribution, the \t|booktitle|
+is the title of the collection.
 
 The \t|pages| field is one or more page numbers or page ranges. This field
 is essential since the reference should identify the part of the item
 that is cited.
 
-It's also possible to use the cross-referencing feature to reference
+It is also possible to use the cross-referencing feature to reference
 from a contribution entry (child entry) to a separate entry of a collection
-(parent entry). This can be done by the field \t|crossref|
+(parent entry). This can be done with the \t|crossref| field
 as the following example shows:
 \newline
 
@@ -270,7 +270,7 @@ as the following example shows:
 
 Now, there is no need to fill in \t|booktitle| in the \t|sbornik| entry.
 The \t|biber| backend program performs the inheritance between parent and
-child entry automatically.
+child entry automatically. Other backends may not support this feature.
 
 \paragraph{Article in a serial}\hfill\\
 
@@ -291,7 +291,7 @@ child entry automatically.
 }
 \end{verbatim}
 
-The example above is an article in online magazine. If the magazine
+The example above is an article in an online magazine. If the magazine
 is available online only, i.e. it is not published in print,
 it should be cited as an electronic information resource. This can be
 achieved by providing the \t|urldate| field. On the other hand
@@ -320,18 +320,18 @@ achieved by providing the \t|urldate| field. On the other hand
 }
 \end{verbatim}
 
-\noindent the example shows an article in printed magazine, which is also
-available online. Similar to the contribution to a collection,
-using cross-referencing feature can be of benefit.
+\noindent the example shows an article in a printed magazine, which is 
+\emph{also} available online. Similar to the contribution to a collection,
+using cross-referencing feature can be beneficial.
 
 \subsubsection{Specific entry types}
 
 \paragraph{Thesis}\hfill\\
 
-The entry type \t|thesis| and its aliases \t|mastersthesis| and
+The \t|thesis| entry type and its aliases \t|mastersthesis| and
 \t|phdthesis| are available by default for thesis works. Use the
-\t|type| field to specify the type of the thesis -- localization
-term or literal string could be entered. For the list of supported
+\t|type| field to specify the type of the thesis -- a localization
+term or literal string can be entered. For the list of supported
 localization terms, please refer to section 4.9.2.13 of the
 \t|biblatex| documentation. Names of the supervisor and school
 (institution) can be entered into the fields \t|supervisor| and
@@ -345,30 +345,30 @@ to the \t|biblatex| documentation.
 
 \subsection{Hints and Caveats}
 
-This section provides additional hints concerning \t|biblatex| package
-as well as ISO~690 standard.
+This section provides additional hints concerning the \t|biblatex| package
+as well as the ISO~690 standard.
 
-For now, some of the things has to be dealt with at the level of \t|bib|
-file, another ones are directly addressed in this style package.
+For now, some of the things have to be dealt with at the level of the 
+\t|bib| file, other ones are directly addressed in this style package.
 Everything else relies on the \t|biblatex| package, so please also refer
 to the \t|biblatex| documentation.
 
 \subsubsection{Creators}
 
 The persons or organizations responsible for the cited work should be
-primarily given into the \t|author| field. If it's not appropriate,
-another fields like \t|editor| and \t|editorx| family fields or some
+primarily given in the \t|author| field. If it is not appropriate,
+other fields like \t|editor| and \t|editorX| family fields or some
 specific ones (e.g. \t|translator|) can be used. Note also the field
-\t|editortype| and \t|editortypex| family fields which can be used
-to specify type of the editor. This is useful to distinguish the role
-of the creator and its relationship to the cited work. Some roles
-are supported by default, e.g. \t|editor|, \t|compiler|, \t|founder|,
-\t|reviser|, etc., in other cases the literal string can be entered.
+\t|editortype| and \t|editortypeX| family fields which can be used
+to specify the type of the editor. This is useful to distinguish the role
+of the creator and their relationship to the cited work. Some roles
+are supported by default, e.g. \t|editor|, \t|compiler|, \t|founder|
+and \t|reviser|, in other cases the literal string can be entered.
 
 Example:
-When citing cinematographic works which are typically output of many
-individuals, title should be used as the first element of the reference.
-However, it's appropriate to include some relevant roles, e.g. director:
+When citing cinematographic works which are typically the output of many
+individuals, the title should be used as the first element of the reference.
+However, it is appropriate to include some relevant roles, e.g. the director:
 
 %\begin{ltxexample}
 \begin{verbatim}
@@ -393,13 +393,13 @@ in English, or
 in Slovak.
 
 The field \t|nameaddon| can be used to append additional information
-to the creator's name, e.g. variant forms of a name, name additions,
-pseudonyms, etc. This field is printed as is, in square brackets after
-creator's name.
+to the creator's name, e.g. variant forms of a name, name additions
+or pseudonyms. This field is printed as is, in square brackets after
+the creator's name.
 
-For anonymous works cited by author-year method, the term \textit{Anon}
-should be used instead of creator's name. Please, reflect this
-in \t|bib| file, since there is no other support for this for now.
+For anonymous works cited by the author-year method, the term \textit{Anon}
+should be used in place of the creator's name. Please reflect this
+in the \t|bib| file, since there is no other support for this for now.
 
 \subsubsection{Titles}
 
@@ -413,15 +413,15 @@ Note that also other \t|*titleaddon| fields are supported by default.
 \subsubsection{Medium type}
 
 The field \t|howpublished| is used for providing information about
-medium designation or type of medium. Default value for electronic
+the medium designation or type of medium. Default value for electronic
 information resources is \t|online|. This field is printed as is,
 in square brackets after title section, generally.
 
 \subsubsection{Edition}
 
-The \t|edition| field is edition of a publication. It's required
-if the item is not a first edition. Use integer or literal string
-to fill in this field. Please reflect the constraint, not to print
+The \t|edition| field is the edition of a publication. It is required
+if the item is not a first edition. Use an integer or a literal string
+to fill in this field. Please reflect the constraint not to print
 the edition if the cited item is a first edition, by not providing
 this field in the \t|bib| file.
 
@@ -431,8 +431,8 @@ updated versions of an item, usually software.
 \subsubsection{Date}
 
 In case no date is given and also no approximation is possible, that
-should be stated. Please reflects this in \t|bib| file by including
-the following line into the respective entry.
+should be stated. Please reflect this in the \t|bib| file by including
+the following line in the respective entry.
 
 \begin{verbatim}
   ..
@@ -441,21 +441,21 @@ the following line into the respective entry.
 \end{verbatim}
 
 Explanation of the above code:
-\t|nodate| is localization string which prints something like
+\t|nodate| is a localization string which prints something like
 \textit{n.d.}, \textit{b.r.}, etc. depending on the language,
-\t|bibsstring| is a command to use such localization term and
-\t|mkbibbrackets| is a command used to wrap it's argument into
-the square brackets. Finally, this statement is entered into
+\t|bibsstring| is a command to use such localization terms and
+\t|mkbibbrackets| is a command used to wrap its argument into
+square brackets. Finally, this statement is entered into
 the date entry field to be available as a date in a reference.
-So as a result we get e.g. \textit{[n.d.]}, which conforms
+So as a result we get e.g. \textit{[n.d.]}, which conforms to
 the standard.
 
 Please also note the syntax for dates -- ISO 8601 format
 (YYYY-MM-DD) is accepted. Please use slash instead of
 any kind of dash for ranges of dates. If the range is
 open ended, enter just the first date followed by a slash.
-And last, but not least, use \t|date| field instead of
-the \t|year| in general.
+And last, but not least, use the \t|date| field instead of
+the \t|year| field in general.
 
 Examples follow:
 
@@ -467,8 +467,8 @@ Examples follow:
 
 \subsubsection{Location}
 
-If only limited number of copies of the work exists or
-location of graphic work is essential to its identification,
+If only a limited number of copies of the work exists or
+the location of a graphic work is essential to its identification,
 such location (e.g. library or repository) should be stated
 in a reference. The field \t|library| serves for this purpose.
 
