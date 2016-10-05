@@ -22,9 +22,9 @@
   \settoggle{bbx:shortnum}{#1}%
   \typeout{Short numeration enabled: #1}}
 
-\newtoggle{bbx:thesisinfolast}
-\DeclareBibliographyOption{thesisinfolast}[true]{%
-  \settoggle{bbx:thesisinfolast}{#1}%
+\newtoggle{bbx:thesisinfoinnotes}
+\DeclareBibliographyOption{thesisinfoinnotes}[true]{%
+  \settoggle{bbx:thesisinfoinnotes}{#1}%
   \typeout{Printing thesis info at the end enabled: #1}}
 
 
@@ -32,7 +32,7 @@
   spacecolon=false
   ,pagetotal=false
   ,shortnumeration=false
-  ,thesisinfolast=true
+  ,thesisinfoinnotes=true
    %sorting=nyt
   ,maxnames=9
   ,minnames=1
@@ -730,7 +730,7 @@
 \newunit\newblock%
 \usebibmacro{identifier}%
 \newunit\newblock%
-\iftoggle{bbx:thesisinfolast}
+\iftoggle{bbx:thesisinfoinnotes}
   {}
   {\printfield{type}
    \newunit\newblock%
@@ -744,7 +744,7 @@
   {\printfield{pagetotal}}
   {}%
 \newunit\newblock%
-\iftoggle{bbx:thesisinfolast}
+\iftoggle{bbx:thesisinfoinnotes}
   {\printfield{type}
    \newunit\newblock%
    \printlist{institution}%
