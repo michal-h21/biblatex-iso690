@@ -111,9 +111,12 @@ basis in a resource (\t|.bib|) file. In addition, all of the languages
 specified in these fields have to be loaded by the \t|babel| or \t|polyglossia|
 package respectively.\label{gen:multilang}
 
-Note that for correct support of localization functionality, the \t|babel| % really?
-package should be used. The main document language is the last one entered
-in a list of languages passed to this package.
+Note that for correct support of localization functionality, the \t|babel|
+or \t|polyglossia| package should be used. The main document language
+is the last one entered in a list of languages passed to the \t|babel| package,
+respectively the directives \t|\textbackslash setmainlanguage| and
+\t|\textbackslash setotherlanguage| in case the \t|polyglossia| package
+is used.
 
 \subsection{Package options}
 
