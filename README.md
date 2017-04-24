@@ -38,10 +38,25 @@ here. You should be able to use **biblatex-iso690** now.
 ```
 
 ### Custom options
-* **spacecolon**
-  add space before colon in publisher and title:
-  * **[true]**  Praha : Academia
+
+Above and beyond the scope of package options provided by `biblatex` itself, here are also some more. Default values are in **bold**.
+
+* `spacecolon`
+  add space before colon in publisher and title (and also title and subtitle):
+  *   [true]    Praha : Academia
   * **[false]** Praha: Academia
+* `pagetotal`
+  print out total number of pages as an additional information in the notes section:
+  *   [true]    Praha: Academia, 2008 [60 p.]
+  * **[false]** Praha: Academia, 2008
+* `shortnumeration`
+  visually distinguish numeration and pagination section:
+  *   [true]    ... 2011, **32**(3), 289–301 [visited on 2016-05-14] ...
+  * **[false]** ... 2011, vol. 32, no. 3, pp. 289–301 [visited on 2016-05-14] ...
+* `thesisinfoinnotes`
+  print out thesis information in notes section
+  * **[true]** Available from: <...>. BP. MU, FI, Brno. Supervisor Petr SOJKA
+  *   [false]  BP. MU, FI, Brno. Supervisor Petr SOJKA. Available from: <...>
 
 ### Bibliographic fields
 Some fields have a different meaning than in plain BibTeX.
