@@ -18,14 +18,17 @@
         \printfield{prefixnumber}%
         \printfield{labelnumber}}}}%
 
+% Copy-pasted from 'numeric.bbx'
 \defbibenvironment{bibliography}
   {\list%
      {\MethodFormat}%
-     {\setlength{\leftmargin}{\labelnumberwidth}%
+     {\setlength{\labelwidth}{\labelnumberwidth}%
+      \setlength{\leftmargin}{\labelwidth}%
+      \setlength{\labelsep}{\biblabelsep}%
+      \addtolength{\leftmargin}{\labelsep}%
       \setlength{\itemsep}{\bibitemsep}%
       \setlength{\parsep}{\bibparsep}}%
       \renewcommand*{\makelabel}[1]{\hss##1}
-      %\raggedright}
       }%
   {\endlist}%
   {\item}%
