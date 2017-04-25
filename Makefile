@@ -1,6 +1,5 @@
 SHELL := /bin/bash
 
-.PHONY: build
 
 doc_root = biblatex-iso690
 doc_source = $(doc_root).tex
@@ -9,12 +8,13 @@ build_dir = build
 dest_dir = $(build_dir)/$(doc_root)
 dist_file = $(doc_root).zip
 
+
 $(doc_file): $(doc_source)
 	lualatex $(doc_root)
 	biber $(doc_root)
 	lualatex $(doc_root)
 
-build:
+build: $(doc_source) $(doc_file)
 	rm -rf $(build_dir)
 	mkdir -p $(dest_dir)
 	cp $(doc_source) $(doc_file) $(dest_dir)
