@@ -1,4 +1,4 @@
-# ISO 690 style for biblatex
+# Biblatex style for ISO 690 standard
 
 Biblatex is a bibliography and citation tool for LaTeX. This project provides
 support for citations in ISO 690 style. As the standard is a little bit ambiguous
