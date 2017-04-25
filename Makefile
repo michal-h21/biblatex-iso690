@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: build
+.PHONY: build clean
 
 doc_root = biblatex-iso690
 doc_source = $(doc_root).tex
@@ -13,6 +13,9 @@ bbx = $(wildcard *.bbx)
 cbx = $(wildcard *.cbx)
 lbx = $(wildcard *.lbx)
 dbx = $(wildcard *.dbx)
+aux_files = $(doc_root).aux $(doc_root).bbl $(doc_root).bcf \
+			$(doc_root).blg $(doc_root).log $(doc_root).out \
+			$(doc_root).run.xml $(doc_root).toc
 
 
 $(doc_file): $(doc_source)
@@ -38,3 +41,5 @@ biblatex-iso690.wiki/Style-Guide.md: biblatex-iso690.wiki
 biblatex-iso690.wiki:
 	git clone https://github.com/michal-h21/biblatex-iso690.wiki.git
 
+clean:
+	-rm $(aux_files)
