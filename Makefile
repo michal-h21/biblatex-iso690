@@ -16,9 +16,9 @@ dbx = $(wildcard *.dbx)
 
 
 $(doc_file): $(doc_source)
-	lualatex $(doc_root)
+	pdflatex $(doc_root)
 	biber $(doc_root)
-	lualatex $(doc_root)
+	pdflatex $(doc_root)
 
 build: $(doc_source) $(doc_file) $(bbx) $(cbx) $(lbx)
 	@rm -rf $(build_dir)
