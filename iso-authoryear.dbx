@@ -1,4 +1,4 @@
-\ProvidesFile{iso-authoryear.dbx}[2016/05/13 v0.3.1 biblatex data model extension]
+\ProvidesFile{iso-authoryear.dbx}[2017/04/25 v0.3.2 biblatex data model extension]
 \RequireBiber[3]
 \DeclareDatamodelFields[type=list,datatype=name]{supervisor}
 \DeclareDatamodelFields[type=field,datatype=literal]{classification}
