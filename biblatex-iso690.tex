@@ -118,6 +118,29 @@ respectively the directives \t|\textbackslash setmainlanguage| and
 \t|\textbackslash setotherlanguage| in case the \t|polyglossia| package
 is used.
 
+\subsection{Citation methods}
+
+The international standard ISO 690 prescribes exactly 3 methods of
+citation. However, based on the user input, this package contains
+more of them.
+
+\subsubsection{Official methods}
+
+\begin{description}
+\item[iso-authoryear] name and date system, so-called Harvard style
+\item[iso-numeric] numeric system
+\end{description}
+
+There is also one more system of running notes, which is not
+implemented yet.
+
+\subsubsection{Unofficial methods}
+
+\begin{description}
+\item[iso-alphabetic] alphabetic system
+\item[iso-authortitle] name and title system
+\end{description}
+
 \subsection{Package options}
 
 \subsubsection{Provided by \biblatex by default}
@@ -126,7 +149,7 @@ Frequently used package options are
 
 \begin{description}
 \item[style] style to be used for bibliographic references and citations.
-Three possibilities are available, \t|iso-authoryear| commonly known as
+Four possibilities are available, \t|iso-authoryear| commonly known as
 “Harvard system”, \t|iso-numeric| as a numeric system, \t|iso-alphabetic|
 and \t|iso-authortitle|.
 
