@@ -6,7 +6,9 @@ doc_root = biblatex-iso690
 doc_source = $(doc_root).tex
 doc_file = $(doc_root).pdf
 build_dir = build
-dest_dir = $(build_dir)/$(doc_root)
+dest_dir = $(build_dir)/tex/latex/$(doc_root)
+doc_dest_dir = $(build_dir)/doc/latex/$(doc_root)
+
 dist_file = $(doc_root).zip
 bib_file = mybib.bib
 bbx = $(wildcard *.bbx)
@@ -26,8 +28,10 @@ $(doc_file): $(doc_source)
 build: $(doc_source) $(doc_file) $(bbx) $(cbx) $(lbx)
 	@rm -rf $(build_dir)
 	@mkdir -p $(dest_dir)
-	@cp $(doc_source) $(doc_file) $(bib_file) $(bbx) $(cbx) $(lbx) $(dbx) $(dest_dir)
-	@cd $(build_dir) && zip -r $(dist_file) $(doc_root)
+	@mkdir -p $(doc_dest_dir)
+	@cp  $(bbx) $(cbx) $(lbx) $(dbx) $(dest_dir)
+	@cp README.md $(doc_source) $(doc_file) $(bib_file)  $(doc_dest_dir)
+	@cd $(build_dir) && zip -r $(dist_file) tex doc
 
 style-guide.tex: biblatex-iso690.wiki/Style-Guide.md biblatex-iso690.wiki
 	pandoc biblatex-iso690.wiki/Style-Guide.md -o style-guide.tex
