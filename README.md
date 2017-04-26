@@ -84,6 +84,7 @@ For more details see the file [mybib.bib](https://github.com/michal-h21/biblatex
 ## License
 
 Copyright (C) 2011--2017 Michal Hoftich
+              2015--2017 Moritz Wemheuer
               2016--2017 Dávid Lupták
 
 This work may be distributed and/or modified under the
