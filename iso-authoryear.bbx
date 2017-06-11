@@ -53,30 +53,13 @@
     and
     not test {\ifnameundef{editor}}
   }
-    {\usebibmacro{bbx:dashcheck}
-       {\bibnamedash}
-       {\usebibmacro{bbx:savehash}%
-        \printnames{editor}%
-        \addspace%
-        \mkbibparens{\usebibmacro{#1}}}%
+    {\usebibmacro{bbx:savehash}%
+     \printnames{editor}%
+     \addspace%
+     \mkbibparens{\usebibmacro{#1}}%
      \clearname{editor}}%
     {\global\undef\bbx@lasthash
      \usebibmacro{labeltitle}}}%
-
-\newbibmacro*{bbx:dashcheck}[2]{%
-  \ifboolexpr{
-    test {\iffieldequals{fullhash}{\bbx@lasthash}}
-    and
-    not test \iffirstonpage
-    and
-    (
-       not bool {bbx@inset}
-       or
-       test {\iffieldequalstr{entrysetcount}{1}}
-    )
-  }
-    {#1}
-    {#2}}
 
 \newbibmacro*{labeltitle}{%
   \iffieldundef{label}
