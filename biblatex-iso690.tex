@@ -23,6 +23,7 @@
   ,sortlocale=cs_CZ
   ,bibencoding=UTF8
   ,spacecolon=false
+  % ,isbn=false
   %,block=ragged
 ]{biblatex}
 
@@ -199,6 +200,18 @@ encoding of the \t|tex| file.
   \textit{availability and access} is possible by setting the option
   to \t|false|. Otherwise it will be printed in the \textit{notes} section.
   Default value is \t|true|.
+
+  \item[doi] enable or disable printing of the DOI number. Default value is
+    \t|true|.
+
+  \item[isbn] enable or disable printing of the ISBN, ISSN and other standard
+    identifiers. Default value is \t|true|.
+
+  \item[eprint] enable or disable printing of the eprint field. Default value
+    is \t|true|.
+ 
+  \item[url] enable or disable printing of the URL. Default value is \t|true|.
+
 \end{description}
 
 
@@ -511,6 +524,7 @@ in a reference. The field \t|library| serves for this purpose.
 \begin{release}{0.3.3}{????-??-??}
 \item Doc better wording
 \item Enable multilingual references by default
+\item Added isbn, doi, url and eprint options for blocking corresponding fields
 \item Printing out (the same) editors also in the consecutive entries --
   get rid of the dash as default (\t|iso-authoryear| style)
 \item Removed deprecated \biblatex\ options
