@@ -28,12 +28,35 @@
   \settoggle{bbx:thesisinfoinnotes}{#1}%
   \typeout{Printing thesis info at the end enabled: #1}}
 
+\newtoggle{bbx:url}
+\DeclareBibliographyOption{url}[true]{%
+  \settoggle{bbx:url}{#1}%
+  \typeout{Showing URL field enabled: #1}}
+
+\newtoggle{bbx:isbn}
+\DeclareBibliographyOption{isbn}[true]{%
+  \settoggle{bbx:isbn}{#1}%
+  \typeout{Showing ISBN field enabled: #1}}
+
+\newtoggle{bbx:doi}
+\DeclareBibliographyOption{doi}[true]{%
+  \settoggle{bbx:doi}{#1}%
+  \typeout{Showing DOI field enabled: #1}}
+
+\newtoggle{bbx:eprint}
+\DeclareBibliographyOption{eprint}[true]{%
+  \settoggle{bbx:eprint}{#1}%
+  \typeout{Showing eprint field enabled: #1}}
 
 \ExecuteBibliographyOptions{%
   spacecolon=false,
   pagetotal=false,
   shortnumeration=false,
   thesisinfoinnotes=true,
+  url=true,
+  isbn=true,
+  doi=true,
+  eprint=true,
   % sorting=nyt,
   maxnames=9,
   minnames=1,
@@ -346,6 +369,7 @@
 %standard identifiers
 
 \newbibmacro*{identifier}{%
+  \iftoggle{bbx:isbn}{
   \printfield{isan}%
   \newunit%
   \printfield{isbn}%
@@ -357,7 +381,7 @@
   \printfield{issn}%
   \newunit%
   \printfield{iswc}%
-  \newunit%
+  \newunit}{}%
 }
 
 %availability and access
@@ -373,9 +397,15 @@
 \newbibmacro*{availability+access}{%
   \iffieldundef{doi}
     {\iffieldundef{eprint}
-       {\printfield{url}}
-       {\usebibmacro{from-eprint}}}
-    {\usebibmacro{from-doi}}%
+       {\iftoggle{bbx:url}
+         {\printfield{url}}
+         {}}
+       {\iftoggle{bbx:eprint}
+         {\usebibmacro{from-eprint}}
+         {}}}
+    {\iftoggle{bbx:doi}
+      {\usebibmacro{from-doi}}
+      {}}%
 }
 
 %location
