@@ -369,6 +369,7 @@
 %standard identifiers
 
 \newbibmacro*{identifier}{%
+  \iftoggle{bbx:isbn}{
   \printfield{isan}%
   \newunit%
   \printfield{isbn}%
@@ -380,7 +381,7 @@
   \printfield{issn}%
   \newunit%
   \printfield{iswc}%
-  \newunit%
+  \newunit}{}%
 }
 
 %availability and access
