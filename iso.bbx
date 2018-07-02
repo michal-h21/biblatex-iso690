@@ -131,38 +131,38 @@
 \DeclareFieldFormat[article,periodical]{pages}{%
   \iftoggle{bbx:shortnum}
     {#1}
-    {\mainsstring{pages}\addspace\printtext{#1}}
+    {\mainsstring{pages}\addspace\printtext{#1}}%
 }
 \DeclareFieldFormat*{pagetotal}{\mkbibbrackets{\mkmlpagetotal[bookpagination]{#1}}}
 \DeclareFieldFormat*{number}{\bibsstring{number}\addspace\printtext{#1}}
 \DeclareFieldFormat[article,periodical]{number}{%
   \iftoggle{bbx:shortnum}
     {\mkbibparens{#1}}
-    {\bibsstring{number}\addspace\printtext{#1}}
+    {\bibsstring{number}\addspace\printtext{#1}}%
 }
 \DeclareFieldFormat[patent]{number}{#1}
 \DeclareFieldFormat*{url}{%
   \iffieldundef{urlyear}
-  {\mainlstring{urlalso}\addcolon\space\url{#1}}
-  {\mainlstring{urlfrom}\addcolon\space\url{#1}}
+    {\mainlstring{urlalso}\addcolon\space\url{#1}}
+    {\mainlstring{urlfrom}\addcolon\space\url{#1}}%
 }
 \DeclareFieldFormat{doi}{%
-  \printtext{DOI}\addcolon\space%
+  \printtext{DOI}\addcolon\space
   \ifhyperref
     {\href{https://doi.org/#1}{\nolinkurl{#1}}}
-    {\nolinkurl{#1}}
+    {\nolinkurl{#1}}%
 }
 \DeclareFieldFormat{howpublished}{\mkbibbrackets{#1}}
 \DeclareFieldFormat[online]{howpublished}{%
   \iffieldundef{howpublished}
     {\mkbibbrackets{online}}
-    {\mkbibbrackets{#1}}
+    {\mkbibbrackets{#1}}%
 }
 
 \DeclareFieldFormat{type}{%
   \ifbibstring{#1}
     {\mainlstring{#1}}
-    {#1}
+    {#1}%
 }
 
 \DeclareFieldFormat{supervisor}{%
@@ -170,12 +170,12 @@
 
 %We must handle more than one isbn and issn
 \DeclareFieldFormat{isbn}{%
-%\renewcommand*{\do}[1]{\printtext{ISBN}\addspace#1\adddot\addspace}%
-\printtext{ISBN}\addspace#1}%
+  %\renewcommand*{\do}[1]{\printtext{ISBN}\addspace#1\adddot\addspace}%
+  \printtext{ISBN}\addspace#1}%
 
 \DeclareFieldFormat{issn}{%
-\renewcommand*{\do}[1]{\printtext{ISSN}\addspace#1\adddot\addspace}%
-\docsvfield{issn}}%
+  \renewcommand*{\do}[1]{\printtext{ISSN}\addspace#1\adddot\addspace}%
+  \docsvfield{issn}}%
 
 \DeclareFieldFormat{isan}{\printtext{ISAN}\addspace#1}
 \DeclareFieldFormat{ismn}{\printtext{ISMN}\addspace#1}
@@ -231,7 +231,7 @@
 
 \newbibmacro*{names:subsidiary}{%
   \usebibmacro{byeditor}%
-  \newunit%
+  \newunit
   \usebibmacro{bytranslator}%
 }
 
@@ -242,7 +242,7 @@
     not test {\ifnameundef{editor}}
   }
     {\printnames{editor}%
-     \addspace%
+     \addspace
      \mkbibparens{\usebibmacro{editorstrg}}%
      \clearname{editor}}%
     {}}
@@ -252,7 +252,7 @@
     {}
     {\printtext{\mainlstring{bysupervisor}}%
      \addspace%
-     \printnames{supervisor}}
+     \printnames{supervisor}}%
 }
 
 %titles
@@ -269,7 +269,7 @@
        \printfield{#1subtitle}}%
        \setunit{\addspace}}%
   \printfield{#1titleaddon}%
-  \newunit%
+  \newunit
 }%
 
 \newbibmacro{volume}{%
@@ -302,7 +302,7 @@
 
 \newbibmacro{periodical:titles}{%
   \usebibmacro{titles}{}{emph}%
-  \newunit%
+  \newunit
   \iffieldundef{issuetitle}
     {\iffieldundef{journaltitle}
        {}
@@ -369,19 +369,20 @@
 %standard identifiers
 
 \newbibmacro*{identifier}{%
-  \iftoggle{bbx:isbn}{
-  \printfield{isan}%
-  \newunit%
-  \printfield{isbn}%
-  \newunit%
-  \printfield{ismn}%
-  \newunit%
-  \printfield{isrn}%
-  \newunit%
-  \printfield{issn}%
-  \newunit%
-  \printfield{iswc}%
-  \newunit}{}%
+  \iftoggle{bbx:isbn}
+    {\printfield{isan}%
+     \newunit
+     \printfield{isbn}%
+     \newunit
+     \printfield{ismn}%
+     \newunit
+     \printfield{isrn}%
+     \newunit
+     \printfield{issn}%
+     \newunit
+     \printfield{iswc}%
+     \newunit}
+    {}%
 }
 
 %availability and access
@@ -527,299 +528,299 @@
 %bibliography drivers
 
 \DeclareBibliographyDriver{book}{%
-\usebibmacro{bibindex}%
-\usebibmacro{begentry}%
-\usebibmacro{names:primary}%
-\setunit{\labelnamepunct}\newblock%
-\usebibmacro{multi:titles}%
-\setunit{\addspace}%
-\usebibmacro{medium-type}%
-\newunit\newblock%
-\printfield{edition}%
-\newunit\newblock%
-\usebibmacro{names:subsidiary}%
-\newunit\newblock%
-\usebibmacro{location+publisher+date}%
-\newunit%
-\printfield{version}%
-\setunit{\addspace}%
-\usebibmacro{urldate}%
-\newunit\newblock%
-\usebibmacro{series+number}%
-\newunit\newblock%
-\usebibmacro{identifier}%
-\newunit\newblock%
-\usebibmacro{availability+access}%
-\newunit\newblock%
-\usebibmacro{location}%
-\setunit{\addspace}%
-\iftoggle{bbx:totalpages}
-  {\printfield{pagetotal}}
-  {}%
-\newunit\newblock%
-\printfield{note}%
-\newunit\newblock%
-\setunit{\bibpagerefpunct}\newblock%
-\usebibmacro{pageref}%
-\usebibmacro{finentry}}%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{names:primary}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{multi:titles}%
+  \setunit{\addspace}%
+  \usebibmacro{medium-type}%
+  \newunit\newblock
+  \printfield{edition}%
+  \newunit\newblock
+  \usebibmacro{names:subsidiary}%
+  \newunit\newblock
+  \usebibmacro{location+publisher+date}%
+  \newunit
+  \printfield{version}%
+  \setunit{\addspace}%
+  \usebibmacro{urldate}%
+  \newunit\newblock
+  \usebibmacro{series+number}%
+  \newunit\newblock
+  \usebibmacro{identifier}%
+  \newunit\newblock
+  \usebibmacro{availability+access}%
+  \newunit\newblock
+  \usebibmacro{location}%
+  \setunit{\addspace}%
+  \iftoggle{bbx:totalpages}
+    {\printfield{pagetotal}}
+    {}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{periodical}{%
-\usebibmacro{bibindex}%
-\usebibmacro{begentry}%
-% names macro just because of author-year style
-\usebibmacro{names:primary}%
-\setunit{\labelnamepunct}\newblock%%
-\usebibmacro{periodical:titles}%
-\setunit{\addspace}%
-\usebibmacro{medium-type}%
-\newunit\newblock
-\printfield{edition}%
-\newunit\newblock%
-\usebibmacro{location+publisher+date}%
-\setunit*{\addcomma\addspace}%
-\usebibmacro{serial:numeration}%
-\setunit{\addspace}%
-\usebibmacro{urldate}%
-\newunit\newblock%
-\usebibmacro{identifier}%
-\newunit\newblock%
-\usebibmacro{availability+access}%
-\newunit\newblock%
-\usebibmacro{location}%
-\newunit\newblock%
-\printfield{note}%
-\newunit\newblock%
-\setunit{\bibpagerefpunct}\newblock%
-\usebibmacro{pageref}%
-\usebibmacro{finentry}}%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  % names macro just because of author-year style
+  \usebibmacro{names:primary}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{periodical:titles}%
+  \setunit{\addspace}%
+  \usebibmacro{medium-type}%
+  \newunit\newblock
+  \printfield{edition}%
+  \newunit\newblock
+  \usebibmacro{location+publisher+date}%
+  \setunit*{\addcomma\addspace}%
+  \usebibmacro{serial:numeration}%
+  \setunit{\addspace}%
+  \usebibmacro{urldate}%
+  \newunit\newblock
+  \usebibmacro{identifier}%
+  \newunit\newblock
+  \usebibmacro{availability+access}%
+  \newunit\newblock
+  \usebibmacro{location}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \usebibmacro{finentry}}%
 
 \DeclareBibliographyDriver{article}{%
-\usebibmacro{bibindex}%
-\usebibmacro{begentry}%
-\usebibmacro{names:primary}%
-\setunit{\labelnamepunct}\newblock%
-\usebibmacro{titles}{}{}%
-\newunit\newblock%
-\usebibmacro{titles}{journal}{emph}%
-\setunit{\addspace}%
-\usebibmacro{medium-type}%
-\newunit\newblock%
-\printfield{edition}%
-\newunit\newblock%
-\usebibmacro{date}
-\setunit*{\addcomma\addspace}%
-\usebibmacro{serial:numeration}%
-\setunit{\bibpagespunct}%
-\printfield{pages}%
-\setunit{\addspace}%
-\usebibmacro{urldate}%
-\newunit\newblock%
-\usebibmacro{identifier}%
-\newunit\newblock%
-\usebibmacro{availability+access}%
-\newunit\newblock%
-\usebibmacro{location}%
-\newunit\newblock%
-\printfield{note}%
-\setunit{\bibpagerefpunct}\newblock%
-\usebibmacro{pageref}%%
-\usebibmacro{finentry}}%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{names:primary}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{titles}{}{}%
+  \newunit\newblock
+  \usebibmacro{titles}{journal}{emph}%
+  \setunit{\addspace}%
+  \usebibmacro{medium-type}%
+  \newunit\newblock
+  \printfield{edition}%
+  \newunit\newblock
+  \usebibmacro{date}
+  \setunit*{\addcomma\addspace}%
+  \usebibmacro{serial:numeration}%
+  \setunit{\bibpagespunct}%
+  \printfield{pages}%
+  \setunit{\addspace}%
+  \usebibmacro{urldate}%
+  \newunit\newblock
+  \usebibmacro{identifier}%
+  \newunit\newblock
+  \usebibmacro{availability+access}%
+  \newunit\newblock
+  \usebibmacro{location}%
+  \newunit\newblock
+  \printfield{note}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \usebibmacro{finentry}}%
 
 \DeclareBibliographyDriver{inbook}{%
-\usebibmacro{bibindex}%
-\usebibmacro{begentry}%
-\usebibmacro{names:primary}%
-\setunit{\labelnamepunct}\newblock%
-\usebibmacro{titles}{}{}%
-\newunit\newblock%
-\usebibmacro{in:}%
-\printnames{bookauthor}%
-\newunit\newblock%
-\usebibmacro{host:titles}%
-\setunit{\addspace}%
-\usebibmacro{medium-type}%
-\newunit\newblock%
-\printfield{edition}%
-\newunit\newblock%
-\usebibmacro{names:subsidiary}%
-\newunit\newblock%
-\usebibmacro{location+publisher+date}%
-\setunit*{\addcomma\addspace}%
-\usebibmacro{book:numeration}%
-\setunit{\bibpagespunct}%
-\printfield{pages}%
-\newunit%
-\printfield{version}%
-\setunit{\addspace}%
-\usebibmacro{urldate}%
-\newunit\newblock%
-\usebibmacro{series+number}%
-\newunit\newblock%
-\usebibmacro{identifier}%
-\newunit\newblock%
-\usebibmacro{availability+access}%
-\newunit\newblock%
-\usebibmacro{location}%
-\newunit\newblock%
-\printfield{note}%
-\newunit\newblock%
-\setunit{\bibpagerefpunct}\newblock%
-\usebibmacro{pageref}%
-\usebibmacro{finentry}}%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{names:primary}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{titles}{}{}%
+  \newunit\newblock
+  \usebibmacro{in:}%
+  \printnames{bookauthor}%
+  \newunit\newblock
+  \usebibmacro{host:titles}%
+  \setunit{\addspace}%
+  \usebibmacro{medium-type}%
+  \newunit\newblock
+  \printfield{edition}%
+  \newunit\newblock
+  \usebibmacro{names:subsidiary}%
+  \newunit\newblock
+  \usebibmacro{location+publisher+date}%
+  \setunit*{\addcomma\addspace}%
+  \usebibmacro{book:numeration}%
+  \setunit{\bibpagespunct}%
+  \printfield{pages}%
+  \newunit
+  \printfield{version}%
+  \setunit{\addspace}%
+  \usebibmacro{urldate}%
+  \newunit\newblock
+  \usebibmacro{series+number}%
+  \newunit\newblock
+  \usebibmacro{identifier}%
+  \newunit\newblock
+  \usebibmacro{availability+access}%
+  \newunit\newblock
+  \usebibmacro{location}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \usebibmacro{finentry}}%
 
 \DeclareBibliographyDriver{incollection}{%
-\usebibmacro{bibindex}%
-\usebibmacro{begentry}%
-\usebibmacro{names:primary}%
-\setunit{\labelnamepunct}\newblock%
-\usebibmacro{titles}{}{}%
-\newunit\newblock%
-\usebibmacro{in:}%
-\usebibmacro{editor}%
-\newunit\newblock%
-\usebibmacro{host:titles}%
-\setunit{\addspace}%
-\usebibmacro{medium-type}%
-\newunit\newblock%
-\printfield{edition}%
-\newunit\newblock%
-\usebibmacro{names:subsidiary}%
-\newunit\newblock%
-\usebibmacro{location+publisher+date}%
-% could number be even used in `incollection`? 
-% It should be at some other place in this case
-\setunit*{\addcomma\addspace}%
-\usebibmacro{book:numeration}%
-\setunit{\bibpagespunct}%
-\printfield{pages}%
-\newunit%
-\printfield{version}%
-\setunit{\addspace}%
-\usebibmacro{urldate}%
-\newunit\newblock%
-\usebibmacro{series+number}%
-\newunit\newblock%
-\usebibmacro{identifier}%
-\newunit\newblock%
-\usebibmacro{availability+access}%
-\newunit\newblock%
-\usebibmacro{location}%
-\newunit\newblock%
-\printfield{note}%
-\newunit\newblock%
-\setunit{\bibpagerefpunct}\newblock%
-\usebibmacro{pageref}%
-\usebibmacro{finentry}}%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{names:primary}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{titles}{}{}%
+  \newunit\newblock
+  \usebibmacro{in:}%
+  \usebibmacro{editor}%
+  \newunit\newblock
+  \usebibmacro{host:titles}%
+  \setunit{\addspace}%
+  \usebibmacro{medium-type}%
+  \newunit\newblock
+  \printfield{edition}%
+  \newunit\newblock
+  \usebibmacro{names:subsidiary}%
+  \newunit\newblock
+  \usebibmacro{location+publisher+date}%
+  % could number be even used in `incollection`? 
+  % It should be at some other place in this case
+  \setunit*{\addcomma\addspace}%
+  \usebibmacro{book:numeration}%
+  \setunit{\bibpagespunct}%
+  \printfield{pages}%
+  \newunit
+  \printfield{version}%
+  \setunit{\addspace}%
+  \usebibmacro{urldate}%
+  \newunit\newblock
+  \usebibmacro{series+number}%
+  \newunit\newblock
+  \usebibmacro{identifier}%
+  \newunit\newblock
+  \usebibmacro{availability+access}%
+  \newunit\newblock
+  \usebibmacro{location}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \usebibmacro{finentry}}%
 
 \DeclareBibliographyDriver{online}{%
-\usebibmacro{bibindex}%
-\usebibmacro{begentry}%
-\usebibmacro{names:primary}%
-\setunit{\labelnamepunct}\newblock%
-\usebibmacro{multi:titles}%
-\setunit{\addspace}%
-\usebibmacro{medium-type}%
-\newunit\newblock%
-\printfield{edition}%
-\newunit\newblock%
-\usebibmacro{names:subsidiary}%
-\newunit\newblock%
-\usebibmacro{location+publisher+date}%
-\newunit%
-\printfield{version}%
-\setunit{\addspace}%
-\usebibmacro{urldate}%
-\newunit\newblock%
-\usebibmacro{series+number}%
-\newunit\newblock%
-\usebibmacro{identifier}%
-\newunit\newblock%
-\usebibmacro{availability+access}%
-\setunit{\addspace}%
-\iftoggle{bbx:totalpages}
-  {\printfield{pagetotal}}
-  {}%
-\printfield{note}%
-\newunit\newblock%
-\setunit{\bibpagerefpunct}\newblock%
-\usebibmacro{pageref}%%
-\usebibmacro{finentry}}%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{names:primary}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{multi:titles}%
+  \setunit{\addspace}%
+  \usebibmacro{medium-type}%
+  \newunit\newblock
+  \printfield{edition}%
+  \newunit\newblock
+  \usebibmacro{names:subsidiary}%
+  \newunit\newblock
+  \usebibmacro{location+publisher+date}%
+  \newunit
+  \printfield{version}%
+  \setunit{\addspace}%
+  \usebibmacro{urldate}%
+  \newunit\newblock
+  \usebibmacro{series+number}%
+  \newunit\newblock
+  \usebibmacro{identifier}%
+  \newunit\newblock
+  \usebibmacro{availability+access}%
+  \setunit{\addspace}%
+  \iftoggle{bbx:totalpages}
+    {\printfield{pagetotal}}
+    {}%
+  \printfield{note}%
+  \newunit\newblock
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \usebibmacro{finentry}}%
 
 \DeclareBibliographyDriver{thesis}{%
-\usebibmacro{bibindex}%
-\usebibmacro{begentry}%
-\usebibmacro{names:primary}%
-\setunit{\labelnamepunct}\newblock%%
-\usebibmacro{titles}{}{emph}%
-\setunit{\addspace}%
-\usebibmacro{medium-type}%
-\newunit\newblock%
-\usebibmacro{location+publisher+date}%
-\newunit%
-\printfield{version}%
-\setunit{\addspace}%
-\usebibmacro{urldate}%
-\newunit\newblock%
-\usebibmacro{identifier}%
-\newunit\newblock%
-\iftoggle{bbx:thesisinfoinnotes}
-  {}
-  {\printfield{type}
-   \newunit\newblock%
-   \printlist{institution}%
-   \newunit\newblock%
-   \usebibmacro{thesissupervisor}}%
-\newunit\newblock%
-\usebibmacro{availability+access}
-\setunit{\addspace}%
-\iftoggle{bbx:totalpages}
-  {\printfield{pagetotal}}
-  {}%
-\newunit\newblock%
-\iftoggle{bbx:thesisinfoinnotes}
-  {\printfield{type}
-   \newunit\newblock%
-   \printlist{institution}%
-   \newunit\newblock%
-   \usebibmacro{thesissupervisor}}
-  {}%
-\newunit\newblock%
-\printfield{note}%
-\newunit\newblock%
-\setunit{\bibpagerefpunct}\newblock%
-\usebibmacro{pageref}%
-\usebibmacro{finentry}}%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{names:primary}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{titles}{}{emph}%
+  \setunit{\addspace}%
+  \usebibmacro{medium-type}%
+  \newunit\newblock
+  \usebibmacro{location+publisher+date}%
+  \newunit
+  \printfield{version}%
+  \setunit{\addspace}%
+  \usebibmacro{urldate}%
+  \newunit\newblock
+  \usebibmacro{identifier}%
+  \newunit\newblock
+  \iftoggle{bbx:thesisinfoinnotes}
+    {}
+    {\printfield{type}
+     \newunit\newblock
+     \printlist{institution}%
+     \newunit\newblock
+     \usebibmacro{thesissupervisor}}%
+  \newunit\newblock
+  \usebibmacro{availability+access}
+  \setunit{\addspace}%
+  \iftoggle{bbx:totalpages}
+    {\printfield{pagetotal}}
+    {}%
+  \newunit\newblock
+  \iftoggle{bbx:thesisinfoinnotes}
+    {\printfield{type}
+     \newunit\newblock
+     \printlist{institution}%
+     \newunit\newblock
+     \usebibmacro{thesissupervisor}}
+    {}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \usebibmacro{finentry}}%
 
 \DeclareBibliographyDriver{patent}{%
-\usebibmacro{bibindex}%
-\usebibmacro{begentry}%
-\usebibmacro{names:primary}%
-\setunit{\labelnamepunct}\newblock%%
-\usebibmacro{titles}{}{emph}%
-\newunit\newblock%
-\usebibmacro{names:subsidiary}%
-\newunit\newblock%
-\printfield{classification}%
-\newunit\newblock%
-\printlist{location}%
-\newunit\newblock%
-\iffieldundef{type}
-  {}
-  {\printfield{type}%
-   \setunit*{\addcomma\space}}%
-\printfield{number}%
-\newunit\newblock%
-\usebibmacro{fulldate}%
-\setunit{\addspace}%
-\usebibmacro{urldate}%
-\newunit\newblock%
-\printfield{note}%
-\newunit\newblock%
-\usebibmacro{availability+access}%
-\newunit\newblock%
-\setunit{\bibpagerefpunct}\newblock%
-\usebibmacro{pageref}%
-\usebibmacro{finentry}}%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{names:primary}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{titles}{}{emph}%
+  \newunit\newblock
+  \usebibmacro{names:subsidiary}%
+  \newunit\newblock
+  \printfield{classification}%
+  \newunit\newblock
+  \printlist{location}%
+  \newunit\newblock
+  \iffieldundef{type}
+    {}
+    {\printfield{type}%
+     \setunit*{\addcomma\space}}%
+  \printfield{number}%
+  \newunit\newblock
+  \usebibmacro{fulldate}%
+  \setunit{\addspace}%
+  \usebibmacro{urldate}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \usebibmacro{availability+access}%
+  \newunit\newblock
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \usebibmacro{finentry}}%
 
 %bibliography aliases
 
