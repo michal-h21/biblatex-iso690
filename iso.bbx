@@ -235,7 +235,7 @@
   \usebibmacro{bytranslator}%
 }
 
-\renewbibmacro*{editor}{%
+\newbibmacro*{incollection-editor}{%
   \ifboolexpr{
     test \ifuseeditor
     and
@@ -676,7 +676,7 @@
   \usebibmacro{titles}{}{}%
   \newunit\newblock
   \usebibmacro{in:}%
-  \usebibmacro{editor}%
+  \usebibmacro{incollection-editor}%
   \newunit\newblock
   \usebibmacro{host:titles}%
   \setunit{\addspace}%
