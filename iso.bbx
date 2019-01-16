@@ -75,8 +75,10 @@
 \newcommand\mainlstring[1]{\biblstring[\mainlang]{#1}}
 
 \renewcommand*\subtitlepunct{\addspacecolon\addspace}
-\renewcommand\multinamedelim{\addsemicolon\addspace}
-\renewcommand\finalnamedelim{\multinamedelim}
+
+% Context-sensitive delimiters
+\DeclareDelimFormat{multinamedelim}{\addsemicolon\addspace}
+\DeclareDelimAlias{finalnamedelim}{multinamedelim}
 
 \newcommand\addspacecolon{%
   \iftoggle{bbx:spcolon}
