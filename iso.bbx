@@ -317,8 +317,13 @@
 
 %publication info
 
-\newbibmacro{fulldate}{%
-  \printtext{\csname mkbibrangeiso8601\endcsname{\thefield{date}}}%
+\DeclareFieldFormat{isomonth}{-#1}
+\DeclareFieldFormat{isoday}{-#1}
+
+\newbibmacro*{fulldate}{%
+  \printfield{year}%
+  \printfield[isomonth]{month}%
+  \printfield[isoday]{day}%
 }
 
 \renewbibmacro*{date}{%
