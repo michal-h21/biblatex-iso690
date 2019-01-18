@@ -64,6 +64,7 @@
   date=year,
   urldate=iso,
   seconds=true,
+  datecirca=true,
 }
 
 \newbibmacro*{begentry}{}
@@ -184,6 +185,13 @@
 \DeclareFieldFormat{iswc}{\printtext{ISWC}\addspace#1}
 
 \DeclareFieldFormat{urldate}{\mkbibbrackets{\mainsstring{urlseen}\space#1}}
+
+% Default \datecircaprint is \bibstring{circa}\printdelim{datecircadelim}
+\DeclareFieldFormat{date}{%
+  \ifdatecirca
+    {\mkbibbrackets{#1}}
+    {#1}%
+}
 
 \DeclareFieldFormat{chapter}{\bibstring{chapter}\addnbspace#1\isdot}
 \DeclareFieldFormat{version}{%
