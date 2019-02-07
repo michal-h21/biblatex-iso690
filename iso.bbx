@@ -3,50 +3,58 @@
 % Currently available language mappings:
 % Czech, English, Slovak, German, Polish
 \DeclareLanguageMappingSuffix{-iso}
+% Currently needed the following additional language strings:
 \NewBibliographyString{at,bysupervisor,urlalso}
 
-%options
+% PACKAGE OPTIONS
 
+% Define new package options
+% These toggle names are internal
 \newtoggle{bbx:spcolon}
+\newtoggle{bbx:totalpages}
+\newtoggle{bbx:shortnum}
+\newtoggle{bbx:thesisinfoinnotes}
+\newtoggle{bbx:url}
+\newtoggle{bbx:isbn}
+\newtoggle{bbx:doi}
+\newtoggle{bbx:eprint}
+
+% Declare new package options
+% Description of these options is in the doc file
+% '\typeout' command prints to the console
 \DeclareBibliographyOption{spacecolon}[true]{%
   \settoggle{bbx:spcolon}{#1}%
   \typeout{Space colon enabled: #1}}
 
-\newtoggle{bbx:totalpages}
 \DeclareBibliographyOption{pagetotal}[true]{%
   \settoggle{bbx:totalpages}{#1}%
   \typeout{Showing total pages enabled: #1}}
 
-\newtoggle{bbx:shortnum}
 \DeclareBibliographyOption{shortnumeration}[true]{%
   \settoggle{bbx:shortnum}{#1}%
   \typeout{Short numeration enabled: #1}}
 
-\newtoggle{bbx:thesisinfoinnotes}
 \DeclareBibliographyOption{thesisinfoinnotes}[true]{%
   \settoggle{bbx:thesisinfoinnotes}{#1}%
   \typeout{Printing thesis info at the end enabled: #1}}
 
-\newtoggle{bbx:url}
 \DeclareBibliographyOption{url}[true]{%
   \settoggle{bbx:url}{#1}%
   \typeout{Showing URL field enabled: #1}}
 
-\newtoggle{bbx:isbn}
 \DeclareBibliographyOption{isbn}[true]{%
   \settoggle{bbx:isbn}{#1}%
   \typeout{Showing ISBN field enabled: #1}}
 
-\newtoggle{bbx:doi}
 \DeclareBibliographyOption{doi}[true]{%
   \settoggle{bbx:doi}{#1}%
   \typeout{Showing DOI field enabled: #1}}
 
-\newtoggle{bbx:eprint}
 \DeclareBibliographyOption{eprint}[true]{%
   \settoggle{bbx:eprint}{#1}%
   \typeout{Showing eprint field enabled: #1}}
 
+% Set default package options
 \ExecuteBibliographyOptions{%
   spacecolon=false,
   pagetotal=false,
@@ -56,36 +64,46 @@
   isbn=true,
   doi=true,
   eprint=true,
-  % sorting=nyt,
-  maxnames=9,
-  minnames=1,
-  citetracker=true,
-  autolang=other,
-  date=year,
-  urldate=iso,
-  seconds=true,
-  datecirca=true,
+  maxnames=9,% if possible, all creators should be given in the reference
+  minnames=1,% if any names are omitted => first creator + and others (et al.)
+  citetracker=true,% citation tracker in global mode
+  autolang=other,% Use the 'langid' language for the entry
+  date=year,% Use only years
+  urldate=iso,% Use ISO8601 Extended Format (yyyy-mm-dd) for URL 'seen' dates
+  seconds=true,% ISO8601 format requires 'seconds=true'
+  datecirca=true,% Use circa for approximate dates
 }
 
+% Default definitions of beginning and closing macro
+% in bibliography drivers
 \newbibmacro*{begentry}{}
 \newbibmacro*{finentry}{\finentry}
 
-%commands
+% COMMANDS
 
+% Localisation strings in the main document language
 \newcommand\mainsstring[1]{\bibsstring[\mainlang]{#1}}
 \newcommand\mainlstring[1]{\biblstring[\mainlang]{#1}}
 
+% The separator between 'titles' and 'subtitles'
 \renewcommand*\subtitlepunct{\addspacecolon\addspace}
 
-% Context-sensitive delimiters
-\DeclareDelimFormat{multinamedelim}{\addsemicolon\addspace}
-\DeclareDelimAlias{finalnamedelim}{multinamedelim}
-
+% A colon preceded with or without space
 \newcommand\addspacecolon{%
   \iftoggle{bbx:spcolon}
     {\addnbspace\blx@addsppunct{colon}}
     {\unspace\blx@addsppunct{colon}}%
 }
+
+% Context-sensitive delimiters
+
+% The delimiter between mutliple names
+% A semicolon: legacy of older versions of standard / Czech interpretations
+\DeclareDelimFormat{multinamedelim}{\addsemicolon\addspace}
+
+% The delimiter before the final name
+% Use consistent name format for all creators
+\DeclareDelimAlias{finalnamedelim}{multinamedelim}
 
 % Thanks Moewew for sugesting this. Make uppercase names only in biblipgraphy.
 % Default name format is ALL-CAPS
@@ -100,6 +118,7 @@
   \renewcommand\mkbibnamefamily{\lastnameformat}%
 }
 
+% Default bibliography environment (layout)
 \defbibenvironment{bibliography}
   {\list%
      {}%
@@ -114,63 +133,92 @@
   {\item}%
 %
 
-%field formats
+% FIELD FORMATS
 
+% Format title and subtitle as is
 \DeclareFieldFormat*{title}{#1}
 \DeclareFieldFormat*{subtitle}{#1}
+
+% Format volume field with short localisation string
 \DeclareFieldFormat{volume}{\bibsstring{volume}\addnbspace#1}% volume of a book
+% Differentiate volume in journal
 \DeclareFieldFormat[article,periodical]{volume}{%
   \iftoggle{bbx:shortnum}
     {\mkbibbold{#1}}
     {\bibsstring{jourvol}\addnbspace#1}% volume of a journal
 }
+
+% Edition field could be:
+% a) numeral: use with localisation string
+% b) literal: capitalize given string
 \DeclareFieldFormat*{edition}{%
   \ifnumeral{#1}%
     {\mkbibordedition{#1}\addnbspace\bibsstring{edition}}%
     {\MakeCapital{#1}}%
 }%
+
+% Format pagination for page range
 \DeclareFieldFormat*{pages}{\mkmlpageprefix[bookpagination]{#1}}
+% Differentiate page range in journal
 \DeclareFieldFormat[article,periodical]{pages}{%
   \iftoggle{bbx:shortnum}
     {#1}
     {\mainsstring{pages}\addspace\printtext{#1}}%
 }
+
+% Format pagination for total number of pages
 \DeclareFieldFormat*{pagetotal}{\mkbibbrackets{\mkmlpagetotal[bookpagination]{#1}}}
+
+% Format number field with short localisation string
 \DeclareFieldFormat*{number}{\bibsstring{number}\addspace\printtext{#1}}
+% Differentiate number in journal
 \DeclareFieldFormat[article,periodical]{number}{%
   \iftoggle{bbx:shortnum}
     {\mkbibparens{#1}}
     {\bibsstring{number}\addspace\printtext{#1}}%
 }
+% Differentiate number for patent: format as is
 \DeclareFieldFormat[patent]{number}{#1}
+
+% a) url AND no urldate: use localisation string 'available ALSO from',
+%    meaning: the work is not primarily published electronically
+% b) url AND urldate: use localisation string 'available from'
 \DeclareFieldFormat*{url}{%
   \iffieldundef{urlyear}
     {\mainlstring{urlalso}\addcolon\space\url{#1}}
     {\mainlstring{urlfrom}\addcolon\space\url{#1}}%
 }
+
+% Format DOI identifier as hyperlink (possibly)
 \DeclareFieldFormat{doi}{%
   \printtext{DOI}\addcolon\space
   \ifhyperref
     {\href{https://doi.org/#1}{\nolinkurl{#1}}}
     {\nolinkurl{#1}}%
 }
+
+% Format medium type in square brackets
 \DeclareFieldFormat{howpublished}{\mkbibbrackets{#1}}
+% If it is online entry type, defaults to [online]
 \DeclareFieldFormat[online]{howpublished}{%
   \iffieldundef{howpublished}
     {\mkbibbrackets{online}}
     {\mkbibbrackets{#1}}%
 }
 
+% Format type, e.g. type of thesis
+% If available, use the localisation string for the key
 \DeclareFieldFormat{type}{%
   \ifbibstring{#1}
     {\mainlstring{#1}}
     {#1}%
 }
 
+% Format supervisor of thesis (preceds the name with a localisation string)
 \DeclareFieldFormat{supervisor}{%
   \mainlstring{bysupervisor}\addspace#1}
 
-%We must handle more than one isbn and issn
+% We must handle more than one isbn and issn
 \DeclareFieldFormat{isbn}{%
   %\renewcommand*{\do}[1]{\printtext{ISBN}\addspace#1\adddot\addspace}%
   \printtext{ISBN}\addspace#1}%
@@ -179,13 +227,17 @@
   \renewcommand*{\do}[1]{\printtext{ISSN}\addspace#1\adddot\addspace}%
   \docsvfield{issn}}%
 
+% Format other standard identifiers, precedes the value with the name
+% of identifier
 \DeclareFieldFormat{isan}{\printtext{ISAN}\addspace#1}
 \DeclareFieldFormat{ismn}{\printtext{ISMN}\addspace#1}
 \DeclareFieldFormat{isrn}{\printtext{ISRN}\addspace#1}
 \DeclareFieldFormat{iswc}{\printtext{ISWC}\addspace#1}
 
+% Format url seen date with preceding localisation string in square brackets
 \DeclareFieldFormat{urldate}{\mkbibbrackets{\mainsstring{urlseen}\space#1}}
 
+% Format circa date with preceding localisation string in square brackets
 % Default \datecircaprint is \bibstring{circa}\printdelim{datecircadelim}
 \DeclareFieldFormat{date}{%
   \ifdatecirca
@@ -193,15 +245,22 @@
     {#1}%
 }
 
+% Format chapter of book with preceding localisation string
 \DeclareFieldFormat{chapter}{\bibstring{chapter}\addnbspace#1\isdot}
+
+% Version field could be:
+% a) numeral: use with localisation string
+% b) literal: capitalize given string
 \DeclareFieldFormat{version}{%
   \ifnumeral{#1}%
     {\biblstring{version}\addnbspace#1}%
     {\MakeCapital{#1}}%
 }
 
+% Format library field as is (location information)
 \DeclareFieldFormat{library}{#1}
 
+% Format (sub)titles as they are
 \DeclareFieldFormat{journaltitle}{#1}
 \DeclareFieldFormat{booktitle}{#1}
 \DeclareFieldFormat{maintitle}{#1}
@@ -211,22 +270,30 @@
 \DeclareFieldFormat{mainsubtitle}{#1}
 \DeclareFieldFormat{issuesubtitle}{#1}
 
+% Format other / alternative titles in square brackets
 \DeclareFieldFormat{titleaddon}{\mkbibbrackets{#1}}
 \DeclareFieldFormat{booktitleaddon}{\mkbibbrackets{#1}}
 \DeclareFieldFormat{maintitleaddon}{\mkbibbrackets{#1}}
 
+% Format additional name information in square brackets
 \DeclareFieldFormat{nameaddon}{\mkbibbrackets{#1}}
 
-%name alias
+% NAME ALIAS
 
+% Default name list format is last (family) followed by given (first) name
 \DeclareNameAlias{default}{family-given}
+% For supervisor, use inverted (natural) order format:
+% given (first) name followed by last (family) name,
+% because there is usually only one supervisor per thesis
+% so it sounds more naturally in this order
 \DeclareNameAlias{supervisor}{given-family}
 
-%bibliography macros
+% BIBLIOGRAPHY MACROS
 
-%names
+% NAMES MACROS
 
-% based on author/editor macro
+% Based on author/editor macro
+% Adds nameaddon field to names
 \newbibmacro*{names:primary}{%
   \ifboolexpr{
     test \ifuseauthor
@@ -238,18 +305,20 @@
   \setunit{\addspace}\printfield{nameaddon}%
 }
 
+% Macro for secondary authors with their role
 \newbibmacro*{names:subsidiary}{%
   \usebibmacro{byeditor}%
   \newunit
   \usebibmacro{bytranslator}%
 }
 
+% Don't owerwrite default macros to change only delimiters / punctuation,
+% declare their format instead.
 % https://github.com/michal-h21/biblatex-iso690/issues/68#issuecomment-435650072
 \DeclareFieldFormat{editortype}{\mkbibparens{#1}} 
 \DeclareDelimFormat{editortypedelim}{\addspace}
 
-
-
+% Macro for printing supervisor field
 \newbibmacro*{thesissupervisor}{%
   \ifnameundef{supervisor}
     {}
@@ -258,8 +327,11 @@
      \printnames{supervisor}}%
 }
 
-%titles
+% TITLES MACROS
 
+% Macro for formatting <prefix>titles
+% 1st argument: prefix / type of title (e.g. main, book, event)
+% 2nd argument: formatting directive (e.g. emph)
 \newbibmacro{titles}[2]{%
   \ifboolexpr{
     test {\iffieldundef{#1title}}
@@ -275,6 +347,7 @@
   \newunit
 }%
 
+% Macro for printing volumes (part of volumes)
 \newbibmacro{volume}{%
   \iffieldundef{volume}
     {}
@@ -283,6 +356,7 @@
      \setunit{\addcomma\addspace}}%
 }
 
+% Macro for formatting multiple titles
 \newbibmacro{multi:titles}{%
   \iffieldundef{maintitle}
     {\iffieldundef{booktitle}
@@ -295,6 +369,8 @@
      \usebibmacro{titles}{}{}}%
 }
 
+% Macro for formatting multiple hierachical titles
+% (e.g. for inbook, incollection)
 \newbibmacro{host:titles}{%
  \iffieldundef{maintitle}
    {\iffieldundef{booktitle}
@@ -303,6 +379,7 @@
    {\usebibmacro{titles}{main}{emph}}%
 }%
 
+% Macro for formatting multiple titles in periodicals
 \newbibmacro{periodical:titles}{%
   \usebibmacro{titles}{}{emph}%
   \newunit
@@ -313,7 +390,7 @@
     {\usebibmacro{titles}{issue}{}}%
 }
 
-%medium type
+% MEDIUM TYPE MACROS
 
 \newbibmacro*{medium-type}{%
   \iffieldundef{howpublished}
@@ -323,23 +400,32 @@
     {\printfield{howpublished}}%
 }
 
-%publication info
+% PUBLICATION INFO MACROS
 
+% By default only year is used, but for some entries,
+% we need full date (day or even time precision),
+% (e.g. patents, TV shows, newspapers, online news)
+
+% Hack to print full date (follow ISO8601 format)
 \DeclareFieldFormat{isomonth}{-#1}
 \DeclareFieldFormat{isoday}{-#1}
 
+% Macro for printing full date (full = YYYY-MM-DD)
 \newbibmacro*{fulldate}{%
   \printfield{year}%
   \printfield[isomonth]{month}%
   \printfield[isoday]{day}%
 }
 
+% Adds non-breaking space after open date range
 \renewbibmacro*{date}{%
   \iffieldequalstr{endyear}{}%
     {\printdate\mbox{\addnbspace}}%
     {\printdate}%
 }
 
+% Based on publisher+location+date macro (defined in standard.bbx)
+% Differs only in punctuation
 \newbibmacro*{location+publisher+date}{%
   \printlist{location}%
   \iflistundef{publisher}
@@ -350,7 +436,7 @@
   \usebibmacro{date}%
   \newunit}
 
-%numeration
+% NUMERATION MACROS
 
 \newbibmacro*{serial:numeration}{%
   \printfield{volume}%
@@ -366,16 +452,19 @@
   \printfield{chapter}%
 }
 
-%series title and number
+% SERIES TITLE AND NUMBER MACROS
 
+% Based on series+number macro (defined in standard.bbx)
+% Differs only in punctuation
 \newbibmacro*{series+number}{%
   \printfield{series}%
   \setunit*{\addcomma\space}%
   \printfield{number}%
 }%
 
-%standard identifiers
+% STANDARD IDENTIFIERS MACROS
 
+% Bunch of standard identifiers
 \newbibmacro*{identifier}{%
   \iftoggle{bbx:isbn}
     {\printfield{isan}%
@@ -393,16 +482,21 @@
     {}%
 }
 
-%availability and access
+% AVAILABILITY AND ACCESS MACROS
 
+% Precedes DOI field with urlfrom localisation string
 \newbibmacro*{from-doi}{%
   \mainlstring{urlfrom}\addspace\printfield{doi}%
 }
 
+% Precedes eprint field with urlfrom localisation string
+% Use default eprint formatting macro
 \newbibmacro*{from-eprint}{%
   \mainlstring{urlfrom}\addspace\usebibmacro{eprint}%
 }
 
+% Macro for availability and access information
+% with order of importance: doi, eprint, url
 \newbibmacro*{availability+access}{%
   \iffieldundef{doi}
     {\iffieldundef{eprint}
@@ -417,8 +511,9 @@
       {}}%
 }
 
-%location
+% LOCATION MACROS
 
+% Additional location information (e.g. library, repository)
 \newbibmacro*{location}{%
   \iffieldundef{library}
     {}
@@ -426,22 +521,24 @@
      \printfield{library}}%
 }
 
-%other
+% OTHER MACROS
 
 % redeclare in: bibmacro to use the main document language.
 % there was discussion whether literal "In:" should be used,
 % but that would look weird in non-latin languages.
 % context: https://github.com/michal-h21/biblatex-iso690/pull/33
 
+% Force to use the main document language for 'in' localisation string
 \renewbibmacro*{in:}{%
   \printtext{\mainsstring{in}\intitlepunct}%
 }
 
+% Based on 'in:' macro for 'at' localisation string
 \newbibmacro*{at:}{%
   \printtext{\mainsstring{at}\intitlepunct}%
 }
 
-%biblatex core
+% BIBLATEX CORE ADJUSTMENTS
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % overriding bookpagination to use document main language
@@ -533,7 +630,7 @@
   \fi%
   \csuse{blx@pq@#1}}%
 
-%bibliography drivers
+% BIBLIOGRAPHY DRIVERS
 
 \DeclareBibliographyDriver{book}{%
   \usebibmacro{bibindex}%
@@ -830,7 +927,7 @@
   \usebibmacro{pageref}%
   \usebibmacro{finentry}}%
 
-%bibliography aliases
+% BIBLIOGRAPHY ALIASES
 
 \DeclareBibliographyAlias{bookinbook}{inbook}
 \DeclareBibliographyAlias{suppbook}{inbook}
