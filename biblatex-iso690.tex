@@ -55,7 +55,7 @@
 
 \biblatex is a bibliography and citation tool for \LaTeX. This project provides
 support for citations and references according to the ISO~690 international standard.
-As the norm ISO~690 is a little bit ambiguous in some details regarding formatting of records,
+As the standard ISO~690 is a little bit ambiguous in some details regarding formatting of records,
 we largely follow requirements of the Czech interpretation, as it is the required form
 in many Czech universities. Of course, the style can be used in other languages as well.
 
@@ -104,13 +104,13 @@ so feel free to use the possibilites provided there for reporting issues and the
 
 \end{verbatim}
 
-According to the ISO~690 norm, some of the elements of the bibliographic
+According to the ISO~690 standard, some of the elements of the bibliographic
 resource should be printed in the main document language (language I~am
-currently writing) while the others should be in the language of a resource. You can
-specify the language of a resource into the field \t|langid| on a per-entry
-basis in a resource (\t|.bib|) file. In addition, all of the languages
-specified in these fields have to be loaded by the \t|babel| or \t|polyglossia|
-package respectively.\label{gen:multilang}
+currently writing) while the others should be in the language of a resource.
+You can specify the language of a resource into the field \t|langid| on a
+per-entry basis in a resource (\t|.bib|) file. In addition, all of the
+languages specified in these fields have to be loaded by the \t|babel| or
+\t|polyglossia| package respectively.\label{gen:multilang}
 
 Note that for correct support of localization functionality, the \t|babel|
 or \t|polyglossia| package should be used. The main document language
@@ -248,7 +248,7 @@ The \t|pagetotal| field is the total number of pages of the work. If multiple
 kinds of numeration are used in the work, e.g. arabic as well as roman numerals,
 both can be provided, separated by a comma. The localization term \t|pages| is 
 only appended for arabic numerals, though. Note that the total number of pages
-is no longer required by the norm itself, see also \ref{pkg:opt:iso690:pp}.
+is no longer required by the standard itself, see also \ref{pkg:opt:iso690:pp}.
 
 The \t|langid| field is required for multilingual support of printing
 references. This affects printing of localization terms used in the reference,
