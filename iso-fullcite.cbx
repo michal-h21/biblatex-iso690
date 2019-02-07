@@ -1,4 +1,7 @@
 % Fix for fullcite
+
+% Based on \fullcite generic command
+% Adds only formatting directive
 \DeclareCiteCommand{\fullcite}
   {\usebibmacro{prenote}%
    \renewcommand*\mkbibnamelast{\lastnameformat}%
@@ -9,6 +12,9 @@
   {\multicitedelim}
   {\usebibmacro{postnote}}
 
+
+% Based on \footfullcite generic command
+% Adds only formatting directive
 \DeclareCiteCommand{\footfullcite}[\mkbibfootnote]
   {\usebibmacro{prenote}%
    \renewcommand*\mkbibnamelast{\textsc}%

@@ -5,20 +5,25 @@
   sorting=nyt,
 }
 
+% The field extradate turns from integer type to a letter
+% after year to distinguish more works of the author
+% from the same year.
+% Patent has the exception of placing date after author,
+% so only fulldate is printed (default).
 \def\printextrayear{%
   \ifentrytype{patent}
     {}
     {\printfield{year}\printfield{extradate}}%
 }
 
-% remove second appearance of year in a reference
+% Remove second appearance of year in a reference
 \renewbibmacro*{date}{}%
 
-% overwrite names:primary to print year right after
+% Overwrite names:primary to print year right after:
 % 1) author
 % 2) editor
 % 3) label/title
-% need to handle not to print editor twice (primary
+% Need to handle not to print editor twice (primary
 % and subsidiary names)
 \renewbibmacro*{names:primary}{%
   \ifboolexpr{

@@ -1,5 +1,6 @@
 \ProvidesFile{iso-authoryear.cbx}[2017/04/25 v0.3.2 biblatex citation style]
 
+% Use only one name in citation to be consistent
 \ExecuteBibliographyOptions{%
    maxcitenames=1,
    mincitenames=1,
@@ -8,7 +9,10 @@
 \RequireCitationStyle{authoryear}
 \RequireCitationStyle{iso-fullcite}
 
+% Delimiter between creator name and year in citation
 \renewcommand*{\nameyeardelim}{\addcomma\addspace}
+% Delimiter between substitution of creator name (if any)
+% and year in citation
 \renewcommand*{\nonameyeardelim}{\addcomma\addspace}
 
 \endinput
