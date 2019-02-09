@@ -83,25 +83,39 @@ so feel free to use the possibilites provided there for reporting issues and the
 
 \subsection{General}
 
+A minimal working example for \t|babel| package:
 \begin{verbatim}
-..
-\usepackage[english,czech]{babel} % [other,main]
-% or in case of using xelatex, use the 'polyglossia' package instead
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english,czech]{babel}
+% \usepackage[main=czech,english]{babel}
+\usepackage{csquotes}
+
+\usepackage[style=iso-authoryear]{biblatex}
+\addbibresource{mybib.bib}
+
+\begin{document}
+\cite{knuth}
+\printbibliography
+\end{document}
+\end{verbatim}
+
+A minimal working example for \t|polyglossia| package:
+\begin{verbatim}
+\documentclass{article}
+\usepackage[utf8]{inputenc}
 \usepackage{polyglossia}
 \setmainlanguage{czech}
 \setotherlanguage{english}
-..
-\usepackage[
-  backend=biber,
-  style=iso-authoryear,
-  sortlocale=cs_CZ,
-  autolang=other,
-  bibencoding=UTF8,
-]{biblatex}
-\addbibresource{filename.fileextension}
-..
-\printbibliography
+\usepackage{csquotes}
 
+\usepackage[style=iso-authoryear]{biblatex}
+\addbibresource{mybib.bib}
+
+\begin{document}
+\cite{knuth}
+\printbibliography
+\end{document}
 \end{verbatim}
 
 According to the ISO~690 standard, some of the elements of the bibliographic
@@ -114,10 +128,16 @@ languages specified in these fields have to be loaded by the \t|babel| or
 
 Note that for correct support of localization functionality, the \t|babel|
 or \t|polyglossia| package should be used. The main document language
-is the last one entered in a list of languages passed to the \t|babel| package,
-respectively the directives \t|\textbackslash setmainlanguage| and
-\t|\textbackslash setotherlanguage| in case the \t|polyglossia| package
-is used.
+is:
+
+\begin{description}
+  \item[babel] the last one entered in a list of languages passed to the
+    \t|babel| package options, or the one specified by \t|main| keyword
+    (see MWE above)
+  \item[polyglossia] the one specified in the directive \t|\textbackslash
+    setmainlanguage| (other languages could be specified using
+    \t|\textbackslash setotherlanguage|) (see MWE above)
+\end{description}
 
 \subsection{Citation methods}
 
