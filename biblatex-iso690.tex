@@ -162,6 +162,42 @@ implemented yet.
 \item[iso-authortitle] name and title system
 \end{description}
 
+\subsection{Citation commands}
+
+\biblatex provides a lot of citation commands out of the box. However, to
+conform to the standard, it is neccessery to know which commands for which
+citation methods you can use. Here is an overview.
+
+\subsubsection{Numeric system}
+
+For \t|iso-numeric| style, the usage of cite command is as simple as
+\t|\textbackslash cite|.
+
+\noindent
+Example: command \t|\textbackslash cite\{knuth\}| outputs [1].
+
+\subsubsection{Author-year system}
+
+For \t|iso-authoryear| method (and possibly also for other methods
+\t|iso-alphabetic| and \t|iso-authortitle|), you should distinguish two
+situations:
+
+\begin{itemize}
+  \item Name of the creator appears naturally in the text, so only the year is
+  in parentheses; use \t|\textbackslash textcite|.
+
+  \noindent
+  Example: command \t|\textbackslash textcite\{knuth\}| outputs
+  \textcite{knuth}.
+
+  \item Name of the creator doesn't appear naturally in the text, so both name
+  and the year are in parentheses; use \t|\textbackslash parencite|.
+
+  \noindent
+  Example: command \t|\textbackslash parencite\{knuth\}| outputs
+  \parencite{knuth}.
+\end{itemize}
+
 \subsection{Package options}
 
 \subsubsection{Provided by \biblatex by default}
