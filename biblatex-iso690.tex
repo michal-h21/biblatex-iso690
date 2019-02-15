@@ -458,6 +458,27 @@ The field \t|classification| is available for the respective stuff.
 For other details regarding \t|patent| type, please refer
 to the \t|biblatex| documentation.
 
+In the following example, we can see how to print out inventor of a
+patent using \t|editora| and \t|editoratype| fields, or type of patent
+using localisation string \t|patenteu|.
+\newline
+
+\c{Groll2008}
+\begin{verbatim}
+@patent{Groll2008,
+  author         = {Clad Metals LLC Canonsburg, PA 15317 (US)},
+  title          = {Method of making a copper core five-ply composite
+                     and cooking vessel},
+  editora        = {Groll, W.A.},
+  editoratype    = {Inventor:},
+  publisher      = {Google Patents},
+  classification = {EP 1 094 937 B1},
+  type           = {patenteu},
+  date           = {2008-07-30},
+  url            = {https://encrypted.google.com/patents/EP1094937B1},
+}
+\end{verbatim}
+
 \subsection{Hints and Caveats}
 
 This section provides additional hints concerning the \t|biblatex| package
