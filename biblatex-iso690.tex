@@ -430,9 +430,27 @@ The \t|thesis| entry type and its aliases \t|mastersthesis| and
 \t|type| field to specify the type of the thesis -- a localization
 term or literal string can be entered. For the list of supported
 localization terms, please refer to section 4.9.2.13 of the
-\t|biblatex| documentation. Names of the supervisor and school
-(institution) can be entered into the fields \t|supervisor| and
-\t|institution|, respectively.
+\t|biblatex| documentation. Available terms are \t|bathesis|,
+\t|mathesis|, \t|phdthesis|, and \t|candthesis|. Names of the
+supervisor and school (institution) can be entered into the fields
+\t|supervisor| and \t|institution|, respectively.
+\newline
+
+\c{Luptak2016thesis}
+\begin{verbatim}
+@THESIS{Luptak2016thesis,
+  author       = "Lupták, Dávid",
+  title        = "Typesetting of Bibliography According to ISO 690 Norm",
+  date         = 2016,
+  howpublished = "online",
+  urldate      = "2016-06-14",
+  type         = "bathesis",
+  school       = "Masaryk University, Faculty of Informatics",
+  location     = "Brno",
+  supervisor   = "Petr Sojka",
+  url          = "https://is.muni.cz/th/422640/fi_b/",
+}
+\end{verbatim}
 
 \paragraph{Patent}\hfill\\
 
