@@ -29,6 +29,42 @@
 
 \addbibresource{mybib.bib}
 
+% Support diacritics in Czech examples
+% ref.: https://stackoverflow.com/a/16084246
+\lstset{
+  literate=
+  {á}{{\'a}}1
+  {č}{{\v{c}}}1
+  {ď}{{\v{d}}}1
+  {é}{{\'e}}1
+  {ě}{{\v{e}}}1
+  {í}{{\'i}}1
+  {ň}{{\v{n}}}1
+  {ó}{{\'o}}1
+  {ř}{{\v{r}}}1
+  {š}{{\v{s}}}1
+  {ť}{{\v{t}}}1
+  {ú}{{\'u}}1
+  {ů}{{\r{u}}}1
+  {ý}{{\'y}}1
+  {ž}{{\v{z}}}1
+  {Á}{{\'A}}1
+  {Č}{{\v{C}}}1
+  {Ď}{{\v{D}}}1
+  {É}{{\'E}}1
+  {Ě}{{\v{E}}}1
+  {Í}{{\'I}}1
+  {Ň}{{\v{N}}}1
+  {Ó}{{\'O}}1
+  {Ř}{{\v{R}}}1
+  {Š}{{\v{S}}}1
+  {Ť}{{\v{T}}}1
+  {Ú}{{\'U}}1
+  {Ů}{{\r{U}}}1
+  {Ý}{{\'Y}}1
+  {Ž}{{\v{Z}}}1
+}
+
 \titlepage{%
   title={ISO~690 \biblatex style},
   subtitle={},
@@ -84,7 +120,7 @@ so feel free to use the possibilites provided there for reporting issues and the
 \subsection{General}
 
 A minimal working example for \t|babel| package:
-\begin{verbatim}
+\begin{ltxexample}
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage[english,czech]{babel}
@@ -98,10 +134,10 @@ A minimal working example for \t|babel| package:
 \cite{knuth}
 \printbibliography
 \end{document}
-\end{verbatim}
+\end{ltxexample}
 
 A minimal working example for \t|polyglossia| package:
-\begin{verbatim}
+\begin{ltxexample}
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{polyglossia}
@@ -116,7 +152,7 @@ A minimal working example for \t|polyglossia| package:
 \cite{knuth}
 \printbibliography
 \end{document}
-\end{verbatim}
+\end{ltxexample}
 
 According to the ISO~690 standard, some of the elements of the bibliographic
 resource should be printed in the main document language (language I~am
@@ -281,7 +317,7 @@ some examples of bibliography entry types with respective fields follow.
 \paragraph{Book} \hfill\\
 
 \c{t01}
-\begin{verbatim}
+\begin{ltxexample}
 @BOOK{t01,
   author      =   {Borgman, Christine L.}, 
   year        =   {2003},
@@ -294,7 +330,7 @@ some examples of bibliography entry types with respective fields follow.
   isbn        =   {0-262-52345-0},
   langid      =   {english}
 }
-\end{verbatim} 
+\end{ltxexample}
 
 The \t|edition| field is the edition of a printed publication. It is required
 if the item is not a first edition. Use an integer or a literal string to fill
@@ -313,7 +349,7 @@ e.g. \t|edition| field. See also \ref{gen:multilang}.
 \paragraph{Contribution to a collection} \hfill\\
 
 \c{t02}
-\begin{verbatim}
+\begin{ltxexample}
 @INCOLLECTION{t02,
   author        =   {Greenberg, David}, 
   year          =   {1998},
@@ -329,7 +365,7 @@ e.g. \t|edition| field. See also \ref{gen:multilang}.
   pages         =   {105-116},
   langid        =   {english}
 }
-\end{verbatim} 
+\end{ltxexample}
 
 The \t|title| field is the title of the contribution, the \t|booktitle|
 is the title of the collection.
@@ -346,7 +382,7 @@ as the following example shows:
 
 \noindent\c{prispevek1}
  
-\begin{verbatim}
+\begin{ltxexample}
 @COLLECTION{sbornik,
   title       =   {Mimořádně užitečný sborník},
   editor      =   {Geniální, Jiří},
@@ -363,7 +399,7 @@ as the following example shows:
   author      =   {Vlaštovka, Josef},
   pages       =   {22-45}
 }
-\end{verbatim}
+\end{ltxexample}
 
 Now, there is no need to fill in \t|booktitle| in the \t|sbornik| entry.
 The \t|biber| backend program performs the inheritance between parent and
@@ -372,7 +408,7 @@ child entry automatically. Other backends may not support this feature.
 \paragraph{Article in a serial}\hfill\\
 
 \c{t03}
-\begin{verbatim}
+\begin{ltxexample}
 @ARTICLE{t03,
   author        =   {LYNCH, C.},
   year          =   {2005},
@@ -386,7 +422,7 @@ child entry automatically. Other backends may not support this feature.
   issn          =   {1082-9873},
   langid        =   {english}
 }
-\end{verbatim}
+\end{ltxexample}
 
 The example above is an article in an online magazine. If the magazine
 is available online only, i.e. it is not published in print,
@@ -395,7 +431,7 @@ achieved by providing the \t|urldate| field. On the other hand
 \newline
 
 \c{knuth}
-\begin{verbatim}
+\begin{ltxexample}
 @PERIODICAL{tug,
   journaltitle  =   {TUGBoat},
   publisher     =   {TUG},
@@ -415,7 +451,7 @@ achieved by providing the \t|urldate| field. On the other hand
   url           =   {http://tugboat.tug.org/kkk.pdf},
   crossref      =   {tug}
 }
-\end{verbatim}
+\end{ltxexample}
 
 \noindent the example shows an article in a printed magazine, which is 
 \emph{also} available online. Similar to the contribution to a collection,
@@ -437,7 +473,7 @@ supervisor and school (institution) can be entered into the fields
 \newline
 
 \c{Luptak2016thesis}
-\begin{verbatim}
+\begin{ltxexample}
 @THESIS{Luptak2016thesis,
   author       = "Lupták, Dávid",
   title        = "Typesetting of Bibliography According to ISO 690 Norm",
@@ -450,7 +486,7 @@ supervisor and school (institution) can be entered into the fields
   supervisor   = "Petr Sojka",
   url          = "https://is.muni.cz/th/422640/fi_b/",
 }
-\end{verbatim}
+\end{ltxexample}
 
 \paragraph{Patent}\hfill\\
 
@@ -464,7 +500,7 @@ using localisation string \t|patenteu|.
 \newline
 
 \c{Groll2008}
-\begin{verbatim}
+\begin{ltxexample}
 @patent{Groll2008,
   author         = {Clad Metals LLC Canonsburg, PA 15317 (US)},
   title          = {Method of making a copper core five-ply composite
@@ -477,7 +513,7 @@ using localisation string \t|patenteu|.
   date           = {2008-07-30},
   url            = {https://encrypted.google.com/patents/EP1094937B1},
 }
-\end{verbatim}
+\end{ltxexample}
 
 \subsection{Hints and Caveats}
 
@@ -506,25 +542,21 @@ When citing cinematographic works which are typically the output of many
 individuals, the title should be used as the first element of the reference.
 However, it is appropriate to include some relevant roles, e.g. the director:
 
-%\begin{ltxexample}
-\begin{verbatim}
+\begin{ltxexample}
   ..
   editora     = {Welles, Orson}
   editoratype = {Directed by}
   ..
-\end{verbatim}
-%\end{ltxexample}
+\end{ltxexample}
 
 in English, or
 
-%\begin{ltxexample}
-\begin{verbatim}
+\begin{ltxexample}
   ..
   editora     = {Welles, Orson}
   editoratype = {Réžia}
   ..
-\end{verbatim}
-%\end{ltxexample}
+\end{ltxexample}
 
 in Slovak.
 
@@ -570,19 +602,19 @@ If an exact date is not known, an approximate date should be supplied in
 brackets preceded by circa string (ca.). To achieve this behaviour, specify
 the date followed by a tilde, as in the example below.
 
-\begin{verbatim}
+\begin{ltxexample}
   date = {1490~}         % tilde meaning circa
-\end{verbatim}
+\end{ltxexample}
 
 In case no date is given and also no approximation is possible, that
 should be stated. Please reflect this in the \t|bib| file by including
 the following line in the respective entry.
 
-\begin{verbatim}
+\begin{ltxexample}
   ..
   date = {\mkbibbrackets{\bibsstring{nodate}}}
   ..
-\end{verbatim}
+\end{ltxexample}
 
 Explanation of the above code:
 \t|nodate| is a localization string which prints something like
@@ -603,11 +635,11 @@ the \t|year| field in general.
 
 Examples follow:
 
-\begin{verbatim}
+\begin{ltxexample}
   date = {2012-12-21}    % exact date
   date = {1998/2001}     % date range
   date = {2016/}         % open ended date range
-\end{verbatim}
+\end{ltxexample}
 
 \subsubsection{Location}
 
