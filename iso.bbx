@@ -117,15 +117,15 @@
 
 \DeclareFieldFormat*{title}{#1}
 \DeclareFieldFormat*{subtitle}{#1}
-\DeclareFieldFormat{volume}{\bibsstring{volume}\addnbspace#1}% volume of a book
+\DeclareFieldFormat{volume}{\bibstring{volume}\addnbspace#1}% volume of a book
 \DeclareFieldFormat[article,periodical]{volume}{%
   \iftoggle{bbx:shortnum}
     {\mkbibbold{#1}}
-    {\bibsstring{jourvol}\addnbspace#1}% volume of a journal
+    {\bibstring{jourvol}\addnbspace#1}% volume of a journal
 }
 \DeclareFieldFormat*{edition}{%
   \ifnumeral{#1}%
-    {\mkbibordedition{#1}\addnbspace\bibsstring{edition}}%
+    {\mkbibordedition{#1}\addnbspace\bibstring{edition}}%
     {\MakeCapital{#1}}%
 }%
 \DeclareFieldFormat*{pages}{\mkmlpageprefix[bookpagination]{#1}}
@@ -135,11 +135,11 @@
     {\mainsstring{pages}\addspace\printtext{#1}}%
 }
 \DeclareFieldFormat*{pagetotal}{\mkbibbrackets{\mkmlpagetotal[bookpagination]{#1}}}
-\DeclareFieldFormat*{number}{\bibsstring{number}\addspace\printtext{#1}}
+\DeclareFieldFormat*{number}{\bibstring{number}\addspace\printtext{#1}}
 \DeclareFieldFormat[article,periodical]{number}{%
   \iftoggle{bbx:shortnum}
     {\mkbibparens{#1}}
-    {\bibsstring{number}\addspace\printtext{#1}}%
+    {\bibstring{number}\addspace\printtext{#1}}%
 }
 \DeclareFieldFormat[patent]{number}{#1}
 \DeclareFieldFormat*{url}{%
