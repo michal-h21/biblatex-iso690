@@ -29,11 +29,11 @@ here. You should be able to use **biblatex-iso690** now.
 ```
 \usepackage[english,czech]{babel} % main language of the document must be last
 \usepackage[
-   backend=biber        % if we want unicode
-  ,style=iso-authoryear % or iso-numeric for numeric citation method
-  ,autolang=other       % to support multiple languages in bibliography
-  ,sortlocale=cs_CZ     % locale of main language, for sorting
-  ,bibencoding=UTF8     % this is necessary only if bibliography file is in different encoding than main document
+  backend=biber,        % if we want unicode
+  style=iso-authoryear, % or iso-numeric for numeric citation method
+  autolang=other,       % to support multiple languages in bibliography
+  sortlocale=cs_CZ,     % locale of main language, for sorting
+  bibencoding=UTF8,     % this is necessary only if bibliography file is in different encoding than main document
 ]{biblatex}
 ```
 
