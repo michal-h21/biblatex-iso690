@@ -57,6 +57,22 @@ Above and beyond the scope of package options provided by `biblatex` itself, her
   print out thesis information in notes section
   * **[true]** Available from: <...>. BP. MU, FI, Brno. Supervisor Petr SOJKA
   *   [false]  BP. MU, FI, Brno. Supervisor Petr SOJKA. Available from: <...>
+* `doi`
+  enable or disable printing of the DOI number
+  * **[true]** Available from DOI: [10.5300/2016-1-4/106](https://doi.org/10.5300/2016-1-4/106)
+  *   [false] --
+* `isbn`
+  enable or disable printing of the ISBN, ISSN and other standard identifiers
+  * **[true]** ISBN 0-201-36299-6
+  *   [false] --
+* `eprint`
+  enable or disable printing of the eprint field
+  * **[true]** Available from arXiv: 1905.10545
+  *   [false] --
+* `url`
+  enable or disable printing of the URL
+  * **[true]** Available from: <https://github.com/michal-h21/biblatex-iso690>
+  *   [false] --
 
 ### Bibliographic fields
 Some fields have a different meaning than in plain BibTeX.
