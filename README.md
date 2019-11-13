@@ -117,4 +117,7 @@ The Current Maintainer of this work is Michal Hoftich.
 
 This work consists of all files listed in [manifest.txt](./manifest.txt).
 
-The package is available on CTAN https://www.ctan.org/pkg/biblatex-iso690 and is included in MikTeX and TeX live 2016 or later as `biblatex-iso690`. The development version can be found on GitHub https://github.com/michal-h21/biblatex-iso690.
+The package is available on CTAN https://www.ctan.org/pkg/biblatex-iso690
+and is included in MikTeX and TeX live 2016 or later as `biblatex-iso690`.
+The development version can be found on GitHub
+https://github.com/michal-h21/biblatex-iso690.
