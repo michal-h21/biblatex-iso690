@@ -29,11 +29,11 @@ here. You should be able to use **biblatex-iso690** now.
 ```
 \usepackage[english,czech]{babel} % main language of the document must be last
 \usepackage[
-   backend=biber        % if we want unicode
-  ,style=iso-authoryear % or iso-numeric for numeric citation method
-  ,autolang=other       % to support multiple languages in bibliography
-  ,sortlocale=cs_CZ     % locale of main language, for sorting
-  ,bibencoding=UTF8     % this is necessary only if bibliography file is in different encoding than main document
+  backend=biber,        % if we want unicode
+  style=iso-authoryear, % or iso-numeric for numeric citation method
+  autolang=other,       % to support multiple languages in bibliography
+  sortlocale=cs_CZ,     % locale of main language, for sorting
+  bibencoding=UTF8,     % this is necessary only if bibliography file is in different encoding than main document
 ]{biblatex}
 ```
 
@@ -57,6 +57,22 @@ Above and beyond the scope of package options provided by `biblatex` itself, her
   print out thesis information in notes section
   * **[true]** Available from: <...>. BP. MU, FI, Brno. Supervisor Petr SOJKA
   *   [false]  BP. MU, FI, Brno. Supervisor Petr SOJKA. Available from: <...>
+* `doi`
+  enable or disable printing of the DOI number
+  * **[true]** Available from DOI: [10.5300/2016-1-4/106](https://doi.org/10.5300/2016-1-4/106)
+  *   [false] --
+* `isbn`
+  enable or disable printing of the ISBN, ISSN and other standard identifiers
+  * **[true]** ISBN 0-201-36299-6
+  *   [false] --
+* `eprint`
+  enable or disable printing of the eprint field
+  * **[true]** Available from arXiv: 1905.10545
+  *   [false] --
+* `url`
+  enable or disable printing of the URL
+  * **[true]** Available from: <https://github.com/michal-h21/biblatex-iso690>
+  *   [false] --
 
 ### Bibliographic fields
 Some fields have a different meaning than in plain BibTeX.
@@ -91,9 +107,7 @@ This work may be distributed and/or modified under the
 conditions of the LaTeX Project Public License, either version 1.3
 of this license or (at your option) any later version.
 The latest version of this license is in
-
-  http://www.latex-project.org/lppl.txt
-
+http://www.latex-project.org/lppl.txt
 and version 1.3 or later is part of all distributions of LaTeX
 version 2005/12/01 or later.
 
@@ -102,3 +116,8 @@ This work has the LPPL maintenance status `maintained`.
 The Current Maintainer of this work is Michal Hoftich.
 
 This work consists of all files listed in [manifest.txt](./manifest.txt).
+
+The package is available on CTAN https://www.ctan.org/pkg/biblatex-iso690
+and is included in MikTeX and TeX live 2016 or later as `biblatex-iso690`.
+The development version can be found on GitHub
+https://github.com/michal-h21/biblatex-iso690.

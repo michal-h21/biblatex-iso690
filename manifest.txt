@@ -20,4 +20,5 @@ iso-numeric.bbx
 iso-numeric.cbx
 iso-numeric.dbx
 mybib.bib
+polish-iso.lbx
 slovak-iso.lbx
