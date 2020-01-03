@@ -167,9 +167,9 @@ is:
   \item[babel] the last one entered in a list of languages passed to the
     \t|babel| package options, or the one specified by \t|main| keyword
     (see MWE above)
-  \item[polyglossia] the one specified in the directive \t|\textbackslash
-    setmainlanguage| (other languages could be specified using
-    \t|\textbackslash setotherlanguage|) (see MWE above)
+  \item[polyglossia] the one specified in the directive
+    \cmd{setmainlanguage} (other languages could be specified using
+    \cmd{setotherlanguage}) (see MWE above)
 \end{description}
 
 \subsection{Citation methods}
@@ -204,10 +204,10 @@ citation methods you can use. Here is an overview.
 \subsubsection{Numeric system}
 
 For \t|iso-numeric| style, the usage of cite command is as simple as
-\t|\textbackslash cite|.
+\cmd{cite}.
 
 \noindent
-Example: command \t|\textbackslash cite\{knuth\}| outputs [1].
+Example: command \cmd{cite\{knuth\}} outputs [1].
 
 \subsubsection{Author-year system}
 
@@ -217,17 +217,17 @@ situations:
 
 \begin{itemize}
   \item Name of the creator appears naturally in the text, so only the year is
-  in parentheses; use \t|\textbackslash textcite|.
+  in parentheses; use \cmd{textcite}.
 
   \noindent
-  Example: command \t|\textbackslash textcite\{knuth\}| outputs
+  Example: command \cmd{textcite\{knuth\}} outputs
   \textcite{knuth}.
 
   \item Name of the creator doesn't appear naturally in the text, so both name
-  and the year are in parentheses; use \t|\textbackslash parencite|.
+  and the year are in parentheses; use \cmd{parencite}.
 
   \noindent
-  Example: command \t|\textbackslash parencite\{knuth\}| outputs
+  Example: command \cmd{parencite\{knuth\}} outputs
   \parencite{knuth}.
 \end{itemize}
 
