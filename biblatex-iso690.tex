@@ -17,15 +17,11 @@
 \newcommand*{\biblatex}{\sty{biblatex}\xspace}
 
 \usepackage[
-  backend=biber,
   style=iso-authoryear,
-  autolang=other,
+  sortlocale=cs_CZ,% We need this for proper sorting,
+  %   because most of the bib examples are Czech ones,
+  %   but the main document language is English
   pagetotal=true,
-  sortlocale=cs_CZ,
-  bibencoding=UTF8,
-  spacecolon=false,
-  % isbn=false,
-  % block=ragged,
 ]{biblatex}
 
 \addbibresource{mybib.bib}
