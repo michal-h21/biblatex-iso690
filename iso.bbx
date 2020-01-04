@@ -415,16 +415,9 @@
 % we need full date (day or even time precision),
 % (e.g. patents, TV shows, newspapers, online news)
 
-% Hack to print full date (follow ISO8601 format YYYY-MM-DD)
-% \mkmonthzeros and \mkdayzeros enforce leading zeros
-\DeclareFieldFormat{isomonth}{-\mkmonthzeros{#1}}
-\DeclareFieldFormat{isoday}{-\mkdayzeros{#1}}
-
 % Macro for printing full date (full = YYYY-MM-DD)
 \newbibmacro*{fulldate}{%
-  \printfield{year}%
-  \printfield[isomonth]{month}%
-  \printfield[isoday]{day}%
+  \printtext{\csname mkdaterangeiso\endcsname{}}%
 }
 
 % Adds non-breaking space after open date range
