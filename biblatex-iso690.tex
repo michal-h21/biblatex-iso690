@@ -489,10 +489,12 @@ supervisor and school (institution) can be entered into the fields
 
 The field \t|number| is available for the patent classification
 or request number.
-
-In the following example, we can see how to print the inventor of a
-patent using \t|editora| and \t|editoratype| fields, or the type of patent
-using localisation string \t|patenteu|.
+If the inventor is also known, we can use \t|editora| and \t|editoratype|
+fields to specify that. Use an additionally created role \t|inventor| for the
+\t|editoratype| field; it is the key that translates based on the localisation
+strings.
+For the patent type, we can use localisation strings as well, e.g.
+\t|patenteu|.
 \newline
 
 \c{Groll2008}
@@ -502,7 +504,7 @@ using localisation string \t|patenteu|.
   title       = {Method of making a copper core five-ply composite
                   and cooking vessel},
   editora     = {Groll, W. A.},
-  editoratype = {Inventor:},
+  editoratype = {inventor},
   publisher   = {Google Patents},
   number      = {EP 1 094 937 B1},
   type        = {patenteu},
@@ -531,7 +533,8 @@ specific ones (e.g. \t|translator|) can be used. Note also the field
 to specify the type of the editor. This is useful to distinguish the role
 of the creator and their relationship to the cited work. Some roles
 are supported by default, e.g. \t|editor|, \t|compiler|, \t|founder|
-and \t|reviser|, in other cases the literal string can be entered.
+and \t|reviser|, some are created additionally, i.e. \t|inventor|,
+\t|director|; in other cases use the literal string.
 
 Example:
 When citing cinematographic works which are typically the output of many
@@ -541,20 +544,9 @@ However, it is appropriate to include some relevant roles, e.g. the director:
 \begin{ltxexample}
   ..
   editora     = {Welles, Orson},
-  editoratype = {Directed by},
+  editoratype = {director},
   ..
 \end{ltxexample}
-
-in English, or
-
-\begin{ltxexample}
-  ..
-  editora     = {Welles, Orson},
-  editoratype = {Réžia},
-  ..
-\end{ltxexample}
-
-in Slovak.
 
 The field \t|nameaddon| can be used to append additional information
 to the creator's name, e.g. variant forms of a name, name additions
