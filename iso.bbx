@@ -173,12 +173,12 @@
 \DeclareFieldFormat*{pagetotal}{\mkbibbrackets{\mkmlpagetotal[bookpagination]{#1}}}
 
 % Format number field with short localisation string
-\DeclareFieldFormat*{number}{\bibsstring{number}\addspace\printtext{#1}}
+\DeclareFieldFormat*{number}{\bibsstring{number}\addspace #1}
 % Differentiate number in journal
 \DeclareFieldFormat[article,periodical]{number}{%
   \iftoggle{bbx:shortnum}
     {\mkbibparens{#1}}
-    {\bibsstring{number}\addspace\printtext{#1}}%
+    {\bibsstring{number}\addspace #1}%
 }
 % Differentiate number for patent: format as is
 \DeclareFieldFormat[patent]{number}{#1}
@@ -192,9 +192,13 @@
     {\mainlstring{urlfrom}\addcolon\space\url{#1}}%
 }
 
+% \mkbibacro typesets acronyms in small caps by default,
+% if we want to override this, pass the value as is (uppercase)
+% \renewcommand*{\mkbibacro}[1]{#1}
+
 % Format DOI identifier as hyperlink (possibly)
 \DeclareFieldFormat{doi}{%
-  \printtext{DOI}\addcolon\space
+  \mkbibacro{DOI}\addcolon\space
   \ifhyperref
     {\href{https://doi.org/#1}{\nolinkurl{#1}}}
     {\nolinkurl{#1}}%
@@ -223,19 +227,19 @@
 
 % We must handle more than one isbn and issn
 \DeclareFieldFormat{isbn}{%
-  %\renewcommand*{\do}[1]{\printtext{ISBN}\addspace#1\adddot\space}%
-  \printtext{ISBN}\addspace#1}%
+  %\renewcommand*{\do}[1]{\mkbibacro{ISBN}\addspace#1\adddot\space}%
+  \mkbibacro{ISBN}\addspace#1}%
 
 \DeclareFieldFormat{issn}{%
-  \renewcommand*{\do}[1]{\printtext{ISSN}\addspace#1\adddot\space}%
+  \renewcommand*{\do}[1]{\mkbibacro{ISSN}\addspace#1\adddot\space}%
   \docsvfield{issn}}%
 
 % Format other standard identifiers, precedes the value with the name
 % of identifier
-\DeclareFieldFormat{isan}{\printtext{ISAN}\addspace#1}
-\DeclareFieldFormat{ismn}{\printtext{ISMN}\addspace#1}
-\DeclareFieldFormat{isrn}{\printtext{ISRN}\addspace#1}
-\DeclareFieldFormat{iswc}{\printtext{ISWC}\addspace#1}
+\DeclareFieldFormat{isan}{\mkbibacro{ISAN}\addspace#1}
+\DeclareFieldFormat{ismn}{\mkbibacro{ISMN}\addspace#1}
+\DeclareFieldFormat{isrn}{\mkbibacro{ISRN}\addspace#1}
+\DeclareFieldFormat{iswc}{\mkbibacro{ISWC}\addspace#1}
 
 % Format url seen date with preceding localisation string in square brackets
 \DeclareFieldFormat{urldate}{\mkbibbrackets{\mainsstring{urlseen}\space#1}}
