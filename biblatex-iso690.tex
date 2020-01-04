@@ -325,7 +325,7 @@ some examples of bibliography entry types with respective fields follow.
   publisher   =   {The MIT Press},
   pagetotal   =   {xviii, 324},
   isbn        =   {0-262-52345-0},
-  langid      =   {english}
+  langid      =   {english},
 }
 \end{ltxexample}
 
@@ -360,7 +360,7 @@ e.g. \t|edition| field. See also \ref{gen:multilang}.
   publisher     =   {Council on Library and Information Resources; 
                       Association of American Universities}, 
   pages         =   {105-116},
-  langid        =   {english}
+  langid        =   {english},
 }
 \end{ltxexample}
 
@@ -387,14 +387,14 @@ as the following example shows:
   langid      =   {czech},
   location    =   {Praha},
   publisher   =   {Academia},
-  isbn        =   {978-222-626-222-2}
+  isbn        =   {978-222-626-222-2},
 }
 
 @INCOLLECTION{prispevek1,
   crossref    =   {sbornik},
   title       =   {Velmi zajímavý článek},
   author      =   {Vlaštovka, Josef},
-  pages       =   {22-45}
+  pages       =   {22-45},
 }
 \end{ltxexample}
 
@@ -417,7 +417,7 @@ child entry automatically. Other backends may not support this feature.
   urldate       =   {2005-08-15},
   url           =   {http://www.dlib.org/dlib/july05/lynch/07lynch.html}, 
   issn          =   {1082-9873},
-  langid        =   {english}
+  langid        =   {english},
 }
 \end{ltxexample}
 
@@ -435,7 +435,7 @@ achieved by providing the \t|urldate| field. On the other hand
   issn          =   {1222-3333},
   langid        =   {english},
   date          =   {1980/},
-  url           =   {http://tugboat.tug.org/}
+  url           =   {http://tugboat.tug.org/},
 }
 
 @ARTICLE{knuth,
@@ -446,7 +446,7 @@ achieved by providing the \t|urldate| field. On the other hand
   year          =   {2003},
   pages         =   {12-22},
   url           =   {http://tugboat.tug.org/kkk.pdf},
-  crossref      =   {tug}
+  crossref      =   {tug},
 }
 \end{ltxexample}
 
@@ -600,7 +600,7 @@ brackets preceded by circa string (ca.). To achieve this behaviour, specify
 the date followed by a tilde, as in the example below.
 
 \begin{ltxexample}
-  date = {1490~}         % tilde meaning circa
+  date = {1490~},         % tilde meaning circa
 \end{ltxexample}
 
 In case no date is given and also no approximation is possible, that
@@ -608,7 +608,7 @@ should be stated. Please reflect this in the \t|bib| file by including
 the following line in the respective entry.
 
 \begin{ltxexample}
-  date = {\mkbibbrackets{\bibsstring{nodate}}}
+  date = {\mkbibbrackets{\bibsstring{nodate}}},
 \end{ltxexample}
 
 Explanation of the above code:
