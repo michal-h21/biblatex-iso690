@@ -188,8 +188,9 @@
 % b) url AND urldate: use localisation string 'available from'
 \DeclareFieldFormat*{url}{%
   \iffieldundef{urlyear}
-    {\mainlstring{urlalso}\addcolon\space\url{#1}}
-    {\mainlstring{urlfrom}\addcolon\space\url{#1}}%
+    {\mainlstring{urlalso}}
+    {\mainlstring{urlfrom}}%
+  \addcolon\space\url{#1}%
 }
 
 % \mkbibacro typesets acronyms in small caps by default,
