@@ -283,10 +283,9 @@
 
 % Default name list format is last (family) followed by given (first) name
 \DeclareNameAlias{default}{family-given}
-% For supervisor, use inverted (natural) order format:
+% For supervisor, use the reversed order format:
 % given (first) name followed by last (family) name,
-% because there is usually only one supervisor per thesis
-% so it sounds more naturally in this order
+% so it may sound more naturally in this order
 \DeclareNameAlias{supervisor}{given-family}
 
 % BIBLIOGRAPHY MACROS
@@ -331,7 +330,8 @@
 % TITLES MACROS
 
 % Macro for formatting <prefix>titles
-% 1st argument: prefix / type of title (e.g. main, book, event)
+% 1st argument: prefix / type of title (e.g. main, book, event),
+%               if empty, 'title' field is handled
 % 2nd argument: formatting directive (e.g. emph)
 \newbibmacro{titles}[2]{%
   \ifboolexpr{
