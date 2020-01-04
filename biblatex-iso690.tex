@@ -487,9 +487,8 @@ supervisor and school (institution) can be entered into the fields
 
 \paragraph{Patent}\hfill\\
 
-The field \t|classification| is available for the respective stuff.
-For other details regarding \t|patent| type, please refer
-to the \t|biblatex| documentation.
+The field \t|number| is available for the patent classification
+or request number.
 
 In the following example, we can see how to print the inventor of a
 patent using \t|editora| and \t|editoratype| fields, or the type of patent
@@ -499,16 +498,16 @@ using localisation string \t|patenteu|.
 \c{Groll2008}
 \begin{ltxexample}
 @patent{Groll2008,
-  author         = {Clad Metals LLC Canonsburg, PA 15317 (US)},
-  title          = {Method of making a copper core five-ply composite
-                     and cooking vessel},
-  editora        = {Groll, W. A.},
-  editoratype    = {Inventor:},
-  publisher      = {Google Patents},
-  classification = {EP 1 094 937 B1},
-  type           = {patenteu},
-  date           = {2008-07-30},
-  url            = {https://patents.google.com/patent/EP1094937B1},
+  author      = {Clad Metals LLC Canonsburg, PA 15317 (US)},
+  title       = {Method of making a copper core five-ply composite
+                  and cooking vessel},
+  editora     = {Groll, W. A.},
+  editoratype = {Inventor:},
+  publisher   = {Google Patents},
+  number      = {EP 1 094 937 B1},
+  type        = {patenteu},
+  date        = {2008-07-30},
+  url         = {https://patents.google.com/patent/EP1094937B1},
 }
 \end{ltxexample}
 
