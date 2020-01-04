@@ -10,7 +10,7 @@
 % from the same year.
 % Patent has the exception of placing date after author,
 % so only fulldate is printed (default).
-\def\printextrayear{%
+\newcommand{\printextrayear}{%
   \ifentrytype{patent}
     {}
     {\printfield{year}\printfield{extradate}}%
