@@ -10,9 +10,9 @@
 \RequireCitationStyle{iso-fullcite}
 
 % Delimiter between creator name and year in citation
-\renewcommand*{\nameyeardelim}{\addcomma\addspace}
+\DeclareDelimFormat{nameyeardelim}{\addcomma\space}
 % Delimiter between substitution of creator name (if any)
 % and year in citation
-\renewcommand*{\nonameyeardelim}{\addcomma\addspace}
+\DeclareDelimFormat{nonameyeardelim}{\addcomma\space}
 
 \endinput
