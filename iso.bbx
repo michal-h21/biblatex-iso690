@@ -159,15 +159,17 @@
 }%
 
 % Format pagination for page range
+% Always use main document language for this field
 \DeclareFieldFormat*{pages}{\mkmlpageprefix[bookpagination]{#1}}
 % Differentiate page range in journal
 \DeclareFieldFormat[article,periodical]{pages}{%
   \iftoggle{bbx:shortnum}
     {#1}
-    {\mainsstring{pages}\addspace\printtext{#1}}%
+    {\mkmlpageprefix[bookpagination]{#1}}%
 }
 
 % Format pagination for total number of pages
+% Always use main document language for this field
 \DeclareFieldFormat*{pagetotal}{\mkbibbrackets{\mkmlpagetotal[bookpagination]{#1}}}
 
 % Format number field with short localisation string
