@@ -87,7 +87,7 @@
 \newcommand\mainlstring[1]{\biblstring[\mainlang]{#1}}
 
 % The separator between 'titles' and 'subtitles'
-\renewcommand*\subtitlepunct{\addspacecolon\addspace}
+\renewcommand*\subtitlepunct{\addspacecolon\space}
 
 % A colon preceded with or without space
 \newcommand\addspacecolon{%
@@ -100,7 +100,7 @@
 
 % The delimiter between mutliple names
 % A semicolon: legacy of older versions of standard / Czech interpretations
-\DeclareDelimFormat{multinamedelim}{\addsemicolon\addspace}
+\DeclareDelimFormat{multinamedelim}{\addsemicolon\space}
 
 % The delimiter before the final name
 % Use consistent name format for all creators
@@ -221,11 +221,11 @@
 
 % We must handle more than one isbn and issn
 \DeclareFieldFormat{isbn}{%
-  %\renewcommand*{\do}[1]{\printtext{ISBN}\addspace#1\adddot\addspace}%
+  %\renewcommand*{\do}[1]{\printtext{ISBN}\addspace#1\adddot\space}%
   \printtext{ISBN}\addspace#1}%
 
 \DeclareFieldFormat{issn}{%
-  \renewcommand*{\do}[1]{\printtext{ISSN}\addspace#1\adddot\addspace}%
+  \renewcommand*{\do}[1]{\printtext{ISSN}\addspace#1\adddot\space}%
   \docsvfield{issn}}%
 
 % Format other standard identifiers, precedes the value with the name
@@ -354,7 +354,7 @@
     {}
     {\printfield{volume}%
      \printfield{part}%
-     \setunit{\addcomma\addspace}}%
+     \setunit{\addcomma\space}}%
 }
 
 % Macro for formatting multiple titles
@@ -444,13 +444,13 @@
   \printfield{volume}%
   \iftoggle{bbx:shortnum}
     {}
-    {\setunit*{\addcomma\addspace}}%
+    {\setunit*{\addcomma\space}}%
   \printfield{number}%
 }
 
 \newbibmacro*{book:numeration}{%
   \printfield{volume}%
-  \setunit*{\addcomma\addspace}%
+  \setunit*{\addcomma\space}%
   \printfield{chapter}%
 }
 
@@ -684,7 +684,7 @@
   \printfield{edition}%
   \newunit\newblock
   \usebibmacro{location+publisher+date}%
-  \setunit*{\addcomma\addspace}%
+  \setunit*{\addcomma\space}%
   \usebibmacro{serial:numeration}%
   \setunit{\addspace}%
   \usebibmacro{urldate}%
@@ -715,7 +715,7 @@
   \printfield{edition}%
   \newunit\newblock
   \usebibmacro{date}
-  \setunit*{\addcomma\addspace}%
+  \setunit*{\addcomma\space}%
   \usebibmacro{serial:numeration}%
   \setunit{\bibpagespunct}%
   \printfield{pages}%
@@ -752,7 +752,7 @@
   \usebibmacro{names:subsidiary}%
   \newunit\newblock
   \usebibmacro{location+publisher+date}%
-  \setunit*{\addcomma\addspace}%
+  \setunit*{\addcomma\space}%
   \usebibmacro{book:numeration}%
   \setunit{\bibpagespunct}%
   \printfield{pages}%
@@ -796,7 +796,7 @@
   \usebibmacro{location+publisher+date}%
   % could number be even used in `incollection`? 
   % It should be at some other place in this case
-  \setunit*{\addcomma\addspace}%
+  \setunit*{\addcomma\space}%
   \usebibmacro{book:numeration}%
   \setunit{\bibpagespunct}%
   \printfield{pages}%
