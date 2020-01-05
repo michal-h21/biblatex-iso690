@@ -8,12 +8,8 @@
 % The field extradate turns from integer type to a letter
 % after year to distinguish more works of the author
 % from the same year.
-% Patent has the exception of placing date after author,
-% so only fulldate is printed (default).
 \newcommand{\printextrayear}{%
-  \ifentrytype{patent}
-    {}
-    {\printfield{year}\printfield{extradate}}%
+  \printfield{year}\printfield{extradate}%
 }
 
 % Remove second appearance of year in a reference
