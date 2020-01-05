@@ -7,9 +7,14 @@
 
 % The field extradate turns from integer type to a letter
 % after year to distinguish more works of the author
-% from the same year.
+% from the same year, e.g. 1994a, 1994b.
+% If there is no date field in the bib entry,
+% we should state there is no date by printing
+% a localisation string, e.g. [n.d.].
 \newcommand{\printextrayear}{%
-  \printfield{year}\printfield{extradate}%
+  \iffieldundef{year}
+    {\bibstring[\mkbibbrackets]{nodate}}%
+    {\printdateextra}%
 }
 
 % Remove second appearance of year in a reference

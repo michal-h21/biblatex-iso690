@@ -246,12 +246,17 @@
 % Format url seen date with preceding localisation string in square brackets
 \DeclareFieldFormat{urldate}{\mkbibbrackets{\mainsstring{urlseen}\space#1}}
 
-% Format circa date with preceding localisation string in square brackets
-% Default \datecircaprint is \bibstring{circa}\printdelim{datecircadelim}
+% Format circa date with preceding localisation string in square brackets;
+% default \datecircaprint is \bibstring{circa}\printdelim{datecircadelim}.
+% Adds non-breaking space after open date range.
 \DeclareFieldFormat{date}{%
-  \ifdatecirca
-    {\mkbibbrackets{#1}}
-    {#1}%
+  \iffieldequalstr{endyear}{}%
+    {\ifdatecirca
+      {\mkbibbrackets{#1\mbox{\addnbspace}}}%
+      {#1\mbox{\addnbspace}}}%
+    {\ifdatecirca
+      {\mkbibbrackets{#1}}%
+      {#1}}%
 }
 
 % Format chapter of book with preceding localisation string
@@ -420,10 +425,12 @@
   \mkdaterangeiso{}%
 }
 
-% Adds non-breaking space after open date range
+% If there is no date field in the bib entry,
+% we should state there is no date by printing
+% a localisation string, e.g. [n.d.].
 \renewbibmacro*{date}{%
-  \iffieldequalstr{endyear}{}%
-    {\printdate\mbox{\addnbspace}}%
+  \iffieldundef{year}
+    {\bibstring[\mkbibbrackets]{nodate}}%
     {\printdate}%
 }
 

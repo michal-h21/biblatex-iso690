@@ -596,21 +596,9 @@ the date followed by a tilde, as in the example below.
 
 In case no date is given and also no approximation is possible, that
 should be stated. Please reflect this in the \t|bib| file by including
-the following line in the respective entry.
-
-\begin{ltxexample}
-  date = {\mkbibbrackets{\bibsstring{nodate}}},
-\end{ltxexample}
-
-Explanation of the above code:
-\t|nodate| is a localization string which prints something like
-\textit{n.d.}, \textit{b.r.}, etc. depending on the language,
-\t|bibsstring| is a command to use such localization terms and
-\t|mkbibbrackets| is a command used to wrap its argument into
-square brackets. Finally, this statement is entered into
-the date entry field to be available as a date in a reference.
-So as a result we get e.g. \textit{[n.d.]}, which conforms to
-the standard.
+no date field in the respective entry. It automatically translates
+to something like \textit{[n.d.]}, based on your language, meaning
+no date.
 
 Please also note the syntax for dates -- ISO 8601 format
 (YYYY-MM-DD) is accepted. Please use slash instead of
