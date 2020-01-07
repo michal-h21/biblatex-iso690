@@ -11,10 +11,12 @@
 % If there is no date field in the bib entry,
 % we should state there is no date by printing
 % a localisation string, e.g. [n.d.].
-\newcommand{\printextrayear}{%
-  \iffieldundef{year}
-    {\bibstring[\mkbibbrackets]{nodate}}%
-    {\printdateextra}%
+\newbibmacro*{date+extradate}{%
+  \begingroup
+    \iffieldundef{year}
+      {\bibstring[\mkbibbrackets]{nodate}}
+      {\printdateextra}%
+  \endgroup
 }
 
 % Remove second appearance of year in a reference
@@ -34,8 +36,10 @@
   }
     {\usebibmacro{author}}%
     {\usebibmacro{editor}}%
-  \setunit{\addspace}\printfield{nameaddon}%
-  \setunit{\addcomma\space}\printextrayear%
+  \setunit{\addspace}%
+  \printfield{nameaddon}%
+  \setunit{\addcomma\space}%
+  \usebibmacro{date+extradate}%
 }
 
 \InitializeBibliographyStyle{\global\undef\bbx@lasthash}
