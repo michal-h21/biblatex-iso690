@@ -11,12 +11,11 @@
 % If there is no date field in the bib entry,
 % we should state there is no date by printing
 % a localisation string, e.g. [n.d.].
+% We use 'labeldate' as it is also used in standard styles.
 \newbibmacro*{date+extradate}{%
-  \begingroup
-    \iffieldundef{year}
-      {\bibstring[\mkbibbrackets]{nodate}}
-      {\printdateextra}%
-  \endgroup
+  \iffieldundef{year}
+    {\bibstring[\mkbibbrackets]{nodate}}
+    {\printlabeldateextra}%
 }
 
 % Remove second appearance of year in a reference

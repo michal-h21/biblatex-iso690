@@ -259,6 +259,10 @@
       {#1}}%
 }
 
+% Format 'labeldate' the same as 'date' field.
+% We use 'labeldate' in 'iso-authoryear' style.
+\DeclareFieldAlias{labeldate}{date}
+
 % Format chapter of book with preceding localisation string
 \DeclareFieldFormat{chapter}{\bibstring{chapter}\addnbspace#1\isdot}
 
