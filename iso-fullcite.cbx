@@ -1,10 +1,9 @@
 % Fix for fullcite
 
-% Based on \fullcite generic command
-% Adds only formatting directive
+% Based on \fullcite standard command
+% Adds only formatting directive of \mkbibnamefamily
 \DeclareCiteCommand{\fullcite}
   {\usebibmacro{prenote}%
-   \renewcommand*\mkbibnamelast{\lastnameformat}%
    \renewcommand*\mkbibnamefamily{\lastnameformat}}
   {\usedriver
      {\DeclareNameAlias{sortname}{default}}
@@ -13,11 +12,10 @@
   {\usebibmacro{postnote}}
 
 
-% Based on \footfullcite generic command
-% Adds only formatting directive
+% Based on \footfullcite standard command
+% Adds only formatting directive of \mkbibnamefamily
 \DeclareCiteCommand{\footfullcite}[\mkbibfootnote]
   {\usebibmacro{prenote}%
-   \renewcommand*\mkbibnamelast{\textsc}%
    \renewcommand*\mkbibnamefamily{\textsc}}
   {\usedriver
      {\DeclareNameAlias{sortname}{default}}

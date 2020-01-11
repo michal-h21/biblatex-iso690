@@ -2,35 +2,28 @@
 
 \RequireBibliographyStyle{iso}
 \ExecuteBibliographyOptions{%
-  sorting=none,
-  labelnumber,
+  sorting=none,% bib entries in the bibliography are in their citation order
+  labelnumber,% enable numbers for bib entries
 }
 
+% The numbers of bib entries are printed with a dot after number
+% in the bibliography.
 \DeclareFieldFormat{labelnumberwidth}{#1\adddot}
-
-\@ifpackagelater{biblatex}{2016/03/27}
-  {\newcommand\MethodFormat{%
-     \printtext[labelnumberwidth]{%
-        \printfield{labelprefix}%
-        \printfield{labelnumber}}}}%
-  {\newcommand\MethodFormat{%
-     \printtext[labelnumberwidth]{%
-        \printfield{prefixnumber}%
-        \printfield{labelnumber}}}}%
 
 % Copy-pasted from 'numeric.bbx'
 \defbibenvironment{bibliography}
-  {\list%
-     {\MethodFormat}%
+  {\list
+     {\printtext[labelnumberwidth]{%
+        \printfield{labelprefix}%
+        \printfield{labelnumber}}}
      {\setlength{\labelwidth}{\labelnumberwidth}%
       \setlength{\leftmargin}{\labelwidth}%
       \setlength{\labelsep}{\biblabelsep}%
       \addtolength{\leftmargin}{\labelsep}%
       \setlength{\itemsep}{\bibitemsep}%
       \setlength{\parsep}{\bibparsep}}%
-      \renewcommand*{\makelabel}[1]{\hss##1}
-      }%
-  {\endlist}%
-  {\item}%
+      \renewcommand*{\makelabel}[1]{\hss##1}}
+  {\endlist}
+  {\item}
 
 \endinput
