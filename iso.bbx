@@ -543,17 +543,22 @@
 % Macro for availability and access information
 % with order of importance: doi, eprint, url
 \newbibmacro*{availability+access}{%
-  \iffieldundef{doi}
-    {\iffieldundef{eprint}
-       {\iftoggle{bbx:url}
-         {\printfield{url}}
-         {}}
-       {\iftoggle{bbx:eprint}
-         {\usebibmacro{from-eprint}}
-         {}}}
-    {\iftoggle{bbx:doi}
-      {\usebibmacro{from-doi}}
-      {}}%
+  \ifboolexpr{
+    test {\iftoggle{bbx:doi}}
+    and not test {\iffieldundef{doi}}
+  }
+    {\usebibmacro{from-doi}}%
+    {%
+      \ifboolexpr{
+        test {\iftoggle{bbx:eprint}}
+        and not test {\iffieldundef{eprint}}
+      }
+        {\usebibmacro{from-eprint}}%
+        {%
+          \iftoggle{bbx:url}
+            {\printfield{url}}%
+            {}%
+        }}%
 }
 
 % LOCATION MACROS
