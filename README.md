@@ -55,8 +55,8 @@ Above and beyond the scope of package options provided by `biblatex` itself, her
   * **[false]** ... 2011, vol. 32, no. 3, pp. 289–301 [visited on 2016-05-14] ...
 * `thesisinfoinnotes`
   print out thesis information in notes section
-  * **[true]** Available from: <...>. BP. MU, FI, Brno. Supervisor Petr SOJKA
-  *   [false]  BP. MU, FI, Brno. Supervisor Petr SOJKA. Available from: <...>
+  * **[true]** Available from: <...>. BP. MU, FI, Brno. Supervised by Petr SOJKA
+  *   [false]  BP. MU, FI, Brno. Supervised by Petr SOJKA. Available from: <...>
 * `doi`
   enable or disable printing of the DOI number
   * **[true]** Available from DOI: [10.5300/2016-1-4/106](https://doi.org/10.5300/2016-1-4/106)
