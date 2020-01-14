@@ -246,22 +246,53 @@
 % Format url seen date with preceding localisation string in square brackets
 \DeclareFieldFormat{urldate}{\mkbibbrackets{\mainsstring{urlseen}\space#1}}
 
+% a)
 % Format circa date with preceding localisation string in square brackets;
-% default \datecircaprint is \bibstring{circa}\printdelim{datecircadelim}.
-% Adds non-breaking space after open date range.
+% default \datecircaprint is \bibstring{circa}\printdelim{datecircadelim},
+% e.g. [ca. 1940].
+% b)
+% Adds non-breaking space after open date range, e.g. '1492-- '.
+% c)
+% If there is no date field in the bib entry,
+% we should state there is no date by printing
+% a localisation string, e.g. [n.d.].
 \DeclareFieldFormat{date}{%
-  \iffieldequalstr{endyear}{}%
+  % Check any end year for open date range
+  \ifboolexpr{
+    test {\iffieldequalstr{endyear}{}}
+    or test {\iffieldequalstr{eventendyear}{}}
+    or test {\iffieldequalstr{origendyear}{}}
+  }
     {\ifdatecirca
       {\mkbibbrackets{#1\mbox{\addnbspace}}}%
       {#1\mbox{\addnbspace}}}%
     {\ifdatecirca
       {\mkbibbrackets{#1}}%
-      {#1}}%
+      {% Check no year is available
+        \ifboolexpr{
+          test {\iffieldundef{year}}
+          and test {\iffieldundef{eventyear}}
+          and test {\iffieldundef{origyear}}
+        }
+        {\mkbibbrackets{#1}}% This is nodate from \literal{nodate}
+        {#1}}}% This is the go-to format
 }
 
 % Format 'labeldate' the same as 'date' field.
 % We use 'labeldate' in 'iso-authoryear' style.
 \DeclareFieldAlias{labeldate}{date}
+
+% Define dates to consider for 'labeldate', based on
+% the default definition, but without 'urldate' field,
+% preventing printing url seen date in place of the year
+% of a publication.
+\DeclareLabeldate{%
+  \field{date}
+  \field{year}
+  \field{eventdate}
+  \field{origdate}
+  \literal{nodate}
+}
 
 % Format chapter of book with preceding localisation string
 \DeclareFieldFormat{chapter}{\bibstring{chapter}\addnbspace#1\isdot}

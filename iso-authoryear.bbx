@@ -8,14 +8,9 @@
 % The field extradate turns from integer type to a letter
 % after year to distinguish more works of the author
 % from the same year, e.g. 1994a, 1994b.
-% If there is no date field in the bib entry,
-% we should state there is no date by printing
-% a localisation string, e.g. [n.d.].
 % We use 'labeldate' as it is also used in standard styles.
 \newbibmacro*{date+extradate}{%
-  \iffieldundef{year}
-    {\bibstring[\mkbibbrackets]{nodate}}
-    {\printlabeldateextra}%
+  \printlabeldateextra
 }
 
 % Check if 'date' field holds only year or a more specific date.
