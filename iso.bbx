@@ -268,14 +268,11 @@
       {#1\mbox{\addnbspace}}}%
     {\ifdatecirca
       {\mkbibbrackets{#1}}%
-      {% Check no year is available
-        \ifboolexpr{
-          test {\iffieldundef{year}}
-          and test {\iffieldundef{eventyear}}
-          and test {\iffieldundef{origyear}}
-        }
-        {\mkbibbrackets{#1}}% This is nodate from \literal{nodate}
-        {#1}}}% This is the go-to format
+      {% Check if there is 'nodate' from 'labeldate',
+       % not applicable for 'date' (only 'labeldate').
+        \iffieldequalstr{labeldatesource}{nodate}
+          {\mkbibbrackets{#1}}% This is nodate from \literal{nodate}
+          {#1}}}% This is the go-to format ('date' / 'labeldate')
 }
 
 % Format 'labeldate' the same as 'date' field.
