@@ -110,14 +110,11 @@
 % Thanks Moewew for sugesting this. Make uppercase names only in biblipgraphy.
 % Default name format is ALL-CAPS
 % use something like 
-% \let\lastnameformat=\textsc
+% \let\familynameformat=\textsc
 % to change this
-
-\providecommand{\mkbibnamefamily}[1]{#1}
-\newcommand\lastnameformat[1]{\MakeUppercase{#1}}
+\newcommand\familynameformat[1]{\MakeUppercase{#1}}
 \AtBeginBibliography{%
-  \renewcommand\mkbibnamelast{\lastnameformat}%
-  \renewcommand\mkbibnamefamily{\lastnameformat}%
+  \renewcommand\mkbibnamefamily{\familynameformat}%
 }
 
 % Default bibliography environment (layout)
