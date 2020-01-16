@@ -251,28 +251,17 @@
 % default \datecircaprint is \bibstring{circa}\printdelim{datecircadelim},
 % e.g. [ca. 1940].
 % b)
-% Adds non-breaking space after open date range, e.g. '1492-- '.
-% c)
 % If there is no date field in the bib entry,
 % we should state there is no date by printing
 % a localisation string, e.g. [n.d.].
 \DeclareFieldFormat{date}{%
-  % Check any end year for open date range
-  \ifboolexpr{
-    test {\iffieldequalstr{endyear}{}}
-    or test {\iffieldequalstr{eventendyear}{}}
-    or test {\iffieldequalstr{origendyear}{}}
-  }
-    {\ifdatecirca
-      {\mkbibbrackets{#1\mbox{\addnbspace}}}%
-      {#1\mbox{\addnbspace}}}%
-    {\ifdatecirca
-      {\mkbibbrackets{#1}}%
-      {% Check if there is 'nodate' from 'labeldate',
-       % not applicable for 'date' (only 'labeldate').
-        \iffieldequalstr{labeldatesource}{nodate}
-          {\mkbibbrackets{#1}}% This is nodate from \literal{nodate}
-          {#1}}}% This is the go-to format ('date' / 'labeldate')
+  \ifdatecirca
+    {\mkbibbrackets{#1}}%
+    {% Check if there is 'nodate' from 'labeldate',
+     % not applicable for 'date' (only 'labeldate').
+      \iffieldequalstr{labeldatesource}{nodate}
+        {\mkbibbrackets{#1}}% This is nodate from \literal{nodate}
+        {#1}}% This is the go-to format ('date' / 'labeldate')
 }
 
 % Format 'labeldate' the same as 'date' field.
@@ -676,6 +665,81 @@
     \fi%
   \fi%
   \csuse{blx@pq@#1}}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Adds non-breaking space after open date range, e.g. '1492-- '
+%
+% Used by '\printdate'
+%
+% {<short|long>}{<datetype>}
+\renewrobustcmd*{\mkdaterangefull}[2]{%
+  \begingroup
+    \blx@metadateinfo{#2}%
+    \iffieldundef{#2year}
+      {\blx@nounit}
+      {\printtext[{#2date}]{%
+         \datecircaprint
+         % Such a season component can only come from an ISO8601 season which replaces
+         % a normal month so if it exists, we know that a normal date print is ruled out
+         \iffieldundef{#2season}
+           {\csuse{mkbibdate#1}{#2year}{#2month}{#2day}%
+            % Optionally print the time after the date
+            \blx@printtime{#2}{}}
+           {\csuse{mkbibseasondate#1}{#2year}{#2season}}%
+         \dateuncertainprint
+         \dateeraprint{#2year}%
+         \iffieldundef{#2endyear}
+           {}
+           {\iffieldequalstr{#2endyear}{}
+              {\mbox{\bibdaterangesep\addnbspace}}% <---- added \addnbspace
+              {\bibdaterangesep
+               \enddatecircaprint
+               \iffieldundef{#2endseason}
+                 {\csuse{mkbibdate#1}{#2endyear}{#2endmonth}{#2endday}%
+                  % Optionally print the time after the date
+                  \blx@printtime{#2}{end}}
+                 {\csuse{mkbibseasondate#1}{#2endyear}{#2endseason}}%
+               \enddateuncertainprint
+               \dateeraprint{#2endyear}}}}}%
+  \endgroup}
+
+% Used by '\printlabeldateextra' in 'iso-authoryear.bbx'
+%
+% {<short|long>}{<datetype>}
+\renewrobustcmd*{\mkdaterangefullextra}[2]{%
+  \begingroup
+    \blx@metadateinfo{#2}%
+    \iffieldundef{#2year}
+      {\blx@nounit}
+      {\printtext[{#2date}]{%
+         \datecircaprint
+         % Such a season component can only come from an ISO8601 season which replaces
+         % a normal month so if it exists, we know that a normal date print is ruled out
+         \iffieldundef{#2season}
+           {\csuse{mkbibdate#1}{#2year}{#2month}{#2day}%
+            % Optionally print the time after the date
+            \blx@printtime{#2}{}}
+           {\csuse{mkbibseasondate#1}{#2year}{#2season}}%
+         \dateuncertainprint
+         \dateeraprint{#2year}%
+         \iffieldundef{#2endyear}
+           {\printfield{extradate}}
+           {\iffieldequalstr{#2endyear}{}
+              {\printfield{extradate}%
+               \printtext{\mbox{\bibdaterangesep\addnbspace}}}% <---- added \addnbspace
+              {\printtext{%
+                 \bibdaterangesep
+                 \enddatecircaprint
+                 \iffieldundef{#2endseason}
+                   {\csuse{mkbibdate#1}{#2endyear}{#2endmonth}{#2endday}%
+                    % Optionally print the time after the date
+                    \blx@printtime{#2}{end}}
+                   {\csuse{mkbibseasondate#1}{#2endyear}{#2endseason}}}%
+                 \printfield{extradate}%
+                 \enddateuncertainprint
+                 \dateeraprint{#2endyear}}}}}%
+  \endgroup}
+
 
 % BIBLIOGRAPHY DRIVERS
 
