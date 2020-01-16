@@ -93,8 +93,8 @@
 % A colon preceded with or without space
 \newcommand\addspacecolon{%
   \iftoggle{bbx:spcolon}
-    {\addnbspace\blx@addsppunct{colon}}
-    {\unspace\blx@addsppunct{colon}}%
+    {\addnbspace\addspcolon}
+    {\unspace\addspcolon}%
 }
 
 % Context-sensitive delimiters
@@ -576,20 +576,23 @@
 
 % BIBLATEX CORE ADJUSTMENTS
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% overriding bookpagination to use document main language
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Overriding bookpagination to use document main language
+%
+% Use new name 'mkpagetotal' over 'mkmlpagetotal'
+% Use 'mainsstring' over 'bibstring'
 
 \newrobustcmd*{\blx@imc@mkmlpagetotal}[1][bookpagination]{%
   \begingroup
-  \def\blx@tempa{\blx@mkmlpagetotal{page}}%
+  \def\blx@tempa{\blx@mkmlpagetotal{pagetotal}}%
   \iffieldundef{#1}
     {}
     {\iffieldequalstr{#1}{none}
        {\def\blx@tempa{\blx@mkmlpagetotal@i}}
-       {\iffieldbibstring{#1}
-          {\edef\blx@tempa{\blx@mkmlpagetotal{\thefield{#1}}}}
+       {\iffieldplusstringbibstring{#1}{total}
+          {\edef\blx@tempa{\blx@mkmlpagetotal{\thefield{#1}total}}}
           {\blx@warning@entry{%
-             Unknown pagination type '\strfield{#1}'}}}}%
+             Unknown pagination type '\strfield{#1}total'}}}}%
   \@ifnextchar[%]
     {\blx@tempa}
     {\blx@tempa[\@firstofone]}}
@@ -614,8 +617,11 @@
 
 \blx@regimcs{\mkmlpagetotal}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% overriding pagination to use document main language
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Overriding pagination to use document main language
+%
+% Use new name 'mkmlpageprefix' over 'mkpageprefix'
+% Use 'mainsstring' over 'bibstring'
 
 \newrobustcmd*{\blx@imc@mkmlpageprefix}[1][pagination]{%
   \begingroup
@@ -645,12 +651,17 @@
 
 \blx@regimcs{\mkmlpageprefix}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% use space punctuation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Use space punctuation, package option 'spacecolon',
+% toggle 'bbx:spcolon', command '\addspcolon' / '\addspacecolon'
 
-% see biblatex2.sty for these macros
-\blx@regimcs{% let biblatex know the new macros
-  \addspcolon }%
+% See 'biblatex.sty' for these macros
+%
+% Let biblatex know the new macro
+\blx@regimcs{\addspcolon}
+% Define the new macro
+\protected\def\blx@imc@addspcolon{\blx@addsppunct{colon}}
+% Implement the new macro
 \def\blx@addsppunct#1{% <---- new name for spaced punctuation
   %\unspace <----- commented out
   \ifnum\blx@spacefactor<\blx@sf@threshold@low
