@@ -426,10 +426,32 @@
 
 \newbibmacro*{medium-type}{%
   \iffieldundef{howpublished}
-    {\iffieldundef{urlyear}
-      {}
-      {\printtext{\mkbibbrackets{online}}}}
-    {\printfield{howpublished}}%
+    {% Automatic printing of '[online]' type of medium when
+     % a) 'urldate' is present AND
+     % b) url is enabled (pkg option url=true) OR
+     %    entry type is '@online'
+      \ifboolexpr{
+        not test {\iffieldundef{urlyear}}
+        and (   test {\iftoggle{bbx:url}}
+             or test {\ifentrytype{online}})
+      }
+        {\printtext{\mkbibbrackets{online}}}%
+        {}}% Don't print anything
+    {% The only situation when we don't want to print
+     % 'howpublished' field is when
+     % a) url is disabled (pkg option url=false) AND
+     % b) entry type is other than '@online' AND
+     % c) 'howpublished' field is 'online'.
+     % Please note that this field is not checked against
+     % any possible literal value (e.g. electronic, online article)
+     % that should be probably also hidden when a) AND b) hold.
+      \ifboolexpr{
+        test {\iffieldequalstr{howpublished}{online}}
+        and not test {\iftoggle{bbx:url}}
+        and not test {\ifentrytype{online}}
+      }
+        {}% Don't print 'howpublished' field
+        {\printfield{howpublished}}}%
 }
 
 % PUBLICATION INFO MACROS
@@ -537,11 +559,27 @@
         and not test {\iffieldundef{eprint}}
       }
         {\usebibmacro{from-eprint}}%
-        {%
-          \iftoggle{bbx:url}
-            {\printfield{url}}%
-            {}%
-        }}%
+        {\usebibmacro{url}}}%
+}
+
+% The url field of @online entries is always printed
+\renewbibmacro*{url}{%
+  \ifboolexpr{
+    test {\iftoggle{bbx:url}}
+    or test {\ifentrytype{online}}
+  }
+    {\printfield{url}}%
+    {}%
+}
+
+% The url seen date of @online entries is always printed
+\renewbibmacro*{urldate}{%
+  \ifboolexpr{
+    test {\iftoggle{bbx:url}}
+    or test {\ifentrytype{online}}
+  }
+    {\printurldate}%
+    {}%
 }
 
 % LOCATION MACROS
