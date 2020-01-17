@@ -601,12 +601,14 @@
 
 % Force to use the main document language for 'in' localisation string
 \renewbibmacro*{in:}{%
-  \printtext{\mainsstring{in}\intitlepunct}%
+  \mainsstring{in}%
+  \printunit{\intitlepunct}%
 }
 
 % Based on 'in:' macro for 'at' localisation string
 \newbibmacro*{at:}{%
-  \printtext{\mainsstring{at}\intitlepunct}%
+  \mainsstring{at}%
+  \printunit{\intitlepunct}%
 }
 
 % BIBLATEX CORE ADJUSTMENTS
