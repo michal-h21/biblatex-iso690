@@ -191,18 +191,6 @@
   \addcolon\space\url{#1}%
 }
 
-% \mkbibacro typesets acronyms in small caps by default,
-% if we want to override this, pass the value as is (uppercase)
-% \renewcommand*{\mkbibacro}[1]{#1}
-
-% Format DOI identifier as hyperlink (possibly)
-\DeclareFieldFormat{doi}{%
-  \mkbibacro{DOI}\addcolon\space
-  \ifhyperref
-    {\href{https://doi.org/#1}{\nolinkurl{#1}}}
-    {\nolinkurl{#1}}%
-}
-
 % Format medium type in square brackets
 \DeclareFieldFormat{howpublished}{\mkbibbrackets{#1}}
 % If it is online entry type, defaults to [online]
@@ -223,6 +211,11 @@
 % Format supervisor of thesis (precedes the name with a localisation string)
 \DeclareFieldFormat{supervisor}{%
   \mainlstring{bysupervisor}\addspace#1}
+
+% \mkbibacro typesets acronyms in small caps by default,
+% if we want to override this, pass the value as is (uppercase)
+% \renewcommand*{\mkbibacro}[1]{#1}
+% Applies to DOI, ISBN, ISSN, ISAN, ISMN, ISRN, ISWC
 
 % We must handle more than one isbn and issn
 \DeclareFieldFormat{isbn}{%
