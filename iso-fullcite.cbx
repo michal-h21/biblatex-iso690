@@ -4,7 +4,7 @@
 % Adds only formatting directive of \mkbibnamefamily
 \DeclareCiteCommand{\fullcite}
   {\usebibmacro{prenote}%
-   \renewcommand*\mkbibnamefamily{\lastnameformat}}
+   \renewcommand*\mkbibnamefamily{\familynameformat}}
   {\usedriver
      {\DeclareNameAlias{sortname}{default}}
      {\thefield{entrytype}}}
