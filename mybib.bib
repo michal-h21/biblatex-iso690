@@ -1,5 +1,6 @@
-% Encoding: UTF8
-@online{t00,
+% Encoding: UTF-8
+
+@online{bratkova2008metody,
   editor     = {Bratková, Eva},
   editortype = {compiler},
   title      = {Metody citování literatury a strukturování bibliografických záznamů podle mezinárodních norem ISO 690 a ISO 690-2},
@@ -14,12 +15,11 @@
   langid     = {czech},
 }
 
-@book{t01,
+@book{borgman2003from,
   author    = {Borgman, Christine L.},
-  title     = {From Gutenberg to the global information infrastructure},
-  subtitle  = {access to information in the networked world},
-  edition   = {1},% should not be stated
-  location  = {Cambridge (Mass)},
+  title     = {From Gutenberg to the Global Information Infrastructure},
+  subtitle  = {Access to Information in the Networked World},
+  location  = {Cambridge (Mass.)},
   publisher = {The MIT Press},
   date      = {2003},
   pagetotal = {xviii, 324},
@@ -27,34 +27,37 @@
   langid    = {english},
 }
 
-@incollection{t02,
-  author       = {Greenberg, David},
-  title        = {Camel drivers and gatecrashers},
-  subtitle     = {quality control in the digital research library},
-  editor       = {Hawkins, B.L and Battin, P},
-  booktitle    = {The mirage of continuity},
-  booksubtitle = {reconfiguring academic information resources for the 21st century},
+@incollection{greenberg1998camel,
+  author       = {Greenberg, Douglas},
+  title        = {Camel Drivers and Gatecrashers},
+  subtitle     = {Quality Control in the Digital Research Library},
+  editor       = {Hawkins, Brian L. and Battin, Patricia},
+  booktitle    = {The Mirage of Continuity},
+  booksubtitle = {Reconfiguring Academic Information Resources for the 21st Century},
   date         = {1998},
   location     = {Washington (D.C.)},
   publisher    = {Council on Library and Information Resources; Association of American Universities},
+  isbn         = {1-887334-59-9},
   pages        = {105--116},
   langid       = {english},
 }
 
-@article{t03,
-  author       = {Lynch, C.},
-  title        = {Where do we go from here?},
-  subtitle     = {the next decade for digital libraries},
-  journaltitle = {DLib Magazine},
+@article{lynch2005where,
+  author       = {Lynch, Clifford},
+  title        = {Where Do We Go From Here?},
+  subtitle     = {The Next Decade for Digital Libraries},
+  journaltitle = {D-Lib Magazine},
   date         = {2005},
   volume       = {11},
   number       = {7/8},
   issn         = {1082-9873},
+  doi          = {10.1045/july2005-lynch},
   url          = {http://www.dlib.org/dlib/july05/lynch/07lynch.html},
   urldate      = {2005-08-15},
   langid       = {english},
 }
 
+% Made-up bib entry
 @article{cr,
   author       = {{Národní knihovna}},
   title        = {A big paper},
@@ -62,10 +65,11 @@
   date         = {1991},
   volume       = {12},
   number       = {3},
-  issn         = {2232-332X},
+  issn         = {0000-0000},
   langid       = {english},
 }
 
+% Made-up bib entry
 @book{kniha,
   author    = {Děťa, Hugh and Rychlík, Tomáš},
   title     = {A big paper},
@@ -76,12 +80,13 @@
   publisher = {Academia},
   date      = {1991},
   pagetotal = {550},
-  isbn      = {978-44-55-X},
-  url       = {http://pokus.cz},
+  isbn      = {978-3-3670-4032-2},% made-up but valid isbn
+  url       = {http://pokus.cz},% http://example.com
   urldate   = {2011-01-12},
   langid    = {czech},
 }
 
+% Made-up bib entry
 @book{kniha2,
   author   = {Děťa, Hugh and Rychlík, Tomáš and Další, Pepa and Spousta, Pepa and Skoro, Moc and Ale, Nestačí and Hodně},
   title    = {Úplně úžasná knížka},
@@ -91,6 +96,7 @@
   langid   = {czech},
 }
 
+% Made-up bib entry
 @book{kniha3,
   author    = {Děťa, Hugh and Rychlík, Tomáš and Další, Pepa and Spousta, Pepa and Skoro, Moc and Ale, Nestačí and Hodně},
   title     = {Úplně úžasná knížka},
@@ -102,6 +108,7 @@
   langid    = {english},
 }
 
+% Made-up bib entry
 @article{small,
   author       = {Freely, I. P.},
   title        = {A small paper},
@@ -115,6 +122,7 @@
   langid       = {czech},
 }
 
+% Made-up bib entry
 @article{big,
   author       = {Jass, Hugh},
   title        = {A big paper},
@@ -123,6 +131,7 @@
   volume       = {23},
 }
 
+% Made-up bib entry
 @article{cs,
   COMMENT_OUTauthor = {Černý, Hugh},
   title        = {Titulek},
@@ -131,69 +140,73 @@
   volume       = {12},
   number       = {2},
   pages        = {22--44},
-  doi          = {10.112.22/jkn},
+  doi          = {10.1000/182},
 }
 
-@book{koll,
+@book{kollman1991anglictina,
   author    = {Kollmannová, Ludmila and Bubeníková, Libuše and Kopecká, Alena},
   title     = {Angličtina pro samouky},
   edition   = {5},
   location  = {Praha},
   publisher = {Státní pedagogické nakladatelství},
-  date      = {1977},
+  date      = {1991},
   pagetotal = {525},
   series    = {Učebnice pro samouky},
   number    = {4},
   isbn      = {80-04-25663-5},
+  langid    = {czech},
 }
 
-@inbook{kap,
+% Made-up bib entry
+@inbook{novotna1991podkapitola,
   author   = {Novotná, Pepina},
   title    = {Podkapitola},
   pages    = {22--29},
-  chapter  = {2.},
-  crossref = {koll},
+  chapter  = {2},
+  crossref = {kollman1991anglictina},
 }
 
-@periodical{tug,
+@periodical{tugboat1980,
   journaltitle = {TUGBoat},
   publisher    = {TUG},
   date         = {1980/},
-  issn         = {1222-3333},
-  url          = {http://tugboat.tug.org/},
+  issn         = {0896-3207},
+  url          = {http://tugboat.tug.org/TUGboat},
   langid       = {english},
   options      = {skipbib=true},
 }
 
-@article{knuth,
-  author   = {Knuth, Donald},
-  title    = {Journeys of \TeX},
-  date     = {2003},
-  volume   = {17},
-  number   = {3},
-  pages    = {12--22},
-  url      = {http://tugboat.tug.org/kkk.pdf},
-  crossref = {tug},
+@article{knuth1990virtual,
+  author   = {Knuth, Donald Erwin},
+  title    = {Virtual Fonts: More Fun for Grand Wizards},
+  date     = {1990-04},
+  volume   = {11},
+  number   = {1},
+  pages    = {13--23},
+  url      = {http://tugboat.tug.org/TUGboat/tb11-1/tb27knut.pdf},
+  crossref = {tugboat1980},
 }
 
-@collection{sbornik,
+% Made-up bib entry
+@collection{sbornik2007,
   title     = {Mimořádně užitečný sborník},
   editor    = {Geniální, Jiří},
   location  = {Praha},
   publisher = {Academia},
   date      = {2007},
-  isbn      = {978-222-626-222-2},
+  isbn      = {978-3-4947-0284-1},% made-up but valid isbn
   langid    = {czech},
 }
 
-@incollection{prispevek1,
+% Made-up bib entry
+@incollection{sbornik2007clanek,
   author   = {Vlaštovka, Josef},
   title    = {Velmi zajímavý článek},
   pages    = {22--45},
-  crossref = {sbornik},
+  crossref = {sbornik2007},
 }
 
-@thesis{Luptak2016thesis,
+@thesis{luptak2016thesis,
   author       = {Lupták, Dávid},
   title        = {Typesetting of Bibliography According to ISO 690 Norm},
   date         = {2016},
@@ -206,7 +219,19 @@
   urldate      = {2016-06-14},
 }
 
-@patent{Groll2008,
+% @phdthesis is an alias for @thesis with the default type = {phdthesis}
+@phdthesis{thanh2001,
+  author      = {Hàn Thé, Thành},
+  title       = {Micro-typographic extensions to the \TeX{} typesetting system},
+  date        = {2001},
+  institution = {Masaryk University, Faculty of Informatics},
+  location    = {Brno},
+  url         = {http://www.pragma-ade.nl/pdftex/thesis.pdf},
+  urldate     = {2016-12-09},
+  langid      = {english},
+}
+
+@patent{groll2008method,
   author      = {Clad Metals LLC Canonsburg, PA 15317 (US)},
   title       = {Method of making a copper core five-ply composite and cooking vessel},
   editora     = {Groll, W. A.},
@@ -217,3 +242,32 @@
   date        = {2008-07-30},
   url         = {https://patents.google.com/patent/EP1094937B1},
 }
+
+% Made-up bib entry
+% No date example
+@book{applebyND,
+  author  = {Humphrey Appleby},
+  title   = {On the Importance of the Civil Service},
+  note    = {A book with no date},
+}
+
+% Made-up bib entry
+% Circa date example
+@book{appleby1490,
+  author  = {Humphrey Appleby},
+  title   = {On the Importance of the Higher Civil Service},
+  date    = {1490~},
+  note    = {A book with an approximate date},
+}
+
+% Made-up bib entry
+% Open ended circa date range example
+@periodical{appleby1490yet,
+  editor  = {Humphrey Appleby and others},
+  title   = {Thinking and Writing},
+  date    = {1452~/},
+  note    = {A periodical with an open ended date range},
+}
+
+
+% Made-up ISBNs generated by https://generate.plus/en/number/isbn

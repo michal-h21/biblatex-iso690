@@ -128,7 +128,7 @@ A minimal working example for \t|babel| package:
 \addbibresource{mybib.bib}
 
 \begin{document}
-\cite{knuth}
+\cite{knuth1990virtual}
 \printbibliography
 \end{document}
 \end{ltxexample}
@@ -146,7 +146,7 @@ A minimal working example for \t|polyglossia| package:
 \addbibresource{mybib.bib}
 
 \begin{document}
-\cite{knuth}
+\cite{knuth1990virtual}
 \printbibliography
 \end{document}
 \end{ltxexample}
@@ -207,7 +207,7 @@ For \t|iso-numeric| style, the usage of cite command is as simple as
 \cmd{cite}.
 
 \noindent
-Example: command \cmd{cite\{knuth\}} outputs [1].
+Example: command \cmd{cite\{knuth1990virtual\}} outputs [1].
 
 \subsubsection{Author-year system}
 
@@ -220,15 +220,15 @@ situations:
   in parentheses; use \cmd{textcite}.
 
   \noindent
-  Example: command \cmd{textcite\{knuth\}} outputs
-  \textcite{knuth}.
+  Example: command \cmd{textcite\{knuth1990virtual\}} outputs
+  \textcite{knuth1990virtual}.
 
   \item The name of the creator doesn't appear naturally in the text, so both name
   and the year are in parentheses; use \cmd{parencite}.
 
   \noindent
-  Example: command \cmd{parencite\{knuth\}} outputs
-  \parencite{knuth}.
+  Example: command \cmd{parencite\{knuth1990virtual\}} outputs
+  \parencite{knuth1990virtual}.
 \end{itemize}
 
 \subsection{Package options}
@@ -313,25 +313,20 @@ some examples of bibliography entry types with respective fields follow.
 
 \paragraph{Book} \hfill\\
 
-\c{t01}
+\c{borgman2003from}
 \begin{ltxexample}
-@BOOK{t01,
-  author      =   {Borgman, Christine L.}, 
-  year        =   {2003},
-  title       =   {From Gutenberg to the global information infrastructure}, 
-  subtitle    =   {access to information in the networked world},
-  edition     =   {1},  % should not be stated
-  location    =   {Cambridge (Mass)}, 
-  publisher   =   {The MIT Press},
-  pagetotal   =   {xviii, 324},
-  isbn        =   {0-262-52345-0},
-  langid      =   {english},
+@book{borgman2003from,
+  author    = {Borgman, Christine L.},
+  title     = {From Gutenberg to the Global Information Infrastructure},
+  subtitle  = {Access to Information in the Networked World},
+  location  = {Cambridge (Mass.)},
+  publisher = {The MIT Press},
+  date      = {2003},
+  pagetotal = {xviii, 324},
+  isbn      = {0-262-52345-0},
+  langid    = {english},
 }
 \end{ltxexample}
-
-The \t|edition| field is the edition of a printed publication. It is required
-if the item is not a first edition. Use an integer or a literal string to fill
-in this field.
 
 The \t|pagetotal| field is the total number of pages of the work. If multiple
 kinds of numeration are used in the work, e.g. arabic as well as roman numerals,
@@ -345,22 +340,23 @@ e.g. \t|edition| field. See also \ref{gen:multilang}.
 
 \paragraph{Contribution to a collection} \hfill\\
 
-\c{t02}
+\c{greenberg1998camel}
 \begin{ltxexample}
-@INCOLLECTION{t02,
-  author        =   {Greenberg, David}, 
-  year          =   {1998},
-  title         =   {Camel drivers and gatecrashers},
-  subtitle      =   {quality control in the digital research library},
-  editor        =   {Hawkins, B.L and Battin, P},
-  booktitle     =   {The mirage of continuity},
-  booksubtitle  =   {reconfiguring academic information 
-                      resources for the 21st century},
-  location      =   {Washington (D.C.)}, 
-  publisher     =   {Council on Library and Information Resources; 
-                      Association of American Universities}, 
-  pages         =   {105-116},
-  langid        =   {english},
+@incollection{greenberg1998camel,
+  author       = {Greenberg, Douglas},
+  title        = {Camel Drivers and Gatecrashers},
+  subtitle     = {Quality Control in the Digital Research Library},
+  editor       = {Hawkins, Brian L. and Battin, Patricia},
+  booktitle    = {The Mirage of Continuity},
+  booksubtitle = {Reconfiguring Academic Information
+                   Resources for the 21st Century},
+  date         = {1998},
+  location     = {Washington (D.C.)},
+  publisher    = {Council on Library and Information Resources;
+                   Association of American Universities},
+  isbn         = {1-887334-59-9},
+  pages        = {105--116},
+  langid       = {english},
 }
 \end{ltxexample}
 
@@ -377,24 +373,24 @@ from a contribution entry (child entry) to a separate entry of a collection
 as the following example shows:
 \newline
 
-\noindent\c{prispevek1}
+\noindent\c{sbornik2007clanek}
  
 \begin{ltxexample}
-@COLLECTION{sbornik,
-  title       =   {Mimořádně užitečný sborník},
-  editor      =   {Geniální, Jiří},
-  year        =   {2007},
-  langid      =   {czech},
-  location    =   {Praha},
-  publisher   =   {Academia},
-  isbn        =   {978-222-626-222-2},
+@collection{sbornik2007,
+  title     = {Mimořádně užitečný sborník},
+  editor    = {Geniální, Jiří},
+  location  = {Praha},
+  publisher = {Academia},
+  date      = {2007},
+  isbn      = {978-3-4947-0284-1},
+  langid    = {czech},
 }
 
-@INCOLLECTION{prispevek1,
-  crossref    =   {sbornik},
-  title       =   {Velmi zajímavý článek},
-  author      =   {Vlaštovka, Josef},
-  pages       =   {22-45},
+@incollection{sbornik2007clanek,
+  author   = {Vlaštovka, Josef},
+  title    = {Velmi zajímavý článek},
+  pages    = {22--45},
+  crossref = {sbornik2007},
 }
 \end{ltxexample}
 
@@ -404,20 +400,21 @@ child entry automatically. Other backends may not support this feature.
 
 \paragraph{Article in a serial}\hfill\\
 
-\c{t03}
+\c{lynch2005where}
 \begin{ltxexample}
-@ARTICLE{t03,
-  author        =   {Lynch, C.},
-  year          =   {2005},
-  title         =   {Where do we go from here?},
-  subtitle      =   {the next decade for digital libraries},
-  journaltitle  =   {DLib Magazine},
-  volume        =   {11},
-  number        =   {7/8},
-  urldate       =   {2005-08-15},
-  url           =   {http://www.dlib.org/dlib/july05/lynch/07lynch.html}, 
-  issn          =   {1082-9873},
-  langid        =   {english},
+@article{lynch2005where,
+  author       = {Lynch, Clifford},
+  title        = {Where Do We Go From Here?},
+  subtitle     = {The Next Decade for Digital Libraries},
+  journaltitle = {D-Lib Magazine},
+  date         = {2005},
+  volume       = {11},
+  number       = {7/8},
+  issn         = {1082-9873},
+  doi          = {10.1045/july2005-lynch},
+  url          = {http://www.dlib.org/dlib/july05/lynch/07lynch.html},
+  urldate      = {2005-08-15},
+  langid       = {english},
 }
 \end{ltxexample}
 
@@ -427,26 +424,27 @@ it should be cited as an electronic information resource. This can be
 achieved by providing the \t|urldate| field. On the other hand
 \newline
 
-\c{knuth}
+\c{knuth1990virtual}
 \begin{ltxexample}
-@PERIODICAL{tug,
-  journaltitle  =   {TUGBoat},
-  publisher     =   {TUG},
-  issn          =   {1222-3333},
-  langid        =   {english},
-  date          =   {1980/},
-  url           =   {http://tugboat.tug.org/},
+@periodical{tugboat1980,
+  journaltitle = {TUGBoat},
+  publisher    = {TUG},
+  date         = {1980/},
+  issn         = {0896-3207},
+  url          = {http://tugboat.tug.org/TUGboat},
+  langid       = {english},
+  options      = {skipbib=true},
 }
 
-@ARTICLE{knuth,
-  author        =   {Knuth, Donald},
-  title         =   {Journeys of \TeX},
-  volume        =   {17},
-  number        =   {3},
-  year          =   {2003},
-  pages         =   {12-22},
-  url           =   {http://tugboat.tug.org/kkk.pdf},
-  crossref      =   {tug},
+@article{knuth1990virtual,
+  author       = {Knuth, Donald Erwin},
+  title        = {Virtual Fonts: More Fun for Grand Wizards},
+  date         = {1990-04},
+  volume       = {11},
+  number       = {1},
+  pages        = {13--23},
+  url          = {http://tugboat.tug.org/TUGboat/tb11-1/tb27knut.pdf},
+  crossref     = {tugboat1980},
 }
 \end{ltxexample}
 
@@ -469,9 +467,9 @@ supervisor and school (institution) can be entered into the fields
 \t|supervisor| and \t|institution|, respectively.
 \newline
 
-\c{Luptak2016thesis}
+\c{luptak2016thesis}
 \begin{ltxexample}
-@thesis{Luptak2016thesis,
+@thesis{luptak2016thesis,
   author       = {Lupták, Dávid},
   title        = {Typesetting of Bibliography According to ISO 690 Norm},
   date         = {2016},
@@ -497,9 +495,9 @@ For the patent type, we can use localisation strings as well, e.g.
 \t|patenteu|.
 \newline
 
-\c{Groll2008}
+\c{groll2008method}
 \begin{ltxexample}
-@patent{Groll2008,
+@patent{groll2008method,
   author      = {Clad Metals LLC Canonsburg, PA 15317 (US)},
   title       = {Method of making a copper core five-ply composite
                   and cooking vessel},
