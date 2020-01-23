@@ -6,7 +6,7 @@
 \DeclareLanguageMappingSuffix{-iso}
 % Currently needed the following additional language strings:
 \NewBibliographyString{at,bysupervisor,urlalso,
-  director,bydirector,inventor,byinventor}
+  director,bydirector,inventor,byinventor,online}
 
 % PACKAGE OPTIONS
 
@@ -418,7 +418,8 @@
         and (   test {\iftoggle{bbx:url}}
              or test {\ifentrytype{online}})
       }
-        {\printtext{\mkbibbrackets{online}}}%
+        % Use a localisation string 'online' in the main document language
+        {\mainlangbibstring[\mkbibbrackets]{online}}%
         {}}% Don't print anything
     {% The only situation when we don't want to print
      % 'howpublished' field is when
