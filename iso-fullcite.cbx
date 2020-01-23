@@ -3,10 +3,10 @@
 % Based on \fullcite standard command
 % Adds only formatting directive of \mkbibnamefamily
 \DeclareCiteCommand{\fullcite}
-  {\usebibmacro{prenote}%
-   \renewcommand*\mkbibnamefamily{\familynameformat}}
+  {\usebibmacro{prenote}}
   {\usedriver
-     {\DeclareNameAlias{sortname}{default}}
+     {\DeclareNameAlias{sortname}{default}%
+      \renewcommand*\mkbibnamefamily{\familynameformat}}
      {\thefield{entrytype}}}
   {\multicitedelim}
   {\usebibmacro{postnote}}
@@ -15,10 +15,10 @@
 % Based on \footfullcite standard command
 % Adds only formatting directive of \mkbibnamefamily
 \DeclareCiteCommand{\footfullcite}[\mkbibfootnote]
-  {\usebibmacro{prenote}%
-   \renewcommand*\mkbibnamefamily{\textsc}}
+  {\usebibmacro{prenote}}
   {\usedriver
-     {\DeclareNameAlias{sortname}{default}}
+     {\DeclareNameAlias{sortname}{default}%
+      \renewcommand*\mkbibnamefamily{\familynameformat}}
      {\thefield{entrytype}}}
   {\multicitedelim}
   {\usebibmacro{postnote}}
