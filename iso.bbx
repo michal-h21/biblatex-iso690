@@ -183,8 +183,8 @@
 % b) url AND urldate: use localisation string 'available from'
 \DeclareFieldFormat*{url}{%
   \iffieldundef{urlyear}
-    {\mainlstring{urlalso}}
-    {\mainlstring{urlfrom}}%
+    {\mainlangbiblstring{urlalso}}
+    {\mainlangbiblstring{urlfrom}}%
   \addcolon\space\url{#1}%
 }
 
@@ -195,13 +195,13 @@
 % If available, use the localisation string for the key
 \DeclareFieldFormat{type}{%
   \ifbibstring{#1}
-    {\mainlstring{#1}}
+    {\mainlangbiblstring{#1}}
     {#1}%
 }
 
 % Format supervisor of thesis (precedes the name with a localisation string)
 \DeclareFieldFormat{supervisor}{%
-  \mainlstring{bysupervisor}\addspace#1}
+  \mainlangbiblstring{bysupervisor}\addspace#1}
 
 % \mkbibacro typesets acronyms in small caps by default,
 % if we want to override this, pass the value as is (uppercase)
@@ -225,7 +225,7 @@
 \DeclareFieldFormat{iswc}{\mkbibacro{ISWC}\addspace#1}
 
 % Format url seen date with preceding localisation string in square brackets
-\DeclareFieldFormat{urldate}{\mkbibbrackets{\mainsstring{urlseen}\space#1}}
+\DeclareFieldFormat{urldate}{\mkbibbrackets{\mainlangbibsstring{urlseen}\space#1}}
 
 % a)
 % Format circa date with preceding localisation string in square brackets;
@@ -337,7 +337,7 @@
 \newbibmacro*{thesissupervisor}{%
   \ifnameundef{supervisor}
     {}
-    {\printtext{\mainlstring{bysupervisor}}%
+    {\printtext{\mainlangbiblstring{bysupervisor}}%
      \addspace%
      \printnames{supervisor}}%
 }
@@ -521,13 +521,13 @@
 
 % Precedes DOI field with urlfrom localisation string
 \newbibmacro*{from-doi}{%
-  \mainlstring{urlfrom}\addspace\printfield{doi}%
+  \mainlangbiblstring{urlfrom}\addspace\printfield{doi}%
 }
 
 % Precedes eprint field with urlfrom localisation string
 % Use default eprint formatting macro
 \newbibmacro*{from-eprint}{%
-  \mainlstring{urlfrom}\addspace\usebibmacro{eprint}%
+  \mainlangbiblstring{urlfrom}\addspace\usebibmacro{eprint}%
 }
 
 % Macro for availability and access information
@@ -586,13 +586,13 @@
 
 % Force to use the main document language for 'in' localisation string
 \renewbibmacro*{in:}{%
-  \mainsstring{in}%
+  \mainlangbibsstring{in}%
   \printunit{\intitlepunct}%
 }
 
 % Based on 'in:' macro for 'at' localisation string
 \newbibmacro*{at:}{%
-  \mainsstring{at}%
+  \mainlangbibsstring{at}%
   \printunit{\intitlepunct}%
 }
 
@@ -602,17 +602,17 @@
 % Localisation strings in the main document language
 %
 % \mainlangbibstring in place of \bibstring
-% \mainlstring in place of \biblstring
-% \mainsstring in place of \bibsstring
+% \mainlangbiblstring in place of \biblstring
+% \mainlangbibsstring in place of \bibsstring
 
 % [<wrapper>]{<string>}
 \newrobustcmd*{\blx@imc@mainlangbibstring}[2][\@firstofone]{%
   \blx@mainlangbibstring{#1}{\abx@str}{#2}}
 
-\newrobustcmd*{\blx@imc@mainlstring}[2][\@firstofone]{%
+\newrobustcmd*{\blx@imc@mainlangbiblstring}[2][\@firstofone]{%
   \blx@mainlangbibstring{#1}{abx@lstr}{#2}}
 
-\newrobustcmd*{\blx@imc@mainsstring}[2][\@firstofone]{%
+\newrobustcmd*{\blx@imc@mainlangbibsstring}[2][\@firstofone]{%
   \blx@mainlangbibstring{#1}{abx@sstr}{#2}}
 
 \protected\def\blx@mainlangbibstring#1#2#3{%
@@ -630,14 +630,14 @@
      \blx@endunit}}}
 
 \blx@regimcs{%
-  \mainlangbibstring \mainlstring \mainsstring
+  \mainlangbibstring \mainlangbiblstring \mainlangbibsstring
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Overriding bookpagination to use document main language
 %
 % Use new name 'mkpagetotal' over 'mkmlpagetotal'
-% Use 'mainsstring' over 'bibstring'
+% Use 'mainlangbibsstring' over 'bibstring'
 
 \newrobustcmd*{\blx@imc@mkmlpagetotal}[1][bookpagination]{%
   \begingroup
@@ -663,10 +663,10 @@
        \else
          \aftergroup\@secondoftwo
        \fi}%
-     {#2{#3}\ppspace\mainsstring{#1}}
-     {#2{#3}\ppspace\mainsstring{#1s}}}
-    {\def\pno{\mainsstring{#1}}%
-     \def\ppno{\mainsstring{#1s}}%
+     {#2{#3}\ppspace\mainlangbibsstring{#1}}
+     {#2{#3}\ppspace\mainlangbibsstring{#1s}}}
+    {\def\pno{\mainlangbibsstring{#1}}%
+     \def\ppno{\mainlangbibsstring{#1s}}%
      #2{#3}}%
   \endgroup}
 
@@ -678,7 +678,7 @@
 % Overriding pagination to use document main language
 %
 % Use new name 'mkmlpageprefix' over 'mkpageprefix'
-% Use 'mainsstring' over 'bibstring'
+% Use 'mainlangbibsstring' over 'bibstring'
 
 \newrobustcmd*{\blx@imc@mkmlpageprefix}[1][pagination]{%
   \begingroup
@@ -697,11 +697,11 @@
 
 \protected\long\def\blx@mkmlpageprefix#1[#2]#3{%
   \ifnumeral{#3}
-    {\mainsstring{#1}\ppspace}
+    {\mainlangbibsstring{#1}\ppspace}
     {\ifnumerals{#3}
-       {\mainsstring{#1s}\ppspace}
-       {\def\pno{\mainsstring{#1}}%
-        \def\ppno{\mainsstring{#1s}}}}%
+       {\mainlangbibsstring{#1s}\ppspace}
+       {\def\pno{\mainlangbibsstring{#1}}%
+        \def\ppno{\mainlangbibsstring{#1s}}}}%
   \blx@mkmlpageprefix@i[#2]{#3}}
 
 \long\def\blx@mkmlpageprefix@i[#1]#2{#1{#2}\endgroup}
