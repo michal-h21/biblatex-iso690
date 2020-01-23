@@ -83,10 +83,6 @@
 
 % COMMANDS
 
-% Localisation strings in the main document language
-\newcommand\mainsstring[1]{\bibsstring[\mainlang]{#1}}
-\newcommand\mainlstring[1]{\biblstring[\mainlang]{#1}}
-
 % The separator between 'titles' and 'subtitles'
 \renewcommand*\subtitlepunct{\addspacecolon\space}
 
@@ -605,6 +601,41 @@
 }
 
 % BIBLATEX CORE ADJUSTMENTS
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Localisation strings in the main document language
+%
+% \mainlangbibstring in place of \bibstring
+% \mainlstring in place of \biblstring
+% \mainsstring in place of \bibsstring
+
+% [<wrapper>]{<string>}
+\newrobustcmd*{\blx@imc@mainlangbibstring}[2][\@firstofone]{%
+  \blx@mainlangbibstring{#1}{\abx@str}{#2}}
+
+\newrobustcmd*{\blx@imc@mainlstring}[2][\@firstofone]{%
+  \blx@mainlangbibstring{#1}{abx@lstr}{#2}}
+
+\newrobustcmd*{\blx@imc@mainsstring}[2][\@firstofone]{%
+  \blx@mainlangbibstring{#1}{abx@sstr}{#2}}
+
+\protected\def\blx@mainlangbibstring#1#2#3{%
+  {\mainlang% <---- use main document language
+  \blx@begunit
+  \blx@hyphenreset
+  \blx@bibstringsimple
+  \lowercase{\edef\blx@tempa{#3}}%
+  \ifcsundef{#2@\blx@tempa}
+    {\blx@warn@nostring\blx@tempa
+     \blx@endnounit}
+    {\blx@imc@ifcapital
+       {#1{\MakeCapital{\csuse{#2@\blx@tempa}}}}
+       {#1{\csuse{#2@\blx@tempa}}}%
+     \blx@endunit}}}
+
+\blx@regimcs{%
+  \mainlangbibstring \mainlstring \mainsstring
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Overriding bookpagination to use document main language
