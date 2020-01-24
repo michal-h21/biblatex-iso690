@@ -26,14 +26,11 @@ or unzip the file
 here. You should be able to use **biblatex-iso690** now.
 
 ## Usage:
-```
-\usepackage[english,czech]{babel} % main language of the document must be last
+```latex
+\usepackage[english,czech]{babel} % the main document language is the last one
 \usepackage[
-  backend=biber,        % if we want unicode
+  backend=biber,        % if we want unicode and many other features (biber is already by default)
   style=iso-authoryear, % or iso-numeric for numeric citation method
-  autolang=other,       % to support multiple languages in bibliography
-  sortlocale=cs_CZ,     % locale of main language, for sorting
-  bibencoding=UTF8,     % this is necessary only if bibliography file is in different encoding than main document
 ]{biblatex}
 ```
 
@@ -79,12 +76,12 @@ Some fields have a different meaning than in plain BibTeX.
 
 1\. If the publication is written in a different language to the main document, it should have a filled `langid` field.
 ```
-langid = {czech}
+langid = {czech},
 ```
 
 2\. Publications with online versions should have a `urldate` field. It is the date when you last checked the publication online.
 ```
-urldate = {2011-01-12}
+urldate = {2011-01-12},
 ```
 
 3\. If the publication has more than one ISBN or ISSN number, use just one of them.
@@ -92,7 +89,7 @@ urldate = {2011-01-12}
 4\. Publisher and place:
 ```
 location = {Praha},
-publisher = {Academia}
+publisher = {Academia},
 ```
 
 For more details see the file [mybib.bib](https://github.com/michal-h21/biblatex-iso690/blob/master/mybib.bib).
