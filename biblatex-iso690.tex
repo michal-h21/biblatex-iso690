@@ -489,9 +489,9 @@ The field \t|number| is available for the patent classification
 or request number.
 If the inventor is also known, we can use \t|editora| and \t|editoratype|
 fields to specify that. Use an additionally created role \t|inventor| for the
-\t|editoratype| field; it is the key that translates based on the localisation
+\t|editoratype| field; it is the key that translates based on the localization
 strings.
-For the patent type, we can use localisation strings as well, e.g.
+For the patent type, we can use localization strings as well, e.g.
 \t|patenteu|.
 \newline
 
@@ -631,12 +631,22 @@ in a reference. The field \t|library| serves for this purpose.
 \begin{release}{0.3.4}{20??-??-??}
 \item Fixed deprecated name handling
 \item Declared mapping suffix (<lang>-iso.lbx) for localization files
-\item Improved documentation and bib examples
+\item Updated and improved documentation and bib examples
 \item Delimiters defined by new way
-\item Redefined \t|fulldate| macro
+\item Refined \t|date| macros
 \item Added date circa
 \item Commented source code to better understand it for others
-\item Fixed typos, small improvements
+\item Employed standard \cmd{mkbibacro} for DOI, ISBN, ISSN, ISAN, ISMN, ISRN, ISWC
+  (small caps instead of uppercase)
+\item Replaced \t|clasification| with \t|number| field for patent entries
+\item Added localization strings \t|director|, \t|bydirector|, \t|inventor|, \t|byinventor|,
+  \t|online|
+\item Added Bulgarian and French localization
+\item Increased maximum number of names to print to 99 (9 before)
+\item Removed \biblatex{} backwards compatibility code
+\item Fixed printing \t|url| and \t|urldate| for @online entries
+\item Fixed multiple ISBNs / ISSNs
+\item Fixed typos, code improvements
 \end{release}
 
 \begin{release}{0.3.3}{2019-10-30}
@@ -649,6 +659,7 @@ in a reference. The field \t|library| serves for this purpose.
 \item Changed URL address for DOI records
 \item Clean up of indentation and spacing in the source code
 \item Renamed \t|editor| macro to \t|incollection-editor|
+\item Added Polish localization
 \end{release}
 
 \begin{release}{0.3.2}{2017-04-25}
