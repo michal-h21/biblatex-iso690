@@ -2,23 +2,44 @@
 
 \RequireBibliographyStyle{iso}
 \ExecuteBibliographyOptions{%
-  sorting=nyt
+  sorting=nyt,
 }
 
-\def\printextrayear{%
-  \ifentrytype{patent}
-    {}
-    {\printfield{year}\printfield{extradate}}%
+% The field extradate turns from integer type to a letter
+% after year to distinguish more works of the author
+% from the same year, e.g. 1994a, 1994b.
+% We use 'labeldate' as it is also used in standard styles.
+\newbibmacro*{date+extradate}{%
+  \printlabeldateextra
 }
 
-% remove second appearance of year in a reference
+% Check if 'date' field holds only year or a more specific date.
+% Inspired by \ifdatehasyearonlyprecision from 'biblatex.sty',
+% but the test date==year is left out, because we use date=year
+% in package options so it turned always true.
+\newcommand{\ifdatehasyearonly}{%
+  \ifboolexpr{not test {\iffieldundef{year}}
+              and (test {\iffieldundef{month}}
+                   and test {\iffieldundef{season}})}
+}
+
+% If there is no more specific date available, we shouldn't repeat
+% the year in publication info section.
+% Overrides macro 'fulldate' in 'iso.bbx'.
+\renewbibmacro*{fulldate}{%
+  \ifdatehasyearonly%
+    {}% Print nothing (only year is available)
+    {\mkdaterangeiso{}}%
+}
+
+% Remove second appearance of year in a reference
 \renewbibmacro*{date}{}%
 
-% overwrite names:primary to print year right after
+% Overwrite names:primary to print year right after:
 % 1) author
 % 2) editor
 % 3) label/title
-% need to handle not to print editor twice (primary
+% Need to handle not to print editor twice (primary
 % and subsidiary names)
 \renewbibmacro*{names:primary}{%
   \ifboolexpr{
@@ -28,8 +49,10 @@
   }
     {\usebibmacro{author}}%
     {\usebibmacro{editor}}%
-  \setunit{\addspace}\printfield{nameaddon}%
-  \setunit{\addcomma\space}\printextrayear%
+  \setunit{\addspace}%
+  \printfield{nameaddon}%
+  \setunit{\addcomma\space}%
+  \usebibmacro{date+extradate}%
 }
 
 \InitializeBibliographyStyle{\global\undef\bbx@lasthash}

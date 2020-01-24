@@ -1,20 +1,24 @@
 % Fix for fullcite
+
+% Based on \fullcite standard command
+% Adds only formatting directive of \mkbibnamefamily
 \DeclareCiteCommand{\fullcite}
-  {\usebibmacro{prenote}%
-   \renewcommand*\mkbibnamelast{\lastnameformat}%
-   \renewcommand*\mkbibnamefamily{\lastnameformat}}
+  {\usebibmacro{prenote}}
   {\usedriver
-     {\DeclareNameAlias{sortname}{default}}
+     {\DeclareNameAlias{sortname}{default}%
+      \renewcommand*\mkbibnamefamily{\familynameformat}}
      {\thefield{entrytype}}}
   {\multicitedelim}
   {\usebibmacro{postnote}}
 
+
+% Based on \footfullcite standard command
+% Adds only formatting directive of \mkbibnamefamily
 \DeclareCiteCommand{\footfullcite}[\mkbibfootnote]
-  {\usebibmacro{prenote}%
-   \renewcommand*\mkbibnamelast{\textsc}%
-   \renewcommand*\mkbibnamefamily{\textsc}}
+  {\usebibmacro{prenote}}
   {\usedriver
-     {\DeclareNameAlias{sortname}{default}}
+     {\DeclareNameAlias{sortname}{default}%
+      \renewcommand*\mkbibnamefamily{\familynameformat}}
      {\thefield{entrytype}}}
   {\multicitedelim}
   {\usebibmacro{postnote}}
