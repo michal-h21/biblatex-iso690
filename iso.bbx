@@ -87,6 +87,12 @@
 % The separator between 'titles' and 'subtitles'
 \renewcommand*\subtitlepunct{\addspacecolon\space}
 
+% The separator between more standard identifiers, like ISBNs or ISSNs.
+% Default separator is comma and space. You can use something like
+% \renewcommand{\stdidentifierspunct}{\addsemicolon\space}
+% in the preamble to change the separator
+\newcommand\stdidentifierspunct{\addcomma\space}
+
 % A colon preceded with or without space
 \newcommand\addspacecolon{%
   \iftoggle{bbx:spcolon}
@@ -208,14 +214,26 @@
 % \renewcommand*{\mkbibacro}[1]{#1}
 % Applies to DOI, ISBN, ISSN, ISAN, ISMN, ISRN, ISWC
 
-% We must handle more than one isbn and issn
+% If we really must handle more than one ISBN and ISSN.
+%
+% Typically there could be different ISBN / ISSN for printed and electronic
+% media versions, but the standard says that the specific copy or instance of
+% the document should be cited, so the author should choose the appropriate
+% number in the bib file. Otherwise include comma-separated list of numbers in
+% the bib field 'isbn' or 'issn'.
+
+% Separator value between more ISBNs / ISSNs is handled by '\stdidentifierspunct'.
+% Default format is the name of identifier + space + number:
+% e.g. 'ISBN 978-3-642-21665-7'
 \DeclareFieldFormat{isbn}{%
-  %\renewcommand*{\do}[1]{\mkbibacro{ISBN}\addspace#1\adddot\space}%
-  \mkbibacro{ISBN}\addspace#1}%
+  \def\do##1{\stdidentifierspunct\mkbibacro{ISBN}\space##1}%
+  \docsvfield{isbn}%
+}
 
 \DeclareFieldFormat{issn}{%
-  \renewcommand*{\do}[1]{\mkbibacro{ISSN}\addspace#1\adddot\space}%
-  \docsvfield{issn}}%
+  \def\do##1{\stdidentifierspunct\mkbibacro{ISSN}\space##1}%
+  \docsvfield{issn}%
+}
 
 % Format other standard identifiers, precedes the value with the name
 % of identifier
