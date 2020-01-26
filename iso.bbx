@@ -226,17 +226,23 @@
 % Default format is the name of identifier + space + number:
 % e.g. 'ISBN 978-3-642-21665-7'
 \DeclareFieldFormat{isbn}{%
-  \def\do##1{\stdidentifierspunct\mkbibacro{ISBN}\space##1}%
+  % Execute this rule for the first value of the csv field
+  \def\do##1{\mkbibacro{ISBN}\space##1%
+    % Execute this rule for the next value(s) of the csv field
+    \def\do####1{\stdidentifierspunct\mkbibacro{ISBN}\space####1}}%
+  % Process the csv field with \do command
   \docsvfield{isbn}%
 }
 
+% The same formatting rules as for ISBN above
 \DeclareFieldFormat{issn}{%
-  \def\do##1{\stdidentifierspunct\mkbibacro{ISSN}\space##1}%
+  \def\do##1{\mkbibacro{ISSN}\space##1%
+    \def\do####1{\stdidentifierspunct\mkbibacro{ISSN}\space####1}}%
   \docsvfield{issn}%
 }
 
-% Format other standard identifiers, precedes the value with the name
-% of identifier
+% Format other standard identifiers
+% Default format is the name of identifier + space + number
 \DeclareFieldFormat{isan}{\mkbibacro{ISAN}\addspace#1}
 \DeclareFieldFormat{ismn}{\mkbibacro{ISMN}\addspace#1}
 \DeclareFieldFormat{isrn}{\mkbibacro{ISRN}\addspace#1}
