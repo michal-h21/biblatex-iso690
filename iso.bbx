@@ -141,7 +141,7 @@
 \DeclareFieldFormat*{title}{#1}
 \DeclareFieldFormat*{subtitle}{#1}
 
-% Format volume field with short localisation string
+% Format volume field with localisation string
 \DeclareFieldFormat{volume}{\bibstring{volume}\addnbspace#1}% volume of a book
 % Differentiate volume in journal
 \DeclareFieldFormat[article,periodical]{volume}{%
@@ -173,7 +173,7 @@
 % Always use main document language for this field
 \DeclareFieldFormat*{pagetotal}{\mkbibbrackets{\mkmlpagetotal[bookpagination]{#1}}}
 
-% Format number field with short localisation string
+% Format number field with localisation string
 \DeclareFieldFormat*{number}{\bibstring{number}\addspace #1}
 % Differentiate number in journal
 \DeclareFieldFormat[article,periodical]{number}{%
@@ -189,8 +189,8 @@
 % b) url AND urldate: use localisation string 'available from'
 \DeclareFieldFormat*{url}{%
   \iffieldundef{urlyear}
-    {\mainlangbiblstring{urlalso}}
-    {\mainlangbiblstring{urlfrom}}%
+    {\mainlangbibstring{urlalso}}
+    {\mainlangbibstring{urlfrom}}%
   \addcolon\space\url{#1}%
 }
 
@@ -201,13 +201,13 @@
 % If available, use the localisation string for the key
 \DeclareFieldFormat{type}{%
   \ifbibstring{#1}
-    {\mainlangbiblstring{#1}}
+    {\mainlangbibstring{#1}}
     {#1}%
 }
 
 % Format supervisor of thesis (precedes the name with a localisation string)
 \DeclareFieldFormat{supervisor}{%
-  \mainlangbiblstring{bysupervisor}\addspace#1}
+  \mainlangbibstring{bysupervisor}\addspace#1}
 
 % \mkbibacro typesets acronyms in small caps by default,
 % if we want to override this, pass the value as is (uppercase)
@@ -249,7 +249,7 @@
 \DeclareFieldFormat{iswc}{\mkbibacro{ISWC}\addspace#1}
 
 % Format url seen date with preceding localisation string in square brackets
-\DeclareFieldFormat{urldate}{\mkbibbrackets{\mainlangbibsstring{urlseen}\space#1}}
+\DeclareFieldFormat{urldate}{\mkbibbrackets{\mainlangbibstring{urlseen}\space#1}}
 
 % a)
 % Format circa date with preceding localisation string in square brackets;
@@ -293,7 +293,7 @@
 % b) literal: capitalize given string
 \DeclareFieldFormat{version}{%
   \ifnumeral{#1}%
-    {\biblstring{version}\addnbspace#1}%
+    {\bibstring{version}\addnbspace#1}%
     {\MakeCapital{#1}}%
 }
 
@@ -361,7 +361,7 @@
 \newbibmacro*{thesissupervisor}{%
   \ifnameundef{supervisor}
     {}
-    {\printtext{\mainlangbiblstring{bysupervisor}}%
+    {\printtext{\mainlangbibstring{bysupervisor}}%
      \addspace%
      \printnames{supervisor}}%
 }
@@ -545,13 +545,13 @@
 
 % Precedes DOI field with urlfrom localisation string
 \newbibmacro*{from-doi}{%
-  \mainlangbiblstring{urlfrom}\addspace\printfield{doi}%
+  \mainlangbibstring{urlfrom}\addspace\printfield{doi}%
 }
 
 % Precedes eprint field with urlfrom localisation string
 % Use default eprint formatting macro
 \newbibmacro*{from-eprint}{%
-  \mainlangbiblstring{urlfrom}\addspace\usebibmacro{eprint}%
+  \mainlangbibstring{urlfrom}\addspace\usebibmacro{eprint}%
 }
 
 % Macro for availability and access information
@@ -610,13 +610,13 @@
 
 % Force to use the main document language for 'in' localisation string
 \renewbibmacro*{in:}{%
-  \mainlangbibsstring{in}%
+  \mainlangbibstring{in}%
   \printunit{\intitlepunct}%
 }
 
 % Based on 'in:' macro for 'at' localisation string
 \newbibmacro*{at:}{%
-  \mainlangbibsstring{at}%
+  \mainlangbibstring{at}%
   \printunit{\intitlepunct}%
 }
 
