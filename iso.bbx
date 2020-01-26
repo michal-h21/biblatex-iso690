@@ -479,7 +479,11 @@
 % a localisation string, e.g. [n.d.].
 \renewbibmacro*{date}{%
   \iffieldundef{year}
-    {\bibstring[\mkbibbrackets]{nodate}}%
+    {\iffieldundef{eventyear}
+      {\iffieldundef{origyear}
+        {\bibstring[\mkbibbrackets]{nodate}}%
+        {\printorigdate}}%
+      {\printeventdate}}%
     {\printdate}%
 }
 
