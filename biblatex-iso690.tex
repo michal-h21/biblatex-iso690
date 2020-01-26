@@ -1,8 +1,9 @@
 \documentclass[a4paper,10pt]{ltxdockit}
-\usepackage[czech,english]{babel}
 \usepackage[utf8]{inputenc}
-%\usepackage{tgpagella}
 \usepackage[T1]{fontenc}
+\usepackage[czech,english]{babel}
+\usepackage{csquotes}
+%\usepackage{tgpagella}
 \usepackage{microtype}
 \usepackage{hanging}
 
@@ -16,18 +17,50 @@
 \newcommand*{\biblatex}{\sty{biblatex}\xspace}
 
 \usepackage[
-   backend=biber
-  ,style=iso-authoryear
-  ,autolang=other
-  ,pagetotal=true
-  ,sortlocale=cs_CZ
-  ,bibencoding=UTF8
-  ,spacecolon=false
-  % ,isbn=false
-  %,block=ragged
+  style=iso-authoryear,
+  sortlocale=cs_CZ,% We need this for proper sorting,
+  %   because most of the bib examples are Czech ones,
+  %   but the main document language is English
+  pagetotal=true,
 ]{biblatex}
 
 \addbibresource{mybib.bib}
+
+% Support diacritics in Czech examples
+% ref.: https://stackoverflow.com/a/16084246
+\lstset{
+  literate=
+  {á}{{\'a}}1
+  {č}{{\v{c}}}1
+  {ď}{{\v{d}}}1
+  {é}{{\'e}}1
+  {ě}{{\v{e}}}1
+  {í}{{\'i}}1
+  {ň}{{\v{n}}}1
+  {ó}{{\'o}}1
+  {ř}{{\v{r}}}1
+  {š}{{\v{s}}}1
+  {ť}{{\v{t}}}1
+  {ú}{{\'u}}1
+  {ů}{{\r{u}}}1
+  {ý}{{\'y}}1
+  {ž}{{\v{z}}}1
+  {Á}{{\'A}}1
+  {Č}{{\v{C}}}1
+  {Ď}{{\v{D}}}1
+  {É}{{\'E}}1
+  {Ě}{{\v{E}}}1
+  {Í}{{\'I}}1
+  {Ň}{{\v{N}}}1
+  {Ó}{{\'O}}1
+  {Ř}{{\v{R}}}1
+  {Š}{{\v{S}}}1
+  {Ť}{{\v{T}}}1
+  {Ú}{{\'U}}1
+  {Ů}{{\r{U}}}1
+  {Ý}{{\'Y}}1
+  {Ž}{{\v{Z}}}1
+}
 
 \titlepage{%
   title={ISO~690 \biblatex style},
@@ -35,7 +68,7 @@
   url={https://github.com/michal-h21/biblatex-iso690},
   author={Michal Hoftich},
   email={michal.h21@gmail.com},
-  revision={0.3.2},
+  revision={0.3.3},
   date={\today}}
 
 \hypersetup{%
@@ -55,15 +88,16 @@
 
 \biblatex is a bibliography and citation tool for \LaTeX. This project provides
 support for citations and references according to the ISO~690 international standard.
-As the norm ISO~690 is a little bit ambiguous in some details regarding formatting of records,
+As the standard ISO~690 is a little bit ambiguous in some details regarding formatting of records,
 we largely follow requirements of the Czech interpretation, as it is the required form
 in many Czech universities. Of course, the style can be used in other languages as well.
 
 \subsection{Requirements}
 
-Basically, \biblatex $\geq$ 3.4 with \biber $\geq$ 2.5 is all you need to use this package.
-No special packages different from those required by the \biblatex package are used. For a complete
-list of such packages, please refer to the \biblatex documentation.
+Basically, \biblatex $\geq$ 3.14 with \biber $\geq$ 2.14 (both versions dated
+2019-12-01) is all you need to use this package. No special packages different
+from those required by the \biblatex package are used. For a complete list of
+such packages, please refer to the \biblatex documentation.
 
 \subsection{License}
 
@@ -83,45 +117,65 @@ so feel free to use the possibilites provided there for reporting issues and the
 
 \subsection{General}
 
-\begin{verbatim}
-..
-\usepackage[english,czech]{babel} % [other,main]
-% or in case of using xelatex, use the 'polyglossia' package instead
+A minimal working example for \t|babel| package:
+\begin{ltxexample}
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english,czech]{babel}
+% \usepackage[main=czech,english]{babel}
+\usepackage{csquotes}
+
+\usepackage[style=iso-authoryear]{biblatex}
+\addbibresource{mybib.bib}
+
+\begin{document}
+\cite{knuth1990virtual}
+\printbibliography
+\end{document}
+\end{ltxexample}
+
+A minimal working example for \t|polyglossia| package:
+\begin{ltxexample}
+\documentclass{article}
+\usepackage[utf8]{inputenc}
 \usepackage{polyglossia}
 \setmainlanguage{czech}
 \setotherlanguage{english}
-..
-\usepackage[
-   backend=biber
-  ,style=iso-authoryear
-  ,sortlocale=cs_CZ
-  ,autolang=other
-  ,bibencoding=UTF8
-]{biblatex}
-\addbibresource{filename.fileextension}
-..
+\usepackage{csquotes}
+
+\usepackage[style=iso-authoryear]{biblatex}
+\addbibresource{mybib.bib}
+
+\begin{document}
+\cite{knuth1990virtual}
 \printbibliography
+\end{document}
+\end{ltxexample}
 
-\end{verbatim}
-
-According to the ISO~690 norm, some of the elements of the bibliographic
+According to the ISO~690 standard, some of the elements of the bibliographic
 resource should be printed in the main document language (language I~am
-currently writing) while the others should be in the language of a resource. You can
-specify the language of a resource into the field \t|langid| on a per-entry
-basis in a resource (\t|.bib|) file. In addition, all of the languages
-specified in these fields have to be loaded by the \t|babel| or \t|polyglossia|
-package respectively.\label{gen:multilang}
+currently writing) while the others should be in the language of a resource.
+You can specify the language of a resource into the field \t|langid| on a
+per-entry basis in a resource (\t|.bib|) file. In addition, all of the
+languages specified in these fields have to be loaded by the \t|babel| or
+\t|polyglossia| package respectively.\label{gen:multilang}
 
 Note that for correct support of localization functionality, the \t|babel|
 or \t|polyglossia| package should be used. The main document language
-is the last one entered in a list of languages passed to the \t|babel| package,
-respectively the directives \t|\textbackslash setmainlanguage| and
-\t|\textbackslash setotherlanguage| in case the \t|polyglossia| package
-is used.
+is:
+
+\begin{description}
+  \item[babel] the last one entered in a list of languages passed to the
+    \t|babel| package options, or the one specified by \t|main| keyword
+    (see MWE above)
+  \item[polyglossia] the one specified in the directive
+    \cmd{setmainlanguage} (other languages could be specified using
+    \cmd{setotherlanguage}) (see MWE above)
+\end{description}
 
 \subsection{Citation methods}
 
-The international standard ISO 690 prescribes exactly 3 methods of
+The international standard ISO~690 prescribes exactly 3 methods of
 citation. However, based on the user input, this package contains
 more of them.
 
@@ -141,6 +195,42 @@ implemented yet.
 \item[iso-alphabetic] alphabetic system
 \item[iso-authortitle] name and title system
 \end{description}
+
+\subsection{Citation commands}
+
+\biblatex provides a lot of citation commands out of the box. However, to
+conform to the standard, it is necessary to know which command can be used
+for which citation method. Here is an overview.
+
+\subsubsection{Numeric system}
+
+For \t|iso-numeric| style, the usage of cite command is as simple as
+\cmd{cite}.
+
+\noindent
+Example: command \cmd{cite\{knuth1990virtual\}} outputs [1].
+
+\subsubsection{Author-year system}
+
+For \t|iso-authoryear| method (and possibly also for other methods
+\t|iso-alphabetic| and \t|iso-authortitle|), you should distinguish two
+situations:
+
+\begin{itemize}
+  \item The name of the creator appears naturally in the text, so only the year is
+  in parentheses; use \cmd{textcite}.
+
+  \noindent
+  Example: command \cmd{textcite\{knuth1990virtual\}} outputs
+  \textcite{knuth1990virtual}.
+
+  \item The name of the creator doesn't appear naturally in the text, so both name
+  and the year are in parentheses; use \cmd{parencite}.
+
+  \noindent
+  Example: command \cmd{parencite\{knuth1990virtual\}} outputs
+  \parencite{knuth1990virtual}.
+\end{itemize}
 
 \subsection{Package options}
 
@@ -224,31 +314,26 @@ some examples of bibliography entry types with respective fields follow.
 
 \paragraph{Book} \hfill\\
 
-\c{t01}
-\begin{verbatim}
-@BOOK{t01,
-  author      =   {Borgman, Christine L.}, 
-  year        =   {2003},
-  title       =   {From Gutenberg to the global information infrastructure}, 
-  subtitle    =   {access to information in the networked world},
-  edition     =   {1},  % should not be stated
-  location    =   {Cambridge (Mass)}, 
-  publisher   =   {The MIT Press},
-  pagetotal   =   {xviii, 324},
-  isbn        =   {0-262-52345-0},
-  langid      =   {english}
+\c{borgman2003from}
+\begin{ltxexample}
+@book{borgman2003from,
+  author    = {Borgman, Christine L.},
+  title     = {From {Gutenberg} to the Global Information Infrastructure},
+  subtitle  = {Access to Information in the Networked World},
+  location  = {Cambridge (Mass.)},
+  publisher = {The MIT Press},
+  date      = {2003},
+  pagetotal = {xviii, 324},
+  isbn      = {0-262-52345-0},
+  langid    = {english},
 }
-\end{verbatim} 
-
-The \t|edition| field is the edition of a printed publication. It is required
-if the item is not a first edition. Use an integer or a literal string to fill
-in this field.
+\end{ltxexample}
 
 The \t|pagetotal| field is the total number of pages of the work. If multiple
 kinds of numeration are used in the work, e.g. arabic as well as roman numerals,
 both can be provided, separated by a comma. The localization term \t|pages| is 
 only appended for arabic numerals, though. Note that the total number of pages
-is no longer required by the norm itself, see also \ref{pkg:opt:iso690:pp}.
+is no longer required by the standard itself, see also \ref{pkg:opt:iso690:pp}.
 
 The \t|langid| field is required for multilingual support of printing
 references. This affects printing of localization terms used in the reference,
@@ -256,24 +341,25 @@ e.g. \t|edition| field. See also \ref{gen:multilang}.
 
 \paragraph{Contribution to a collection} \hfill\\
 
-\c{t02}
-\begin{verbatim}
-@INCOLLECTION{t02,
-  author        =   {Greenberg, David}, 
-  year          =   {1998},
-  title         =   {Camel drivers and gatecrashers},
-  subtitle      =   {quality control in the digital research library},
-  editor        =   {Hawkins, B.L and Battin, P},
-  booktitle     =   {The mirage of continuity},
-  booksubtitle  =   {reconfiguring academic information 
-                      resources for the 21st  century}, 
-  location      =   {Washington (D.C.)}, 
-  publisher     =   {Council on Library and Information Resources; 
-                      Association of American Universities}, 
-  pages         =   {105-116},
-  langid        =   {english}
+\c{greenberg1998camel}
+\begin{ltxexample}
+@incollection{greenberg1998camel,
+  author       = {Greenberg, Douglas},
+  title        = {Camel Drivers and Gatecrashers},
+  subtitle     = {Quality Control in the Digital Research Library},
+  editor       = {Hawkins, Brian L. and Battin, Patricia},
+  booktitle    = {The Mirage of Continuity},
+  booksubtitle = {Reconfiguring Academic Information
+                   Resources for the 21st Century},
+  date         = {1998},
+  location     = {Washington (D.C.)},
+  publisher    = {Council on Library and Information Resources;
+                   Association of American Universities},
+  isbn         = {1-887334-59-9},
+  pages        = {105--116},
+  langid       = {english},
 }
-\end{verbatim} 
+\end{ltxexample}
 
 The \t|title| field is the title of the contribution, the \t|booktitle|
 is the title of the collection.
@@ -288,26 +374,26 @@ from a contribution entry (child entry) to a separate entry of a collection
 as the following example shows:
 \newline
 
-\noindent\c{prispevek1}
+\noindent\c{sbornik2007clanek}
  
-\begin{verbatim}
-@COLLECTION{sbornik,
-  title       =   {Mimořádně užitečný sborník},
-  editor      =   {Geniální, Jiří},
-  year        =   {2007},
-  langid      =   {czech},
-  location    =   {Praha},
-  publisher   =   {Academia},
-  isbn        =   {978-222-626-222-2}
+\begin{ltxexample}
+@collection{sbornik2007,
+  title     = {Mimořádně užitečný sborník},
+  editor    = {Geniální, Jiří},
+  location  = {Praha},
+  publisher = {Academia},
+  date      = {2007},
+  isbn      = {978-3-4947-0284-1},
+  langid    = {czech},
 }
 
-@INCOLLECTION{prispevek1,
-  crossref    =   {sbornik},
-  title       =   {Velmi zajímavý článek},
-  author      =   {Vlaštovka, Josef},
-  pages       =   {22-45}
+@incollection{sbornik2007clanek,
+  author   = {Vlaštovka, Josef},
+  title    = {Velmi zajímavý článek},
+  pages    = {22--45},
+  crossref = {sbornik2007},
 }
-\end{verbatim}
+\end{ltxexample}
 
 Now, there is no need to fill in \t|booktitle| in the \t|sbornik| entry.
 The \t|biber| backend program performs the inheritance between parent and
@@ -315,22 +401,23 @@ child entry automatically. Other backends may not support this feature.
 
 \paragraph{Article in a serial}\hfill\\
 
-\c{t03}
-\begin{verbatim}
-@ARTICLE{t03,
-  author        =   {LYNCH, C.},
-  year          =   {2005},
-  title         =   {Where do we go from here?},
-  subtitle      =   {the next decade for digital libraries},
-  journaltitle  =   {DLib Magazine},
-  volume        =   {11},
-  number        =   {7/8},
-  urldate       =   {2005-08-15},
-  url           =   {http://www.dlib.org/dlib/july05/lynch/07lynch.html}, 
-  issn          =   {1082-9873},
-  langid        =   {english}
+\c{lynch2005where}
+\begin{ltxexample}
+@article{lynch2005where,
+  author       = {Lynch, Clifford},
+  title        = {Where Do We Go From Here?},
+  subtitle     = {The Next Decade for Digital Libraries},
+  journaltitle = {D-Lib Magazine},
+  date         = {2005},
+  volume       = {11},
+  number       = {7/8},
+  issn         = {1082-9873},
+  doi          = {10.1045/july2005-lynch},
+  url          = {http://www.dlib.org/dlib/july05/lynch/07lynch.html},
+  urldate      = {2005-08-15},
+  langid       = {english},
 }
-\end{verbatim}
+\end{ltxexample}
 
 The example above is an article in an online magazine. If the magazine
 is available online only, i.e. it is not published in print,
@@ -338,28 +425,29 @@ it should be cited as an electronic information resource. This can be
 achieved by providing the \t|urldate| field. On the other hand
 \newline
 
-\c{knuth}
-\begin{verbatim}
-@PERIODICAL{tug,
-  journaltitle  =   {TUGBoat},
-  publisher     =   {TUG},
-  issn          =   {1222-3333},
-  langid        =   {english},
-  date          =   {1980/},
-  url           =   {http://tugboat.tug.org/}
+\c{knuth1990virtual}
+\begin{ltxexample}
+@periodical{tugboat1980,
+  journaltitle = {TUGBoat},
+  publisher    = {TUG},
+  date         = {1980/},
+  issn         = {0896-3207},
+  url          = {http://tugboat.tug.org/TUGboat},
+  langid       = {english},
+  options      = {skipbib=true},
 }
 
-@ARTICLE{knuth,
-  author        =   {Knuth, Donald},
-  title         =   {Journeys of \TeX},
-  volume        =   {17},
-  number        =   {3},
-  year          =   {2003},
-  pages         =   {12-22},
-  url           =   {http://tugboat.tug.org/kkk.pdf},
-  crossref      =   {tug}
+@article{knuth1990virtual,
+  author       = {Knuth, Donald Erwin},
+  title        = {Virtual Fonts: More Fun for Grand Wizards},
+  date         = {1990-04},
+  volume       = {11},
+  number       = {1},
+  pages        = {13--23},
+  url          = {http://tugboat.tug.org/TUGboat/tb11-1/tb27knut.pdf},
+  crossref     = {tugboat1980},
 }
-\end{verbatim}
+\end{ltxexample}
 
 \noindent the example shows an article in a printed magazine, which is 
 \emph{also} available online. Similar to the contribution to a collection,
@@ -374,15 +462,55 @@ The \t|thesis| entry type and its aliases \t|mastersthesis| and
 \t|type| field to specify the type of the thesis -- a localization
 term or literal string can be entered. For the list of supported
 localization terms, please refer to section 4.9.2.13 of the
-\t|biblatex| documentation. Names of the supervisor and school
-(institution) can be entered into the fields \t|supervisor| and
-\t|institution|, respectively.
+\t|biblatex| documentation. Available terms are \t|bathesis|,
+\t|mathesis|, \t|phdthesis|, and \t|candthesis|. Names of the
+supervisor and school (institution) can be entered into the fields
+\t|supervisor| and \t|institution|, respectively.
+\newline
+
+\c{luptak2016thesis}
+\begin{ltxexample}
+@thesis{luptak2016thesis,
+  author       = {Lupták, Dávid},
+  title        = {Typesetting of Bibliography According to ISO 690 Norm},
+  date         = {2016},
+  howpublished = {online},
+  type         = {bathesis},
+  institution  = {Masaryk University, Faculty of Informatics},
+  location     = {Brno},
+  supervisor   = {Petr Sojka},
+  url          = {https://is.muni.cz/th/422640/fi_b/},
+  urldate      = {2016-06-14},
+}
+\end{ltxexample}
 
 \paragraph{Patent}\hfill\\
 
-The field \t|classification| is available for the respective stuff.
-For other details regarding \t|patent| type, please refer
-to the \t|biblatex| documentation.
+The field \t|number| is available for the patent classification
+or request number.
+If the inventor is also known, we can use \t|editora| and \t|editoratype|
+fields to specify that. Use an additionally created role \t|inventor| for the
+\t|editoratype| field; it is the key that translates based on the localization
+strings.
+For the patent type, we can use localization strings as well, e.g.
+\t|patenteu|.
+\newline
+
+\c{groll2008method}
+\begin{ltxexample}
+@patent{groll2008method,
+  author      = {Clad Metals LLC Canonsburg, PA 15317 (US)},
+  title       = {Method of making a copper core five-ply composite
+                  and cooking vessel},
+  editora     = {Groll, W. A.},
+  editoratype = {inventor},
+  publisher   = {Google Patents},
+  number      = {EP 1 094 937 B1},
+  type        = {patenteu},
+  date        = {2008-07-30},
+  url         = {https://patents.google.com/patent/EP1094937B1},
+}
+\end{ltxexample}
 
 \subsection{Hints and Caveats}
 
@@ -404,34 +532,20 @@ specific ones (e.g. \t|translator|) can be used. Note also the field
 to specify the type of the editor. This is useful to distinguish the role
 of the creator and their relationship to the cited work. Some roles
 are supported by default, e.g. \t|editor|, \t|compiler|, \t|founder|
-and \t|reviser|, in other cases the literal string can be entered.
+and \t|reviser|, some are created additionally, i.e. \t|inventor|,
+\t|director|; in other cases use the literal string.
 
 Example:
 When citing cinematographic works which are typically the output of many
 individuals, the title should be used as the first element of the reference.
 However, it is appropriate to include some relevant roles, e.g. the director:
 
-%\begin{ltxexample}
-\begin{verbatim}
+\begin{ltxexample}
   ..
-  editora     = {Welles, Orson}
-  editoratype = {Directed by}
+  editora     = {Welles, Orson},
+  editoratype = {director},
   ..
-\end{verbatim}
-%\end{ltxexample}
-
-in English, or
-
-%\begin{ltxexample}
-\begin{verbatim}
-  ..
-  editora     = {Welles, Orson}
-  editoratype = {Réžia}
-  ..
-\end{verbatim}
-%\end{ltxexample}
-
-in Slovak.
+\end{ltxexample}
 
 The field \t|nameaddon| can be used to append additional information
 to the creator's name, e.g. variant forms of a name, name additions
@@ -471,25 +585,19 @@ updated versions of an item, usually software.
 
 \subsubsection{Date}
 
+If an exact date is not known, an approximate date should be supplied in
+brackets preceded by circa string (ca.). To achieve this behaviour, specify
+the date followed by a tilde, as in the example below.
+
+\begin{ltxexample}
+  date = {1490~},         % tilde meaning circa
+\end{ltxexample}
+
 In case no date is given and also no approximation is possible, that
 should be stated. Please reflect this in the \t|bib| file by including
-the following line in the respective entry.
-
-\begin{verbatim}
-  ..
-  date = {\mkbibbrackets{\bibsstring{nodate}}}
-  ..
-\end{verbatim}
-
-Explanation of the above code:
-\t|nodate| is a localization string which prints something like
-\textit{n.d.}, \textit{b.r.}, etc. depending on the language,
-\t|bibsstring| is a command to use such localization terms and
-\t|mkbibbrackets| is a command used to wrap its argument into
-square brackets. Finally, this statement is entered into
-the date entry field to be available as a date in a reference.
-So as a result we get e.g. \textit{[n.d.]}, which conforms to
-the standard.
+no date field in the respective entry. It automatically translates
+to something like \textit{[n.d.]}, based on your language, meaning
+\textit{no date}.
 
 Please also note the syntax for dates -- ISO 8601 format
 (YYYY-MM-DD) is accepted. Please use slash instead of
@@ -500,11 +608,11 @@ the \t|year| field in general.
 
 Examples follow:
 
-\begin{verbatim}
+\begin{ltxexample}
   date = {2012-12-21}    % exact date
   date = {1998/2001}     % date range
   date = {2016/}         % open ended date range
-\end{verbatim}
+\end{ltxexample}
 
 \subsubsection{Location}
 
@@ -521,7 +629,28 @@ in a reference. The field \t|library| serves for this purpose.
 
 \begin{changelog}
 
-\begin{release}{0.3.3}{????-??-??}
+\begin{release}{0.3.4}{20??-??-??}
+\item Fixed deprecated name handling
+\item Declared mapping suffix (<lang>-iso.lbx) for localization files
+\item Updated and improved documentation and bib examples
+\item Delimiters defined by new way
+\item Refined \t|date| macros
+\item Added date circa
+\item Commented source code to better understand it for others
+\item Employed standard \cmd{mkbibacro} for DOI, ISBN, ISSN, ISAN, ISMN, ISRN, ISWC
+  (small caps instead of uppercase)
+\item Replaced \t|clasification| with \t|number| field for patent entries
+\item Added localization strings \t|director|, \t|bydirector|, \t|inventor|, \t|byinventor|,
+  \t|online|
+\item Added Bulgarian and French localization
+\item Increased maximum number of names to print to 99 (9 before)
+\item Removed \biblatex{} backwards compatibility code
+\item Fixed printing \t|url| and \t|urldate| for @online entries
+\item Fixed multiple ISBNs / ISSNs
+\item Fixed typos, code improvements
+\end{release}
+
+\begin{release}{0.3.3}{2019-10-30}
 \item Doc better wording
 \item Enable multilingual references by default
 \item Added isbn, doi, url and eprint options for blocking corresponding fields
@@ -531,6 +660,7 @@ in a reference. The field \t|library| serves for this purpose.
 \item Changed URL address for DOI records
 \item Clean up of indentation and spacing in the source code
 \item Renamed \t|editor| macro to \t|incollection-editor|
+\item Added Polish localization
 \end{release}
 
 \begin{release}{0.3.2}{2017-04-25}
