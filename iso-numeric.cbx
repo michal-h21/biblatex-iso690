@@ -3,4 +3,12 @@
 \RequireCitationStyle{numeric}
 \RequireCitationStyle{iso-fullcite}
 
+% Format \parencite with parentheses instead of brackets
+\DeclareCiteCommand{\parencite}[\mkbibparens]% <---- was \mkbibbrackets
+  {\usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
+
 \endinput

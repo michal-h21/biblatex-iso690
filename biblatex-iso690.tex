@@ -205,10 +205,21 @@ for which citation method. Here is an overview.
 \subsubsection{Numeric system}
 
 For \t|iso-numeric| style, the usage of cite command is as simple as
-\cmd{cite}.
+\cmd{cite} (citation number in brackets), \cmd{parencite} (citation number in
+parentheses), or \cmd{supercite} (citation number as a supercite).
 
 \noindent
-Example: command \cmd{cite\{knuth1990virtual\}} outputs [1].
+Example (number 1 only serves as a random citation number):
+\begin{itemize}
+  \item command \cmd{cite\{knuth1990virtual\}} outputs [1],
+  \item command \cmd{parencite\{knuth1990virtual\}} outputs (1),
+  \item command \cmd{supercite\{knuth1990virtual\}} outputs $^1$.
+\end{itemize}
+
+\noindent
+According to the standard, pick and stick to only one citation format in the
+whole document (select either only \cmd{cite}, or \cmd{parencite}, or
+\cmd{supercite}).
 
 \subsubsection{Author-year system}
 
