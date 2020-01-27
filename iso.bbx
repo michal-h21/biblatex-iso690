@@ -489,15 +489,25 @@
 
 % Based on publisher+location+date macro (defined in standard.bbx)
 % Differs only in punctuation
-\newbibmacro*{location+publisher+date}{%
+%
+% Wrapper for printing normal or full date. 1st argument:
+% * empty: \usebibmacro{date}
+% * 'full': \usebibmacro{fulldate}
+\newbibmacro*{location+publisher+dateform}[1]{
   \printlist{location}%
   \iflistundef{publisher}
     {\setunit*{\addcomma\space}}%
-    {\setunit*{\subtitlepunct}}%
+    {\setunit*{\subtitlepunct}}% <---- different punctuation
   \printlist{publisher}%
   \setunit*{\addcomma\space}%
-  \usebibmacro{date}%
+  \usebibmacro{#1date}%
   \newunit}
+
+\newbibmacro*{location+publisher+date}{%
+  \usebibmacro{location+publisher+dateform}{}}
+
+\newbibmacro*{location+publisher+fulldate}{%
+  \usebibmacro{location+publisher+dateform}{full}}
 
 % NUMERATION MACROS
 
@@ -1196,7 +1206,7 @@
   \newunit\newblock
   \usebibmacro{names:subsidiary}%
   \newunit\newblock
-  \usebibmacro{location+publisher+date}%
+  \usebibmacro{location+publisher+fulldate}%
   \newunit
   \printfield{version}%
   \setunit{\addspace}%
