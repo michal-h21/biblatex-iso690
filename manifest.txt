@@ -1,8 +1,10 @@
 biblatex-iso690.pdf
 biblatex-iso690.tex
 bibpok.tex
+bulgarian-iso.lbx
 czech-iso.lbx
 english-iso.lbx
+french-iso.lbx
 german-iso.lbx
 iso-alphabetic.bbx
 iso-alphabetic.cbx
