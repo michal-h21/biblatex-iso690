@@ -332,16 +332,17 @@
 % NAMES MACROS
 
 % Based on author/editor macro
-% Adds nameaddon field to names
+% Adds nameaddon field to author names
 \newbibmacro*{names:primary}{%
   \ifboolexpr{
     test \ifuseauthor
     and
     not test {\ifnameundef{author}}
   }
-    {\usebibmacro{author}}
+    {\usebibmacro{author}
+     \setunit{\addspace}%
+     \printfield{nameaddon}}%
     {\usebibmacro{editor}}%
-  \setunit{\addspace}\printfield{nameaddon}%
 }
 
 % Macro for secondary authors with their role

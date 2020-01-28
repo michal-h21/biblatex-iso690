@@ -5,6 +5,12 @@
   sorting=nyt,
 }
 
+% Delimiter between creator name and year in bibliography
+\DeclareDelimFormat[bib,biblist]{nameyeardelim}{\addcomma\space}
+% Delimiter between substitution of creator name (if any)
+% and year in bibliography
+\DeclareDelimFormat[bib,biblist]{nonameyeardelim}{\addcomma\space}
+
 % The field extradate turns from integer type to a letter
 % after year to distinguish more works of the author
 % from the same year, e.g. 1994a, 1994b.
@@ -42,18 +48,41 @@
 % Need to handle not to print editor twice (primary
 % and subsidiary names)
 \renewbibmacro*{names:primary}{%
+  % First check if we have author(s) available
   \ifboolexpr{
     test \ifuseauthor
     and
     not test {\ifnameundef{author}}
   }
-    {\usebibmacro{author}}%
-    {\usebibmacro{editor}}%
-  \setunit{\addspace}%
-  \printfield{nameaddon}%
-  \setunit{\addcomma\space}%
+    {\usebibmacro{author}%
+     \setunit{\addspace}%
+     \printfield{nameaddon}%
+     \setunit{\printdelim{nameyeardelim}}}%
+    {% If no author(s) is available, check for editor(s)
+      \ifboolexpr{
+        test \ifuseeditor
+        and
+        not test {\ifnameundef{editor}}
+      }
+        {\usebibmacro{editor}%
+         \setunit{\printdelim{nameyeardelim}}}%
+        {% If no editor(s) is available, use label/title
+         \usebibmacro{labeltitle}%
+         \setunit{\printdelim{nonameyeardelim}}}}%
+  % And finally print date
   \usebibmacro{date+extradate}%
 }
+
+% Print label or title in place of names if they are not available
+\newbibmacro*{labeltitle}{%
+  \iffieldundef{label}
+    {\iffieldundef{shorttitle}
+       {\usebibmacro{titles}{}{emph}%
+        \clearfield{title}%
+        \clearfield{subtitle}%
+        \clearfield{titleaddon}}
+       {\printfield[title]{shorttitle}}}
+    {\printfield{label}}}
 
 \InitializeBibliographyStyle{\global\undef\bbx@lasthash}
 
