@@ -22,40 +22,47 @@
 \newtoggle{bbx:doi}
 \newtoggle{bbx:eprint}
 
+\protected\def\isoblx@info@noline#1{%
+  \PackageInfo{biblatex-iso690}{#1\@gobble}}
+\let\isoblx@info\isoblx@info@noline
+\AtEndOfPackage{%
+  \protected\def\isoblx@info#1{%
+    \PackageInfo{biblatex-iso690}{#1}}}
+
 % Declare new package options
 % Description of these options is in the doc file
 % '\typeout' command prints to the console
 \DeclareBibliographyOption{spacecolon}[true]{%
   \settoggle{bbx:spcolon}{#1}%
-  \typeout{Space colon enabled: #1}}
+  \isoblx@info@noline{Space colon enabled: #1}}
 
 \DeclareBibliographyOption{pagetotal}[true]{%
   \settoggle{bbx:totalpages}{#1}%
-  \typeout{Showing total pages enabled: #1}}
+  \isoblx@info@noline{Total pages enabled: #1}}
 
 \DeclareBibliographyOption{shortnumeration}[true]{%
   \settoggle{bbx:shortnum}{#1}%
-  \typeout{Short numeration enabled: #1}}
+  \isoblx@info@noline{Short numeration enabled: #1}}
 
 \DeclareBibliographyOption{thesisinfoinnotes}[true]{%
   \settoggle{bbx:thesisinfoinnotes}{#1}%
-  \typeout{Printing thesis info at the end enabled: #1}}
+  \isoblx@info@noline{Printing thesis info at the end enabled: #1}}
 
 \DeclareBibliographyOption{url}[true]{%
   \settoggle{bbx:url}{#1}%
-  \typeout{Showing URL field enabled: #1}}
+  \isoblx@info@noline{URL field enabled: #1}}
 
 \DeclareBibliographyOption{isbn}[true]{%
   \settoggle{bbx:isbn}{#1}%
-  \typeout{Showing ISBN field enabled: #1}}
+  \isoblx@info@noline{ISBN field enabled: #1}}
 
 \DeclareBibliographyOption{doi}[true]{%
   \settoggle{bbx:doi}{#1}%
-  \typeout{Showing DOI field enabled: #1}}
+  \isoblx@info@noline{DOI field enabled: #1}}
 
 \DeclareBibliographyOption{eprint}[true]{%
   \settoggle{bbx:eprint}{#1}%
-  \typeout{Showing eprint field enabled: #1}}
+  \isoblx@info@noline{eprint field enabled: #1}}
 
 % Set default package options
 \ExecuteBibliographyOptions{%
