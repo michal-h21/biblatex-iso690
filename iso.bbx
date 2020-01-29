@@ -339,7 +339,7 @@
     and
     not test {\ifnameundef{author}}
   }
-    {\usebibmacro{author}
+    {\usebibmacro{author}%
      \setunit{\addspace}%
      \printfield{nameaddon}}%
     {\usebibmacro{editor}}%
@@ -494,10 +494,10 @@
 % Wrapper for printing normal or full date. 1st argument:
 % * empty: \usebibmacro{date}
 % * 'full': \usebibmacro{fulldate}
-\newbibmacro*{location+publisher+dateform}[1]{
+\newbibmacro*{location+publisher+dateform}[1]{%
   \printlist{location}%
   \iflistundef{publisher}
-    {\setunit*{\addcomma\space}}%
+    {\setunit*{\addcomma\space}}
     {\setunit*{\subtitlepunct}}% <---- different punctuation
   \printlist{publisher}%
   \setunit*{\addcomma\space}%
@@ -1089,7 +1089,7 @@
   \newunit\newblock
   \printfield{edition}%
   \newunit\newblock
-  \usebibmacro{location+publisher+date}
+  \usebibmacro{location+publisher+date}%
   \setunit*{\addcomma\space}%
   \usebibmacro{serial:numeration}%
   \setunit{\bibpagespunct}%
@@ -1247,7 +1247,7 @@
   \newunit\newblock
   \iftoggle{bbx:thesisinfoinnotes}
     {}
-    {\printfield{type}
+    {\printfield{type}%
      \newunit\newblock
      \printlist{institution}%
      \newunit\newblock
