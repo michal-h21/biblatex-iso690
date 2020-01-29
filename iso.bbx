@@ -362,8 +362,8 @@
 \newbibmacro*{thesissupervisor}{%
   \ifnameundef{supervisor}
     {}
-    {\printtext{\mainlangbibstring{bysupervisor}}%
-     \addspace%
+    {\mainlangbibstring{bysupervisor}%
+     \setunit{\addspace}%
      \printnames{supervisor}}%
 }
 
@@ -560,13 +560,17 @@
 
 % Precedes DOI field with urlfrom localisation string
 \newbibmacro*{from-doi}{%
-  \mainlangbibstring{urlfrom}\addspace\printfield{doi}%
+  \mainlangbibstring{urlfrom}%
+  \setunit{\addspace}%
+  \printfield{doi}%
 }
 
 % Precedes eprint field with urlfrom localisation string
 % Use default eprint formatting macro
 \newbibmacro*{from-eprint}{%
-  \mainlangbibstring{urlfrom}\addspace\usebibmacro{eprint}%
+  \mainlangbibstring{urlfrom}
+  \setunit{\addspace}%
+  \usebibmacro{eprint}%
 }
 
 % Macro for availability and access information
