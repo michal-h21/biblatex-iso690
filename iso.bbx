@@ -188,8 +188,8 @@
     {\mkbibparens{#1}}
     {\bibstring{number}\addspace #1}%
 }
-% Differentiate number for patent: format as is
-\DeclareFieldFormat[patent]{number}{#1}
+% Differentiate number for patent and report: format as is
+\DeclareFieldFormat[patent,report]{number}{#1}
 
 % a) url AND no urldate: use localisation string 'available ALSO from',
 %    meaning: the work is not primarily published electronically
@@ -1284,6 +1284,43 @@
   \usebibmacro{pageref}%
   \usebibmacro{finentry}}%
 
+\DeclareBibliographyDriver{report}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{names:primary}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{titles}{}{emph}%
+  \setunit{\addspace}%
+  \usebibmacro{medium-type}%
+  \newunit\newblock
+  \usebibmacro{location+publisher+fulldate}%
+  \newunit
+  \printfield{version}%
+  \setunit{\addspace}%
+  \usebibmacro{urldate}%
+  \newunit\newblock
+  \iffieldundef{type}
+    {}
+    {\printfield{type}%
+     \setunit*{\addcomma\space}}%
+  \printfield{number}%
+  \newunit\newblock
+  \printlist{institution}%
+  \newunit\newblock
+  \usebibmacro{identifier}%
+  \newunit\newblock
+  \usebibmacro{availability+access}%
+  \setunit{\addspace}%
+  \iftoggle{bbx:totalpages}
+    {\printfield{pagetotal}}
+    {}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \usebibmacro{finentry}}
+
 \DeclareBibliographyDriver{patent}{%
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
@@ -1327,7 +1364,6 @@
 \DeclareBibliographyAlias{inproceedings}{incollection}
 \DeclareBibliographyAlias{reference}{collection}
 \DeclareBibliographyAlias{inreference}{incollection}
-\DeclareBibliographyAlias{report}{thesis}
 \DeclareBibliographyAlias{unpublished}{book}
 \DeclareBibliographyAlias{*}{misc}
 
