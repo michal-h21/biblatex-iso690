@@ -134,9 +134,9 @@ You might want to see also some already existing translations, e.g.
 
 ## License
 
-Copyright (C) 2011--2017 Michal Hoftich
-              2015--2017 Moritz Wemheuer
-              2016--2017 Dávid Lupták
+Copyright (C) 2011--2020 Michal Hoftich
+              2015--2020 Moritz Wemheuer
+              2016--2020 Dávid Lupták
 
 This work may be distributed and/or modified under the
 conditions of the LaTeX Project Public License, either version 1.3
