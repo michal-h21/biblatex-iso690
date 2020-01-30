@@ -25,7 +25,7 @@ or unzip the file
 
 here. You should be able to use **biblatex-iso690** now.
 
-## Usage:
+## Usage
 ```latex
 \usepackage[english,czech]{babel} % the main document language is the last one
 \usepackage[
@@ -93,6 +93,20 @@ publisher = {Academia},
 ```
 
 For more details see the file [mybib.bib](https://github.com/michal-h21/biblatex-iso690/blob/master/mybib.bib).
+
+## Contributing
+
+### Translations
+
+This package comes with the extension of the localization files (`.lbx`) to their standard versions shipped with `biblatex`. The naming convention for these files is `<langid>-iso.lbx`, where `langid` is the name of the language known by Babel.
+
+If the `<langid>.lbx` is already included in `biblatex`, adding a `<langid>-iso.lbx` is as easy as adding this single file to the root directory of this package. Otherwise, please consider [a contribution to the `biblatex` package](https://github.com/plk/biblatex/#translation) first.
+
+If you also aim to add new localisation strings, you have to define them via `\NewBibliographyString` command at the beginning of the [iso.bbx](iso.bbx) file.
+
+A quick translation guideline for the additional strings is available at the wiki page [Translation Guideline](https://github.com/michal-h21/biblatex-iso690/wiki/Translation-Guideline).
+
+You might want to see also some already existing translations, e.g. [english-iso.lbx](english-iso.lbx) or [slovak-iso.lbx](slovak-iso.lbx).
 
 ## License
 
