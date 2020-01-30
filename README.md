@@ -1,21 +1,22 @@
 # Biblatex style for ISO 690 standard
 
 Biblatex is a bibliography and citation tool for LaTeX. This project provides
-support for citations in ISO 690 style. As the standard is a little bit ambiguous
-in some details regarding formatting of records, we largely follow
+support for citations in ISO 690 style. As the standard is a little bit
+ambiguous in some details regarding formatting of records, we largely follow
 requirements of Czech interpretation, as it is required form in many Czech
 universities. The style can be used in other languages as well, of course.
 
 ## Install
 
-Open the terminal and find location of your `TEXMFHOME` directory with this command:
+Open the terminal and find location of your `TEXMFHOME` directory with this
+command:
 
     kpsewhich -var-value TEXMFHOME
 
-Open this directory and check that the directory `$TEXMFHOME/tex/latex` exists.
-If it doesn't exist, you must create it. You can do this from the
-command line or using a file manager. Open the `$TEXMFHOME/tex/latex` directory and either
-run the command
+Open this directory and check that the directory `$TEXMFHOME/tex/latex`
+exists. If it doesn't exist, you must create it. You can do this from the
+command line or using a file manager. Open the `$TEXMFHOME/tex/latex`
+directory and either run the command
 
     git clone git@github.com:michal-h21/biblatex-iso690.git
 
@@ -36,7 +37,8 @@ here. You should be able to use **biblatex-iso690** now.
 
 ### Custom options
 
-Above and beyond the scope of package options provided by `biblatex` itself, here are also some more. Default values are in **bold**.
+Above and beyond the scope of package options provided by `biblatex` itself,
+here are also some more. Default values are in **bold**.
 
 * `spacecolon`
   add space before colon in publisher and title (and also title and subtitle):
@@ -74,12 +76,14 @@ Above and beyond the scope of package options provided by `biblatex` itself, her
 ### Bibliographic fields
 Some fields have a different meaning than in plain BibTeX.
 
-1\. If the publication is written in a different language to the main document, it should have a filled `langid` field.
+1\. If the publication is written in a different language to the main
+document, it should have a filled `langid` field.
 ```
 langid = {czech},
 ```
 
-2\. Publications with online versions should have a `urldate` field. It is the date when you last checked the publication online.
+2\. Publications with online versions should have a `urldate` field. It is the
+date when you last checked the publication online.
 ```
 urldate = {2011-01-12},
 ```
@@ -92,21 +96,33 @@ location = {Praha},
 publisher = {Academia},
 ```
 
-For more details see the file [mybib.bib](https://github.com/michal-h21/biblatex-iso690/blob/master/mybib.bib).
+For more details see the file
+[mybib.bib](https://github.com/michal-h21/biblatex-iso690/blob/master/mybib.bib).
 
 ## Contributing
 
 ### Translations
 
-This package comes with the extension of the localization files (`.lbx`) to their standard versions shipped with `biblatex`. The naming convention for these files is `<langid>-iso.lbx`, where `langid` is the name of the language known by Babel.
+This package comes with the extension of the localization files (`.lbx`) to
+their standard versions shipped with `biblatex`. The naming convention for
+these files is `<langid>-iso.lbx`, where `langid` is the name of the language
+known by Babel.
 
-If the `<langid>.lbx` is already included in `biblatex`, adding a `<langid>-iso.lbx` is as easy as adding this single file to the root directory of this package. Otherwise, please consider [a contribution to the `biblatex` package](https://github.com/plk/biblatex/#translation) first.
+If the `<langid>.lbx` is already included in `biblatex`, adding a
+`<langid>-iso.lbx` is as easy as adding this single file to the root directory
+of this package. Otherwise, please consider [a contribution to the `biblatex`
+package](https://github.com/plk/biblatex/#translation) first.
 
-If you also aim to add new localisation strings, you have to define them via `\NewBibliographyString` command at the beginning of the [iso.bbx](iso.bbx) file.
+If you also aim to add new localisation strings, you have to define them via
+`\NewBibliographyString` command at the beginning of the [iso.bbx](iso.bbx)
+file.
 
-A quick translation guideline for the additional strings is available at the wiki page [Translation Guideline](https://github.com/michal-h21/biblatex-iso690/wiki/Translation-Guideline).
+A quick translation guideline for the additional strings is available at the
+wiki page [Translation
+Guideline](https://github.com/michal-h21/biblatex-iso690/wiki/Translation-Guideline).
 
-You might want to see also some already existing translations, e.g. [english-iso.lbx](english-iso.lbx) or [slovak-iso.lbx](slovak-iso.lbx).
+You might want to see also some already existing translations, e.g.
+[english-iso.lbx](english-iso.lbx) or [slovak-iso.lbx](slovak-iso.lbx).
 
 ## License
 
