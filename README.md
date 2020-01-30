@@ -8,6 +8,14 @@ universities. The style can be used in other languages as well, of course.
 
 ## Install
 
+The package is included in MikTeX and TeX Live distributions since 2016, so it could be shipped with your TeX installation.
+
+It is also available on CTAN as `biblatex-iso690`:
+
+https://www.ctan.org/pkg/biblatex-iso690
+
+### Install from GitHub
+
 Open the terminal and find location of your `TEXMFHOME` directory with this
 command:
 
@@ -24,7 +32,7 @@ or unzip the file
 
     https://github.com/michal-h21/biblatex-iso690/archive/master.zip
 
-here. You should be able to use **biblatex-iso690** now.
+here. You should be able to use `biblatex-iso690` now.
 
 ## Usage
 ```latex
@@ -145,6 +153,6 @@ The Current Maintainer of this work is Michal Hoftich.
 This work consists of all files listed in [manifest.txt](./manifest.txt).
 
 The package is available on CTAN https://www.ctan.org/pkg/biblatex-iso690
-and is included in MikTeX and TeX live 2016 or later as `biblatex-iso690`.
+and is included in MikTeX and TeX Live 2016 or later as `biblatex-iso690`.
 The development version can be found on GitHub
 https://github.com/michal-h21/biblatex-iso690.
