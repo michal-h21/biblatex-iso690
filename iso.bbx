@@ -1,6 +1,5 @@
 \ProvidesFile{iso.bbx}[2017/04/25 v0.3.2 biblatex bibliography style]
 
-
 % Currently available language mappings:
 % Czech, English, Slovak, German, Polish, Bulgarian,
 % French (blank)
@@ -23,6 +22,7 @@
 \newtoggle{bbx:eprint}
 \newtoggle{bbx:articlepubinfo}
 
+% Print info about package options into .log file
 \protected\def\isoblx@info@noline#1{%
   \PackageInfo{biblatex-iso690}{#1\@gobble}}
 \let\isoblx@info\isoblx@info@noline
@@ -32,7 +32,7 @@
 
 % Declare new package options
 % Description of these options is in the doc file
-% '\typeout' command prints to the console
+% '\isoblx@info@noline' command prints to the .log file
 \DeclareBibliographyOption{spacecolon}[true]{%
   \settoggle{bbx:spcolon}{#1}%
   \isoblx@info@noline{Space colon enabled: #1}}
