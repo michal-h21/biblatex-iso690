@@ -80,6 +80,11 @@ here are also some more. Default values are in **bold**.
   enable or disable printing of the URL
   * **[true]** Available from: <https://github.com/michal-h21/biblatex-iso690>
   *   [false] --
+* `articlepubinfo`
+  enable or disable printing publication information (`location` and
+  `publisher` fields) for an `@article` entry type
+  *   [true]    Journal of Money, Credit and Banking. Ohio State University Press, vol. 38, no. 1, pp. 119–140.
+  * **[false]** Journal of Money, Credit and Banking. Vol. 38, no. 1, pp. 119–140.
 
 ### Bibliographic fields
 Some fields have a different meaning than in plain BibTeX.

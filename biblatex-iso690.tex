@@ -280,27 +280,27 @@ encoding of the \t|tex| file.
 \subsubsection{Provided by \t|biblatex-iso690| in addition}
 
 \begin{description}
-  \item[spacecolon] if \t|true|, a space is printed before the colon
-  used in subtitles and publication information. Printing the colon this way
-  is not recommended. Default value is \t|false|.
+
+  \item[spacecolon] if \t|true|, a space is printed before the colon used in
+    subtitles and publication information. Printing the colon this way is not
+    recommended. Default value is \t|false|.
 
   \item[pagetotal] the number of total pages is no longer required if the 
-  item is being cited as a whole. Setting this option to \t|true| will print
-  such optional information in the notes section at the end of the reference.
-  Default value is \t|false|.\label{pkg:opt:iso690:pp}
+    item is being cited as a whole. Setting this option to \t|true| will print
+    such optional information in the notes section at the end of the reference.
+    Default value is \t|false|.\label{pkg:opt:iso690:pp}
 
   \item[shortnumeration] the standard ISO~690 allows omission of term
-  \t|volume| and terms for smaller components of a serial publication.
-  If this option is \t|true|, such terms are distinguished typographically
-  (the volume number in bold type and the part number, if required, in
-  parentheses). If \t|false|, such terms are printed with preceding
-  literal terms.
+    \t|volume| and terms for smaller components of a serial publication. If
+    this option is \t|true|, such terms are distinguished typographically (the
+    volume number in bold type and the part number, if required, in
+    parentheses). If \t|false|, such terms are printed with preceding literal
+    terms.
 
-  \item[thesisinfoinnotes] to print a thesis information
-  (thesis type, institution and supervisor) before the section
-  \textit{availability and access} is possible by setting the option
-  to \t|false|. Otherwise it will be printed in the \textit{notes} section.
-  Default value is \t|true|.
+  \item[thesisinfoinnotes] to print a thesis information (thesis type,
+    institution and supervisor) before the section \textit{availability and
+    access} is possible by setting the option to \t|false|. Otherwise it will
+    be printed in the \textit{notes} section. Default value is \t|true|.
 
   \item[doi] enable or disable printing of the DOI number. Default value is
     \t|true|.
@@ -312,6 +312,11 @@ encoding of the \t|tex| file.
     is \t|true|.
  
   \item[url] enable or disable printing of the URL. Default value is \t|true|.
+
+  \item[articlepubinfo] enable or disable printing publication information
+    (\t|location| and \t|publisher| fields) for an \t|@article| entry type.
+    Default value is \t|false| since it is very unusual behavior and rarely
+    used by either other citation styles or citation managers.
 
 \end{description}
 

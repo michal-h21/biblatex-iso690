@@ -21,6 +21,7 @@
 \newtoggle{bbx:isbn}
 \newtoggle{bbx:doi}
 \newtoggle{bbx:eprint}
+\newtoggle{bbx:articlepubinfo}
 
 \protected\def\isoblx@info@noline#1{%
   \PackageInfo{biblatex-iso690}{#1\@gobble}}
@@ -64,6 +65,10 @@
   \settoggle{bbx:eprint}{#1}%
   \isoblx@info@noline{eprint field enabled: #1}}
 
+\DeclareBibliographyOption{articlepubinfo}[true]{%
+  \settoggle{bbx:articlepubinfo}{#1}%
+  \isoblx@info@noline{Article publication info enabled: #1}}
+
 % Set default package options
 \ExecuteBibliographyOptions{%
   spacecolon=false,
@@ -74,6 +79,7 @@
   isbn=true,
   doi=true,
   eprint=true,
+  articlepubinfo=false, % printing article publication info is unusual
   maxnames=99,% if possible, all creators should be given in the reference
   minnames=1,% if any names are omitted => first creator + and others (et al.)
   citetracker=true,% citation tracker in global mode
@@ -1100,7 +1106,9 @@
   \newunit\newblock
   \printfield{edition}%
   \newunit\newblock
-  \usebibmacro{location+publisher+date}%
+  \iftoggle{bbx:articlepubinfo}
+    {\usebibmacro{location+publisher+date}}
+    {\usebibmacro{date}}%
   \setunit*{\addcomma\space}%
   \usebibmacro{serial:numeration}%
   \setunit{\bibpagespunct}%
