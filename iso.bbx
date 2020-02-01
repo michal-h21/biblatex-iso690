@@ -80,10 +80,10 @@
   isbn=true,
   doi=true,
   eprint=true,
-  articlepubinfo=false, % printing article publication info is unusual
-  maxnames=99,% if possible, all creators should be given in the reference
-  minnames=1,% if any names are omitted => first creator + and others (et al.)
-  citetracker=true,% citation tracker in global mode
+  articlepubinfo=false, % Printing article publication info is unusual
+  maxnames=99,% If possible, all creators should be given in the reference
+  minnames=1,% If any names are omitted => first creator + and others (et al.)
+  citetracker=true,% Citation tracker in global mode
   autolang=other,% Use the 'langid' language for the entry
   date=year,% Use only years
   urldate=iso,% Use ISO8601 Extended Format (yyyy-mm-dd) for URL 'seen' dates
@@ -636,10 +636,10 @@
 
 % OTHER MACROS
 
-% redeclare in: bibmacro to use the main document language.
-% there was discussion whether literal "In:" should be used,
+% Redeclare in: bibmacro to use the main document language.
+% There was discussion whether literal "In:" should be used,
 % but that would look weird in non-latin languages.
-% context: https://github.com/michal-h21/biblatex-iso690/pull/33
+% Context: https://github.com/michal-h21/biblatex-iso690/pull/33
 
 % Force to use the main document language for 'in' localisation string
 \renewbibmacro*{in:}{%
@@ -868,9 +868,9 @@
                  \dateeraprint{#2endyear}}}}}%
   \endgroup}
 
-% other date formats for completeness
+% Other date formats for completeness
 
-% avoids error with older biblatex version
+% Avoids error with older biblatex version
 % WARNING: of course this means that in older versions the
 % date printing macro will not be changed as expected
 % this is not an issue for biblatex-iso690 since it only uses
@@ -913,7 +913,7 @@
                \dateeraprint{#2endyear}}}}}%
   \endgroup}
 
-% avoids error with older biblatex version
+% Avoids error with older biblatex version
 % WARNING: of course this means that in older versions the
 % date printing macro will not be changed as expected
 % this is not an issue for biblatex-iso690 since it only uses
@@ -1067,7 +1067,7 @@
 \DeclareBibliographyDriver{periodical}{%
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
-  % names macro just because of author-year style
+  % Names macro just because of author-year style
   \usebibmacro{names:primary}%
   \setunit{\printdelim{nametitledelim}}\newblock
   \usebibmacro{periodical:titles}%
