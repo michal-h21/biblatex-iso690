@@ -260,15 +260,17 @@ is the default one for the \biblatex package, providing a large variety
 of features. Other options are \t|bibtex| and \t|bibtex8|, but they both
 are far behind the possibilities of \biber. \biber is the recommended backend.
 
-\item[autolang] controls which language environment is used. The most
-significant value is \t|other|, which supports printing localization
-terms in the language of the resource or language specific hyphenation. 
-Default value for \biblatex package is \t|none|, which disables this feature.
-Default value for \t|biblatex-iso690| package is \t|other|.
+\item[autolang] controls which language environment is used. The default value
+for this package is \t|other|, which encloses the bib entry in an
+\t|otherlanguage| environment and prints localization terms in the language of
+the resource or uses language-specific hyphenation. Use the \t|langid| field
+in bib entry to specify its language.
 
 \item[sortlocale] responsible for sorting the bibliography according to the
-entered \t|locale| identifier. It should usually be set to one using the 
-main document language, e.g. \t|en\_IN| for English as used in India.
+entered \t|locale| identifier. It should usually be set to one using the  main
+document language, e.g. \t|en\_IN| for English as used in India. Another
+example, this document is in English (main document language), but uses Czech
+sorting (\t|sortlocale=cs\_CZ|).
 \end{description}
 
 \subsubsection{Provided by \t|biblatex-iso690| in addition}
