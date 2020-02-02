@@ -1,4 +1,5 @@
-\ProvidesFile{iso-numeric.dbx}[2017/04/25 v0.3.2 biblatex data model extension]
+\ProvidesFile{iso-numeric.dbx}
+  [2017/04/25 v0.3.2 ISO 690 biblatex data model extension]
 
 \RequireBiber[3]
 
