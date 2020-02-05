@@ -209,7 +209,12 @@
 }
 
 % Format medium type in square brackets
-\DeclareFieldFormat{howpublished}{\mkbibbrackets{#1}}
+% If available, use the localisation string for the key
+\DeclareFieldFormat{howpublished}{%
+  \ifbibstring{#1}
+    {\mainlangbibstring[\mkbibbrackets]{#1}}
+    {\mkbibbrackets{#1}}%
+}
 
 % Format type, e.g. type of thesis
 % If available, use the localisation string for the key
