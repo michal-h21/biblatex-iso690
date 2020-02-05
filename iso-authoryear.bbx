@@ -47,7 +47,7 @@
 % 2) editor
 % 3) label/title
 % Need to handle not to print editor twice (primary
-% and subsidiary names)
+% and subsidiary names): editor macro includes \clearname{editor}
 \renewbibmacro*{names:primary}{%
   % First check if we have author(s) available
   \ifboolexpr{
