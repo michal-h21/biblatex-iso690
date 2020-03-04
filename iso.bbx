@@ -7,7 +7,7 @@
 \DeclareLanguageMappingSuffix{-iso}
 % Currently needed the following additional language strings:
 \NewBibliographyString{at,bysupervisor,urlalso,
-  director,bydirector,inventor,byinventor,online}
+  director,bydirector,inventor,byinventor,online,film}
 
 % PACKAGE OPTIONS
 
@@ -209,7 +209,12 @@
 }
 
 % Format medium type in square brackets
-\DeclareFieldFormat{howpublished}{\mkbibbrackets{#1}}
+% If available, use the localisation string for the key
+\DeclareFieldFormat{howpublished}{%
+  \ifbibstring{#1}
+    {\mainlangbibstring[\mkbibbrackets]{#1}}
+    {\mkbibbrackets{#1}}%
+}
 
 % Format type, e.g. type of thesis
 % If available, use the localisation string for the key
@@ -371,6 +376,9 @@
 % https://github.com/michal-h21/biblatex-iso690/issues/68#issuecomment-435650072
 \DeclareFieldFormat{editortype}{\mkbibparens{#1}}
 \DeclareDelimFormat{editortypedelim}{\addspace}
+
+\DeclareFieldFormat{authortype}{\mkbibparens{#1}}
+\DeclareDelimFormat{authortypedelim}{\addspace}
 
 % Macro for printing supervisor field
 \newbibmacro*{thesissupervisor}{%
@@ -1374,6 +1382,7 @@
 \DeclareBibliographyAlias{reference}{collection}
 \DeclareBibliographyAlias{inreference}{incollection}
 \DeclareBibliographyAlias{unpublished}{book}
+\DeclareBibliographyAlias{movie}{book}
 \DeclareBibliographyAlias{*}{misc}
 
 \endinput
