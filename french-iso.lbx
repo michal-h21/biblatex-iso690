@@ -4,6 +4,13 @@
 \InheritBibliographyExtras{french}
 \InheritBibliographyStrings{french}
 
+% `french.lbx` overrides the family name format to \textsc
+% that is against the consistency rule since we use uppercase
+% as default.
+\DeclareBibliographyExtras{%
+  \restorecommand\mkbibnamefamily
+}
+
 \DeclareBibliographyStrings{%
   at           = {{à}%
                   {à}},
