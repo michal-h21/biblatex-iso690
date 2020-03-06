@@ -87,11 +87,13 @@
 
 \subsection{About}
 
-\biblatex is a bibliography and citation tool for \LaTeX. This project provides
-support for citations and references according to the ISO~690 international standard.
-As the standard ISO~690 is a little bit ambiguous in some details regarding formatting of records,
-we largely follow requirements of the Czech interpretation, as it is the required form
-in many Czech universities. Of course, the style can be used in other languages as well.
+\biblatex is a bibliography and citation tool for \LaTeX. This project
+provides support for citations and references according to the ISO~690
+international standard. As the standard ISO~690 is a little bit ambiguous in
+some details regarding the formatting of records, we largely follow the
+requirements of the Czech interpretation, as it is the required form in many
+Czech universities. Of course, the style can be used in other languages as
+well.
 
 \subsection{Requirements}
 
@@ -111,8 +113,8 @@ especially Johannes Böttcher, Moewew, Dávid Lupták and others.
 
 \subsection{Feedback}
 
-The project lives on the GitHub page \url{https://github.com/michal-h21/biblatex-iso690}
-so feel free to use the possibilites provided there for reporting issues and the like.
+The project lives on the GitHub page \url{https://github.com/michal-h21/biblatex-iso690},
+so feel free to use the possibilities provided there for reporting issues and the like.
 
 \section{Use}
 
@@ -268,7 +270,7 @@ the resource or uses language-specific hyphenation. Use the \t|langid| field
 in bib entry to specify its language.
 
 \item[sortlocale] responsible for sorting the bibliography according to the
-entered \t|locale| identifier. It should usually be set to one using the  main
+entered \t|locale| identifier. It should usually be set to one using the main
 document language, e.g. \t|en\_IN| for English as used in India. Another
 example, this document is in English (main document language), but uses Czech
 sorting (\t|sortlocale=cs\_CZ|).
@@ -302,7 +304,7 @@ sorting (\t|sortlocale=cs\_CZ|).
   \item[doi] enable or disable printing of the DOI number. Default value is
     \t|true|.
 
-  \item[isbn] enable or disable printing of the ISBN, ISSN and other standard
+  \item[isbn] enable or disable printing of the ISBN, ISSN, and other standard
     identifiers. Default value is \t|true|.
 
   \item[eprint] enable or disable printing of the eprint field. Default value
@@ -343,14 +345,14 @@ some examples of bibliography entry types with respective fields follow.
 \end{ltxexample}
 
 The \t|pagetotal| field is the total number of pages of the work. If multiple
-kinds of numeration are used in the work, e.g. arabic as well as roman numerals,
+kinds of numeration are used in the work, e.g. Arabic as well as Roman numerals,
 both can be provided, separated by a comma. The localization term \t|pages| is 
-only appended for arabic numerals, though. Note that the total number of pages
+only appended for Arabic numerals, though. Note that the total number of pages
 is no longer required by the standard itself, see also \ref{pkg:opt:iso690:pp}.
 
 The \t|langid| field is required for multilingual support of printing
-references. This affects printing of localization terms used in the reference,
-e.g. \t|edition| field. See also \ref{gen:multilang}.
+references. This option affects the printing of localization terms used in the
+reference, e.g. \t|edition| field. See also \ref{gen:multilang}.
 
 \paragraph{Contribution to a collection} \hfill\\
 
@@ -464,7 +466,7 @@ achieved by providing the \t|urldate| field. On the other hand
 
 \noindent the example shows an article in a printed magazine, which is 
 \emph{also} available online. Similar to the contribution to a collection,
-using cross-referencing feature can be beneficial.
+using the cross-referencing feature can be beneficial.
 
 \subsubsection{Specific entry types}
 
@@ -546,10 +548,10 @@ to specify the type of the editor. This is useful to distinguish the role
 of the creator and their relationship to the cited work. Some roles
 are supported by default, e.g. \t|editor|, \t|compiler|, \t|founder|
 and \t|reviser|, some are created additionally, i.e. \t|inventor|,
-\t|director|; in other cases use the literal string.
+\t|director|; in other cases, use the literal string.
 
 Example:
-When citing cinematographic works which are typically the output of many
+When citing cinematographic works, which are typically the output of many
 individuals, the title should be used as the first element of the reference.
 However, it is appropriate to include some relevant roles, e.g. the director:
 
@@ -561,8 +563,8 @@ However, it is appropriate to include some relevant roles, e.g. the director:
 \end{ltxexample}
 
 The field \t|nameaddon| can be used to append additional information
-to the creator's name, e.g. variant forms of a name, name additions
-or pseudonyms. This field is printed as is, in square brackets after
+to the creator's name, e.g. variant forms of a name, name additions,
+or pseudonyms. This field is printed as is, in square brackets, after
 the creator's name.
 
 For anonymous works cited by the author-year method, the term \textit{Anon}
@@ -583,7 +585,7 @@ Note that also other \t|*titleaddon| fields are supported by default.
 The field \t|howpublished| is used for providing information about
 the medium designation or type of medium. Default value for electronic
 information resources is \t|online|. This field is printed as is,
-in square brackets after title section, generally.
+in square brackets, after the title section, generally.
 
 \subsubsection{Edition}
 
@@ -599,7 +601,7 @@ updated versions of an item, usually software.
 \subsubsection{Date}
 
 If an exact date is not known, an approximate date should be supplied in
-brackets preceded by circa string (ca.). To achieve this behaviour, specify
+brackets preceded by circa string (ca.). To achieve this behavior, specify
 the date followed by a tilde, as in the example below.
 
 \begin{ltxexample}
@@ -616,7 +618,7 @@ Please also note the syntax for dates -- ISO 8601 format
 (YYYY-MM-DD) is accepted. Please use slash instead of
 any kind of dash for ranges of dates. If the range is
 open ended, enter just the first date followed by a slash.
-And last, but not least, use the \t|date| field instead of
+And last but not least, use the \t|date| field instead of
 the \t|year| field in general.
 
 Examples follow:
@@ -646,10 +648,10 @@ in a reference. The field \t|library| serves for this purpose.
 \item Fixed deprecated name handling
 \item Declared mapping suffix (<lang>-iso.lbx) for localization files
 \item Updated and improved documentation and bib examples
-\item Delimiters defined by new way
+\item Delimiters defined by the new way
 \item Refined \t|date| macros
 \item Added date circa
-\item Commented source code to better understand it for others
+\item Commented source code to understand it for others better
 \item Employed standard \cmd{mkbibacro} for DOI, ISBN, ISSN, ISAN, ISMN, ISRN, ISWC
   (small caps instead of uppercase)
 \item Replaced \t|clasification| with \t|number| field for patent entries
@@ -695,7 +697,8 @@ in a reference. The field \t|library| serves for this purpose.
 \end{release}
 
 \begin{release}{0.3}{2016-05-04}
-\item A~complete refactoring of the style to comply the latest version of the \t|biblatex| package as well as ISO~690 international standard
+\item A~complete refactoring of the style to comply the latest version of the
+  \t|biblatex| package as well as ISO~690 international standard
 \item Added english version of the documentation/user guide (this document)
 \end{release}
 
@@ -706,8 +709,8 @@ in a reference. The field \t|library| serves for this purpose.
 \end{release}
 
 \begin{release}{0.2}{2015-03-25}
-\item Gathered changes during past four years
-\item Solved issue about the spacing of strings in main document language
+\item Gathered changes during the past four years
+\item Solved issue about the spacing of strings in the main document language
 \end{release}
 
 \begin{release}{0.1}{2011-02-03}
