@@ -5,6 +5,8 @@
 
 % Declare new fields
 \DeclareDatamodelFields[type=list, datatype=name]{supervisor}
+\DeclareDatamodelFields[type=field, datatype=literal]{dateaddon}
 
 % Declare new fields for (specific / all) entry types
 \DeclareDatamodelEntryfields[thesis]{supervisor}
+\DeclareDatamodelEntryfields{dateaddon}

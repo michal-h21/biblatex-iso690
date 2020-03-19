@@ -270,27 +270,31 @@
 % Format url seen date with preceding localisation string in square brackets
 \DeclareFieldFormat{urldate}{\mkbibbrackets{\mainlangbibstring{urlseen}\space#1}}
 
-% a)
+% Format additional date information as is (use bib file for modifications).
+\DeclareFieldFormat{dateaddon}{#1}
+
 % Format circa date with preceding localisation string in square brackets;
 % default \datecircaprint is \bibstring{circa}\printdelim{datecircadelim},
 % e.g. [ca. 1940].
-% b)
-% If there is no date field in the bib entry,
-% we should state there is no date by printing
-% a localisation string, e.g. [n.d.].
 \DeclareFieldFormat{date}{%
   \ifdatecirca
     {\mkbibbrackets{#1}}%
-    {% Check if there is 'nodate' from 'labeldate',
-     % not applicable for 'date' (only 'labeldate').
-      \iffieldequalstr{labeldatesource}{nodate}
-        {\mkbibbrackets{#1}}% This is nodate from \literal{nodate}
-        {#1}}% This is the go-to format ('date' / 'labeldate')
+    {#1}%
 }
 
 % Format 'labeldate' the same as 'date' field.
 % We use 'labeldate' in 'iso-authoryear' style.
-\DeclareFieldAlias{labeldate}{date}
+% Format circa date and nodate. Dateaddon and date as is.
+\DeclareFieldFormat{labeldate}{%
+  \ifdatecirca
+    {\mkbibbrackets{#1}}%
+    {% Check if there is 'nodate' from 'labeldate'
+      \iffieldequalstr{labeldatesource}{nodate}
+        % This is a \literal{nodate}, meaning that it uses the 'nodate'
+        % localisation string due to default \DeclareLabeldate setting
+        {\mkbibbrackets{#1}}%
+        {#1}}% This is the go-to format
+}
 
 % Define dates to consider for 'labeldate', based on
 % the default definition, but without 'urldate' field,
@@ -299,6 +303,7 @@
 \DeclareLabeldate{%
   \field{date}
   \field{year}
+  \field{dateaddon}% <---- biblatex-iso690 data model extension
   \field{eventdate}
   \field{origdate}
   \literal{nodate}
@@ -497,17 +502,20 @@
   \mkdaterangeiso{}%
 }
 
+% a)
 % If there is no date field in the bib entry,
 % we should state there is no date by printing
 % a localisation string, e.g. [n.d.].
+% b)
+% Order: <date> <dateaddon>
 \renewbibmacro*{date}{%
   \iffieldundef{year}
-    {\iffieldundef{eventyear}
-      {\iffieldundef{origyear}
-        {\bibstring[\mkbibbrackets]{nodate}}%
-        {\printorigdate}}%
-      {\printeventdate}}%
-    {\printdate}%
+    {\iffieldundef{dateaddon}
+      {\bibstring[\mkbibbrackets]{nodate}}%
+      {\printfield{dateaddon}}}%
+    {\printdate%
+     \setunit*{\addspace}%
+     \printfield{dateaddon}}%
 }
 
 % Based on publisher+location+date macro (defined in standard.bbx)
@@ -1085,7 +1093,7 @@
   \printfield{edition}%
   \newunit\newblock
   \usebibmacro{location+publisher+date}%
-  \setunit*{\addcomma\space}%
+  \setunit{\addcomma\space}%
   \usebibmacro{serial:numeration}%
   \setunit{\addspace}%
   \usebibmacro{urldate}%
@@ -1118,7 +1126,7 @@
   \iftoggle{bbx:articlepubinfo}
     {\usebibmacro{location+publisher+date}}
     {\usebibmacro{date}}%
-  \setunit*{\addcomma\space}%
+  \setunit{\addcomma\space}%
   \usebibmacro{serial:numeration}%
   \setunit{\bibpagespunct}%
   \printfield{pages}%
@@ -1155,7 +1163,7 @@
   \usebibmacro{names:subsidiary}%
   \newunit\newblock
   \usebibmacro{location+publisher+date}%
-  \setunit*{\addcomma\space}%
+  \setunit{\addcomma\space}%
   \usebibmacro{book:numeration}%
   \setunit{\bibpagespunct}%
   \printfield{pages}%
@@ -1199,7 +1207,7 @@
   \usebibmacro{location+publisher+date}%
   % could number be even used in `incollection`?
   % It should be at some other place in this case
-  \setunit*{\addcomma\space}%
+  \setunit{\addcomma\space}%
   \usebibmacro{book:numeration}%
   \setunit{\bibpagespunct}%
   \printfield{pages}%

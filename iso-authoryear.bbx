@@ -12,12 +12,19 @@
 % and year in bibliography
 \DeclareDelimFormat[bib,biblist]{nonameyeardelim}{\addcomma\space}
 
+% a)
 % The field extradate turns from integer type to a letter
 % after year to distinguish more works of the author
 % from the same year, e.g. 1994a, 1994b.
 % We use 'labeldate' as it is also used in standard styles.
+% b)
+% Moreover we print additional date information (dateaddon).
 \newbibmacro*{date+extradate}{%
   \printlabeldateextra
+  \setunit*{\addspace}%
+  \iffieldequalstr{labeldatesource}{dateaddon}
+    {}% Do not print dateaddon twice
+    {\printfield{dateaddon}}%
 }
 
 % Check if 'date' field holds only year or a more specific date.

@@ -601,8 +601,8 @@ updated versions of an item, usually software.
 \subsubsection{Date}
 
 If an exact date is not known, an approximate date should be supplied in
-brackets preceded by circa string (ca.). To achieve this behavior, specify
-the date followed by a tilde, as in the example below.
+brackets preceded by a circa localization string (e.g. ca.). To achieve this
+behavior, specify the date followed by a tilde, as in the example below:
 
 \begin{ltxexample}
   date = {1490~},         % tilde meaning circa
@@ -614,19 +614,54 @@ no date field in the respective entry. It automatically translates
 to something like \textit{[n.d.]}, based on your language, meaning
 \textit{no date}.
 
+The \t|biblatex-iso690| package provides new field \t|dateaddon| that can be
+used for date specificities. Description of some known use cases follows.
+
+If the date provided in the primary source of data is obviously incorrect
+(e.g. 1959), the correction should be supplied in brackets (e.g. [i.e. 1995]):
+
+\begin{ltxexample}
+  date      = {1959},
+  dateaddon = {\mkbibbrackets{i.e. 1995}},
+\end{ltxexample}
+
+You can use \t|dateaddon| field also for missing dates and their rough
+approximations (e.g. providing only centuries), or for different calendar
+systems:
+
+\begin{ltxexample}
+  dateaddon = {\mkbibbrackets{16th century}},
+  dateaddon = {Jewish calendar 5685 \mkbibbrackets{1925}},
+\end{ltxexample}
+
+And if you need to use a copyright date alongside the publication date, or
+only a copyright date, you can use \t|dateaddon| field as well:
+
+\begin{ltxexample}
+  date      = {2000},
+  dateaddon = {\addcomma\space\textcopyright\addnbthinspace 2001},
+\end{ltxexample}
+
+If you have only a copyright date (e.g. \textcopyright\,2001), you can use
+\t|sortyear| field to clarify the sorting, the entry will be sorted by the
+year (2001) and not the literal value (\textcopyright\,2001):
+
+\begin{ltxexample}
+  dateaddon = {\textcopyright\addnbthinspace 2001},
+  sortyear  = {2001},
+\end{ltxexample}
+
 Please also note the syntax for dates -- ISO 8601 format
-(YYYY-MM-DD) is accepted. Please use slash instead of
+(\t|YYYY-MM-DD|) is accepted. Please use slash instead of
 any kind of dash for ranges of dates. If the range is
 open ended, enter just the first date followed by a slash.
 And last but not least, use the \t|date| field instead of
-the \t|year| field in general.
-
-Examples follow:
+the \t|year| field in general. Examples follow:
 
 \begin{ltxexample}
-  date = {2012-12-21}    % exact date
-  date = {1998/2001}     % date range
-  date = {2016/}         % open ended date range
+  date = {2012-12-21},    % exact date
+  date = {1998/2001},     % date range
+  date = {2016/},         % open ended date range
 \end{ltxexample}
 
 \subsubsection{Location}
