@@ -86,6 +86,7 @@
 \section{Introduction}
 
 \subsection{About}
+\label{sec:about}
 
 \biblatex is a bibliography and citation tool for \LaTeX. This project
 provides support for citations and references according to the ISO~690
@@ -119,6 +120,7 @@ so feel free to use the possibilities provided there for reporting issues and th
 \section{Use}
 
 \subsection{General}
+\label{sec:general:multilang}
 
 A minimal working example for \t|babel| package:
 \begin{ltxexample}
@@ -162,7 +164,7 @@ currently writing) while the others should be in the language of a resource.
 You can specify the language of a resource into the field \t|langid| on a
 per-entry basis in a resource (\t|.bib|) file. In addition, all of the
 languages specified in these fields have to be loaded by the \t|babel| or
-\t|polyglossia| package respectively.\label{gen:multilang}
+\t|polyglossia| package respectively.
 
 Note that for correct support of localization functionality, the \t|babel|
 or \t|polyglossia| package should be used. The main document language
@@ -194,6 +196,7 @@ There is also one more system of running notes, which is not
 implemented yet.
 
 \subsubsection{Non-standardized methods}
+\label{sec:nonstandard:methods}
 
 \begin{description}
 \item[iso-alphabetic] alphabetic system
@@ -207,6 +210,7 @@ conform to the standard, it is necessary to know which command can be used
 for which citation method. Here is an overview.
 
 \subsubsection{Numeric system}
+\label{sec:numeric}
 
 For \t|iso-numeric| style, the usage of cite command is as simple as
 \cmd{cite} (citation number in brackets), \cmd{parencite} (citation number in
@@ -250,6 +254,7 @@ situations:
 \subsection{Package options}
 
 \subsubsection{Provided by \biblatex by default}
+\label{sec:pkg:opt}
 
 Frequently used package options are
 
@@ -278,6 +283,7 @@ sorting (\t|sortlocale=cs\_CZ|).
 \end{description}
 
 \subsubsection{Provided by \t|biblatex-iso690| in addition}
+\label{sec:pkg:opt:iso690}
 
 \begin{description}
 
@@ -288,7 +294,7 @@ sorting (\t|sortlocale=cs\_CZ|).
   \item[pagetotal] the number of total pages is no longer required if the item
     is being cited as a whole. Setting this option to \t|true| will print such
     optional information in the notes section at the end of the reference in
-    brackets. Default value is \t|false|.\label{pkg:opt:iso690:pp}
+    brackets. Default value is \t|false|.
 
   \item[shortnumeration] the standard ISO~690 allows omission of term
     \t|volume| and terms for smaller components of a serial publication. If
@@ -322,6 +328,7 @@ sorting (\t|sortlocale=cs\_CZ|).
 
 
 \subsection{Database guide}
+\label{sec:database}
 
 \t|biblatex| supports more entry fields than legacy \t|bibtex|. Hence
 some examples of bibliography entry types with respective fields follow.
@@ -349,11 +356,11 @@ The \t|pagetotal| field is the total number of pages of the work. If multiple
 kinds of numeration are used in the work, e.g. Arabic as well as Roman numerals,
 both can be provided, separated by a comma. The localization term \t|pages| is 
 only appended for Arabic numerals, though. Note that the total number of pages
-is no longer required by the standard itself, see also \ref{pkg:opt:iso690:pp}.
+is no longer required by the standard itself, see also \ref{sec:pkg:opt:iso690}.
 
 The \t|langid| field is required for multilingual support of printing
 references. This option affects the printing of localization terms used in the
-reference, e.g. \t|edition| field. See also \ref{gen:multilang}.
+reference, e.g. \t|edition| field. See also \ref{sec:general:multilang}.
 
 \paragraph{Contribution to a collection} \hfill\\
 
@@ -472,6 +479,7 @@ using the cross-referencing feature can be beneficial.
 \subsubsection{Specific entry types}
 
 \paragraph{Thesis}\hfill\\
+\label{sec:thesis}
 
 The \t|thesis| entry type and its aliases \t|mastersthesis| and
 \t|phdthesis| are available by default for thesis works. Use the
@@ -501,6 +509,7 @@ supervisor and school (institution) can be entered into the fields
 \end{ltxexample}
 
 \paragraph{Patent}\hfill\\
+\label{sec:patent}
 
 The field \t|number| is available for the patent classification
 or request number.
@@ -582,6 +591,7 @@ substitute for no titles, translation of titles, etc.
 Note that also other \t|*titleaddon| fields are supported by default.
 
 \subsubsection{Medium type}
+\label{sec:howpublished}
 
 The field \t|howpublished| is used for providing information about
 the medium designation or type of medium. Default value for electronic
@@ -600,6 +610,7 @@ The \t|version| field is used for providing information about
 updated versions of an item, usually software.
 
 \subsubsection{Date}
+\label{sec:date}
 
 If an exact date is not known, an approximate date should be supplied in
 brackets preceded by a circa localization string (e.g. ca.). To achieve this
@@ -666,6 +677,7 @@ the \t|year| field in general. Examples follow:
 \end{ltxexample}
 
 \subsubsection{Location}
+\label{sec:library}
 
 If only a limited number of copies of the work exists or
 the location of a graphic work is essential to its identification,
@@ -682,29 +694,40 @@ in a reference. The field \t|library| serves for this purpose.
 
 \begin{release}{0.3.4}{20??-??-??}
 \item Fixed deprecated name handling
-\item Declared mapping suffix (<lang>-iso.lbx) for localization files
-\item Updated and improved documentation and bib examples
+\item Declared mapping suffix (\t|<lang>-iso.lbx|) for localization files
+\item Updated and improved documentation, README, and bib examples
 \item Delimiters defined by the new way
-\item Refined \t|date| macros
-\item Added date circa
+\item Refined \t|date| and \t|names| macros
+\item Added date circa\see{sec:date}
+\item Added \t|dateaddon| field\see{sec:date}
 \item Commented source code to understand it for others better
-\item Employed standard \cmd{mkbibacro} for DOI, ISBN, ISSN, ISAN, ISMN, ISRN, ISWC
-  (small caps instead of uppercase)
-\item Replaced \t|clasification| with \t|number| field for patent entries
-\item Added localization strings \t|director|, \t|bydirector|, \t|inventor|, \t|byinventor|,
-  \t|online|
+\item Employed standard \cmd{mkbibacro} for DOI, ISBN, ISSN, ISAN, ISMN, ISRN,
+  ISWC (small caps instead of uppercase)
+\item Replaced \t|clasification| with \t|number| field for patent
+  entries\see{sec:patent}
+\item Added localization strings \t|director|, \t|bydirector|, \t|inventor|,
+  \t|byinventor|, \t|online|, \t|film|
 \item Added Bulgarian and French localization
 \item Increased maximum number of names to print to 99 (9 before)
 \item Removed \biblatex{} backwards compatibility code
-\item Fixed printing \t|url| and \t|urldate| for @online entries
+\item Fixed printing \t|url| and \t|urldate| for \t|@online| entries
 \item Fixed multiple ISBNs / ISSNs
+\item Allowed the package option \t|abbreviate=[true\textbar false]| to work
+  for all bibstrings\see{sec:pkg:opt}
+\item Added \cmd{parencite} support for \t|iso-numeric| style\see{sec:numeric}
+\item Added \t|articlepubinfo| package option\see{sec:pkg:opt:iso690}
+\item Logging only to \t|.log| file (no terminal output)
+\item Added support for \t|report| and \t|movie| entry types
+\item Added support of localization strings in \t|howpublished|
+  field\see{sec:howpublished}
 \item Fixed typos, code improvements
 \end{release}
 
 \begin{release}{0.3.3}{2019-10-30}
-\item Doc better wording
-\item Enable multilingual references by default
-\item Added isbn, doi, url and eprint options for blocking corresponding fields
+\item Documentation with better wording
+\item Enable multilingual references by default\see{sec:pkg:opt}
+\item Added \t|isbn|, \t|doi|, \t|url| and \t|eprint| package options for
+  blocking corresponding fields\see{sec:pkg:opt:iso690}
 \item Printing out (the same) editors also in the consecutive entries --
   get rid of the dash as default (\t|iso-authoryear| style)
 \item Removed deprecated \biblatex\ options
@@ -715,27 +738,32 @@ in a reference. The field \t|library| serves for this purpose.
 \end{release}
 
 \begin{release}{0.3.2}{2017-04-25}
-\item Synchronized \t|iso-numeric| bibliography environment with original \t|numeric| style
-\item Added support for alphabetic bibliographic style (\t|iso-alphabetic|)
-\item Incompatible change: \t|thesisinfolast| package option changed to \t|thesisinfoinnotes|
+\item Synchronized \t|iso-numeric| bibliography environment with original
+  \t|numeric| style
+\item Added support for alphabetic bibliographic style
+  (\t|iso-alphabetic|)\see{sec:nonstandard:methods}
+\item INCOMPATIBLE CHANGE: \t|thesisinfolast| package option changed to
+  \t|thesisinfoinnotes|\see{sec:pkg:opt:iso690}
 \item README copyediting and conversion to markdown
-\item Various doc and README corrections and enhancements
+\item Various documentation and README corrections and enhancements
 \item Added German localization
 \end{release}
 
 \begin{release}{0.3.1}{2016-05-13}
-\item Added support for entry types \t|thesis| and \t|patent|
-\item Added support for including location information (\t|library| field)
+\item Added support for \t|thesis| entry type\see{sec:thesis}
+\item Added support for \t|patent| entry type\see{sec:patent}
+\item Added support for including location information (\t|library|
+  field)\see{sec:library}
 \item Added Slovak localization
 \item Removed non-breaking space after standard identifier terms
-\item Streamlined the author-title citation style
-\item Minor doc corrections
+\item Streamlined \t|iso-authortitle| citation style\see{sec:nonstandard:methods}
+\item Minor documentation corrections
 \end{release}
 
 \begin{release}{0.3}{2016-05-04}
 \item A~complete refactoring of the style to comply the latest version of the
-  \t|biblatex| package as well as ISO~690 international standard
-\item Added english version of the documentation/user guide (this document)
+  \t|biblatex| package as well as ISO~690 international standard\see{sec:about}
+\item Added English version of the documentation/user guide (this document)
 \end{release}
 
 \begin{release}{0.2.1}{2016-03-13}
@@ -752,7 +780,8 @@ in a reference. The field \t|library| serves for this purpose.
 \begin{release}{0.1}{2011-02-03}
 \item First release
 \item Draft of the documentation (only in Czech)
-\item Support for almost all of the entry types provided by the \t|biblatex| package
+\item Support for almost all of the entry types provided by the \t|biblatex|
+  package\see{sec:database}
 \end{release}
 
 \end{changelog}
