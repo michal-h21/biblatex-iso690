@@ -1,0 +1,10 @@
+\ProvidesFile{iso-alphabetic.dbx}
+  [2017/04/25 v0.3.2 ISO 690 biblatex data model extension]
+
+\RequireBiber[3]
+
+% Declare new fields
+\DeclareDatamodelFields[type=list, datatype=name]{supervisor}
+
+% Declare new fields for (specific / all) entry types
+\DeclareDatamodelEntryfields[thesis]{supervisor}

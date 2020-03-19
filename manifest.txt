@@ -8,6 +8,7 @@ french-iso.lbx
 german-iso.lbx
 iso-alphabetic.bbx
 iso-alphabetic.cbx
+iso-alphabetic.dbx
 iso-authortitle.bbx
 iso-authortitle.cbx
 iso-authortitle.dbx
