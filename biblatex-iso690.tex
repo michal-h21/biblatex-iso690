@@ -276,10 +276,12 @@ the resource or uses language-specific hyphenation. Use the \t|langid| field
 in bib entry to specify its language.
 
 \item[sortlocale] responsible for sorting the bibliography according to the
-entered \t|locale| identifier. It should usually be set to one using the main
-document language, e.g. \t|en\_IN| for English as used in India. Another
-example, this document is in English (main document language), but uses Czech
-sorting (\t|sortlocale=cs\_CZ|).
+entered \prm{locale} identifier. The default value is \t|auto|, meaning the
+\prm{locale} is set to the main document language identifier (if
+\t|babel|/\t|polyglossia| is used). A real use case example: this document is
+in English (main document language), but uses Czech sorting
+(\t|sortlocale=cs\_CZ|).
+
 \end{description}
 
 \subsubsection{Provided by \t|biblatex-iso690| in addition}
