@@ -336,8 +336,8 @@
 
 % Format other / alternative titles in square brackets
 \DeclareFieldFormat{titleaddon}{\mkbibbrackets{#1}}
-\DeclareFieldFormat{booktitleaddon}{\mkbibbrackets{#1}}
-\DeclareFieldFormat{maintitleaddon}{\mkbibbrackets{#1}}
+\DeclareFieldAlias{booktitleaddon}{titleaddon}
+\DeclareFieldAlias{maintitleaddon}{titleaddon}
 
 % Format additional name information in square brackets
 \DeclareFieldFormat{nameaddon}{\mkbibbrackets{#1}}
