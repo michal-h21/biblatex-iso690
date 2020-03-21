@@ -107,6 +107,12 @@
 % in the preamble to change the separator
 \newcommand\stdidentifierspunct{\addcomma\space}
 
+% The separator between date and dateaddon
+\newcommand{\dateaddonpunct}{\addspace}
+
+% The separator between 'dates' and the numeration section
+\newcommand{\numerationpunct}{\addcomma\space}
+
 % A colon preceded with or without space
 \newcommand\addspacecolon{%
   \iftoggle{bbx:spcolon}
@@ -514,7 +520,7 @@
       {\bibstring[\mkbibbrackets]{nodate}}%
       {\printfield{dateaddon}}}%
     {\printdate%
-     \setunit*{\addspace}%
+     \setunit{\dateaddonpunct}%
      \printfield{dateaddon}}%
 }
 
@@ -1093,7 +1099,7 @@
   \printfield{edition}%
   \newunit\newblock
   \usebibmacro{location+publisher+date}%
-  \setunit{\addcomma\space}%
+  \setunit{\numerationpunct}%
   \usebibmacro{serial:numeration}%
   \setunit{\addspace}%
   \usebibmacro{urldate}%
@@ -1126,7 +1132,7 @@
   \iftoggle{bbx:articlepubinfo}
     {\usebibmacro{location+publisher+date}}
     {\usebibmacro{date}}%
-  \setunit{\addcomma\space}%
+  \setunit{\numerationpunct}%
   \usebibmacro{serial:numeration}%
   \setunit{\bibpagespunct}%
   \printfield{pages}%
@@ -1207,7 +1213,7 @@
   \usebibmacro{location+publisher+date}%
   % could number be even used in `incollection`?
   % It should be at some other place in this case
-  \setunit{\addcomma\space}%
+  \setunit{\numerationpunct}%
   \usebibmacro{book:numeration}%
   \setunit{\bibpagespunct}%
   \printfield{pages}%

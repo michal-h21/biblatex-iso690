@@ -6,6 +6,10 @@
   sorting=nyt,
 }
 
+% The separator between 'titles' and the numeration section.
+% Overrides the command in 'iso.bbx'.
+\renewcommand{\numerationpunct}{\newunitpunct}
+
 % Delimiter between creator name and year in bibliography
 \DeclareDelimFormat[bib,biblist]{nameyeardelim}{\addcomma\space}
 % Delimiter between substitution of creator name (if any)
@@ -21,7 +25,7 @@
 % Moreover we print additional date information (dateaddon).
 \newbibmacro*{date+extradate}{%
   \printlabeldateextra
-  \setunit*{\addspace}%
+  \setunit{\dateaddonpunct}%
   \iffieldequalstr{labeldatesource}{dateaddon}
     {}% Do not print dateaddon twice
     {\printfield{dateaddon}}%
