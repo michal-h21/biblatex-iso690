@@ -319,7 +319,10 @@ in English (main document language), but uses Czech sorting
   \item[eprint] enable or disable printing of the eprint field. Default value
     is \t|true|.
  
-  \item[url] enable or disable printing of the URL. Default value is \t|true|.
+  \item[url] enable or disable the printing of the URL. This option also
+    affects the printing of \t|[online]| medium designation for electronic
+    resources other than \t|@online| entry type (see \ref{sec:howpublished}).
+    The default value is \t|true|.
 
   \item[articlepubinfo] enable or disable printing publication information
     (\t|location| and \t|publisher| fields) for an \t|@article| entry type.
@@ -447,7 +450,8 @@ child entry automatically. Other backends may not support this feature.
 The example above is an article in an online magazine. If the magazine
 is available online only, i.e. it is not published in print,
 it should be cited as an electronic information resource. This can be
-achieved by providing the \t|urldate| field. On the other hand
+achieved by providing the \t|urldate| field (see \ref{sec:howpublished}).
+On the other hand
 \newline
 
 \c{knuth1990virtual}
@@ -593,9 +597,18 @@ Note that also other \t|*titleaddon| fields are supported by default.
 \subsubsection{Medium type}
 \label{sec:howpublished}
 
-The field \t|howpublished| is used for providing information about
-the medium designation or type of medium. The default value for electronic
-information resources is \t|online|. This field is printed as is,
+The field \t|howpublished| is used for providing information about the medium
+designation (e.g., Braille, film, and photograph) or type of medium for the
+electronic resources (e.g., online, online database, and podcast). The default
+output for electronic information resources (\t|@online| entry types or
+entries including \t|urldate| field) is \t|[online]|, even without
+
+\begin{ltxexample}
+  howpublished = {online},
+\end{ltxexample}
+
+\noindent
+listed in the bib file. The \t|howpublished| field is printed as is,
 in square brackets, after the title section, generally. The field accepts
 localization strings (e.g. \t|online| or \t|film|) or literal string values.
 
