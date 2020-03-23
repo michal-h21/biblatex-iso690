@@ -77,7 +77,9 @@ here are also some more. Default values are in **bold**.
   * **[true]** Available from arXiv: 1905.10545
   *   [false] --
 * `url`
-  enable or disable printing of the URL
+  enable or disable printing of the URL (this option also affects the printing
+  of `[online]` medium designation for electronic resources other than
+  `@online` entry type)
   * **[true]** Available from: <https://github.com/michal-h21/biblatex-iso690>
   *   [false] --
 * `articlepubinfo`
