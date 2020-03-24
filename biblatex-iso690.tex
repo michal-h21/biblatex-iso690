@@ -7,6 +7,7 @@
 %\usepackage{tgpagella}
 \usepackage{microtype}
 \usepackage{hanging}
+\usepackage{doc}% Macro \BibTeX
 
 
 \def\t|#1|{\texttt{#1}}
@@ -356,7 +357,7 @@ in English (main document language), but uses Czech sorting
 \subsection{Database guide}
 \label{sec:database}
 
-\t|biblatex| supports more entry fields than legacy \t|bibtex|. Hence
+\biblatex supports more entry fields than legacy \BibTeX. Hence
 some examples of bibliography entry types with respective fields follow.
 
 %\begin{description}
@@ -513,7 +514,7 @@ The \t|thesis| entry type and its aliases \t|mastersthesis| and
 \t|type| field to specify the type of the thesis -- a localization
 term or literal string can be entered. For the list of supported
 localization terms, please refer to section 4.9.2.13 of the
-\t|biblatex| documentation. Available terms are \t|bathesis|,
+\biblatex documentation. Available terms are \t|bathesis|,
 \t|mathesis|, \t|phdthesis|, and \t|candthesis|. Names of the
 supervisor and school (institution) can be entered into the fields
 \t|supervisor| and \t|institution|, respectively.
@@ -564,13 +565,13 @@ For the patent type, we can use localization strings as well, e.g.
 
 \subsection{Hints and Caveats}
 
-This section provides additional hints concerning the \t|biblatex| package
+This section provides additional hints concerning the \biblatex package
 as well as the ISO~690 standard.
 
 For now, some of the things have to be dealt with at the level of the 
 \t|bib| file, other ones are directly addressed in this style package.
-Everything else relies on the \t|biblatex| package, so please also refer
-to the \t|biblatex| documentation.
+Everything else relies on the \biblatex package, so please also refer
+to the \biblatex documentation.
 
 \subsubsection{Creators}
 
@@ -798,13 +799,13 @@ in a reference. The field \t|library| serves for this purpose.
 
 \begin{release}{0.3}{2016-05-04}
 \item A~complete refactoring of the style to comply the latest version of the
-  \t|biblatex| package as well as ISO~690 international standard\see{sec:about}
+  \biblatex package as well as ISO~690 international standard\see{sec:about}
 \item Added English version of the documentation/user guide (this document)
 \end{release}
 
 \begin{release}{0.2.1}{2016-03-13}
 \item Solved issues about punctuation marks and redundant spaces
-\item Compatibility support for the latest version of the \t|biblatex| package
+\item Compatibility support for the latest version of the \biblatex package
 \item Reformatted the driver for \t|inbook| entry type
 \end{release}
 
@@ -816,7 +817,7 @@ in a reference. The field \t|library| serves for this purpose.
 \begin{release}{0.1}{2011-02-03}
 \item First public release\see{sec:feedback}
 \item Draft of the documentation (only in Czech)
-\item Support for almost all of the entry types provided by the \t|biblatex|
+\item Support for almost all of the entry types provided by the \biblatex
   package\see{sec:database}
 \end{release}
 
