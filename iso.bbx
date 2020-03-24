@@ -99,13 +99,13 @@
 % COMMANDS
 
 % The separator between 'titles' and 'subtitles'
-\renewcommand*\subtitlepunct{\addspacecolon\space}
+\renewcommand*{\subtitlepunct}{\addspacecolon\space}
 
 % The separator between more standard identifiers, like ISBNs or ISSNs.
 % Default separator is comma and space. You can use something like
 % \renewcommand{\stdidentifierspunct}{\addsemicolon\space}
 % in the preamble to change the separator
-\newcommand\stdidentifierspunct{\addcomma\space}
+\newcommand{\stdidentifierspunct}{\addcomma\space}
 
 % The separator between date and dateaddon
 \newcommand{\dateaddonpunct}{\addspace}
@@ -114,7 +114,7 @@
 \newcommand{\numerationpunct}{\addcomma\space}
 
 % A colon preceded with or without space
-\newcommand\addspacecolon{%
+\newcommand{\addspacecolon}{%
   \iftoggle{bbx:spcolon}
     {\addnbspace\addspcolon}
     {\unspace\addspcolon}%
@@ -135,9 +135,9 @@
 % use something like
 % \let\familynameformat=\textsc
 % to change this
-\newcommand\familynameformat[1]{\MakeUppercase{#1}}
+\newcommand{\familynameformat}[1]{\MakeUppercase{#1}}
 \AtBeginBibliography{%
-  \renewcommand\mkbibnamefamily{\familynameformat}%
+  \renewcommand{\mkbibnamefamily}{\familynameformat}%
 }
 
 % Default bibliography environment (layout)
