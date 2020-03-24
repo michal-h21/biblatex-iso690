@@ -179,28 +179,37 @@ is:
     \cmd{setotherlanguage}) (see MWE above)
 \end{description}
 
-\subsection{Citation methods}
+\subsection{Methods of citation and referencing}
 
-The international standard ISO~690 prescribes exactly 3 methods of
-citation. However, based on the user input, this package contains
-more of them.
+The international standard ISO~690 introduces three methods
+(\ref{sec:standard:methods}) of citation and referencing in its informative
+annex. You can select a citation/referencing method in the \t|style| option:
+
+\begin{ltxexample}
+  \usepackage[style=<method>]{biblatex}
+\end{ltxexample}
+
 
 \subsubsection{Standardized methods}
+\label{sec:standard:methods}
+
+The informative annex of the standard mentions name and date, numeric, and
+running notes systems. This package does not support the last one.
 
 \begin{description}
-\item[iso-authoryear] name and date system, so-called Harvard style
-\item[iso-numeric] numeric system
+  \item[iso-authoryear] name and date system, so-called Harvard style
+  \item[iso-numeric] numeric system
 \end{description}
-
-There is also one more system of running notes, which is not
-implemented yet.
 
 \subsubsection{Non-standardized methods}
 \label{sec:nonstandard:methods}
 
+Based on the user input, this package also supports other citation/referencing
+methods:
+
 \begin{description}
-\item[iso-alphabetic] alphabetic system
-\item[iso-authortitle] name and title system
+  \item[iso-alphabetic] alphabetic system
+  \item[iso-authortitle] name and title system
 \end{description}
 
 \subsection{Citation commands}
@@ -229,7 +238,7 @@ According to the standard, pick and stick to only one citation format in the
 whole document (select either only \cmd{cite}, or \cmd{parencite}, or
 \cmd{supercite}).
 
-\subsubsection{Author-year system}
+\subsubsection{Author-date system}
 
 For \t|iso-authoryear| method (and possibly also for other methods
 \t|iso-alphabetic| and \t|iso-authortitle|), you should distinguish two
@@ -261,7 +270,7 @@ Frequently used package options are
 \begin{description}
 \item[style] style to be used for bibliographic references and citations.
 Four possibilities are available for the \t|biblatex-iso690| package,
-\t|iso-authoryear| commonly known as “Harvard system”, \t|iso-numeric| as a
+\t|iso-authoryear| commonly known as Harvard system, \t|iso-numeric| as a
 numeric system, \t|iso-alphabetic| and \t|iso-authortitle|.
 
 \item[backend] backend program for generating bibliographic entries. \biber
