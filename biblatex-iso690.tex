@@ -16,6 +16,7 @@
 
 \newcommand*{\biber}{\sty{biber}\xspace}
 \newcommand*{\biblatex}{\sty{biblatex}\xspace}
+\newcommand*{\biblatexiso}{\sty{biblatex-iso690}\xspace}
 
 \usepackage[
   style=iso-authoryear,
@@ -269,7 +270,7 @@ Frequently used package options are
 
 \begin{description}
 \item[style] style to be used for bibliographic references and citations.
-Four possibilities are available for the \t|biblatex-iso690| package,
+Four possibilities are available for the \biblatexiso package,
 \t|iso-authoryear| commonly known as Harvard system, \t|iso-numeric| as a
 numeric system, \t|iso-alphabetic| and \t|iso-authortitle|.
 
@@ -293,7 +294,7 @@ in English (main document language), but uses Czech sorting
 
 \end{description}
 
-\subsubsection{Provided by \t|biblatex-iso690| in addition}
+\subsubsection{Provided by \biblatexiso in addition}
 \label{sec:pkg:opt:iso690}
 
 \begin{description}
@@ -649,7 +650,7 @@ no date field in the respective entry. It automatically translates
 to something like \textit{[n.d.]}, based on your language, meaning
 \textit{no date}.
 
-The \t|biblatex-iso690| package provides new field \t|dateaddon| that can be
+The \biblatexiso package provides new field \t|dateaddon| that can be
 used for date specificities. Description of some known use cases follows.
 
 If the date provided in the primary source of data is obviously incorrect
