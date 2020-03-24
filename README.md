@@ -6,7 +6,7 @@ ambiguous in some details regarding formatting of records, we largely follow
 requirements of Czech interpretation, as it is required form in many Czech
 universities. The style can be used in other languages as well, of course.
 
-## Install
+## Installation
 
 The package is included in MikTeX and TeX Live distributions since 2016, so it could be shipped with your TeX installation.
 
