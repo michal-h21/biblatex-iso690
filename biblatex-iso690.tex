@@ -193,6 +193,7 @@ is:
 \end{description}
 
 \subsection{Citation systems}
+\label{sec:citation:systems}
 
 The international standard ISO~690 introduces three methods
 (\ref{sec:standard:methods}) of citation and referencing in its informative
@@ -278,80 +279,102 @@ situations:
 \subsubsection{Provided by \biblatex by default}
 \label{sec:pkg:opt}
 
-Frequently used package options are
+Frequently used package options are:
 
-\begin{description}
-\item[style] style to be used for bibliographic references and citations.
-Four possibilities are available for the \biblatexiso package,
-\t|iso-authoryear| commonly known as Harvard system, \t|iso-numeric| as a
-numeric system, \t|iso-alphabetic| and \t|iso-authortitle|.
+\begin{optionlist}
 
-\item[backend] backend program for generating bibliographic entries. \biber
-is the default one for the \biblatex package, providing a large variety
-of features. Other options are \t|bibtex| and \t|bibtex8|, but they both
-are far behind the possibilities of \biber. \biber is the recommended backend.
+\optitem[]{style}{\opt{iso-authoryear}, \opt{iso-numeric},
+  \opt{iso-alphabetic}, \opt{iso-authortitle}}
 
-\item[autolang] controls which language environment is used. The default value
-for this package is \t|other|, which encloses the bib entry in an
-\t|otherlanguage| environment and prints localization terms in the language of
-the resource or uses language-specific hyphenation. Use the \t|langid| field
-in bib entry to specify its language.
+Style to be used for bibliography references and citations. Four possibilities
+are available for the \biblatexiso package, see~\ref{sec:citation:systems} for
+details.
 
-\item[sortlocale] responsible for sorting the bibliography according to the
-entered \prm{locale} identifier. The default value is \t|auto|, meaning the
-\prm{locale} is set to the main document language identifier (if
-\t|babel|/\t|polyglossia| is used). A real use case example: this document is
-in English (main document language), but uses Czech sorting
-(\t|sortlocale=cs\_CZ|).
+\optitem[biber]{backend}{\opt{biber}, \opt{bibtex}, \opt{bibtex8}}
 
-\end{description}
+Backend program for generating bibliographic entries. \biber is the default
+one for the \biblatex package, providing a large variety of features. Other
+options are \t|bibtex| and \t|bibtex8|, but they both are far behind the
+possibilities of \biber. \biber is the recommended backend.
+
+\optitem[other]{autolang}{\opt{other}, see \biblatex documentation for more
+  options}
+
+Controls which language environment is used. The default value for this
+package is \t|other|, which encloses the bib entry in an \t|otherlanguage|
+environment and prints localization terms in the language of the resource or
+uses language-specific hyphenation. Use the \t|langid| field in bib entry to
+specify its language.
+
+\optitem[auto]{sortlocale}{\opt{auto}, \prm{locale}}
+
+Responsible for sorting the bibliography according to the entered \prm{locale}
+identifier. The default value is \t|auto|, meaning the \prm{locale} is set to
+the main document language identifier (if \t|babel|/\t|polyglossia| is used).
+A real use case example: this document is in English (main document language),
+but uses Czech sorting (\t|sortlocale=cs\_CZ|).
+
+\end{optionlist}
 
 \subsubsection{Provided by \biblatexiso in addition}
 \label{sec:pkg:opt:iso690}
 
-\begin{description}
+\begin{optionlist}
 
-  \item[spacecolon] if \t|true|, a space is printed before the colon used in
-    subtitles and publication information. Printing the colon this way is not
-    recommended. Default value is \t|false|.
+\boolitem[false]{spacecolon}
 
-  \item[pagetotal] the number of total pages is no longer required if the item
-    is being cited as a whole. Setting this option to \t|true| will print such
-    optional information in the notes section at the end of the reference in
-    brackets. Default value is \t|false|.
+If \t|true|, a space is printed before the colon used in subtitles and
+publication information. Printing the colon this way is not recommended.
+The default value is \t|false|.
 
-  \item[shortnumeration] the standard ISO~690 allows omission of term
-    \t|volume| and terms for smaller components of a serial publication. If
-    this option is \t|true|, such terms are distinguished typographically (the
-    volume number in bold type and the part number, if required, in
-    parentheses). If \t|false|, such terms are printed with preceding literal
-    terms.
+\boolitem[false]{pagetotal}
 
-  \item[thesisinfoinnotes] to print a thesis information (thesis type,
-    institution and supervisor) before the section \textit{availability and
-    access} is possible by setting the option to \t|false|. Otherwise it will
-    be printed in the \textit{notes} section. Default value is \t|true|.
+The number of total pages is no longer required if the item is being cited as
+a whole. Setting this option to \t|true| will print such optional information
+in the notes section at the end of the reference in brackets. The default
+value is \t|false|.
 
-  \item[doi] enable or disable printing of the DOI number. Default value is
-    \t|true|.
+\boolitem[false]{shortnumeration}
 
-  \item[isbn] enable or disable printing of the ISBN, ISSN, and other standard
-    identifiers. Default value is \t|true|.
+The standard ISO~690 allows omission of term \t|volume| and terms for smaller
+components of a serial publication. If this option is \t|true|, such terms are
+distinguished typographically (the volume number in bold type and the part
+number, if required, in parentheses). If \t|false|, such terms are printed
+with preceding literal terms.
 
-  \item[eprint] enable or disable printing of the eprint field. Default value
-    is \t|true|.
- 
-  \item[url] enable or disable the printing of the URL. This option also
-    affects the printing of \t|[online]| medium designation for electronic
-    resources other than \t|@online| entry type (see \ref{sec:howpublished}).
-    The default value is \t|true|.
+\boolitem[true]{thesisinfoinnotes}
 
-  \item[articlepubinfo] enable or disable printing publication information
-    (\t|location| and \t|publisher| fields) for an \t|@article| entry type.
-    Default value is \t|false| since it is very unusual behavior and rarely
-    used by either other citation styles or citation managers.
+To print a thesis information (thesis type, institution and supervisor) before
+the section \textit{availability and access} is possible by setting the option
+to \t|false|. Otherwise it will be printed in the \textit{notes} section.
+The default value is \t|true|.
 
-\end{description}
+\boolitem[true]{doi}
+
+Enable or disable printing of the DOI number.
+
+\boolitem[true]{isbn}
+
+Enable or disable printing of the ISBN, ISSN, and other standard identifiers.
+
+\boolitem[true]{eprint}
+
+Enable or disable printing of the eprint field.
+
+\boolitem[true]{url}
+
+Enable or disable the printing of the URL. This option also affects the
+printing of \t|[online]| medium designation for electronic resources other
+than \t|@online| entry type (see \ref{sec:howpublished}).
+
+\boolitem[false]{articlepubinfo}
+
+Enable or disable printing publication information (\t|location| and
+\t|publisher| fields) for an \t|@article| entry type. The default value is
+\t|false| since it is very unusual behavior and rarely used by either other
+citation styles or citation managers.
+
+\end{optionlist}
 
 
 \subsection{Database guide}
