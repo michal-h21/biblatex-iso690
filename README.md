@@ -1,6 +1,6 @@
 # Biblatex style for ISO 690 standard
 
-Biblatex is a bibliography and citation tool for LaTeX. This project provides
+`biblatex` is a bibliography and citation tool for LaTeX. This project provides
 support for citations in ISO 690 style. As the standard is a little bit
 ambiguous in some details regarding formatting of records, we largely follow
 requirements of Czech interpretation, as it is required form in many Czech
@@ -8,7 +8,8 @@ universities. The style can be used in other languages as well, of course.
 
 ## Installation
 
-The package is included in MikTeX and TeX Live distributions since 2016, so it could be shipped with your TeX installation.
+The package is included in MikTeX and TeX Live distributions since 2016, so it
+could be shipped with your TeX installation.
 
 It is also available on CTAN as `biblatex-iso690`:
 
@@ -35,6 +36,7 @@ or unzip the file
 here. You should be able to use `biblatex-iso690` now.
 
 ## Usage
+
 ```latex
 \usepackage[english,czech]{babel} % the main document language is the last one
 \usepackage[
@@ -89,29 +91,51 @@ here are also some more. Default values are in **bold**.
   * **[false]** Journal of Money, Credit and Banking. Vol. 38, no. 1, pp. 119–140.
 
 ### Bibliographic fields
-Some fields have a different meaning than in plain BibTeX.
+
+Some fields have a different meaning than in plain BibTeX, as compared to
+`biblatex`.
 
 1\. If the publication is written in a different language to the main
 document, it should have a filled `langid` field.
+
 ```
 langid = {czech},
 ```
 
 2\. Publications with online versions should have a `urldate` field. It is the
 date when you last checked the publication online.
+
 ```
 urldate = {2011-01-12},
 ```
 
-3\. If the publication has more than one ISBN or ISSN number, use just one of them.
+3\. If the publication has more than one ISBN or ISSN number, preferably use
+just one of them. Otherwise you can separate multiple numbers with comma in
+the respective field.
 
 4\. Publisher and place:
+
 ```
 location = {Praha},
 publisher = {Academia},
 ```
 
-For more details see the file
+Some fields are added on top of the fields supported by `biblatex` and are
+valid only for this package.
+
+5\. Supervisor of thesis / dissertation:
+
+```
+supervisor = {Petr Sojka},
+```
+
+6\. Date specificities, anything that doesn't fit into the `date` field:
+
+```
+dateaddon = {\mkbibbrackets{16th century}},
+```
+
+For more details see the example bibliography file
 [mybib.bib](https://github.com/michal-h21/biblatex-iso690/blob/master/mybib.bib).
 
 ## Contributing
