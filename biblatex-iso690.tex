@@ -630,6 +630,14 @@ to the creator's name, e.g. variant forms of a name, name additions,
 or pseudonyms. This field is printed as is, in square brackets, after
 the creator's name.
 
+If possible, all names of multiple creators should be given in the reference
+(the upper limit is set to 99 names). If you need to omit any names, you can
+use the keyword \uv{\t|and others|} in the name list for your \t|bib| entry:
+
+\begin{ltxexample}
+  editor  = {Humphrey Appleby and others},
+\end{ltxexample}
+
 For anonymous works cited by the author-year method, the term \textit{Anon}
 should be used in place of the creator's name. Please reflect this
 in the \t|bib| file, since there is no other support for this for now.
