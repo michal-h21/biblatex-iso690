@@ -135,8 +135,7 @@ supervisor = {Petr Sojka},
 dateaddon = {\mkbibbrackets{16th century}},
 ```
 
-For more details see the example bibliography file
-[mybib.bib](https://github.com/michal-h21/biblatex-iso690/blob/master/mybib.bib).
+For more details see the example bibliography file [mybib.bib](./mybib.bib).
 
 ## Contributing
 
