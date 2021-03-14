@@ -198,6 +198,8 @@ is:
     \cmd{setotherlanguage}) (see MWE above)
 \end{description}
 
+
+
 \subsection{Citation systems}
 \label{sec:citation:systems}
 
@@ -379,6 +381,13 @@ Enable or disable printing publication information (\t|location| and
 \t|publisher| fields) for an \t|@article| entry type. The default value is
 \t|false| since it is very unusual behavior and rarely used by either other
 citation styles or citation managers.
+
+\boolitem[false]{currentlang}
+
+By default, the main document language is used for printing of bibliography
+strings.  Some classes load the Babel package and user cannot select the main
+document language easily. With this option, the currently selected language 
+will be used instead.
 
 \end{optionlist}
 
@@ -764,6 +773,10 @@ see~\parencite{gosse1912garden}.
 \section{Revision history}
 
 \begin{changelog}
+
+\begin{release}{0.4.1}{2021-03-??}
+\item Added \t|currentlang| package option
+\end{release}
 
 \begin{release}{0.4.0}{2020-03-25}
 \item Fixed deprecated name handling

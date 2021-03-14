@@ -22,6 +22,7 @@
 \newtoggle{bbx:doi}
 \newtoggle{bbx:eprint}
 \newtoggle{bbx:articlepubinfo}
+\newtoggle{bbx:currentlang}
 
 % Print info about package options into .log file
 \protected\def\isoblx@info@noline#1{%
@@ -70,6 +71,11 @@
   \settoggle{bbx:articlepubinfo}{#1}%
   \isoblx@info@noline{Article publication info enabled: #1}}
 
+\DeclareBibliographyOption{currentlang}[false]{
+  \settoggle{bbx:currentlang}{#1}%
+  \isoblx@info@noline{Use current language for the bibliography: #1}}
+
+
 % Set default package options
 \ExecuteBibliographyOptions{%
   spacecolon=false,
@@ -89,6 +95,7 @@
   urldate=iso,% Use ISO8601 Extended Format (yyyy-mm-dd) for URL 'seen' dates
   seconds=true,% ISO8601 format requires 'seconds=true'
   datecirca=true,% Use circa for approximate dates
+  currentlang=false,% Use main document language for printing of bibliography strings
 }
 
 % Default definitions of beginning and closing macro
@@ -692,19 +699,32 @@
 \newrobustcmd*{\blx@imc@mainlangbibsstring}[2][\@firstofone]{%
   \blx@mainlangbibstring{#1}{abx@sstr}{#2}}
 
+% We use Babel or Polyglossia main document language for some
+% bibliography strings. With currentlang option, the currently 
+% selected language is used instead. It is useful in some classes
+% that don't support selection of the main language.
+% https://github.com/michal-h21/biblatex-iso690/issues/90
+\newcommand\blx@selectlangmacro{%
+  \ifboolexpr{%
+        test {\iftoggle{bbx:currentlang}}%
+        and test {\ifdef{\textouterlang}}%
+      }%
+      {\let\iso@mainlang\textouterlang}{\let\iso@mainlang\textmainlang}%
+}
+
 \protected\def\blx@mainlangbibstring#1#2#3{%
-  {\mainlang% <---- use main document language
-  \blx@begunit
-  \blx@hyphenreset
-  \blx@bibstringsimple
+  \blx@begunit%
+  \blx@hyphenreset%
+  \blx@bibstringsimple%
+  \blx@selectlangmacro%
   \lowercase{\edef\blx@tempa{#3}}%
-  \ifcsundef{#2@\blx@tempa}
-    {\blx@warn@nostring\blx@tempa
-     \blx@endnounit}
-    {\blx@imc@ifcapital
-       {#1{\MakeCapital{\csuse{#2@\blx@tempa}}}}
-       {#1{\csuse{#2@\blx@tempa}}}%
-     \blx@endunit}}}
+  \ifcsundef{#2@\blx@tempa}%
+    {\blx@warn@nostring\blx@tempa%
+     \blx@endnounit}%
+    {\blx@imc@ifcapital%
+       {\iso@mainlang{#1{\MakeCapital{\csuse{#2@\blx@tempa}}}}}%
+       {\iso@mainlang{#1{\csuse{#2@\blx@tempa}}}}%
+     \blx@endunit}}
 
 \blx@regimcs{%
   \mainlangbibstring \mainlangbiblstring \mainlangbibsstring
