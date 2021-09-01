@@ -145,9 +145,7 @@ so feel free to use the possibilities provided there for reporting issues and th
 A minimal working example for \t|babel| package:
 \begin{ltxexample}
 \documentclass{article}
-\usepackage[utf8]{inputenc}
 \usepackage[english,czech]{babel}
-% \usepackage[main=czech,english]{babel}
 \usepackage{csquotes}
 
 \usepackage[style=iso-authoryear]{biblatex}
@@ -163,7 +161,6 @@ A minimal working example for \t|babel| package:
 A minimal working example for \t|polyglossia| package:
 \begin{ltxexample}
 \documentclass{article}
-\usepackage[utf8]{inputenc}
 \usepackage{polyglossia}
 \setmainlanguage{czech}
 \setotherlanguage{english}
@@ -779,6 +776,8 @@ see~\parencite{gosse1912garden}.
 \item Added \t|currentlang| package option
 \item Added mapping from \t|ngerman| to \t|german| language
 \item Added Spanish language support
+\item Removed \t|inputenc| package from examples.
+\item Added \t|expl3| package in the documentation to fix compilation error.
 \end{release}
 
 \begin{release}{0.4.0}{2020-03-25}
