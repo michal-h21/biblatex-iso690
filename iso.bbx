@@ -642,6 +642,18 @@
     {}%
 }
 
+\newbibmacro*{urldate-space}{%
+  % if there is no publisher specified in the bib file, set unit to dot,
+  % so there is a separation between previous block
+  \ifboolexpr{%
+    test {\iflistundef{publisher}}%
+    and test {\iflistundef{location}}%
+    and test {\iffieldundef{date}}%
+    and test {\iffieldundef{version}}%
+  }{\setunit{\adddot\addspace}}%
+  {\setunit{\addspace}}%
+}
+
 % The url seen date of @online entries is always printed
 \renewbibmacro*{urldate}{%
   \ifboolexpr{
@@ -651,6 +663,7 @@
     {\printurldate}%
     {}%
 }
+
 
 % LOCATION MACROS
 
@@ -1082,9 +1095,9 @@
   \usebibmacro{names:subsidiary}%
   \newunit\newblock
   \usebibmacro{location+publisher+date}%
-  \newunit
+  \newunit%
   \printfield{version}%
-  \setunit{\addspace}%
+  \usebibmacro{urldate-space}%
   \usebibmacro{urldate}%
   \newunit\newblock
   \usebibmacro{series+number}%
@@ -1271,7 +1284,7 @@
   \usebibmacro{location+publisher+fulldate}%
   \newunit
   \printfield{version}%
-  \setunit{\addspace}%
+  \usebibmacro{urldate-space}%
   \usebibmacro{urldate}%
   \newunit\newblock
   \usebibmacro{series+number}%
@@ -1302,7 +1315,7 @@
   \usebibmacro{location+publisher+date}%
   \newunit
   \printfield{version}%
-  \setunit{\addspace}%
+  \usebibmacro{urldate-space}%
   \usebibmacro{urldate}%
   \newunit\newblock
   \usebibmacro{identifier}%
@@ -1347,7 +1360,7 @@
   \usebibmacro{location+publisher+fulldate}%
   \newunit
   \printfield{version}%
-  \setunit{\addspace}%
+  \usebibmacro{urldate-space}%
   \usebibmacro{urldate}%
   \newunit\newblock
   \iffieldundef{type}

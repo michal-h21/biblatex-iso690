@@ -96,6 +96,17 @@
        {\printfield[title]{shorttitle}}}
     {\printfield{label}}}
 
+\renewbibmacro*{urldate-space}{%
+  % if there is no publisher specified in the bib file, set unit to dot,
+  % so there is a separation between previous block
+  % this version doesn't check date, as it isn't printed in the publisher block
+  \ifboolexpr{%
+    test {\iflistundef{publisher}}%
+    and test {\iflistundef{location}}%
+    and test {\iffieldundef{version}}%
+  }{\setunit{\adddot\addspace}}%
+  {\setunit{\addspace}}%
+}
 
 \newbool{bbx@inset}
 \DeclareBibliographyDriver{set}{%
