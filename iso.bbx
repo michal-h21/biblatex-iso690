@@ -531,11 +531,11 @@
 }
 
 % Based on publisher+location+date macro (defined in standard.bbx)
-% Differs only in punctuation
+% Differs only in punctuation, and printing the organization field
 %
 % Wrapper for printing normal or full date. 1st argument:
-% * empty: \usebibmacro{date}
-% * 'full': \usebibmacro{fulldate}
+% a) <empty>: \usebibmacro{date}
+% b) 'full' : \usebibmacro{fulldate}
 \newbibmacro*{location+publisher+dateform}[1]{%
   \printlist{location}%
   \ifboolexpr{
