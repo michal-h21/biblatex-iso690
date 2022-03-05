@@ -14,7 +14,7 @@ doc_dest_dir = $(dest_dir)
 dist_file = $(doc_root).zip
 tds_dist_file = $(doc_root).tds.zip
 
-bib_file = mybib.bib
+bib_file = biblatex-iso690-examples.bib
 bbx = $(wildcard *.bbx)
 cbx = $(wildcard *.cbx)
 lbx = $(wildcard *.lbx)

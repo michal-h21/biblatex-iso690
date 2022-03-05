@@ -22,6 +22,6 @@ iso-fullcite.cbx
 iso-numeric.bbx
 iso-numeric.cbx
 iso-numeric.dbx
-mybib.bib
+biblatex-iso690-examples.bib
 polish-iso.lbx
 slovak-iso.lbx
