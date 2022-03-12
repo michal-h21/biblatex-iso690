@@ -89,6 +89,10 @@ here are also some more. Default values are in **bold**.
   `publisher` fields) for an `@article` entry type
   *   [true]    Journal of Money, Credit and Banking. Ohio State University Press, vol. 38, no. 1, pp. 119–140.
   * **[false]** Journal of Money, Credit and Banking. Vol. 38, no. 1, pp. 119–140.
+* `currentlang`
+  print localization bibliography strings in the currently selected language
+  *   [true]    `context dependent`
+  * **[false]** `context dependent`
 
 ### Bibliographic fields
 
@@ -151,7 +155,7 @@ If the `<langid>.lbx` is already included in `biblatex`, adding a
 of this package. Otherwise, please consider [a contribution to the `biblatex`
 package](https://github.com/plk/biblatex/#translation) first.
 
-If you also aim to add new localisation strings, you have to define them via
+If you also aim to add new localization strings, you have to define them via
 `\NewBibliographyString` command at the beginning of the [iso.bbx](iso.bbx)
 file.
 

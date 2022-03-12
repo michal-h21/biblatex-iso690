@@ -183,6 +183,15 @@ per-entry basis in a resource (\t|.bib|) file. In addition, all of the
 languages specified in these fields have to be loaded by the \t|babel| or
 \t|polyglossia| package respectively.
 
+The affected fields that should be printed as they appear in the
+original source (in the language of resource, using the \t|langid|
+field) are, e.g. numeration information (volume, number, edition,
+etc.), while availability and access information (\textit{available
+from}), medium designation (\t|howpubished| field), pages range, or
+the relations of subsidiary creators (\textit{translated by},
+\textit{revised by}, etc.) are examples of using the main document
+language.
+
 Note that for correct support of localization functionality, the \t|babel|
 or \t|polyglossia| package should be used. The main document language
 is:
@@ -196,6 +205,48 @@ is:
     \cmd{setotherlanguage}) (see MWE above)
 \end{description}
 
+\subsubsection{Switching multiple languages}
+\label{sec:general:currentlang}
+
+Sometimes the main document language is selected in the document
+class, and the user can only switch the active language, not the main
+language. This is usually a case of journals/collections of articles
+that can be prepared (in their entirety) in one main language, but
+where individual articles might also be written in a different
+language (e.g., this is the case with \t|csbulletin| class). Then you
+can use \t|currentlang| option (see also~\ref{sec:pkg:opt:iso690}),
+which allows switching to the active surrounding language, and print
+\biblatex localization strings accordingly to this currently selected
+language, not the main language.
+
+The following MWE illustrates switching the active languages (English
+and German over the main Czech language) on two bibliography entries,
+one with the Czech \t|langid| field and the other without specified
+language.
+
+\begin{ltxexample}
+  \documentclass{article}
+  \usepackage[T1]{fontenc}
+  \usepackage[main=czech,english,ngerman]{babel}
+  \usepackage{csquotes}
+  
+  \usepackage[style=iso-numeric,currentlang]{biblatex}
+  \addbibresource{biblatex-iso690-examples.bib}
+  
+  \begin{document}
+  
+  \nocite{tex:zpravodajchlebikova91}
+  \nocite{tex:zpravodajchlebikova91cz}
+  \printbibliography
+  
+  \selectlanguage{english}
+  \printbibliography
+  
+  \selectlanguage{ngerman}
+  \printbibliography
+  
+  \end{document}
+\end{ltxexample}
 
 
 \subsection{Citation systems}
@@ -383,9 +434,9 @@ citation styles or citation managers.
 \boolitem[false]{currentlang}
 
 By default, the main document language is used for printing of bibliography
-strings.  Some classes load the Babel package and user cannot select the main
+strings. Some classes load the \t|babel| package and user cannot select the main
 document language easily. With this option, the currently selected language 
-will be used instead.
+will be used instead (see also~\ref{sec:general:currentlang}).
 
 \end{optionlist}
 
@@ -773,7 +824,7 @@ see~\parencite{gosse1912garden}.
 \begin{changelog}
 
 \begin{release}{0.4.1}{2022-03-??}
-\item Added \t|currentlang| package option.
+\item Added \t|currentlang| package option.\see{sec:pkg:opt:iso690}
 \item Added mapping from \t|ngerman| to \t|german| language.
 \item Added Spanish language support.
 \item Removed \t|inputenc| package from examples.
