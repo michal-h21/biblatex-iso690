@@ -24,7 +24,7 @@ aux_files = $(doc_root).aux $(doc_root).bbl $(doc_root).bcf \
 			$(doc_root).run.xml $(doc_root).toc
 
 
-$(doc_file): $(doc_source)
+$(doc_file): $(doc_source) $(bib_file)
 	pdflatex $(doc_root)
 	biber $(doc_root)
 	pdflatex $(doc_root)
