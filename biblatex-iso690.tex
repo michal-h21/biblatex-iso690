@@ -624,12 +624,12 @@ supervisor and school (institution) can be entered into the fields
 \paragraph{Patent}\hfill\\
 \label{sec:patent}
 
+The dominant role as an author has the holder of a patent (\t|holder|
+field). The subsidiary author is an inventor (if known) of the patent
+(\t|author| field). Application date fits in the \t|origdate| field,
+while date of publication in the \t|date| field.
 The field \t|number| is available for the patent classification
 or request number.
-If the inventor is also known, we can use \t|editora| and \t|editoratype|
-fields to specify that. Use an additionally created role \t|inventor| for the
-\t|editoratype| field; it is the key that translates based on the localization
-strings.
 For the patent type, we can use localization strings as well, e.g.
 \t|patenteu|.
 \newline
@@ -637,15 +637,15 @@ For the patent type, we can use localization strings as well, e.g.
 \c{groll2008method}
 \begin{ltxexample}
 @patent{groll2008method,
-  author      = {Clad Metals LLC Canonsburg, PA 15317 (US)},
+  holder      = {{Clad Metals LLC Canonsburg, PA 15317 (US)}},
   title       = {Method of making a copper core five-ply composite
                   and cooking vessel},
-  editora     = {Groll, W. A.},
-  editoratype = {inventor},
+  author      = {Groll, W. A.},% <---------- inventor
   publisher   = {Google Patents},
   number      = {EP 1 094 937 B1},
   type        = {patenteu},
-  date        = {2008-07-30},
+  date        = {2008-07-30},% <------------ publication date
+  origdate    = {1999-05-04},% <------------ application date
   url         = {https://patents.google.com/patent/EP1094937B1},
 }
 \end{ltxexample}
@@ -832,7 +832,7 @@ see~\parencite{gosse1912garden}.
 \item Prevent capitalisation of the \t|[online]| bibliography string.
 \item Fix punctuation before urldate if publisher info is missing.
 \item Print \t|organization| field in publisher \t|location+publisher| list.
-\item Improved support for Patent entries.
+\item Improved support for \t|@patent| entries.\see{sec:patent}
 \end{release}
 
 \begin{release}{0.4.0}{2020-03-25}
