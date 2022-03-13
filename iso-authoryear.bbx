@@ -54,33 +54,33 @@
 \renewbibmacro*{date}{}%
 
 % Overwrite names:primary to print year right after:
+% 0) holder (only for patents)
 % 1) author
 % 2) editor
 % 3) label/title
 % Need to handle not to print editor twice (primary
 % and subsidiary names): editor macro includes \clearname{editor}
 \renewbibmacro*{names:primary}{%
-  % First check if we have author(s) available
-  \ifboolexpr{
-    test \ifuseauthor
-    and
-    not test {\ifnameundef{author}}
-  }
-    {\usebibmacro{author}%
-     \setunit{\addspace}%
-     \printfield{nameaddon}%
-     \setunit{\printdelim{nameyeardelim}}}%
-    {% If no author(s) is available, check for editor(s)
-      \ifboolexpr{
-        test \ifuseeditor
-        and
-        not test {\ifnameundef{editor}}
-      }
+  % If we have a patent with holder field, we will use that.
+  \ifboolexpr{test \ifuseholder and test {\ifentrytype{patent}}
+                                and not test {\ifnameundef{holder}}}
+    {\usebibmacro{byholder}%
+    \setunit{\addspace}%
+    \printfield{nameaddon}%
+    \setunit{\printdelim{nameyeardelim}}}%
+    {% Otherwise, first check if we have author(s) available
+    \ifboolexpr{test \ifuseauthor and not test {\ifnameundef{author}}}
+      {\usebibmacro{author}%
+      \setunit{\addspace}%
+      \printfield{nameaddon}%
+      \setunit{\printdelim{nameyeardelim}}}%
+      {% If no author(s) is available, check for editor(s)
+      \ifboolexpr{test \ifuseeditor and not test {\ifnameundef{editor}}}
         {\usebibmacro{editor}%
-         \setunit{\printdelim{nameyeardelim}}}%
+        \setunit{\printdelim{nameyeardelim}}}%
         {% If no editor(s) is available, use label/title
-         \usebibmacro{labeltitle}%
-         \setunit{\printdelim{nonameyeardelim}}}}%
+        \usebibmacro{labeltitle}%
+        \setunit{\printdelim{nonameyeardelim}}}}}%
   % And finally print date
   \usebibmacro{date+extradate}%
 }
