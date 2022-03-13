@@ -9,7 +9,7 @@
 \DeclareLanguageMappingSuffix{-iso}
 % Currently needed the following additional language strings:
 \NewBibliographyString{at,bysupervisor,urlalso,
-  director,bydirector,inventor,byinventor,online,film}
+  director,bydirector,inventor,byinventor,online,film,application}
 
 % PACKAGE OPTIONS
 
@@ -121,6 +121,9 @@
 
 % The separator between 'dates' and the numeration section
 \newcommand{\numerationpunct}{\addcomma\space}
+
+% No seperator at the very end of an entry
+\renewcommand{\finentrypunct}{}
 
 % A colon preceded with or without space
 \newcommand{\addspacecolon}{%
@@ -236,6 +239,11 @@
     {\mainlangbibstring{#1}}
     {#1}%
 }
+\DeclareFieldFormat[patent]{type}{%
+  \ifbibstring{#1}
+    {\mainlangbiblstring{#1}}
+    {#1}%
+}
 
 % Format supervisor of thesis (precedes the name with a localisation string)
 \DeclareFieldFormat{supervisor}{%
@@ -309,17 +317,61 @@
         {#1}}% This is the go-to format
 }
 
+% Define names to consider for 'labelname', based on
+% the default definition, but adding holder as the
+% very first choice for patents.
+\DeclareLabelname[patent]{%
+  \field{holder}
+  \field{shortauthor}
+  \field{author}
+  \field{shorteditor}
+  \field{editor}
+  \field{translator}
+}
+
 % Define dates to consider for 'labeldate', based on
 % the default definition, but without 'urldate' field,
 % preventing printing url seen date in place of the year
 % of a publication.
 \DeclareLabeldate{%
+  \field{origdate}
   \field{date}
   \field{year}
   \field{dateaddon}% <---- biblatex-iso690 data model extension
   \field{eventdate}
-  \field{origdate}
   \literal{nodate}
+}
+
+% Sorting
+\DeclareSortingTemplate{nyt}{
+  \sort{
+    \field{presort}
+  }
+  \sort[final]{
+    \field{sortkey}
+  }
+  \sort{
+    \field{sortname}
+    \field{holder}
+    \field{author}
+    \field{editor}
+    \field{translator}
+    \field{sorttitle}
+    \field{title}
+  }
+  \sort{
+    \field{sortyear}
+    \field{origyear}
+    \field{year}
+  }
+  \sort{
+    \field{sorttitle}
+    \field{title}
+  }
+  \sort{
+    \field{volume}
+    \literal{0}
+  }
 }
 
 % Format chapter of book with preceding localisation string
@@ -363,6 +415,9 @@
 % given (first) name followed by last (family) name,
 % so it may sound more naturally in this order
 \DeclareNameAlias{supervisor}{given-family}
+% For patents the author field is supposed to be the inventor
+% of the patent, which we want to be reverse name order
+\DeclareNameAlias[patent]{author}{given-family}
 
 % BIBLIOGRAPHY MACROS
 
@@ -371,15 +426,16 @@
 % Based on author/editor macro
 % Adds nameaddon field to author names
 \newbibmacro*{names:primary}{%
-  \ifboolexpr{
-    test \ifuseauthor
-    and
-    not test {\ifnameundef{author}}
-  }
-    {\usebibmacro{author}%
-     \setunit{\addspace}%
-     \printfield{nameaddon}}%
-    {\usebibmacro{editor}}%
+  \ifboolexpr{test \ifuseholder and test {\ifentrytype{patent}}
+                                and not test {\ifnameundef{holder}}}
+    {\usebibmacro{byholder}%
+    \setunit{\addspace}%
+    \printfield{nameaddon}}%
+    {\ifboolexpr{test \ifuseauthor and not test {\ifnameundef{author}}}
+      {\usebibmacro{author}%
+      \setunit{\addspace}%
+      \printfield{nameaddon}}%
+      {\usebibmacro{editor}}}%
 }
 
 % Macro for secondary authors with their role
@@ -406,6 +462,16 @@
      \setunit{\addspace}%
      \printnames{supervisor}}%
 }
+
+% Macro for printing the inventor of a patent
+\newbibmacro*{patentinventor}{%
+  \ifnameundef{author}
+    {}
+    {\mainlangbibstring{inventor}%
+     \setunit{\addcolon\space}%
+     \usebibmacro{author}}%
+}
+
 
 % TITLES MACROS
 
@@ -471,6 +537,7 @@
     {\usebibmacro{titles}{issue}{}}%
 }
 
+
 % MEDIUM TYPE MACROS
 
 \newbibmacro*{medium-type}{%
@@ -503,6 +570,17 @@
         {}% Don't print 'howpublished' field
         {\printfield{howpublished}}}%
 }
+
+
+% EDITION INFO MACROS
+
+% Application date
+\newbibmacro{applicationdate}{%
+  \iffieldundef{origyear}
+    {}
+    {\mainlangbibstring{application}\addcolon\space\printorigdate}
+}
+
 
 % PUBLICATION INFO MACROS
 
@@ -558,6 +636,7 @@
 \newbibmacro*{location+publisher+fulldate}{%
   \usebibmacro{location+publisher+dateform}{full}}
 
+
 % NUMERATION MACROS
 
 \newbibmacro*{serial:numeration}{%
@@ -574,6 +653,7 @@
   \printfield{chapter}%
 }
 
+
 % SERIES TITLE AND NUMBER MACROS
 
 % Based on series+number macro (defined in standard.bbx)
@@ -583,6 +663,7 @@
   \setunit*{\addcomma\space}%
   \printfield{number}%
 }%
+
 
 % STANDARD IDENTIFIERS MACROS
 
@@ -603,6 +684,7 @@
      \newunit}
     {}%
 }
+
 
 % AVAILABILITY AND ACCESS MACROS
 
@@ -681,6 +763,7 @@
      \printfield{library}}%
 }
 
+
 % OTHER MACROS
 
 % Redeclare in: bibmacro to use the main document language.
@@ -699,6 +782,7 @@
   \mainlangbibstring{at}%
   \printunit{\intitlepunct}%
 }
+
 
 % BIBLATEX CORE ADJUSTMENTS
 
@@ -720,7 +804,7 @@
   \blx@mainlangbibstring{#1}{abx@sstr}{#2}}
 
 % We use Babel or Polyglossia main document language for some
-% bibliography strings. With currentlang option, the currently 
+% bibliography strings. With currentlang option, the currently
 % selected language is used instead. It is useful in some classes
 % that don't support selection of the main language.
 % https://github.com/michal-h21/biblatex-iso690/issues/90
@@ -1400,21 +1484,25 @@
   \newunit\newblock
   \usebibmacro{names:subsidiary}%
   \newunit\newblock
+  \usebibmacro{patentinventor}%
+  \newunit
+  \printdate%
+  \newunit
+  \usebibmacro{applicationdate}%
+  \newunit
+  \printfield{note}%
+  \newunit\newblock
   \printlist{location}%
   \newunit\newblock
   \iffieldundef{type}
     {}
     {\printfield{type}%
-     \setunit*{\addcomma\space}}%
+     \setunit*{\addspace}}%
   \printfield{number}%
   \newunit\newblock
-  \usebibmacro{fulldate}%
-  \setunit{\addspace}%
   \usebibmacro{urldate}%
   \newunit\newblock
   \usebibmacro{availability+access}%
-  \newunit\newblock
-  \printfield{note}%
   \newunit\newblock
   \setunit{\bibpagerefpunct}\newblock
   \usebibmacro{pageref}%
