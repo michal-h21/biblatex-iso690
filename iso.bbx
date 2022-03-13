@@ -95,7 +95,8 @@
   autolang=other,% Use the 'langid' language for the entry
   date=year,% Use only years
   urldate=iso,% Use ISO8601 Extended Format (yyyy-mm-dd) for URL 'seen' dates
-  seconds=true,% ISO8601 format requires 'seconds=true'
+  origdate=iso,% Use ISO8601 Extended Format (yyyy-mm-dd) for patent appl. dates
+  seconds=true,% iso (ISO8601) format requires 'seconds=true'
   datecirca=true,% Use circa for approximate dates
   currentlang=false,% Use main document language for printing of bibliography strings
 }
@@ -1112,7 +1113,7 @@
       {\blx@nounit}
       {\printtext[{#1date}]{%
          \datecircaprint
-         % Such a season component can only come from an  ISO8601 season which replaces
+         % Such a season component can only come from an ISO8601 season which replaces
          % a normal month so if it exists, we know that a normal date print is ruled out
          \iffieldundef{#1season}
            {\blx@ymddate{#1}{}%
