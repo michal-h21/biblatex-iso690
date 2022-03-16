@@ -25,6 +25,7 @@
 \newtoggle{bbx:eprint}
 \newtoggle{bbx:articlepubinfo}
 \newtoggle{bbx:currentlang}
+\newtoggle{bbx:noenddot}
 
 % Print info about package options into .log file
 \protected\def\isoblx@info@noline#1{%
@@ -77,6 +78,10 @@
   \settoggle{bbx:currentlang}{#1}%
   \isoblx@info@noline{Use current language for the bibliography: #1}}
 
+\DeclareBibliographyOption{noenddot}[true]{
+  \settoggle{bbx:noenddot}{#1}%
+  \isoblx@info@noline{Use no end dot for the bibliography entries: #1}}
+
 
 % Set default package options
 \ExecuteBibliographyOptions{%
@@ -99,6 +104,7 @@
   seconds=true,% iso (ISO8601) format requires 'seconds=true'
   datecirca=true,% Use circa for approximate dates
   currentlang=false,% Use main document language for printing of bibliography strings
+  noenddot=false,%Use an end dot for the bibliography entries
 }
 
 % Default definitions of beginning and closing macro
@@ -123,8 +129,12 @@
 % The separator between 'dates' and the numeration section
 \newcommand{\numerationpunct}{\addcomma\space}
 
-% No seperator at the very end of an entry
-\renewcommand{\finentrypunct}{}
+% No seperator or a dot at the very end of an entry
+\renewcommand{\finentrypunct}{%
+  \iftoggle{bbx:noenddot}
+    {}
+    {\addperiod}%
+}
 
 % A colon preceded with or without space
 \newcommand{\addspacecolon}{%
