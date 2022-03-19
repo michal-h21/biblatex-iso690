@@ -51,7 +51,7 @@
 
 \DeclareBibliographyOption{thesisinfoinnotes}[true]{%
   \settoggle{bbx:thesisinfoinnotes}{#1}%
-  \isoblx@info@noline{Printing thesis info at the end enabled: #1}}
+  \isoblx@info@noline{Thesis info in the notes section enabled: #1}}
 
 \DeclareBibliographyOption{url}[true]{%
   \settoggle{bbx:url}{#1}%
@@ -335,7 +335,7 @@
 % preventing printing url seen date in place of the year
 % of a publication.
 \DeclareLabeldate{%
-  \field{origdate}
+  \field{origdate}% <----- used by patents
   \field{date}
   \field{year}
   \field{dateaddon}% <---- biblatex-iso690 data model extension
@@ -343,7 +343,8 @@
   \literal{nodate}
 }
 
-% Sorting
+% Sorting based on the default definition, but adding
+% holder and origyear to work with patent entry types.
 \DeclareSortingTemplate{nyt}{
   \sort{
     \field{presort}
@@ -416,9 +417,14 @@
 % given (first) name followed by last (family) name,
 % so it may sound more naturally in this order
 \DeclareNameAlias{supervisor}{given-family}
-% For patents the author field is supposed to be the inventor
-% of the patent, which we want to be reverse name order
+% For patents, the author field is supposed to be the inventor
+% of the patent, which we want to have in reverse name order,
+% since it may sound more naturally in this order
 \DeclareNameAlias[patent]{author}{given-family}
+% However, if there is no holder field for a patent,
+% author field should be in the default order since it acts
+% as a primary creator of the patent at the beginning
+% of the bib reference (consistency rule)
 \DeclareStyleSourcemap{
   \maps[datatype=bibtex]{
     \map{
