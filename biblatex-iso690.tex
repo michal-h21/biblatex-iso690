@@ -663,7 +663,16 @@ to the \biblatex documentation.
 \subsubsection{Creators}
 
 The persons or organizations responsible for the cited work should be
-primarily given in the \t|author| field. If it is not appropriate,
+primarily given in the \t|author| field. Please note that organization
+names (so-called corporate authors) need to be protected with doubled
+curly braces to avoid being (mis)parsed into family/given names
+(resulting in wrong order and formatting).
+
+\begin{ltxexample}
+  author = {{Dialog Information Services}},
+\end{ltxexample}
+
+If the \t|author| is not appropriate,
 other fields like \t|editor| and \t|editorX| family fields or some
 specific ones (e.g. \t|translator|) can be used. Note also the field
 \t|editortype| and \t|editortypeX| family fields which can be used
@@ -833,6 +842,7 @@ see~\parencite{gosse1912garden}.
 \item Fix punctuation before \t|urldate| if publisher info is missing.
 \item Print \t|organization| field in publisher \t|location+publisher| list.
 \item Improved support for \t|@patent| entries.\see{sec:patent}
+\item Improved documentation.
 \end{release}
 
 \begin{release}{0.4.0}{2020-03-25}
