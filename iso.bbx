@@ -412,6 +412,7 @@
 
 % Default name list format is last (family) followed by given (first) name
 \DeclareNameAlias{default}{family-given}
+\DeclareNameAlias[patent]{holder}{default}
 % For supervisor, use the reversed order format:
 % given (first) name followed by last (family) name,
 % so it may sound more naturally in this order
@@ -419,6 +420,19 @@
 % For patents the author field is supposed to be the inventor
 % of the patent, which we want to be reverse name order
 \DeclareNameAlias[patent]{author}{given-family}
+\DeclareNameAlias[patent]{author}{given-family}
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{
+    \map{
+      \pertype{patent}
+      \step[fieldsource=author]
+      \step[fieldset=holder, origfieldval]
+    }
+  }
+}
+
+
+
 
 % BIBLIOGRAPHY MACROS
 
