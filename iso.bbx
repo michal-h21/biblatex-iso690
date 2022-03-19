@@ -9,7 +9,7 @@
 \DeclareLanguageMappingSuffix{-iso}
 % Currently needed the following additional language strings:
 \NewBibliographyString{at,bysupervisor,urlalso,
-  director,bydirector,inventor,byinventor,online,film,application}
+  director,bydirector,inventor,byinventor,online,film,application,publication}
 
 % PACKAGE OPTIONS
 
@@ -585,14 +585,6 @@
 }
 
 
-% EDITION INFO MACROS
-
-% Application date
-\newbibmacro{applicationdate}{%
-  \iffieldundef{origyear}
-    {}
-    {\mainlangbibstring{application}\addcolon\space\printorigdate}
-}
 
 
 % PUBLICATION INFO MACROS
@@ -648,6 +640,24 @@
 
 \newbibmacro*{location+publisher+fulldate}{%
   \usebibmacro{location+publisher+dateform}{full}}
+
+
+
+% ADDITIONAL DATE MACROS FOR PATENTS
+
+% Application date
+\newbibmacro{applicationdate}{%
+  \iffieldundef{origyear}
+    {}
+    {\mainlangbibstring{application}\addcolon\space\printorigdate}
+}
+
+% Publication date
+\newbibmacro{publicationdate}{%
+  \iffieldundef{year}
+    {}
+    {\mainlangbibstring{publication}\addcolon\space\usebibmacro{fulldate}}
+}
 
 
 % NUMERATION MACROS
@@ -1499,7 +1509,7 @@
   \newunit\newblock
   \usebibmacro{patentinventor}%
   \newunit
-  \printdate%
+  \usebibmacro{publicationdate}%
   \newunit
   \usebibmacro{applicationdate}%
   \newunit
