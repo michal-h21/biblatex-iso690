@@ -41,9 +41,20 @@ here. You should be able to use `biblatex-iso690` now.
 \usepackage[english,czech]{babel} % the main document language is the last one
 \usepackage[
   backend=biber,        % if we want unicode and many other features (biber is already by default)
-  style=iso-authoryear, % or iso-numeric for numeric citation method
+  style=iso-authoryear, % or another iso-<style>
 ]{biblatex}
 ```
+
+### Citation and bibliography styles
+
+`biblatex-iso690` provides the following styles (both for citations
+and bibliographies). You can select one with `style` keyword in the
+package options of `biblatex`.
+
+* `iso-alphabetic`
+* `iso-authortitle`
+* `iso-authoryear`
+* `iso-numeric`
 
 ### Custom options
 
