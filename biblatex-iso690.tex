@@ -438,6 +438,12 @@ strings. Some classes load the \t|babel| package and user cannot select the main
 document language easily. With this option, the currently selected language 
 will be used instead (see also~\ref{sec:general:currentlang}).
 
+\boolitem[false]{noenddot}
+
+Enable or disable printing an end dot at the very end of bibliography
+entries. The default value is \t|false|, meaning a dot is printed at
+the end.
+
 \end{optionlist}
 
 
@@ -843,7 +849,8 @@ see~\parencite{gosse1912garden}.
 \item Print \t|organization| field in publisher \t|location+publisher| list.
 \item Improved support for \t|@patent| entries.\see{sec:patent}
 \item Improved documentation.
-\item Fix missing \t|volume| and \t|volumes| fields.
+\item Fixed missing \t|volume| and \t|volumes| fields.
+\item Added \t|noenddot| package option.\see{sec:pkg:opt:iso690}
 \end{release}
 
 \begin{release}{0.4.0}{2020-03-25}
