@@ -526,7 +526,8 @@
 \newbibmacro{multi:titles}{%
   \iffieldundef{maintitle}
     {\iffieldundef{booktitle}
-      {\usebibmacro{titles}{}{emph}}
+      {\usebibmacro{titles}{}{emph}%
+       \usebibmacro{volume}}
       {\usebibmacro{titles}{book}{emph}%
        \usebibmacro{volume}%
        \usebibmacro{titles}{}{}}}%
