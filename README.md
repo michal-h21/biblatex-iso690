@@ -104,6 +104,11 @@ here are also some more. Default values are in **bold**.
   print localization bibliography strings in the currently selected language
   *   [true]    `context dependent`
   * **[false]** `context dependent`
+* `noenddot`
+  enable or disable printing an end dot at the very end of
+  bibliography entries
+  *   [true]    ... ISSN 1082-9873. Available from DOI : 10.1045/july2005-lynch
+  * **[false]** ... ISSN 1082-9873. Available from DOI : 10.1045/july2005-lynch.
 
 ### Bibliographic fields
 
