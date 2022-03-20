@@ -187,6 +187,35 @@
   crossref = {tugboat1980},
 }
 
+% Book with volume field example
+@book{knuth1998sorting,
+  author    = {Knuth, Donald E.},
+  maintitle = {The Art of Computer Programming},
+  title     = {Sorting and Searching},
+  date      = {1998},
+  volume    = {3},
+  edition   = {2},
+  publisher = {Addison–Wesley},
+  isbn      = {978-0-201-89685-5},
+}
+
+% Multi-volume book example (volumes field)
+% Gratefully borrowed from biblatex-examples.bib
+@mvbook{knuth:ct,
+  author         = {Knuth, Donald E.},
+  title          = {Computers \& Typesetting},
+  date           = {1984/1986},
+  volumes        = 5,
+  publisher      = {Addison-Wesley},
+  location       = {Reading, Mass.},
+  langid         = {english},
+  langidopts     = {variant=american},
+  sorttitle      = {Computers & Typesetting},
+  indexsorttitle = {Computers & Typesetting},
+  annotation     = {A five-volume book cited as a whole. This is a \texttt{mvbook}
+                    entry, note the \texttt{volumes} field},
+}
+
 % Made-up bib entry
 @collection{sbornik2007,
   title     = {Mimořádně užitečný sborník},
@@ -435,6 +464,7 @@
   note         = {Technical Memo 5},
 }
 
+% currentlang package option example 1
 @article{tex:zpravodajchlebikova91,
   author  = {Chlebíková, Jana},
   title   = {Ako rozděliť (slovo) Československo},
@@ -448,6 +478,7 @@
   note    = {No langid},
 }
 
+% currentlang package option example 2
 @article{tex:zpravodajchlebikova91cz,
   author  = {Chlebíková, Jana},
   title   = {Ako rozděliť (slovo) Československo},

@@ -1222,6 +1222,8 @@
   \newunit\newblock
   \usebibmacro{series+number}%
   \newunit\newblock
+  \printfield{volumes}
+  \newunit\newblock
   \usebibmacro{identifier}%
   \newunit\newblock
   \usebibmacro{availability+access}%
@@ -1540,6 +1542,7 @@
 
 % BIBLIOGRAPHY ALIASES
 
+\DeclareBibliographyAlias{mvbook}{book}
 \DeclareBibliographyAlias{bookinbook}{inbook}
 \DeclareBibliographyAlias{suppbook}{inbook}
 \DeclareBibliographyAlias{booklet}{book}
