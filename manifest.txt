@@ -1,3 +1,4 @@
+biblatex-iso690-examples.bib
 biblatex-iso690.pdf
 biblatex-iso690.tex
 bibpok.tex
@@ -22,6 +23,7 @@ iso-fullcite.cbx
 iso-numeric.bbx
 iso-numeric.cbx
 iso-numeric.dbx
-biblatex-iso690-examples.bib
+ngerman-iso.lbx
 polish-iso.lbx
 slovak-iso.lbx
+spanish-iso.lbx
