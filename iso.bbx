@@ -101,6 +101,8 @@
   date=year,% Use only years
   urldate=iso,% Use ISO8601 Extended Format (yyyy-mm-dd) for URL 'seen' dates
   origdate=iso,% Use ISO8601 Extended Format (yyyy-mm-dd) for patent appl. dates
+  eventdate=long,% Use long format for eventdates
+  eventdateusetime=true,% Use time for eventdates
   seconds=true,% iso (ISO8601) format requires 'seconds=true'
   datecirca=true,% Use circa for approximate dates
   currentlang=false,% Use main document language for printing of bibliography strings
@@ -152,6 +154,9 @@
 % The delimiter before the final name
 % Use consistent name format for all creators
 \DeclareDelimAlias{finalnamedelim}{multinamedelim}
+
+% The delimiter between the date and the time
+\DeclareDelimFormat{bibdatetimesep}{\addcomma\space}
 
 % Thanks Moewew for sugesting this. Make uppercase names only in bibliography.
 % Default name format is ALL-CAPS
@@ -299,8 +304,14 @@
 \DeclareFieldFormat{isrn}{\mkbibacro{ISRN}\addspace#1}
 \DeclareFieldFormat{iswc}{\mkbibacro{ISWC}\addspace#1}
 
+% Format for venue
+\DeclareFieldFormat{venue}{#1}
+
 % Format url seen date with preceding localisation string in square brackets
 \DeclareFieldFormat{urldate}{\mkbibbrackets{\mainlangbibstring{urlseen}\space#1}}
+
+% Format for an event date
+\DeclareFieldFormat{eventdate}{#1}
 
 % Format additional date information as is (use bib file for modifications).
 \DeclareFieldFormat{dateaddon}{#1}
@@ -406,15 +417,18 @@
 \DeclareFieldFormat{booktitle}{#1}
 \DeclareFieldFormat{maintitle}{#1}
 \DeclareFieldFormat{issuetitle}{#1}
+\DeclareFieldFormat{eventtitle}{#1}
 \DeclareFieldFormat{journalsubtitle}{#1}
 \DeclareFieldFormat{booksubtitle}{#1}
 \DeclareFieldFormat{mainsubtitle}{#1}
 \DeclareFieldFormat{issuesubtitle}{#1}
+\DeclareFieldFormat{eventsubtitle}{#1}
 
 % Format other / alternative titles in square brackets
 \DeclareFieldFormat{titleaddon}{\mkbibbrackets{#1}}
 \DeclareFieldAlias{booktitleaddon}{titleaddon}
 \DeclareFieldAlias{maintitleaddon}{titleaddon}
+\DeclareFieldAlias{eventtitleaddon}{titleaddon}
 
 % Format additional name information in square brackets
 \DeclareFieldFormat{nameaddon}{\mkbibbrackets{#1}}
@@ -801,6 +815,20 @@
     {}
     {\usebibmacro{at:}%
      \printfield{library}}%
+}
+
+
+% NOTES MACROS
+
+% Event information
+\newbibmacro*{event}{%
+  \printfield{eventtitle}%
+  \setunit{\addspace}%
+  \printfield{eventtitleaddon}%
+  \newunit
+  \printfield{venue}%
+  \setunit{\addcomma\addspace}%
+  \printeventdate
 }
 
 
@@ -1400,6 +1428,102 @@
   \usebibmacro{pageref}%
   \usebibmacro{finentry}}%
 
+\DeclareBibliographyDriver{inproceedings}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{names:primary}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{titles}{}{}%
+  \newunit\newblock
+  \usebibmacro{in:}%
+  \usebibmacro{editor}%
+  \newunit\newblock
+  \usebibmacro{host:titles}%
+  \setunit{\addspace}%
+  \usebibmacro{medium-type}%
+  \newunit\newblock
+  \printfield{edition}%
+  \newunit\newblock
+  \usebibmacro{names:subsidiary}%
+  \newunit\newblock
+  \usebibmacro{location+publisher+date}%
+  % could number be even used in `inproceedings`?
+  % It should be at some other place in this case
+  \setunit{\numerationpunct}%
+  \usebibmacro{book:numeration}%
+  \setunit{\bibpagespunct}%
+  \printfield{pages}%
+  \newunit
+  \printfield{version}%
+  \setunit{\addspace}%
+  \usebibmacro{urldate}%
+  \newunit\newblock
+  \usebibmacro{series+number}%
+  \newunit\newblock
+  \usebibmacro{identifier}%
+  \newunit\newblock
+  \usebibmacro{availability+access}%
+  \newunit\newblock
+  \usebibmacro{location}%
+  \newunit\newblock
+  \usebibmacro{event}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \usebibmacro{finentry}}%
+
+\DeclareBibliographyDriver{misc}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{names:primary}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \iffieldundef{maintitle}
+    {\usebibmacro{multi:titles}}
+    {\usebibmacro{titles}{}{}%
+    \newunit\newblock
+    \usebibmacro{in:}%
+    \usebibmacro{editor}%
+    \newunit\newblock
+    \usebibmacro{host:titles}}%
+  \setunit{\addspace}%
+  \usebibmacro{medium-type}%
+  \newunit\newblock
+  \printfield{edition}%
+  \newunit\newblock
+  \usebibmacro{names:subsidiary}%
+  \newunit\newblock
+  \printlist{institution}%
+  \newunit\newblock
+  \usebibmacro{location+publisher+date}%
+  \newunit%
+  \printfield{version}%
+  \usebibmacro{urldate-space}%
+  \usebibmacro{urldate}%
+  \newunit\newblock
+  \usebibmacro{series+number}%
+  \newunit\newblock
+  \printfield{volumes}
+  \newunit\newblock
+  \usebibmacro{identifier}%
+  \newunit\newblock
+  \usebibmacro{availability+access}%
+  \newunit\newblock
+  \usebibmacro{location}%
+  \setunit{\addspace}%
+  \iftoggle{bbx:totalpages}
+    {\printfield{pagetotal}}
+    {}%
+  \newunit\newblock
+  \usebibmacro{event}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \usebibmacro{finentry}}
+
 \DeclareBibliographyDriver{online}{%
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
@@ -1557,15 +1681,14 @@
 \DeclareBibliographyAlias{suppbook}{inbook}
 \DeclareBibliographyAlias{booklet}{book}
 \DeclareBibliographyAlias{collection}{book}
+\DeclareBibliographyAlias{mvcollection}{collection}
 \DeclareBibliographyAlias{suppcollection}{incollection}
 \DeclareBibliographyAlias{manual}{book}
-\DeclareBibliographyAlias{misc}{book}
 \DeclareBibliographyAlias{suppperiodical}{article}
 \DeclareBibliographyAlias{proceedings}{collection}
-\DeclareBibliographyAlias{inproceedings}{incollection}
 \DeclareBibliographyAlias{reference}{collection}
 \DeclareBibliographyAlias{inreference}{incollection}
-\DeclareBibliographyAlias{unpublished}{book}
+\DeclareBibliographyAlias{unpublished}{misc}
 \DeclareBibliographyAlias{movie}{book}
 \DeclareBibliographyAlias{music}{book}
 \DeclareBibliographyAlias{*}{misc}
