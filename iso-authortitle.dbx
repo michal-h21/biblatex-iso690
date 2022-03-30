@@ -6,7 +6,11 @@
 % Declare new fields
 \DeclareDatamodelFields[type=list, datatype=name]{supervisor}
 \DeclareDatamodelFields[type=field, datatype=literal]{dateaddon}
+\DeclareDatamodelFields[type=field, datatype=literal]{eisbn,eissn,lccn}
+\DeclareDatamodelFields[type=field, datatype=literal]{din}
 
 % Declare new fields for (specific / all) entry types
 \DeclareDatamodelEntryfields[thesis]{supervisor}
 \DeclareDatamodelEntryfields{dateaddon}
+\DeclareDatamodelEntryfields{eisbn,eissn,lccn}
+\DeclareDatamodelEntryfields[misc]{din}
