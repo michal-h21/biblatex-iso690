@@ -1,6 +1,10 @@
 \ProvidesFile{iso.bbx}
   [2022/03/20 v0.4.1 ISO 690 biblatex bibliography style]
 
+
+\RequirePackage{xpatch}
+
+
 % Currently available language mappings:
 % Czech, English, German, Polish, Slovak, and more.
 % You can list them directly with `$ ls *lbx`.
@@ -285,11 +289,33 @@
   \docsvfield{isbn}%
 }
 
-% The same formatting rules as for ISBN above
+% Electronic ISBN, the same formatting rules as for ISBN above
+\DeclareFieldFormat{eisbn}{%
+  \def\do##1{\mkbibacro{eISBN}\space##1%
+    \def\do####1{\stdidentifierspunct\mkbibacro{eISBN}\space####1}}%
+  \docsvfield{eisbn}%
+}
+
+% ISSN, the same formatting rules as for ISBN above
 \DeclareFieldFormat{issn}{%
   \def\do##1{\mkbibacro{ISSN}\space##1%
     \def\do####1{\stdidentifierspunct\mkbibacro{ISSN}\space####1}}%
   \docsvfield{issn}%
+}
+
+% Electronic ISSN, the same formatting rules as for ISBN above
+\DeclareFieldFormat{eissn}{%
+  \def\do##1{\mkbibacro{eISSN}\space##1%
+    \def\do####1{\stdidentifierspunct\mkbibacro{eISSN}\space####1}}%
+  \docsvfield{issn}%
+}
+
+% LCCN
+\DeclareFieldFormat{lccn}{%
+  \mkbibacro{LCCN}\addspace
+  \ifhyperref
+    {\href{http://lccn.loc.gov/#1}{\nolinkurl{#1}}}
+    {\nolinkurl{#1}}%
 }
 
 % Format other standard identifiers
@@ -298,6 +324,18 @@
 \DeclareFieldFormat{ismn}{\mkbibacro{ISMN}\addspace#1}
 \DeclareFieldFormat{isrn}{\mkbibacro{ISRN}\addspace#1}
 \DeclareFieldFormat{iswc}{\mkbibacro{ISWC}\addspace#1}
+\DeclareFieldFormat{din}{\mkbibacro{DIN}\addspace#1}
+
+% Format for doi identifier
+\xpatchfieldformat{doi}{\mkbibacro{DOI}\addcolon\space}{\mkbibacro{doi}\addcolon}{}{}
+
+% Format for eprint identifiers
+\xpatchfieldformat{eprint}{\addcolon\space}{\addcolon}{}{}
+\xpatchfieldformat{eprint:hdl}{HDL\addcolon\space}{HDL\addcolon}{}{}
+\xpatchfieldformat{eprint:arxiv}{arXiv\addcolon\space}{arXiv\addcolon}{}{}
+\xpatchfieldformat{eprint:jstor}{JSTOR\addcolon\space}{JSTOR\addcolon}{}{}
+\xpatchfieldformat{eprint:pubmed}{PMID\addcolon\space}{PMID\addcolon}{}{}
+\xpatchfieldformat{eprint:googlebooks}{Google Books\addcolon\space}{Google Books\addcolon}{}{}
 
 % Format url seen date with preceding localisation string in square brackets
 \DeclareFieldFormat{urldate}{\mkbibbrackets{\mainlangbibstring{urlseen}\space#1}}
@@ -712,11 +750,17 @@
   \iftoggle{bbx:isbn}
     {\printfield{isan}%
      \newunit
+     \printfield{eisbn}%
+     \newunit
      \printfield{isbn}%
+     \newunit
+     \printfield{lccn}%
      \newunit
      \printfield{ismn}%
      \newunit
      \printfield{isrn}%
+     \newunit
+     \printfield{eissn}%
      \newunit
      \printfield{issn}%
      \newunit
@@ -730,8 +774,12 @@
 
 % Precedes DOI field with urlfrom localisation string
 \newbibmacro*{from-doi}{%
-  \mainlangbibstring{urlfrom}%
-  \setunit{\addspace}%
+  \ifentrytype{book}
+    {\iffieldequalstr{type}{eBook}
+      {\mainlangbibstring{urlfrom}}
+      {\mainlangbibstring{urlalso}}}
+    {\mainlangbibstring{urlfrom}}%
+  \setunit{\addcolon\space}%
   \printfield{doi}%
 }
 
@@ -739,7 +787,7 @@
 % Use default eprint formatting macro
 \newbibmacro*{from-eprint}{%
   \mainlangbibstring{urlfrom}
-  \setunit{\addspace}%
+  \setunit{\addcolon\space}%
   \usebibmacro{eprint}%
 }
 
