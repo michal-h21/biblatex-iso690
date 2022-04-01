@@ -234,12 +234,16 @@
 % Differentiate number for patent and report: format as is
 \DeclareFieldFormat[patent,report]{number}{#1}
 
-% a) url AND no urldate: use localisation string 'available ALSO from',
+% a) url AND no urldate and type is not eBook:
+%    use localisation string 'also available from',
 %    meaning: the work is not primarily published electronically
-% b) url AND urldate: use localisation string 'available from'
+% b) (url AND urldate) OR (url AND no urldate and type=eBook):
+%    use localisation string 'available from'
 \DeclareFieldFormat*{url}{%
   \iffieldundef{urlyear}
-    {\mainlangbibstring{urlalso}}
+    {\iffieldequalstr{type}{eBook}
+      {\mainlangbibstring{urlfrom}}
+      {\mainlangbibstring{urlalso}}}%
     {\mainlangbibstring{urlfrom}}%
   \addcolon\space\url{#1}%
 }
