@@ -30,6 +30,7 @@
 \newtoggle{bbx:articlepubinfo}
 \newtoggle{bbx:currentlang}
 \newtoggle{bbx:noenddot}
+\newtoggle{bbx:familynamesc}
 
 % Print info about package options into .log file
 \protected\def\isoblx@info@noline#1{%
@@ -86,6 +87,10 @@
   \settoggle{bbx:noenddot}{#1}%
   \isoblx@info@noline{Use no end dot for the bibliography entries: #1}}
 
+\DeclareBibliographyOption{familynamesc}[true]{
+  \settoggle{bbx:familynamesc}{#1}%
+  \isoblx@info@noline{Printing family names as textsc enabled: #1}}
+
 
 % Set default package options
 \ExecuteBibliographyOptions{%
@@ -111,6 +116,7 @@
   datecirca=true,% Use circa for approximate dates
   currentlang=false,% Use main document language for printing of bibliography strings
   noenddot=false,% Use an end dot for the bibliography entries
+  familynamesc=false,% Printing family names as textsc
 }
 
 % Default definitions of beginning and closing macro
@@ -162,12 +168,15 @@
 % The delimiter between the date and the time
 \DeclareDelimFormat{bibdatetimesep}{\addcomma\space}
 
-% Thanks Moewew for sugesting this. Make uppercase names only in bibliography.
 % Default name format is ALL-CAPS
-% use something like
-% \let\familynameformat=\textsc
-% to change this
-\newcommand{\familynameformat}[1]{\MakeUppercase{#1}}
+% use the package option familynamesc
+% to change this to textsc
+\newcommand{\familynameformat}[1]{%
+  \iftoggle{bbx:familynamesc}
+    {\textsc{#1}}
+    {\MakeUppercase{#1}}%
+}
+% Thanks Moewew for sugesting this. Make uppercase names only in bibliography.
 \AtBeginBibliography{%
   \renewcommand{\mkbibnamefamily}{\familynameformat}%
 }
