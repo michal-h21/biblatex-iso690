@@ -30,6 +30,7 @@
 \newtoggle{bbx:articlepubinfo}
 \newtoggle{bbx:currentlang}
 \newtoggle{bbx:noenddot}
+\newtoggle{bbx:bibacrosc}
 
 % Print info about package options into .log file
 \protected\def\isoblx@info@noline#1{%
@@ -86,6 +87,10 @@
   \settoggle{bbx:noenddot}{#1}%
   \isoblx@info@noline{Use no end dot for the bibliography entries: #1}}
 
+\DeclareBibliographyOption{bibacrosc}[true]{
+  \settoggle{bbx:bibacrosc}{#1}%
+  \isoblx@info@noline{Printing acronyms such as ISBN as textsc enabled: #1}}
+
 
 % Set default package options
 \ExecuteBibliographyOptions{%
@@ -111,6 +116,7 @@
   datecirca=true,% Use circa for approximate dates
   currentlang=false,% Use main document language for printing of bibliography strings
   noenddot=false,% Use an end dot for the bibliography entries
+  bibacrosc=false,% Printing acronyms such as ISBN as textsc
 }
 
 % Default definitions of beginning and closing macro
@@ -274,9 +280,16 @@
   \mainlangbibstring{bysupervisor}\addspace#1}
 
 % \mkbibacro typesets acronyms in small caps by default,
-% if we want to override this, pass the value as is (uppercase)
-% \renewcommand*{\mkbibacro}[1]{#1}
+% if you want to pass the value as is (uppercase)
+% use the bibacrosc=false package option
 % Applies to DOI, ISBN, ISSN, ISAN, ISMN, ISRN, ISWC
+\renewcommand*{\mkbibacro}[1]{%
+  \iftoggle{bbx:bibacrosc}
+    {\ifcsundef{\f@encoding/\f@family/\f@series/sc}
+      {#1}
+      {\textsc{\MakeLowercase{#1}}}}%
+    {#1}%
+}
 
 % If we really must handle more than one ISBN and ISSN.
 %
