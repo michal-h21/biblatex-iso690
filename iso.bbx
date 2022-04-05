@@ -12,7 +12,7 @@
 % https://github.com/michal-h21/biblatex-iso690/wiki/Translation-Guideline#translation-matrix
 \DeclareLanguageMappingSuffix{-iso}
 % Currently needed the following additional language strings:
-\NewBibliographyString{at,bysupervisor,urlalso,
+\NewBibliographyString{at,bysupervisor,urlalso,refreshedon,
   director,bydirector,inventor,byinventor,online,film,application,publication}
 
 % PACKAGE OPTIONS
@@ -364,8 +364,18 @@
 \DeclareFieldFormat{date}{%
   \ifdatecirca
     {\mkbibbrackets{#1}}%
-    {#1}%
+    {\ifdateannotation{date}{copyright}
+      {\textcopyright\addnbthinspace#1}
+      {#1}}%
 }
+\DeclareFieldFormat{origdate}{%
+  \ifdatecirca
+    {\mkbibbrackets{#1}}%
+    {\ifdateannotation{origdate}{copyright}
+      {\textcopyright\addnbthinspace#1}
+      {#1}}%
+}
+
 
 % Format 'labeldate' the same as 'date' field.
 % We use 'labeldate' in 'iso-authoryear' style.
@@ -378,7 +388,18 @@
         % This is a \literal{nodate}, meaning that it uses the 'nodate'
         % localisation string due to default \DeclareLabeldate setting
         {\mkbibbrackets{#1}}%
-        {#1}}% This is the go-to format
+        {\ifboolexpr{(test {\iffieldundef{origyear}} and
+        test {\ifdateannotation{date}{copyright}}) or
+        (not test {\iffieldundef{origyear}} and
+        test {\ifdateannotation{origdate}{copyright}})}
+          {\textcopyright\addnbthinspace#1}
+          {#1}}}% This is the go-to format
+}
+\AtEveryCite{%
+\DeclareFieldFormat{labeldate}{%
+  \iffieldequalstr{labeldatesource}{nodate}
+    {\mkbibbrackets{#1}}%
+    {#1}}%
 }
 
 % Define names to consider for 'labelname', based on
@@ -658,6 +679,16 @@
 }
 
 
+% EDITION INFO MACROS
+
+% Refresh date
+\newbibmacro{refreshdate}{%
+  % the date is only supposed to be a refreshdate
+  % if we have an origdate
+  \iffieldundef{origyear}
+    {}
+    {\mainlangbibstring{refreshedon}\space\printdate}
+}
 
 
 % PUBLICATION INFO MACROS
@@ -1301,6 +1332,8 @@
   \usebibmacro{medium-type}%
   \newunit\newblock
   \printfield{edition}%
+  \newunit
+  \usebibmacro{refreshdate}%
   \newunit\newblock
   \usebibmacro{names:subsidiary}%
   \newunit\newblock
@@ -1341,6 +1374,8 @@
   \usebibmacro{medium-type}%
   \newunit\newblock
   \printfield{edition}%
+  \newunit
+  \usebibmacro{refreshdate}%
   \newunit\newblock
   \usebibmacro{location+publisher+date}%
   \setunit{\numerationpunct}%
@@ -1372,6 +1407,8 @@
   \usebibmacro{medium-type}%
   \newunit\newblock
   \printfield{edition}%
+  \newunit
+  \usebibmacro{refreshdate}%
   \newunit\newblock
   \iftoggle{bbx:articlepubinfo}
     {\usebibmacro{location+publisher+date}}
@@ -1409,6 +1446,8 @@
   \usebibmacro{medium-type}%
   \newunit\newblock
   \printfield{edition}%
+  \newunit
+  \usebibmacro{refreshdate}%
   \newunit\newblock
   \usebibmacro{names:subsidiary}%
   \newunit\newblock
@@ -1451,6 +1490,8 @@
   \usebibmacro{medium-type}%
   \newunit\newblock
   \printfield{edition}%
+  \newunit
+  \usebibmacro{refreshdate}%
   \newunit\newblock
   \usebibmacro{names:subsidiary}%
   \newunit\newblock
@@ -1495,6 +1536,8 @@
   \usebibmacro{medium-type}%
   \newunit\newblock
   \printfield{edition}%
+  \newunit
+  \usebibmacro{refreshdate}%
   \newunit\newblock
   \usebibmacro{names:subsidiary}%
   \newunit\newblock
@@ -1543,6 +1586,8 @@
   \usebibmacro{medium-type}%
   \newunit\newblock
   \printfield{edition}%
+  \newunit
+  \usebibmacro{refreshdate}%
   \newunit\newblock
   \usebibmacro{names:subsidiary}%
   \newunit\newblock
@@ -1586,6 +1631,8 @@
   \usebibmacro{medium-type}%
   \newunit\newblock
   \printfield{edition}%
+  \newunit
+  \usebibmacro{refreshdate}%
   \newunit\newblock
   \usebibmacro{names:subsidiary}%
   \newunit\newblock
@@ -1664,6 +1711,8 @@
   \usebibmacro{titles}{}{emph}%
   \setunit{\addspace}%
   \usebibmacro{medium-type}%
+  \newunit\newblock
+  \usebibmacro{refreshdate}%
   \newunit\newblock
   \usebibmacro{location+publisher+fulldate}%
   \newunit
