@@ -31,7 +31,7 @@
     {\printfield{dateaddon}}%
 }
 
-% Check if 'date' field holds only year or a more specific date.
+% Check if 'date' or 'origdate' field holds only year or a more specific date.
 % Inspired by \ifdatehasyearonlyprecision from 'biblatex.sty',
 % but the test date==year is left out, because we use date=year
 % in package options so it turned always true.
@@ -40,14 +40,23 @@
               and (test {\iffieldundef{month}}
                    and test {\iffieldundef{season}})}
 }
+\newcommand{\iforigdatehasyearonly}{%
+  \ifboolexpr{not test {\iffieldundef{origyear}}
+              and (test {\iffieldundef{origmonth}}
+                   and test {\iffieldundef{origseason}})}
+}
 
 % If there is no more specific date available, we shouldn't repeat
 % the year in publication info section.
 % Overrides macro 'fulldate' in 'iso.bbx'.
 \renewbibmacro*{fulldate}{%
-  \ifdatehasyearonly%
-    {}% Print nothing (only year is available)
-    {\mkdaterangeiso{}}%
+  \iffieldundef{origyear}
+    {\ifdatehasyearonly%
+      {}% Print nothing (only year is available)
+      {\mkdaterangeiso{}}}
+    {\iforigdatehasyearonly
+      {}% Print nothing (only origyear is available)
+      {\mkdaterangeiso{orig}}}%
 }
 
 % Remove second appearance of year in a reference
