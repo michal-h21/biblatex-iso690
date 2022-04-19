@@ -30,6 +30,7 @@
 \newtoggle{bbx:articlepubinfo}
 \newtoggle{bbx:currentlang}
 \newtoggle{bbx:noenddot}
+\newtoggle{bbx:givennamesfirst}
 
 % Print info about package options into .log file
 \protected\def\isoblx@info@noline#1{%
@@ -78,13 +79,17 @@
   \settoggle{bbx:articlepubinfo}{#1}%
   \isoblx@info@noline{Article publication info enabled: #1}}
 
-\DeclareBibliographyOption{currentlang}[true]{
+\DeclareBibliographyOption{currentlang}[true]{%
   \settoggle{bbx:currentlang}{#1}%
   \isoblx@info@noline{Use current language for the bibliography: #1}}
 
-\DeclareBibliographyOption{noenddot}[true]{
+\DeclareBibliographyOption{noenddot}[true]{%
   \settoggle{bbx:noenddot}{#1}%
   \isoblx@info@noline{Use no end dot for the bibliography entries: #1}}
+
+\DeclareBibliographyOption{givennamesfirst}[true]{%
+  \global\settoggle{bbx:givennamesfirst}{#1}%
+  \isoblx@info@noline{Printing names as 'given family' except for the first author: #1}}
 
 
 % Set default package options
@@ -97,7 +102,7 @@
   isbn=true,
   doi=true,
   eprint=true,
-  articlepubinfo=false, % Printing article publication info is unusual
+  articlepubinfo=false,% Printing article publication info is unusual
   maxnames=99,% If possible, all creators should be given in the reference
   minnames=1,% If any names are omitted => first creator + and others (et al.)
   citetracker=true,% Citation tracker in global mode
@@ -111,6 +116,7 @@
   datecirca=true,% Use circa for approximate dates
   currentlang=false,% Use main document language for printing of bibliography strings
   noenddot=false,% Use an end dot for the bibliography entries
+  givennamesfirst=true,% Printing names as given family except for the first author
 }
 
 % Default definitions of beginning and closing macro
@@ -152,12 +158,25 @@
 % Context-sensitive delimiters
 
 % The delimiter between mutliple names
-% A semicolon: legacy of older versions of standard / Czech interpretations
-\DeclareDelimFormat{multinamedelim}{\addsemicolon\space}
+\newcommand*{\mkmultinamedelim}{%
+  \iftoggle{bbx:givennamesfirst}
+    % Standard defintion from biblatex.def
+    {\addcomma\space}
+    % A semicolon: legacy of older versions of standard / Czech interpretations
+    {\addsemicolon\space}%
+}
+\DeclareDelimFormat{multinamedelim}{\mkmultinamedelim}
 
 % The delimiter before the final name
-% Use consistent name format for all creators
-\DeclareDelimAlias{finalnamedelim}{multinamedelim}
+\newcommand*{\mkfinalnamedelim}{%
+  \iftoggle{bbx:givennamesfirst}
+    % Standard defintion from biblatex.def
+    {\ifnumgreater{\value{liststop}}{2}{\finalandcomma}{}%
+    \addspace\bibstring{and}\space}
+    % Use consistent name format for all creators
+    {\addsemicolon\space}%
+}
+\DeclareDelimFormat{finalnamedelim}{\mkfinalnamedelim}
 
 % The delimiter between the date and the time
 \DeclareDelimFormat{bibdatetimesep}{\addcomma\space}
@@ -477,14 +496,34 @@
 
 % NAME ALIAS
 
-% Default name list format is last (family) followed by given (first) name
-\DeclareNameAlias{default}{family-given}
-% For supervisor, use the reversed order format:
+\newcommand*{\mknamealias}{%
+  \iftoggle{bbx:givennamesfirst}
+    % Standard defintion from biblatex.def
+    % Default name list format is first (given) followed by last (family) name
+    {given-family}
+    % Default name list format is last (family) followed by first (given) name
+    {family-given}%
+}
+\newcommand*{\mksortnamealias}{%
+  \iftoggle{bbx:givennamesfirst}
+    % Standard defintion from biblatex.def
+    % Default sortname list format is, except for the first name in the list,
+    % first (given) name followed by last (family) name
+    {family-given/given-family}
+    % Default name list format is last (family) followed by first (given) name
+    {family-given}%
+}
+\DeclareNameAlias{default}{\mknamealias}
+\DeclareNameAlias{sortname}{\mksortnamealias}
+\DeclareNameAlias{author}{sortname}
+\DeclareNameAlias{editor}{sortname}
+\DeclareNameAlias[patent]{holder}{sortname}
+% For supervisor, always use the reversed order format:
 % given (first) name followed by last (family) name,
 % so it may sound more naturally in this order
 \DeclareNameAlias{supervisor}{given-family}
 % For patents, the author field is supposed to be the inventor
-% of the patent, which we want to have in reverse name order,
+% of the patent, which we always want to have in reverse name order,
 % since it may sound more naturally in this order
 \DeclareNameAlias[patent]{author}{given-family}
 % However, if there is no holder field for a patent,
