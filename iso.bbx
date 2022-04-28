@@ -22,7 +22,6 @@
 \newtoggle{bbx:spcolon}
 \newtoggle{bbx:totalpages}
 \newtoggle{bbx:shortnum}
-\newtoggle{bbx:thesisinfoinnotes}
 \newtoggle{bbx:url}
 \newtoggle{bbx:isbn}
 \newtoggle{bbx:doi}
@@ -30,7 +29,6 @@
 \newtoggle{bbx:articlepubinfo}
 \newtoggle{bbx:currentlang}
 \newtoggle{bbx:noenddot}
-
 \newtoggle{bbx:bibacrosc}
 \newtoggle{bbx:familynamesc}
 \newtoggle{bbx:givennamesfirst}
@@ -57,10 +55,6 @@
 \DeclareBibliographyOption{shortnumeration}[true]{%
   \settoggle{bbx:shortnum}{#1}%
   \isoblx@info@noline{Short numeration enabled: #1}}
-
-\DeclareBibliographyOption{thesisinfoinnotes}[true]{%
-  \settoggle{bbx:thesisinfoinnotes}{#1}%
-  \isoblx@info@noline{Thesis info in the notes section enabled: #1}}
 
 \DeclareBibliographyOption{url}[true]{%
   \settoggle{bbx:url}{#1}%
@@ -94,10 +88,10 @@
   \settoggle{bbx:bibacrosc}{#1}%
   \isoblx@info@noline{Printing acronyms such as ISBN as textsc enabled: #1}}
 
-
 \DeclareBibliographyOption{familynamesc}[true]{
   \settoggle{bbx:familynamesc}{#1}%
   \isoblx@info@noline{Printing family names as textsc enabled: #1}}
+
 \DeclareBibliographyOption{givennamesfirst}[true]{%
   \global\settoggle{bbx:givennamesfirst}{#1}%
   \isoblx@info@noline{Printing names as 'given family' except for the first author: #1}}
@@ -108,7 +102,6 @@
   spacecolon=false,
   pagetotal=false,
   shortnumeration=false,
-  thesisinfoinnotes=true,
   url=true,
   isbn=true,
   doi=true,
@@ -132,12 +125,14 @@
   givennamesfirst=false,% Printing names as given family except for the first author
 }
 
+
+
+% COMMANDS
+
 % Default definitions of beginning and closing macro
 % in bibliography drivers
 \newbibmacro*{begentry}{}
 \newbibmacro*{finentry}{\finentry}
-
-% COMMANDS
 
 % The separator between 'titles' and 'subtitles'
 \renewcommand*{\subtitlepunct}{\addspacecolon\space}
@@ -218,6 +213,7 @@
       \renewcommand*{\makelabel}[1]{\hss##1}}%
   {\endlist}%
   {\item}%
+
 
 
 % FIELD FORMATS
@@ -381,7 +377,7 @@
 \xpatchfieldformat{doi}{\mkbibacro{DOI}\addcolon\space}{\mkbibacro{doi}\addcolon}{}{}
 
 % Format for eprint identifiers
-\xpatchfieldformat{eprint}{\addcolon\space}{\addcolon}{}{}
+\xpatchfieldformat{eprint}{\addcolon\space}{\addcomma\space}{}{}
 \xpatchfieldformat{eprint:hdl}{HDL\addcolon\space}{HDL\addcolon}{}{}
 \xpatchfieldformat{eprint:arxiv}{arXiv\addcolon\space}{arXiv\addcolon}{}{}
 \xpatchfieldformat{eprint:jstor}{JSTOR\addcolon\space}{JSTOR\addcolon}{}{}
@@ -437,6 +433,7 @@
           {\textcopyright\addnbthinspace#1}
           {#1}}}% This is the go-to format
 }
+
 \AtEveryCite{%
 \DeclareFieldFormat{labeldate}{%
   \iffieldequalstr{labeldatesource}{nodate}
@@ -537,6 +534,8 @@
 
 % Format additional name information in square brackets
 \DeclareFieldFormat{nameaddon}{\mkbibbrackets{#1}}
+
+
 
 % NAME ALIAS
 
@@ -641,6 +640,7 @@
 }
 
 
+
 % TITLES MACROS
 
 % Macro for formatting <prefix>titles
@@ -707,6 +707,7 @@
 }
 
 
+
 % MEDIUM TYPE MACROS
 
 \newbibmacro*{medium-type}{%
@@ -741,6 +742,7 @@
 }
 
 
+
 % EDITION INFO MACROS
 
 % Refresh date
@@ -751,6 +753,7 @@
     {}
     {\mainlangbibstring{refreshedon}\space\printdate}
 }
+
 
 
 % PUBLICATION INFO MACROS
@@ -788,13 +791,14 @@
 % b) 'full' : \usebibmacro{fulldate}
 \newbibmacro*{location+publisher+dateform}[1]{%
   \printlist{location}%
-  \ifboolexpr{
-    test {\iflistundef{publisher}}
-    and
-    test {\iflistundef{organization}}}
+  \ifboolexpr{test {\iflistundef{publisher}} and
+              test {\iflistundef{institution}} and
+              test {\iflistundef{organization}}}
     {\setunit*{\addcomma\space}}
     {\setunit*{\subtitlepunct}}% <---- different punctuation
   \printlist{publisher}%
+  \setunit*{\addcomma\space}%
+  \printlist{institution}%
   \setunit*{\addcomma\space}%
   \printlist{organization}%
   \setunit*{\addcomma\space}%
@@ -826,6 +830,7 @@
 }
 
 
+
 % NUMERATION MACROS
 
 \newbibmacro*{serial:numeration}{%
@@ -843,6 +848,7 @@
 }
 
 
+
 % SERIES TITLE AND NUMBER MACROS
 
 % Based on series+number macro (defined in standard.bbx)
@@ -852,6 +858,7 @@
   \setunit*{\addcomma\space}%
   \printfield{number}%
 }%
+
 
 
 % STANDARD IDENTIFIERS MACROS
@@ -881,6 +888,7 @@
      \newunit}
     {}%
 }
+
 
 
 % AVAILABILITY AND ACCESS MACROS
@@ -954,6 +962,7 @@
 }
 
 
+
 % LOCATION MACROS
 
 % Additional location information (e.g. library, repository)
@@ -963,6 +972,7 @@
     {\usebibmacro{at:}%
      \printfield{library}}%
 }
+
 
 
 % NOTES MACROS
@@ -977,6 +987,7 @@
   \setunit{\addcomma\addspace}%
   \printeventdate
 }
+
 
 
 % OTHER MACROS
@@ -997,6 +1008,8 @@
   \mainlangbibstring{at}%
   \printunit{\intitlepunct}%
 }
+
+
 
 
 % BIBLATEX CORE ADJUSTMENTS
@@ -1384,6 +1397,9 @@
                \dateeraprint{#1endyear}}}}}%
   \endgroup}
 
+
+
+
 % BIBLIOGRAPHY DRIVERS
 
 \DeclareBibliographyDriver{book}{%
@@ -1731,6 +1747,10 @@
   \setunit{\addspace}%
   \usebibmacro{medium-type}%
   \newunit\newblock
+  \printfield{type}%
+  \newunit\newblock
+  \usebibmacro{thesissupervisor}%
+  \newunit\newblock
   \usebibmacro{location+publisher+date}%
   \newunit
   \printfield{version}%
@@ -1739,26 +1759,10 @@
   \newunit\newblock
   \usebibmacro{identifier}%
   \newunit\newblock
-  \iftoggle{bbx:thesisinfoinnotes}
-    {}
-    {\printfield{type}%
-     \newunit\newblock
-     \printlist{institution}%
-     \newunit\newblock
-     \usebibmacro{thesissupervisor}}%
-  \newunit\newblock
   \usebibmacro{availability+access}%
   \setunit{\addspace}%
   \iftoggle{bbx:totalpages}
     {\printfield{pagetotal}}
-    {}%
-  \newunit\newblock
-  \iftoggle{bbx:thesisinfoinnotes}
-    {\printfield{type}
-     \newunit\newblock
-     \printlist{institution}%
-     \newunit\newblock
-     \usebibmacro{thesissupervisor}}
     {}%
   \newunit\newblock
   \printfield{addendum}%
