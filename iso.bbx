@@ -2,7 +2,7 @@
   [2022/03/20 v0.4.1 ISO 690 biblatex bibliography style]
 
 
-\RequirePackage{xpatch}
+\RequirePackage{regexpatch}
 
 
 % Currently available language mappings:
@@ -381,12 +381,18 @@
 \xpatchfieldformat{doi}{\mkbibacro{DOI}\addcolon\space}{\mkbibacro{doi}\addcolon}{}{}
 
 % Format for eprint identifiers
-\xpatchfieldformat{eprint}{\addcolon\space}{\addcolon}{}{}
-\xpatchfieldformat{eprint:hdl}{HDL\addcolon\space}{HDL\addcolon}{}{}
-\xpatchfieldformat{eprint:arxiv}{arXiv\addcolon\space}{arXiv\addcolon}{}{}
-\xpatchfieldformat{eprint:jstor}{JSTOR\addcolon\space}{JSTOR\addcolon}{}{}
-\xpatchfieldformat{eprint:pubmed}{PMID\addcolon\space}{PMID\addcolon}{}{}
-\xpatchfieldformat{eprint:googlebooks}{Google Books\addcolon\space}{Google Books\addcolon}{}{}
+\xpatchfieldformat{eprint}{\addcolon\space}{\addcolon}%
+{}{\PackageWarning{biblatex-iso690}{Patching FieldFormat 'eprint' failed.}}
+\xpatchfieldformat{eprint:hdl}{HDL\addcolon\space}{HDL\addcolon}%
+{}{\PackageWarning{biblatex-iso690}{Patching FieldFormat 'eprint:hdl' failed.}}
+\xpatchfieldformat{eprint:arxiv}{arXiv\addcolon\space}{arXiv\addcolon}%
+{}{\PackageWarning{biblatex-iso690}{Patching FieldFormat 'eprint:arxiv' failed.}}
+\xpatchfieldformat{eprint:jstor}{JSTOR\addcolon\space}{JSTOR\addcolon}%
+{}{\PackageWarning{biblatex-iso690}{Patching FieldFormat 'eprint:jstor' failed.}}
+\xpatchfieldformat{eprint:pubmed}{PMID\addcolon\space}{PMID\addcolon}%
+{}{\PackageWarning{biblatex-iso690}{Patching FieldFormat 'eprint:pubmed' failed.}}
+\xpatchfieldformat{eprint:googlebooks}{Google Books\addcolon\space}{Google Books\addcolon}%
+{}{\PackageWarning{biblatex-iso690}{Patching FieldFormat 'eprint:googlebooks' failed.}}
 
 % Format for venue
 \DeclareFieldFormat{venue}{#1}
@@ -1154,235 +1160,23 @@
 % Adds non-breaking space after open date range, e.g. '1492-- '
 %
 
-\newcommand*{\mkopenendeddaterange}{\mbox{\bibdaterangesep\addnbspace}}
+\newcommand*{\mkopenendeddaterange}{\mbox{\bibdaterangesep\addnbspace}}% <---- added \addnbspace
 
 % Used by '\printdate'
-%
-% {<short|long>}{<datetype>}
-\renewrobustcmd*{\mkdaterangefull}[2]{%
-  \begingroup
-    \blx@metadateinfo{#2}%
-    \iffieldundef{#2year}
-      {\blx@nounit}
-      {\printtext[{#2date}]{%
-         \datecircaprint
-         % Such a season component can only come from an ISO8601 season which replaces
-         % a normal month so if it exists, we know that a normal date print is ruled out
-         \iffieldundef{#2season}
-           {\csuse{mkbibdate#1}{#2year}{#2month}{#2day}%
-            % Optionally print the time after the date
-            \blx@printtime{#2}{}}
-           {\csuse{mkbibseasondate#1}{#2year}{#2season}}%
-         \dateuncertainprint
-         \dateeraprint{#2year}%
-         \iffieldundef{#2endyear}
-           {}
-           {\iffieldequalstr{#2endyear}{}
-              {\mkopenendeddaterange}% <---- added \addnbspace
-              {\bibdaterangesep
-               \enddatecircaprint
-               \iffieldundef{#2endseason}
-                 {\csuse{mkbibdate#1}{#2endyear}{#2endmonth}{#2endday}%
-                  % Optionally print the time after the date
-                  \blx@printtime{#2}{end}}
-                 {\csuse{mkbibseasondate#1}{#2endyear}{#2endseason}}%
-               \enddateuncertainprint
-               \dateeraprint{#2endyear}}}}}%
-  \endgroup}
-
+\xpatchcmd{\mkdaterangefull}{\mbox{\bibdaterangesep}}{\mkopenendeddaterange}%
+{}{\PackageWarning{biblatex-iso690}{Patching Command '\mkdaterangefull' failed.}}
 % Used by '\printlabeldateextra' in 'iso-authoryear.bbx'
-%
-% {<short|long>}{<datetype>}
-\renewrobustcmd*{\mkdaterangefullextra}[2]{%
-  \begingroup
-    \blx@metadateinfo{#2}%
-    \iffieldundef{#2year}
-      {\blx@nounit}
-      {\printtext[{#2date}]{%
-         \datecircaprint
-         % Such a season component can only come from an ISO8601 season which replaces
-         % a normal month so if it exists, we know that a normal date print is ruled out
-         \iffieldundef{#2season}
-           {\csuse{mkbibdate#1}{#2year}{#2month}{#2day}%
-            % Optionally print the time after the date
-            \blx@printtime{#2}{}}
-           {\csuse{mkbibseasondate#1}{#2year}{#2season}}%
-         \dateuncertainprint
-         \dateeraprint{#2year}%
-         \iffieldundef{#2endyear}
-           {\printfield{extradate}}
-           {\iffieldequalstr{#2endyear}{}
-              {\printfield{extradate}%
-               \printtext{\mkopenendeddaterange}}% <---- added \addnbspace
-              {\printtext{%
-                 \bibdaterangesep
-                 \enddatecircaprint
-                 \iffieldundef{#2endseason}
-                   {\csuse{mkbibdate#1}{#2endyear}{#2endmonth}{#2endday}%
-                    % Optionally print the time after the date
-                    \blx@printtime{#2}{end}}
-                   {\csuse{mkbibseasondate#1}{#2endyear}{#2endseason}}}%
-                 \printfield{extradate}%
-                 \enddateuncertainprint
-                 \dateeraprint{#2endyear}}}}}%
-  \endgroup}
-
+\xpatchcmd{\mkdaterangefullextra}{\mbox{\bibdaterangesep}}{\mkopenendeddaterange}%
+{}{\PackageWarning{biblatex-iso690}{Patching Command '\mkdaterangefullextra' failed.}}
 % Other date formats for completeness
-
-% Avoids error with older biblatex version
-% WARNING: of course this means that in older versions the
-% date printing macro will not be changed as expected
-% this is not an issue for biblatex-iso690 since it only uses
-% \mkdaterangefull and \mkdaterangefullextra anyway
-\providecommand*{\mkdaterangetrunc@i}{}
-
-\renewrobustcmd*{\mkdaterangetrunc@i}[2]{%
-  \begingroup
-    \blx@metadateinfo{#2}%
-    \iffieldundef{#2year}
-      {\blx@nounit}
-      {\printtext[{#2date}]{%
-         \datecircaprint
-         % Such a season component can only come from an ISO8601 season which replaces
-         % a normal month so if it exists, we know that a normal date print is ruled out
-         \iffieldundef{#2season}
-           {\ifdateyearsequal{#2}{#2end}
-              {\iffieldsequal{#2month}{#2endmonth}
-                 {\csuse{mkbibdate#1}{}{}{#2day}}
-                 {\csuse{mkbibdate#1}{}{#2month}{#2day}}}
-              {\csuse{mkbibdate#1}{#2year}{#2month}{#2day}%
-               \iffieldsequal{#2dateera}{#2enddateera}{}
-                 {\dateeraprint{#2year}}}}
-           {\ifdateyearsequal{#2}{#2end}
-             {\csuse{mkbibseasondate#1}{}{#2season}}
-             {\csuse{mkbibseasondate#1}{#2year}{#2season}%
-              \iffieldsequal{#2dateera}{#2enddateera}{}
-                {\dateeraprint{#2year}}}}%
-         \dateuncertainprint
-         \iffieldundef{#2endyear}
-           {}
-           {\iffieldequalstr{#2endyear}{}
-              {\mkopenendeddaterange}
-              {\bibdaterangesep
-               \enddatecircaprint
-               \iffieldundef{#2endseason}
-                 {\csuse{mkbibdate#1}{#2endyear}{#2endmonth}{#2endday}}
-                 {\csuse{mkbibseasondate#1}{#2endyear}{#2endseason}}%
-               \enddateuncertainprint
-               \dateeraprint{#2endyear}}}}}%
-  \endgroup}
-
-% Avoids error with older biblatex version
-% WARNING: of course this means that in older versions the
-% date printing macro will not be changed as expected
-% this is not an issue for biblatex-iso690 since it only uses
-% \mkdaterangefull and \mkdaterangefullextra anyway
-\providecommand*{\mkdaterangetruncextra@i}{}
-
-\renewrobustcmd*{\mkdaterangetruncextra@i}[2]{%
-  \begingroup
-    \blx@metadateinfo{#2}%
-    \iffieldundef{#2year}
-      {\blx@nounit}
-      {\printtext[{#2date}]{%
-         \datecircaprint
-         % Such a season component can only come from an ISO8601 season which replaces
-         % a normal month so if it exists, we know that a normal date print is ruled out
-         \iffieldundef{#2season}
-           {\ifdateyearsequal{#2}{#2end}
-              {\iffieldsequal{#2month}{#2endmonth}
-                 {\csuse{mkbibdate#1}{}{}{#2day}}
-                 {\csuse{mkbibdate#1}{}{#2month}{#2day}}}
-              {\csuse{mkbibdate#1}{#2year}{#2month}{#2day}%
-               \iffieldsequal{#2dateera}{#2enddateera}{}
-                 {\dateeraprint{#2year}}}}
-           {\ifdateyearsequal{#2}{#2end}
-             {\csuse{mkbibseasondate#1}{}{#2season}}
-             {\csuse{mkbibseasondate#1}{#2year}{#2season}%
-              \iffieldsequal{#2dateera}{#2enddateera}{}
-                {\dateeraprint{#2year}}}}%
-         \dateuncertainprint
-         \iffieldundef{#2endyear}
-           {\printfield{extradate}}
-           {\iffieldequalstr{#2endyear}{}
-              {\printfield{extradate}%
-               \printtext{\mkopenendeddaterange}}
-              {\printtext{%
-                 \bibdaterangesep
-                 \enddatecircaprint
-                 \iffieldundef{#2endseason}
-                   {\csuse{mkbibdate#1}{#2endyear}{#2endmonth}{#2endday}}
-                   {\csuse{mkbibseasondate#1}{#2endyear}{#2endseason}}}%
-                 \printfield{extradate}%
-                 \enddateuncertainprint
-                 \dateeraprint{#2endyear}}}}}%
-  \endgroup}
-
-
-% {<datetype>}
-\renewrobustcmd*{\mkdaterangeymd}[1]{%
-  \begingroup
-    \blx@metadateinfo{#1}%
-    \iffieldundef{#1year}
-      {\blx@nounit}
-      {\printtext[{#1date}]{%
-         \datecircaprint
-         % Such a season component can only come from an ISO8601 season which replaces
-         % a normal month so if it exists, we know that a normal date print is ruled out
-         \iffieldundef{#1season}
-           {\blx@ymddate{#1}{}%
-            % Optionally print the time after the date
-            \blx@printtime{#1}{}}
-           {\csuse{mkbibseasondateshort}{#1year}{#1season}}%
-         \dateuncertainprint
-         \dateeraprint{#1year}%
-         \iffieldundef{#1endyear}
-           {}
-           {\iffieldequalstr{#1endyear}{}
-              {\mkopenendeddaterange}
-              {\bibdaterangesep
-               \enddatecircaprint
-               \iffieldundef{#1season}
-                 {\blx@ymddate{#1}{end}%
-                  % Optionally print the time after the date
-                  \blx@printtime{#1}{end}}
-                 {\csuse{mkbibseasondateshort}{#1endyear}{#1endseason}}%
-               \enddateuncertainprint
-               \dateeraprint{#1endyear}}}}}%
-  \endgroup}
-
-% {<datetype>}
-\renewrobustcmd*{\mkdaterangeymdextra}[1]{%
-  \begingroup
-    \blx@metadateinfo{#1}%
-    \iffieldundef{#1year}
-      {\blx@nounit}
-      {\printtext[{#1date}]{%
-         \datecircaprint
-         % Such a season component can only come from an ISO8601 season which replaces
-         % a normal month so if it exists, we know that a normal date print is ruled out
-         \iffieldundef{#1season}
-           {\blx@ymddate[extradate]{#1}{}%
-            % Optionally print the time after the date
-            \blx@printtime{#1}{}}
-           {\csuse{mkbibseasondateshort}{#1year}{#1season}}%
-         \dateuncertainprint
-         \dateeraprint{#1year}%
-         \iffieldundef{#1endyear}
-           {}
-           {\iffieldequalstr{#1endyear}{}
-              {\mkopenendeddaterange}
-              {\printtext{%
-                 \bibdaterangesep
-                 \enddatecircaprint
-                 \iffieldundef{#1season}
-                   {\blx@ymddate{#1}{end}%
-                    % Optionally print the time after the date
-                    \blx@printtime{#1}{end}}
-                   {\csuse{mkbibseasondateshort}{#1endyear}{#1endseason}}}%
-               \enddateuncertainprint
-               \dateeraprint{#1endyear}}}}}%
-  \endgroup}
+\xpatchcmd{\mkdaterangetrunc@i}{\mbox{\bibdaterangesep}}{\mkopenendeddaterange}%
+{}{\PackageWarning{biblatex-iso690}{Patching Command '\mkdaterangetrunc@i' failed.}}
+\xpatchcmd{\mkdaterangetruncextra@i}{\mbox{\bibdaterangesep}}{\mkopenendeddaterange}%
+{}{\PackageWarning{biblatex-iso690}{Patching Command 'mkdaterangetruncextra@i' failed.}}
+\xpatchcmd{\mkdaterangeymd}{\mbox{\bibdaterangesep}}{\mkopenendeddaterange}%
+{}{\PackageWarning{biblatex-iso690}{Patching Command '\mkdaterangeymd' failed.}}
+\xpatchcmd{\mkdaterangeymdextra}{\mbox{\bibdaterangesep}}{\mkopenendeddaterange}%
+{}{\PackageWarning{biblatex-iso690}{Patching Command '\mkdaterangeymdextra' failed.}}
 
 % BIBLIOGRAPHY DRIVERS
 
