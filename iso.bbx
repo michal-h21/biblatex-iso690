@@ -99,7 +99,7 @@
   \settoggle{bbx:familynamesc}{#1}%
   \isoblx@info@noline{Printing family names as textsc enabled: #1}}
 \DeclareBibliographyOption{givennamesfirst}[true]{%
-  \global\settoggle{bbx:givennamesfirst}{#1}%
+  \settoggle{bbx:givennamesfirst}{#1}%
   \isoblx@info@noline{Printing names as 'given family' except for the first author: #1}}
 
 
@@ -557,8 +557,10 @@
     % Default name list format is last (family) followed by first (given) name
     {family-given}%
 }
-\DeclareNameAlias{default}{\mknamealias}
-\DeclareNameAlias{sortname}{\mksortnamealias}
+\AtEndOfPackage{%
+\DeclareNameAlias{default}{\mknamealias}%
+\DeclareNameAlias{sortname}{\mksortnamealias}%
+}
 \DeclareNameAlias{author}{sortname}
 \DeclareNameAlias{editor}{sortname}
 \DeclareNameAlias[patent]{holder}{sortname}
