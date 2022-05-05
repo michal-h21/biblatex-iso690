@@ -76,7 +76,7 @@
   title={ISO~690 \biblatex style},
   subtitle={},
   url={https://github.com/michal-h21/biblatex-iso690},
-  author={Michal Hoftich with Dávid Lupták, Johannes Böttcher, Moritz Wemheuer and wg030},
+  author={Michal Hoftich with Dávid Lupták, Johannes Böttcher, Moritz Wemheuer and Willi Gerbig},
   email={michal.h21@gmail.com},
   revision={0.4.2},
   date={\DTMDate{2022-03-22}}}
@@ -84,7 +84,7 @@
 \hypersetup{%
   pdftitle={ISO~690 \biblatex style},
   pdfsubject={Bibliography References and Citations by ISO~690},
-  pdfauthor={Michal Hoftich with Dávid Lupták, Johannes Böttcher, Moritz Wemheuer and wg030},
+  pdfauthor={Michal Hoftich with Dávid Lupták, Johannes Böttcher, Moritz Wemheuer and Willi Gerbig},
   pdfkeywords={tex, latex, bibtex, biblatex, bibliography, references, citation}}
 
 \begin{document}
@@ -407,12 +407,13 @@ distinguished typographically (the volume number in bold type and the part
 number, if required, in parentheses). If \t|false|, such terms are printed
 with preceding literal terms.
 
-\boolitem[true]{thesisinfoinnotes}
+% This option isn't supported anymore
+% \boolitem[true]{thesisinfoinnotes}
 
-To print a thesis information (thesis type, institution and supervisor) before
-the section \textit{availability and access} is possible by setting the option
-to \t|false|. Otherwise it will be printed in the \textit{notes} section.
-The default value is \t|true|.
+% To print a thesis information (thesis type, institution and supervisor) before
+% the section \textit{availability and access} is possible by setting the option
+% to \t|false|. Otherwise it will be printed in the \textit{notes} section.
+% The default value is \t|true|.
 
 \boolitem[true]{doi}
 
@@ -858,6 +859,7 @@ see~\parencite{gosse1912garden}.
   \item Added \t|familynamesc| option.
   \item Added \t|bibacrosc| option.
   \item Added support for refresh date.
+  \item Removed the \t|thesisinfoinnotes| package option.
 \end{release}
 \begin{release}{0.4.1}{2022-03-20}
 \item Added \t|currentlang| package option.\see{sec:pkg:opt:iso690}
