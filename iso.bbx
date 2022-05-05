@@ -377,7 +377,7 @@
 \xpatchfieldformat{doi}{\mkbibacro{DOI}\addcolon\space}{\mkbibacro{doi}\addcolon}{}{}
 
 % Format for eprint identifiers
-\xpatchfieldformat{eprint}{\addcolon\space}{\addcolon}%
+\xpatchfieldformat{eprint}{\addcolon\space}{\addcomma\space}%
 {}{\PackageWarning{biblatex-iso690}{Patching FieldFormat 'eprint' failed.}}
 \xpatchfieldformat{eprint:hdl}{HDL\addcolon\space}{HDL\addcolon}%
 {}{\PackageWarning{biblatex-iso690}{Patching FieldFormat 'eprint:hdl' failed.}}
@@ -1214,7 +1214,7 @@
   \usebibmacro{names:subsidiary}%
   \newunit\newblock
   \usebibmacro{location+publisher+date}%
-  \newunit%
+  \newunit
   \printfield{version}%
   \usebibmacro{urldate-space}%
   \usebibmacro{urldate}%
@@ -1470,7 +1470,7 @@
   \printlist{institution}%
   \newunit\newblock
   \usebibmacro{location+publisher+date}%
-  \newunit%
+  \newunit
   \printfield{version}%
   \usebibmacro{urldate-space}%
   \usebibmacro{urldate}%
