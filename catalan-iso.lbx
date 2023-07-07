@@ -1,0 +1,40 @@
+\ProvidesFile{catalan-iso.lbx}
+  [2022/03/20 v0.4.1 ISO 690 extended biblatex localization]
+
+\InheritBibliographyExtras{catalan}
+\InheritBibliographyStrings{catalan}
+
+\DeclareBibliographyStrings{%
+  at           = {{a}%
+                  {a}},
+  bysupervisor = {{direcci\'o \smartof}% %FIXME: inherit \smartof ?
+                  {dir\adddotspace \smartof}},
+  urlalso      = {{tamb\'e disponible a}%
+                  {tamb\'e disp\adddotspace a}},
+  %urlfrom      = {{available from}   % Inherit from biblatex
+  %                {available from}},
+  %urlseen      = {{viewed} % Inherit from biblatex
+  %                {viewed}},
+  refreshedon  = {{actualitzat}
+                  {act\adddot}},
+  director     = {{director}%
+                  {director}},
+  bydirector   = {{dirigida per}%
+                  {dir\adddotspace per}},
+  inventor     = {{inventor}%
+                  {inv\adddot}},
+  byinventor   = {{inventat per}%
+                  {inv\adddotspace per}},
+  online       = {{en l\'{\i}nia}%
+                  {en l\'{\i}nia}},
+  film         = {{pe\l.l\'{\i}cula}%
+                  {pel\adddot}},
+  andothers    = {{et\addabbrvspace al\adddot}
+                  {et\addabbrvspace al\adddot}},
+  application  = {{admissi\'o}%
+                  {adm\adddot}},
+  publication  = {{publicaci\'o}%
+                  {publ\adddot}},
+}
+
+\endinput
