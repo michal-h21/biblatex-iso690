@@ -1,10 +1,15 @@
 # Biblatex style for ISO 690 standard
 
 `biblatex` is a bibliography and citation tool for LaTeX. This project provides
-support for citations in ISO 690 style. As the standard is a little bit
+support for citations in ISO 690:2010 style. As the standard is a little bit
 ambiguous in some details regarding formatting of records, we largely follow
 requirements of Czech interpretation, as it is required form in many Czech
 universities. The style can be used in other languages as well, of course.
+
+<br/>
+<ins>Note:</ins> We have added a functional, though likely error-prone and
+incomplete beta version for a style that supports the latest ISO 690:2021
+standard (fourth edition).
 
 ## Installation
 
@@ -42,6 +47,7 @@ here. You should be able to use `biblatex-iso690` now.
 \usepackage[
   backend=biber,        % if we want unicode and many other features (biber is already by default)
   style=iso-authoryear, % or another iso-<style>
+  %style=iso690_2021,    % for the beta version of ISO 690:2021
 ]{biblatex}
 ```
 
@@ -55,11 +61,14 @@ package options of `biblatex`.
 * `iso-authortitle`
 * `iso-authoryear`
 * `iso-numeric`
+* `iso690_2021` (beta version)
 
 ### Custom options
 
 Above and beyond the scope of package options provided by `biblatex` itself,
-here are also some more. Default values are in **bold**.
+here are also some more. Default values are in **bold**.<br/>
+<ins>Note:</ins> Not all of the options below work for the ISO 690:2021 beta version.
+<br/><br/>
 
 * `spacecolon`
   add space before colon in publisher and title (and also title and subtitle):
@@ -157,6 +166,9 @@ dateaddon = {\mkbibbrackets{16th century}},
 
 For more details see the example bibliography file [biblatex-iso690-examples.bib](./biblatex-iso690-examples.bib).
 
+For examples of the ISO 690:2021 standard see the file
+[biblatex-iso690_2021-examples.bib](./biblatex-iso690_2021_(beta)/examples/biblatex-iso690_2021-examples.bib).
+
 ## Contributing
 
 ### Translations
@@ -182,11 +194,16 @@ Guideline](https://github.com/michal-h21/biblatex-iso690/wiki/Translation-Guidel
 You might want to see also some already existing translations, e.g.
 [english-iso.lbx](english-iso.lbx) or [slovak-iso.lbx](slovak-iso.lbx).
 
+<br/>
+<ins>Note:</ins> For ISO 690:2021 standard there is only english support at the moment.
+
 ## License
 
-Copyright (C) 2011--2020 Michal Hoftich
-              2015--2020 Moritz Wemheuer
-              2016--2020 Dávid Lupták
+Copyright © 2011–2023 by
++ 2011–2023 [Michal Hoftich](https://github.com/michal-h21)
++ 2015–2023 [Moritz Wemheuer](https://github.com/moewew)
++ 2016–2023 [Dávid Lupták](https://github.com/DavidLuptak)
++ 2022–2023 [Willi Gerbig](https://github.com/wg030)
 
 This work may be distributed and/or modified under the
 conditions of the LaTeX Project Public License, either version 1.3
@@ -198,7 +215,7 @@ version 2005/12/01 or later.
 
 This work has the LPPL maintenance status `maintained`.
 
-The Current Maintainer of this work is Michal Hoftich.
+The Current Maintainer of this work is [Michal Hoftich](https://github.com/michal-h21).
 
 This work consists of all files listed in [manifest.txt](./manifest.txt).
 
