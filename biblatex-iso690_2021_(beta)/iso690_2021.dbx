@@ -1,0 +1,60 @@
+% iso690_2021.dbx
+
+
+\def\fileversion{0.1}
+\def\filedate{2023/07/16}
+
+\ProvidesFile{iso690_2021.dbx}
+  [\filedate\space v\fileversion\space ISO 690:2021 Biblatex Bibliography Style]
+
+
+
+
+
+\RequireBiber[3]
+
+
+
+% Declare new fields
+
+% [see 7.1.2.4.3 EXAMPLE 26, p. 22]
+\DeclareDatamodelFields[type=field, datatype=literal]{mainseries}
+
+% [see 7.1.2.4.3 EXAMPLE 26, p. 22]
+\DeclareDatamodelFields[type=field, datatype=integer]{mainvolume}
+
+% [see 7.11.2 EXAMPLE 8, p. 59]
+\DeclareDatamodelFields[type=field, datatype=literal]{eissn,eisbn,lccn}
+
+% [see 7.1.3.2 EXAMPLE, p. 24; 7.4.2.3 EXAMPLE 1, p. 40]
+\DeclareDatamodelFields[type=field, datatype=literal]{mediumdesignator}
+
+% [see 7.7.5, pp. 48–49; 7.12.2.4 EXAMPLE 2, p. 65]
+\DeclareDatamodelFields[type=field, datatype=date]{srrgtdate}
+
+
+
+
+
+% Declare new fields for (specific / all) entry types
+
+% [see 7.1.2.4.3 EXAMPLE 26, p. 22]
+\DeclareDatamodelEntryfields{mainseries}
+
+% [see 7.1.2.4.3 EXAMPLE 26, p. 22]
+\DeclareDatamodelEntryfields{mainvolume}
+
+% [see 7.11.2 EXAMPLE 8, p. 59]
+\DeclareDatamodelEntryfields{eissn,eisbn,lccn}
+
+% [see 7.1.3.2 EXAMPLE, p. 24; 7.4.2.3 EXAMPLE 1, p. 40]
+\DeclareDatamodelEntryfields{mediumdesignator}
+
+% [see 7.7.5, pp. 48–49; 7.12.2.4 EXAMPLE 2, p. 65]
+\DeclareDatamodelEntryfields{srrgtdate}
+
+
+
+
+
+\endinput

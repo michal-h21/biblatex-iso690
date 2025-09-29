@@ -1,0 +1,530 @@
+
+
+\documentclass[11pt, a4paper, bibliography=leveldown]{scrreprt}
+
+
+
+%\usepackage[english, german]{babel}
+%\usepackage[german,english]{babel}
+\usepackage[english]{babel}
+\usepackage{csquotes}    % for babel + biblatex warning
+
+\usepackage{seqsplit}
+
+
+
+% Noto: latin, russian and greek 
+\usepackage{fontspec}
+\setmainfont{NotoSerif-Light.ttf}[%
+Path=./noto/,%
+ItalicFont=NotoSerif-LightItalic.ttf,%
+BoldFont=NotoSerif-SemiBold.ttf,%
+BoldItalicFont=NotoSerif-SemiBoldItalic.ttf,%
+SmallCapsFeatures={Numbers=OldStyle}]
+%\usepackage[no-math]{fontspec}
+
+
+% Noto: traditional chinese
+\newfontfamily{\chinesefont}{NotoSerifTC-Light.otf}[%
+Path=./noto/,%
+ItalicFont=NotoSerifTC-Light.otf,%
+BoldFont=NotoSerifTC-SemiBold.otf,%
+BoldItalicFont=NotoSerifTC-SemiBold.otf,%
+SmallCapsFont=NotoSerifTC-Light.otf]
+
+\newcommand{\textchinese}[1]{\bgroup\chinesefont #1\egroup}
+
+
+% Noto: japanese
+\newfontfamily{\japanesefont}{NotoSerifJP-Light.otf}[%
+Path=./noto/,%
+ItalicFont=NotoSerifJP-Light.otf,%
+BoldFont=NotoSerifJP-SemiBold.otf,%
+BoldItalicFont=NotoSerifJP-SemiBold.otf,%
+SmallCapsFont=NotoSerifJP-Light.otf]
+
+\newcommand{\textjapanese}[1]{\bgroup\japanesefont #1\egroup}
+
+
+% Noto: thai
+\newfontfamily{\thaifont}{NotoSerifThai-Light.ttf}[%
+Path=./noto/,%
+ItalicFont=NotoSerifThai-Light.ttf,%
+BoldFont=NotoSerifThai-SemiBold.ttf,%
+BoldItalicFont=NotoSerifThai-SemiBold.ttf,%
+SmallCapsFeatures={Numbers=OldStyle}]
+
+\newcommand{\textthai}[1]{\bgroup\thaifont #1\egroup}
+
+
+
+
+
+
+% befehl für anführungszeichen
+\newcommand{\gqq}[1]{\glqq{}#1\grqq{}}
+%\newcommand{\q}[1]{\dq{}#1\dq{}}
+\newcommand{\q}[1]{``#1''}
+
+
+
+\makeatletter
+\def\input@path{{../}}
+\makeatother
+
+% literaturverzeichnis definieren
+\usepackage[backend=biber, style=iso690_2021,
+sorting=none, abbreviate=false]{biblatex}
+\addbibresource{biblatex-iso690_2021-examples.bib}
+\setcounter{biburlnumpenalty}{7500}
+\setcounter{biburllcpenalty}{8000}
+\setcounter{biburlucpenalty}{8500}
+
+
+
+\usepackage[breaklinks=true,draft=false]{hyperref}
+
+
+
+
+
+
+
+
+\begin{document}
+
+\noindent
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Playground for Some Own Testing
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\nocite{*}
+\nocite{willi5}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tests for "General" [see 7.1, pp. 13–25]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\nocite{scarpa1}              % [see 7.1.2.4.3 EXAMPLE 1, p. 19]
+\nocite{beethoven1}           % [see 7.1.2.4.3 EXAMPLE 7, p. 20]
+\nocite{tshernyshevsky}       % [see 7.1.2.4.3 EXAMPLE 8, p. 20]
+\nocite{scarpa2}              % [see 7.1.2.4.3 EXAMPLE 24, p. 21]
+\nocite{leung-yung}           % TO DO: [see 7.1.2.4.3 EXAMPLE 25, p. 22]
+\nocite{wilhelm1}             % TO DO: [see 7.1.2.4.3 EXAMPLE 26, p. 22]
+\nocite{waterson1}            % TO DO: [see 7.1.2.4.3 EXAMPLE 27, p. 22]
+\nocite{shakespeare1}         % [see 7.1.3.2 EXAMPLE, p. 24]
+\nocite{shakespeare2}         % TO DO MAYBE: [see 7.1.3.3 EXAMPLE 1, p. 24]
+\nocite{picasso1}             % [see 7.1.3.3 EXAMPLE 2, p. 25]
+\nocite{picasso2}             % TO DO MAYBE: [see 7.1.3.3 EXAMPLE 3, p. 25]
+\nocite{picasso3}             % TO DO: [see 7.1.3.3 EXAMPLE 4, p. 25]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tests for "Creator" [see 7.2, pp. 25–35]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\nocite{aymard1}              % TO DO MAYBE: [see 7.2.3 EXAMPLE 1, p. 26]
+\nocite{britten}              % [see 7.2.3 EXAMPLE 2, p. 26]
+\nocite{kings_singers}        % [see 7.2.3 EXAMPLE 3, p. 26]
+\nocite{metheny}              % [see 7.2.3 EXAMPLE 4, p. 26]
+\nocite{carter}               % [see 7.2.4.1 EXAMPLE 19, p. 28]
+\nocite{king}                 % [see 7.2.4.1 EXAMPLE 20, p. 28]
+\nocite{hertlein}             % [see 7.2.4.1 EXAMPLE 21, p. 29]
+\nocite{henry_viii}           % [see 7.2.4.1 EXAMPLE 22, p. 29]
+\nocite{chao}                 % TO DO: [see 7.2.4.1 EXAMPLE 23, p. 29]
+\nocite{akihito1}             % TO DO: [see 7.2.4.1 EXAMPLE 24, p. 29]
+\nocite{akihito2}             % TO DO: [see 7.2.4.1 EXAMPLE 25, p. 29]
+\nocite{masahito}             % TO DO: [see 7.2.4.1 EXAMPLE 26, p. 29]
+\nocite{benedict_xvi}         % [see 7.2.4.1 EXAMPLE 27, p. 29]
+\nocite{obsbn01}              % [see 7.2.6.3 EXAMPLE 3, p. 32]
+\nocite{welles1}              % [see 7.2.6.5 EXAMPLE 9, p. 33]
+\nocite{parker}               % [see 7.2.6.6 EXAMPLE 1, p. 33]
+\nocite{dexter}               % TO DO: [see 7.2.6.6 EXAMPLE 2, p. 33]
+\nocite{gardner1}             % TO DO MAYBE: [see 7.2.6.7 EXAMPLE 2, p. 34]
+\nocite{bell}                 % [see 7.2.7 EXAMPLE 7, p. 34]
+\nocite{denver}               % [see 7.2.7 EXAMPLE 8, p. 34]
+\nocite{pelé}                 % [see 7.2.7 EXAMPLE 9, p. 34]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tests for "Title" [see 7.3, pp. 35–38]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\nocite{wyld1}                % [see 7.3.4 EXAMPLE 1 (1), p. 36]
+\nocite{wyld2}                % [see 7.3.4 EXAMPLE 1 (2), p. 36]
+\nocite{blount1}              % [see 7.3.4 EXAMPLE 2 (1), p. 36]
+\nocite{blount2}              % [see 7.3.4 EXAMPLE 2 (2), p. 36]
+\nocite{blount3}              % [see 7.3.4 EXAMPLE 2 (3), p. 36]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Test for "Component parts" [see 7.4, pp. 38–40]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\nocite{maddox1}              % TO DO: [see 7.4.2.1 EXAMPLE 2, p. 38]
+\nocite{owen}                 % [see 7.4.2.1 EXAMPLE 3, p. 39]
+\nocite{waterson2}            % TO DO MAYBE: [see 7.4.2.1 EXAMPLE 4, p. 39]
+\nocite{wilhelm2}             % TO DO: [see 7.4.2.1 EXAMPLE 5, p. 39]
+\nocite{waterson3}            % TO DO: [see 7.4.2.1 EXAMPLE 6, p. 39]
+\nocite{scarpa3}              % TO DO: [see 7.4.2.1 EXAMPLE 7, p. 39]
+\nocite{gilberto}             % TO DO: [see 7.4.2.1 EXAMPLE 8, p. 39]
+\nocite{suhonen}              % TO DO MAYBE: [see 7.4.2.2 EXAMPLE, p. 39]
+\nocite{wiki1}                % TO DO: [see 7.4.2.3 EXAMPLE 1, p. 40]
+\nocite{clark}                % TO DO: [see 7.4.2.3 EXAMPLE 2, p. 40]
+\nocite{duerer1}              % TO DO: [see 7.4.2.3 EXAMPLE 3, p. 40]
+\nocite{aymard2}              % TO DO MAYBE: [see 7.4.2.3 EXAMPLE 4, p. 40]
+\nocite{maddox2}              % TO DO MAYBE: [see 7.4.2.3 EXAMPLE 5, p. 40]
+\nocite{maddox3}              % [see 7.4.2.3 EXAMPLE 6, p. 40]
+\nocite{cohen1}               % TO DO: [see 7.4.2.3 EXAMPLE 7, p. 40]
+\nocite{cohen2}               % TO DO: [see 7.4.2.3 EXAMPLE 8, p. 40]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Test for "Formats and resource types" [see 7.5, pp. 40–43]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\nocite{seuss1}               % [see 7.5.1 EXAMPLE 1, p. 40]
+\nocite{seuss2}               % [see 7.5.1 EXAMPLE 2, p. 40]
+\nocite{toriyama}             % TO DO: [see 7.5.1 EXAMPLE 3, p. 40]
+\nocite{wu1}                  % [see 7.5.1 EXAMPLE 4, p. 40]
+\nocite{lau}                  % TO DO MAYBE: [see 7.5.1 EXAMPLE 5, p. 40]
+\nocite{gu}                   % TO DO: [see 7.5.1 EXAMPLE 6, p. 41]
+\nocite{plokhy1}              % [see 7.5.1 EXAMPLE 7, p. 41]
+\nocite{skloot}               % [see 7.5.1 EXAMPLE 8, p. 41]
+\nocite{saarela1}             % TO DO: [see 7.5.3 EXAMPLE 12, p. 43]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Test for "Edition and version" [see 7.6, pp. 43–45]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\nocite{oracle}               % [see 7.6.1 EXAMPLE 3, p. 44]
+\nocite{bloss}                % [see 7.6.1 EXAMPLE 5, p. 44]
+\nocite{anonymous}            % [see 7.6.1 EXAMPLE 6, p. 44]
+\nocite{apple}                % TO DO MAYBE:[see 7.6.2 EXAMPLE 2, p. 45]
+\nocite{mozilla}              % TO DO MAYBE:[see 7.6.2 EXAMPLE 3, p. 45]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Test for "Date" [see 7.7, pp. 45–49]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\nocite{rodin}                % TO DO: [see 7.7.5 EXAMPLE 4, p. 49]
+\nocite{shakespeare3}         % TO DO: [see 7.7.5 EXAMPLE 5, p. 49]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tests for "Production information" [see 7.8, pp. 49–53]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\nocite{financial_times}      % [see 7.8.2.2 EXAMPLE 1, p. 50]
+\nocite{ortelius}             % TO DO: [see 7.8.2.2 EXAMPLE 3, p. 50]
+\nocite{fifa}                 % TO DO: [see 7.8.2.2 EXAMPLE 7, p. 50]
+\nocite{hawking}              % TO DO: [see 7.8.2.4 EXAMPLE 8, p. 51]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tests for "Numeration and Pagination" [see 7.9, pp. 53–54]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\nocite{plokhy2}              % [see 7.9.3 EXAMPLE 1, p. 54]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tests for "Serials and series" [see 7.10, pp. 54–57]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\nocite{JotRAI}               % [see 7.10.7 EXAMPLE 2, p. 57]
+\nocite{TotRHS}               % [see 7.10.7 EXAMPLE 3, p. 57]
+\nocite{AJoS}                 % [see 7.10.7 EXAMPLE 4, p. 57]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tests for "Identifiers" [see 7.11, pp. 57–60]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\nocite{orwell1}              % [see 7.11.1 EXAMPLE 1, p. 57]
+\nocite{saarela2}             % TO DO:[see 7.11.1 EXAMPLE 2, p. 57]
+\nocite{tynkkynen}            % [see 7.11.1 EXAMPLE 3, p. 57]
+\nocite{luckykilimanjaro}     % TO DO MAYBE: [see 7.11.1 EXAMPLE 4, p. 57]
+\nocite{mann}                 % [see 7.11.2 EXAMPLE 2, p. 58]
+\nocite{orwell2}              % TO DO MAYBE: [see 7.11.2 EXAMPLE 4, p. 58]
+\nocite{smith}                % [see 7.11.2 EXAMPLE 5, p. 58]
+\nocite{akihito3}             % [see 7.11.2 EXAMPLE 8, p. 59]
+\nocite{Ekv1}                 % TO DO MAYBE: [see 7.11.2 EXAMPLE 9, p. 59]
+\nocite{Ekv2}                 % TO DO MAYBE: [see 7.11.2 EXAMPLE 10, p. 59]
+\nocite{gross}                % [see 7.11.3 EXAMPLE 1, p. 59]
+\nocite{robinson}             % TO DO: [see 7.11.3 EXAMPLE 3, p. 59]
+\nocite{huening}              % TO DO: [see 7.11.3 EXAMPLE 4, p. 60]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tests for "Availability and Location" [see 7.12, pp. 60–68]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\nocite{teniers1}             % TO DO: [see 7.12.1.2 EXAMPLE 17, p. 61]
+\nocite{teniers2}             % TO DO: [see 7.12.1.2 EXAMPLE 18, p. 61]
+\nocite{cage}             % ! % TO DO: [see 7.12.1.2 EXAMPLE 19, p. 62]
+\nocite{klein1}               % TO DO MAYBE: [see 7.12.1.2 EXAMPLE 20, p. 62]
+\nocite{sulkowicz}            % TO DO MAYBE: [see 7.12.1.2 EXAMPLE 21, p. 62]
+\nocite{duerer2}              % TO DO MAYBE: [see 7.12.1.2 EXAMPLE 23, p. 62]
+\nocite{schjerfbeck}      % ! % TO DO MAYBE: [see 7.12.1.2 EXAMPLE 24, p. 62]
+\nocite{gosse}                % TO DO MAYBE: [see 7.12.1.2 EXAMPLE 25, p. 62]
+\nocite{sell}                 % [see 7.12.1.2 EXAMPLE 26, p. 62]
+\nocite{stravinsky}           % TO DO MAYBE: [see 7.12.1.2 EXAMPLE 27, p. 62]
+\nocite{pink_floyd}           % TO DO MAYBE: [see 7.12.1.2 EXAMPLE 28, p. 62]
+\nocite{klimt1}               % TO DO MAYBE: [see 7.12.1.3 EXAMPLE 1, p. 62]
+\nocite{klimt2}               % TO DO MAYBE: [see 7.12.1.3 EXAMPLE 2, p. 62]
+\nocite{picasso4}             % TO DO: [see 7.12.1.3 EXAMPLE 3, p. 63]
+\nocite{florus}               % TO DO MAYBE: [see 7.12.1.3 EXAMPLE 4, p. 63]
+\nocite{klimt3}               % TO DO MAYBE: [see 7.12.1.3 EXAMPLE 5, p. 63]
+\nocite{berners-lee1}         % [see 7.12.2.4 EXAMPLE 2, p. 65]
+\nocite{iso_home_page}        % TO DO MAYBE: [see 7.12.2.5 EXAMPLE 1, p. 65]
+\nocite{wiki2}            % ! % TO DO: [see 7.12.2.5 EXAMPLE 2, p. 65]
+\nocite{wiki3}                % TO DO: [see 7.12.2.6 EXAMPLE, p. 65]
+\nocite{the_guardian}         % TO DO MAYBE: [see 7.12.2.10 EXAMPLE, p. 66]
+\nocite{althaus}              % [see 7.12.3 EXAMPLE, p. 67]
+\nocite{carlson}              % TO DO MAYBE: [see 7.12.4 EXAMPLE 5, p. 68]
+\nocite{litlive}              % TO DO: [see 7.12.4 EXAMPLE 7, p. 68]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tests for "Item and event attributes" [see 7.13, pp. 68–70]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\nocite{shakespeare4}         % TO DO MAYBE: [see 7.13.2 EXAMPLE 5, p. 69]
+\nocite{warhol}               % TO DO: [see 7.13.2 EXAMPLE 6, p. 69]
+\nocite{hirst}                % [see 7.13.2 EXAMPLE 7, p. 69]
+\nocite{nick_mason1}          % [see 7.13.3 EXAMPLE 6, p. 69]
+\nocite{nick_mason2}          % [see 7.13.3 EXAMPLE 7, p. 69]
+\nocite{shakespeare5}         % TO DO MAYBE: [see 7.13.3 EXAMPLE 8, p. 70]
+\nocite{getz}                 % TO DO MAYBE: [see 7.13.3 EXAMPLE 9, p. 70]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tests for "Relationship" [see 7.14, pp. 70–76]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\nocite{gardner2}             % TO DO MAYBE: [see 7.14.1 EXAMPLE 2, p. 70]
+\nocite{dostoevsky}           % [see 7.14.2 EXAMPLE 5, p. 71]
+\nocite{jansson}              % TO DO: [see 7.14.2 EXAMPLE 6, p. 71]
+\nocite{wu2}                  % [see 7.14.2 EXAMPLE 7, p. 71]
+\nocite{gorki}                % TO DO MAYBE: [see 7.14.2 EXAMPLE 8, p. 71]
+\nocite{andrić}               % TO DO MAYBE: [see 7.14.2 EXAMPLE 9, p. 71]
+\nocite{homer}                % TO DO MAYBE: [see 7.14.2 EXAMPLE 10, p. 71]
+\nocite{baard}                % [see 7.14.2 EXAMPLE 11, p. 71]
+\nocite{wang}                 % TO DO: [see 7.14.3 EXAMPLE 1, p. 72]
+\nocite{laozi}                % TO DO MAYBE: [see 7.14.3 EXAMPLE 2, p. 72]
+\nocite{aphrodisias}      % ! % TO DO: [see 7.14.3 EXAMPLE 3, p. 72]
+\nocite{petzold}              % TO DO MAYBE: [see 7.14.4 EXAMPLE, p. 72]
+\nocite{handel}               % [see 7.14.5 EXAMPLE 1, p. 72]
+\nocite{bach}                 % [see 7.14.5 EXAMPLE 2, p. 72]
+\nocite{baum}                 % TO DO: [see 7.14.6 EXAMPLE 1, p. 73]
+\nocite{swift}                % [see 7.14.6 EXAMPLE 2, p. 73]
+\nocite{hugo}                 % TO DO: [see 7.14.6 EXAMPLE 3, p. 73]
+\nocite{pacini}               % [see 7.14.6 EXAMPLE 4, p. 73]
+\nocite{welles2}              % [see 7.14.6 EXAMPLE 5, p. 73]
+\nocite{plagge}               % [see 7.14.7 EXAMPLE 4, p. 74]
+\nocite{travers}              % [see 7.14.7 EXAMPLE 5, p. 74]
+\nocite{phillips}             % TO DO: [see 7.14.7 EXAMPLE 6, p. 74]
+\nocite{diplodocus_skeleton1} % TO DO: [see 7.14.8 EXAMPLE 1, p. 74]
+\nocite{persian_rider}    % ! % TO DO: [see 7.14.8 EXAMPLE 2, p. 74]
+\nocite{diplodocus_skeleton2} % TO DO MAYBE: [see 7.14.8 EXAMPLE 3, p. 74]
+\nocite{brinkmann}            % TO DO: [see 7.14.8 EXAMPLE 4, p. 74]
+\nocite{duerer}               % TO DO MAYBE: [see 7.14.8 EXAMPLE 5, p. 75]
+\nocite{hemingway}            % TO DO: [see 7.14.8 EXAMPLE 6, p. 75]
+\nocite{sibelius}             % TO DO MAYBE: [see 7.14.8 EXAMPLE 7, p. 75]
+\nocite{bowie1}               % [see 7.14.8 EXAMPLE 8, p. 75]
+\nocite{bowie2}               % [see 7.14.8 EXAMPLE 9, p. 75]
+\nocite{bowie3}               % [see 7.14.8 EXAMPLE 10, p. 75]
+\nocite{duerer3}              % TO DO: [see 7.14.8 EXAMPLE 12, p. 75]
+\nocite{lego_movies}          % TO DO: [see 7.14.9 EXAMPLE 1, p. 75]
+\nocite{disney_masters}       % TO DO: [see 7.14.9 EXAMPLE 2, p. 75]
+\nocite{beethoven2}           % TO DO MAYBE: [see 7.14.10 EXAMPLE 1, p. 76]
+\nocite{waters}               % TO DO: [see 7.14.10 EXAMPLE 2, p. 76]
+\nocite{melbourne_so}         % TO DO MAYBE: [see 7.14.10 EXAMPLE 3, p. 76]
+\nocite{wilhelm3}             % TO DO: [see 7.14.11 EXAMPLE 1, p. 76]
+\nocite{reid}                 % [see 7.14.11 EXAMPLE 2, p. 76]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tests for "Other Elements" [see 7.15, pp. 76–81]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\nocite{bebo}                 % [see 7.15.2 EXAMPLE 2, p. 76]
+\nocite{TSoMSAR1994}          % TO DO: [see 7.15.5 EXAMPLE 1, p. 78]
+\nocite{popkin}               % [see 7.15.5 EXAMPLE 2, p. 78]
+\nocite{lee}                  % [see 7.15.7 EXAMPLE 7, p. 79]
+\nocite{linux_kernel}         % TO DO: [see 7.15.7 EXAMPLE 8, p. 79]
+\nocite{berners-lee2}         % TO DO MAYBE: [see 7.15.8 EXAMPLE 3, p. 80]
+\nocite{klein2}               % TO DO: [see 7.15.11 EXAMPLE, p. 81]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tests for "Resource categories" [see 8]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\nocite{stieg}                % TO DO: [see 8.4.3 EXAMPLE 6, p. 88]
+%\nocite{ajoet}                % TO DO: [see 8.4.3 EXAMPLE 9, p. 89]
+%\nocite{stringer}             % TO DO: [see 8.4.3 EXAMPLE 12, p. 89]
+%\nocite{passer}               % TO DO: [see 8.7.4 EXAMPLE 4, p. 101]
+%\nocite{CduS}                 % TO DO: [see 8.7.9 EXAMPLE 6, p. 106]
+%\nocite{jenkins}              % TO DO: [see 8.16.8 EXAMPLE, p. 142]
+
+%\nocite{benbow}               % [see Bibliography [30], p. 158]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+\defbibheading{remarks}{\section*{References for the Remark}}
+\defbibheading{mytests}{\section*{Playground for Some Own Testing}}
+\defbibheading{chap7-1}{\section*{General (see section 7.1, pp. 13--25)}}
+\defbibheading{chap7-2}{\section*{Creator (see section 7.2, pp. 25--35)}}
+\defbibheading{chap7-3}{\section*{Title (see section 7.3, pp. 35--38)}}
+\defbibheading{chap7-4}{\section*{Component Parts (see section 7.4, pp. 38--40)}}
+\defbibheading{chap7-5}{\section*{Formats and Resource Types (see section 7.5, pp. 40--43)}}
+\defbibheading{chap7-6}{\section*{Edition and Version (see section 7.6, pp. 43--45)}}
+\defbibheading{chap7-7}{\section*{Date (see section 7.7, pp. 45--49)}}
+\defbibheading{chap7-8}{\section*{Production Information (see section 7.8, pp. 49--53)}}
+\defbibheading{chap7-9}{\section*{Numeration and Pagination (see section 7.9, pp. 53--54)}}
+\defbibheading{chap7-10}{\section*{Serials and Series (see section 7.10, pp. 54--57)}}
+\defbibheading{chap7-11}{\section*{Identifiers (see section 7.11, pp. 57--60)}}
+\defbibheading{chap7-12}{\section*{Availability and Location (see section 7.12, pp. 60--68)}}
+\defbibheading{chap7-13}{\section*{Item and Event Attributes (see section 7.13, pp. 68--70)}}
+\defbibheading{chap7-14}{\section*{Relationship (see section 7.14, pp. 70--76)}}
+\defbibheading{chap7-15}{\section*{Other Elements (see section 7.15, pp. 76--81)}}
+
+
+
+% remark
+\section*{Remark}
+All of the below citation examples stem from chapter 7 of the fourth edition
+of the ISO 690 \parencite[see][ch.~7]{ISO}.\\
+They are used here to demonstrate some outputs of the implementation of the
+\begin{center}
+\textsf{\Large{ISO 690:2021 Biblatex Bibliography Style.}}
+\end{center}
+At the current point in time (\today) this style is considered to be an already
+functional, but still error-prone and incomplete beta version.\\
+If you want to learn how to correctly input any of the following examples
+below into a bib-file, check out the file
+\begin{center}
+\textit{biblatex-iso690\_2021-examples.bib},
+\end{center}
+and if you want to see how to embed such a bibliography into a tex-file, look at
+\begin{center}
+\textit{biblatex-iso690\_2021-examples.tex}.
+\end{center}
+A successfull compilation of these files using Lua\TeX\ and Bib\TeX\ yields
+the pdf-file
+\begin{center}
+\textit{biblatex-iso690\_2021-examples.pdf},
+\end{center}
+which is the document you are reading at the moment.
+
+\vspace{4\baselineskip}
+\printbibliography[heading=remarks,keyword=remark]
+\newpage
+
+
+% literature
+\setlength{\emergencystretch}{2em}
+\begingroup
+%\hbadness=2000 \relax
+%\hbadness=3058 \relax
+%\printbibliography[heading=mytests,keyword=testing]
+%\newpage
+\printbibliography[heading=chap7-1,keyword=general]
+\newpage
+\printbibliography[heading=chap7-2,keyword=creator]
+%\newpage
+\printbibliography[heading=chap7-3,keyword=title]
+\newpage
+\printbibliography[heading=chap7-4,keyword=component_parts]
+%\newpage
+\printbibliography[heading=chap7-5,keyword=formats_and_resource_types]
+%\newpage
+\printbibliography[heading=chap7-6,keyword=edition_and_version]
+\newpage
+\printbibliography[heading=chap7-7,keyword=date]
+%\newpage
+\printbibliography[heading=chap7-8,keyword=production_information]
+%\newpage
+\printbibliography[heading=chap7-9,keyword=numeration_and_pagination]
+%\newpage
+\printbibliography[heading=chap7-10,keyword=serials_and_series]
+\newpage
+\printbibliography[heading=chap7-11,keyword=identifiers]
+\newpage
+\printbibliography[heading=chap7-12,keyword=availability_and_location]
+\newpage
+\printbibliography[heading=chap7-13,keyword=item_and_event_attributes]
+\newpage
+\printbibliography[heading=chap7-14,keyword=relationship]
+%\newpage
+\printbibliography[heading=chap7-15,keyword=other_elements]
+\endgroup
+
+
+
+\end{document}

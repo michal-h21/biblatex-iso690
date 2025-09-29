@@ -1,0 +1,194 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  TODO:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% add support for the following fields:
+% - pagetotal [see 7.9.2 EXAMPLE 6, p. 54]
+% - volumes
+% - pagination, bookpagination
+
+
+% add "emphtitle" package option
+% [see 7.1.2.4.3 EXAMPLE 27, p. 22], [see 7.2.4.1 EXAMPLE 24, p. 29],
+% [see 7.2.4.1 EXAMPLE 25, p. 29], [see 7.2.4.1 EXAMPLE 26, p. 29],
+% [see 7.4.2.1 EXAMPLE 2, p. 38], [see 7.4.2.1 EXAMPLE 6, p. 39],
+% [see 7.4.2.1 EXAMPLE 8, p. 39], [see 7.4.2.2 EXAMPLE, p. 39],
+% [see 7.4.2.3 EXAMPLE 2, p. 40], [see 7.4.2.3 EXAMPLE 5, p. 40],
+% [see 7.4.2.3 EXAMPLE 7, p. 40], [see 7.5.3 EXAMPLE 12, p. 43],
+% [see 7.7.5 EXAMPLE 5, p. 49], [see 7.8.2.2 EXAMPLE 3, p. 50],
+% [see 7.11.1 EXAMPLE 2, p. 57], [see 7.11.3 EXAMPLE 3, p. 59],
+% [see 7.11.3 EXAMPLE 4, p. 60], [see 7.12.1.3 EXAMPLE 3, p. 63],
+% [see 7.12.2.10 EXAMPLE, p. 66], [see 7.12.4 EXAMPLE 5, p. 68],
+% [see 7.12.4 EXAMPLE 7, p. 68], [see 7.13.2 EXAMPLE 6, p. 69],
+% [see 7.14.3 EXAMPLE 3, p. 72], [see 7.14.6 EXAMPLE 1, p. 73],
+% [see 7.14.8 EXAMPLE 2, p. 74], [see 7.14.10 EXAMPLE 2, p. 76],
+% [see 7.14.10 EXAMPLE 3, p. 76]
+
+
+% add "empbooktitle" package option
+% [see 7.7.5 EXAMPLE 5, p. 49]
+
+
+% add "emphmaintitle" package option
+% [see 7.8.2.2 EXAMPLE 3, p. 50]
+
+
+% add "emphjournaltitle" package option
+% [see 7.2.4.1 EXAMPLE 24, p. 29], [see 7.2.4.1 EXAMPLE 26, p. 29],
+% [see 7.4.2.1 EXAMPLE 2, p. 38], [see 7.4.2.2 EXAMPLE, p. 39],
+% [see 7.4.2.3 EXAMPLE 2, p. 40], [see 7.4.2.3 EXAMPLE 5, p. 40],
+% [see 7.5.3 EXAMPLE 12, p. 43], [see 7.11.1 EXAMPLE 2, p. 57],
+% [see 7.11.3 EXAMPLE 3, p. 59], [see 7.12.4 EXAMPLE 5, p. 68]
+
+
+% add "emphtitleaddon" package option
+% [see 7.1.2.4.3 EXAMPLE 25, p. 22], [see 7.2.4.1 EXAMPLE 23, p. 29],
+% [see 7.12.1.2 EXAMPLE 18, p. 61], [see 7.14.2 EXAMPLE 8, p. 71],
+% [see 7.15.5 EXAMPLE 1, p. 78]
+
+
+% put or don't put "In:" when necessary 
+% [see 7.1.2.4.3 EXAMPLE 26, p. 22] + [see 7.4.2.1 EXAMPLE 5, p. 39],
+% [see 7.4.2.1 EXAMPLE 7, p. 39], [see 7.4.2.3 EXAMPLE 2, p. 40],
+% [see 7.4.2.3 EXAMPLE 3, p. 40], [see 7.14.11 EXAMPLE 1, p. 76]
+
+
+% make correct order of mediumdesignator, howpublished and type
+% [see 7.2.6.6 EXAMPLE 2, p. 33]
+
+
+% print a date range like "1082/1135" as "1082–1135"
+% [see 7.2.4.1 EXAMPLE 23, p. 29], [see 7.4.2.3 EXAMPLE 8, p. 40],
+% [see 7.5.1 EXAMPLE 3, p. 40], [see 7.5.1 EXAMPLE 6, p. 41],
+% [see 7.14.8 EXAMPLE 1, p. 74], [see 7.14.10 EXAMPLE 2, p. 76],
+% [see 7.15.7 EXAMPLE 8, p. 79]
+
+
+% print a year like "0245" as "245" and "-0489" as "490 BC"
+% [see 7.14.3 EXAMPLE 1, p. 72], [see 7.14.8 EXAMPLE 2, p. 74]
+
+
+% make use of the oridgate field
+% [see 7.7.5 EXAMPLE 4, p. 49], [see 7.7.5 EXAMPLE 5, p. 49]
+
+
+% add "eprinti", "eprintii", ... fields
+% [see 7.8.2.4 EXAMPLE 8, p. 51], [see 7.14.8 EXAMPLE 12, p. 75]
+
+
+% add "urli", "urlii", ... fields
+% [see 7.15.11 EXAMPLE, p. 81]
+
+
+% check how to correctly print wikipedia articles
+% [see 7.4.2.3 EXAMPLE 1, p. 40], [see 7.12.2.5 EXAMPLE 2, p. 65],
+% [see 7.12.2.6 EXAMPLE, p. 65]
+
+
+% make sure maintitle is displayed in @artwork, @collection
+% [see 7.12.1.2 EXAMPLE 17, p. 61], [see 7.13.2 EXAMPLE 6, p. 69],
+% [see 7.14.8 EXAMPLE 6, p. 75], [see 7.14.9 EXAMPLE 2, p. 75]
+
+
+% fix exprint bug
+% [see 7.12.1.2 EXAMPLE 19, p. 62]
+
+
+% allow nested relations
+% [see 7.14.2 EXAMPLE 6, p. 71]
+
+
+% create ifinbooklike and ifarticlelike commands and replace
+% \ifentrytype{inbook} and \ifentrytype{article},
+% so that they also work for @review, ...
+% [see 7.14.7 EXAMPLE 6, p. 74]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  TODO MAYBE:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% look for examples in the iso 690 document that have not been added
+
+
+% check all language fields and also check if options={autolang=other}
+% makes sense with other languages than english
+
+
+% check all editor fields and change them to editora
+
+
+% make all relations with "related_data_complete" unless there is a
+% good reason for not doing so
+% [see 7.14.8 EXAMPLE 3, p. 74], [see 7.14.8 EXAMPLE 4, p. 74],
+% [see 7.14.9 EXAMPLE 1, p. 75], [see 7.14.9 EXAMPLE 2, p. 75]
+
+
+% check if there has to be an enddot before "}", when using a relation
+% (especially check the two differen case when the relation is the last item
+% of an entry and when it is not)
+
+
+% check how to print @inbook best
+% [see 7.1.2.4.3 EXAMPLE 27, p. 22] + [see 7.4.2.1 EXAMPLE 4, p. 39]
+
+
+% add isrc field, jan field, catalog no. field, istc field
+% [see 7.11.1 EXAMPLE 4, p. 57], [see 7.11.2 EXAMPLE 4, p. 58]
+
+
+% add anotations for identifiers:
+% [see 7.11.2 EXAMPLE 9, p. 59], [see 7.11.2 EXAMPLE 10, p. 59]
+
+
+% add field for owner and vendor:
+% [see 7.12.1.3 EXAMPLE 1, p. 62], [see 7.12.1.3 EXAMPLE 2, p. 62],
+% [see 7.12.1.3 EXAMPLE 3, p. 62], [see 7.12.1.3 EXAMPLE 4, p. 62],
+% [see 7.12.1.3 EXAMPLE 5, p. 63]
+
+
+% introduce the fiels editoraddon, translatoraddon, etc.
+% [see 7.13.3 EXAMPLE 6, p. 69], [see 7.14.3 EXAMPLE 2, p. 72]
+
+
+% create "cited" label or "accessed" label alternative for the
+% "viewed" label for urldate
+% [see 7.15.8 EXAMPLE 3, p. 80], [see 8.5.5 Example 2, p. 93]
+
+
+% maybe add curly brackets for the venue field after "At:"
+% [ see 7.1.3.3 EXAMPLE 1, p. 24]
+
+
+% use a comma as delimiter for a component part and the numeration/pagination
+% [see 7.1.2.4.3 EXAMPLE 26, p. 22]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MISCELLANEOUS NOTES:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% example, which shows that "format and resource type" follows
+% the "subsidiary titles" and not the other way round altough the metadata
+% tables say that
+% [see 7.5.1 EXAMPLE 7, p. 41]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

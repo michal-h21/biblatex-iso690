@@ -1,0 +1,2222 @@
+% iso690_2021.bbx
+
+
+\def\fileversion{0.1}
+\def\filedate{2023/07/16}
+
+\ProvidesFile{iso690_2021.bbx}
+  [\filedate\space v\fileversion\space ISO 690:2021 Biblatex Bibliography Style]
+
+
+
+
+
+\RequirePackage{regexpatch}
+
+
+\RequireBibliographyStyle{standard}
+
+\DeclareLanguageMappingSuffix{-iso690_2021}
+
+
+
+% Print info about package options into .log file
+\protected\def\isoblx@info@noline#1{%
+  \PackageInfo{biblatex-iso690_2021}{#1\@gobble}}
+\let\isoblx@info\isoblx@info@noline
+\AtEndOfPackage{%
+  \protected\def\isoblx@info#1{%
+    \PackageInfo{biblatex-iso690_2021}{#1}}}
+
+
+% Package Options
+\newtoggle{bbx:shownocreator}
+\DeclareBiblatexOption{global,type,entry}{shownocreator}[true]{
+    \settoggle{bbx:shownocreator}{#1}%
+    \isoblx@info@noline{Output "[ANONYMOUS]" if no creator is provided: #1}}
+
+\newtoggle{bbx:shownodate}
+\DeclareBiblatexOption{global,type,entry}{shownodate}[true]{
+    \settoggle{bbx:shownodate}{#1}%
+    \isoblx@info@noline{Output "[no date]" if no date is provided: #1}}
+
+\newtoggle{bbx:shownopublisher}
+\DeclareBiblatexOption{global,type,entry}{shownopublisher}[false]{
+    \settoggle{bbx:shownopublisher}{#1}%
+    \isoblx@info@noline{Output "publisher not known" if no publisher is provided: #1}}
+
+\newtoggle{bbx:shownolocation}
+\DeclareBiblatexOption{global,type,entry}{shownolocation}[false]{
+    \settoggle{bbx:shownolocation}{#1}%
+    \isoblx@info@noline{Output "place not known" if no location is provided: #1}}
+
+\newtoggle{bbx:publisherattr}
+\DeclareBibliographyOption{publisherattr}[true]{
+    \settoggle{bbx:publisherattr}{#1}%
+    \isoblx@info@noline{Use publisher attribute in case of no location: #1}}
+
+\newtoggle{bbx:bibacrosc}
+\DeclareBibliographyOption{bibacrosc}[true]{
+    \settoggle{bbx:bibacrosc}{#1}%
+    \isoblx@info@noline{Printing acronyms such as ISBN as textsc enabled: #1}}
+
+\newtoggle{bbx:noenddot}
+\DeclareBiblatexOption{global,type,entry}{noenddot}[true]{%
+  \settoggle{bbx:noenddot}{#1}%
+  \isoblx@info@noline{Use no end dot for the bibliography entries: #1}}
+
+
+
+% Set default package options
+\ExecuteBibliographyOptions
+{%
+    % Biblatex Options
+    autolang=hyphen,         % [see 6.4, p. 13; 7.1.2.2, pp. 14–16]
+    date=iso,                % [see 7.7.1, pp. 45–46]
+    urldate=iso,             % [see 7.7.1, pp. 45–46; 7.7.4, p. 48]
+    srrgtdate=iso,           % [see 7.7.5, pp. 48–49; 7.12.2.4 EXAMPLE 2, p. 65]
+    eventdate=iso,           % [see 7.13.3 EXAMPLE 8, p. 70]
+    %srrgtdateusetime=true,
+    timezones=true,          % [see 7.12.2.4 EXAMPLE 2, p. 65]
+    seconds=true,
+    datecirca=true,          % [see 7.7.2.3, p. 47]
+    dateuncertain=true,      % [see 7.7.2.3, p. 47]
+    maxbibnames=5,           % [see 7.2.6.2, p. 32]
+    minbibnames=5,           % [see 7.2.6.2, p. 32]
+    %
+    % Biblatex ISO 690-2021 Options
+    shownocreator = true,    % [see 7.2.8 EXAMPLE 2, pp. 34–35]
+    shownodate = true,       % [see 7.7.2.3 EXAMPLE 6, p. 47]
+    shownopublisher = false, % [see 7.8.2.2 EXAMPLE 3, p. 50]
+    shownolocation = false,  % [see 7.8.3.4, p. 53]
+    publisherattr = false,   % [see 7.8.2.2 EXAMPLE 4, p.50]
+    bibacrosc = false,       % [see 7.11.1 EXAMPLE 1, p. 57]
+    %
+    % Biblatex ISO 690-2021 Options for the German Version
+    noenddot=false,          % Use an end dot for the bibliography entries
+}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TEST AREA
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newbibmacro*{mytest}
+{%
+    \printtext{abc}
+    \setunit{\addcomma\space}
+    \setunit{\addcolon\space}
+    \printtext{xyz}
+}
+
+%\newbibmacro*{list:plain}{}
+%\newbibmacro*{related}{}
+%\newbibmacro*{maintitle+title}{}
+
+% No seperator or a dot at the very end of an entry
+\renewcommand{\finentrypunct}{%
+  \iftoggle{bbx:noenddot}
+    {}
+    {\addperiod}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% GENERAL [see 7.1, pp. 13–25]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Label-value delimiter [see 7.1.2.4.2 a), pp. 16–17]
+\newcommand*{\labelvaluepunct}{\addcolon}
+\DeclareDelimFormat*{publisherdelim}{\labelvaluepunct\space}
+\DeclareDelimFormat*{piddelim}{\labelvaluepunct\space}
+\DeclareDelimFormat*{itemdelim}{\labelvaluepunct\space}
+\DeclareDelimFormat*{eventdelim}{\labelvaluepunct\space}
+\DeclareDelimFormat*{atdelim}{\labelvaluepunct\space}
+%\DeclareDelimFormat*{relateddelim}{\labelvaluepunct\space}
+
+% Data element delimiter [see 7.1.2.4.2 b), p. 17]
+\newcommand*{\dataelementpunct}{\addperiod}
+\DeclareDelimFormat*{organizationdelim}{\dataelementpunct\space}
+\DeclareDelimFormat*{eventtitledelim}{\dataelementpunct\space}
+\DeclareDelimFormat*{venueeventdatedelim}{\dataelementpunct\space}
+\DeclareDelimFormat*{eventnotedelim}{\dataelementpunct\space}
+
+% Value delimiter [see 7.1.2.4.2 c), p. 17]
+\newcommand*{\valuepunct}{\addsemicolon}
+\DeclareDelimFormat*{multinamedelim}{\valuepunct\space}
+% [see 7.8.2.3, p. 50]
+\DeclareDelimFormat*{multiproductiondelim}{\valuepunct\space}
+
+% Label-value pair delimiter
+% [see 7.1.2.4.2 d), p. 17; 7.1.2.4.3 c) EXAMPLE 5, p. 19]
+\newcommand*{\labelvaluepairpunct}{\addsemicolon}
+\DeclareDelimFormat*{resourcetypeformatdelim}{\labelvaluepairpunct\space}
+\DeclareDelimFormat*{editionversiondelim}{\labelvaluepairpunct\space}
+\DeclareDelimFormat*{editionpubstatedelim}{\labelvaluepairpunct\space}
+\DeclareDelimFormat*{versionpubstatedelim}{\labelvaluepairpunct\space}
+
+% Attribute context delimiters [see 7.1.2.4.2 e), pp. 17–18]
+\newcommand*{\attributecontextlpunct}{[}
+\newcommand*{\attributecontextrpunct}{]}
+
+% Context delimiters [see 7.1.2.4.2 f), p. 18]
+\newcommand*{\contextlpunct}{\{}
+\newcommand*{\contextrpunct}{\}}
+
+% Data value hierarchy delimiter [see 7.1.2.4.2 g), p. 18]
+\newcommand*{\datavaluehierarchypunct}{\addcolon}
+\DeclareDelimFormat*{journalissuedelim}{\datavaluehierarchypunct\space}
+% [see 7.3.5 EXAMPLE 1, p. 36]
+\renewcommand*{\subtitlepunct}{\datavaluehierarchypunct}
+\DeclareDelimFormat*{subtitledelim}{\subtitlepunct\space}
+
+
+
+
+% WARNING: optional
+% Additional rules for data element delimiter [see 7.1.2.4.3 e), pp. 19–20]
+\newcommand*{\adddataelementpunctA}{\addcomma}
+\newcommand*{\adddataelementpunctB}{\addcolon}
+% [see 8.2.5 EXAMPLE 3, p. 83]
+\DeclareDelimFormat*{resourcetypesdelim}{\adddataelementpunctA\space}
+% [see 7.1.2.4.3 e) EXAMPLE 9, p. 20; 7.8.1, p. 49]
+\DeclareDelimFormat*{locationpublisherdelim}{\adddataelementpunctB\space}
+\DeclareDelimFormat*{locationdatedelim}{\adddataelementpunctB\space}
+\DeclareDelimFormat*{publisherdatedelim}{\adddataelementpunctA\space}
+\DeclareDelimFormat*{venueconferencedatedelim}{\adddataelementpunctA\space}
+% [see 7.1.2.4.3 e) EXAMPLE 10, p. 20; and 7.9.1, pp. 53–54]
+\DeclareDelimFormat*{numerationandpaginationdelim}{\adddataelementpunctA\space}
+% [see 7.1.2.4.3 a) EXAMPLE 1, p. 19; 7.10.7 EXAMPLE 4, p. 57]
+\DeclareDelimFormat*{seriesnumerationdelim}{\adddataelementpunctA\space}
+% [see 8.11.1, p. 120; 8.11.4.1 p. 122]
+\DeclareDelimFormat*{reportidtitledelim}{\adddataelementpunctA\space}
+
+% WARNING: optional
+% Additional rules for value delimiter [see 7.1.2.4.3 f), p. 20]
+\newcommand*{\addvaluepunct}{\addcomma}
+\DeclareDelimFormat*{addvaldelim}{\addvaluepunct\space}
+% [see 7.8.3.3 EXAMPLE 1, p. 53]
+\DeclareDelimFormat*{multilistdelim}{\addvaluepunct\space}
+\DeclareDelimFormat*{finallistdelim}{\addvaluepunct\space}
+
+% WARNING: optional
+% Additional rules for attribute context delimiters [see 7.1.2.4.3 g), p. 20]
+\newcommand*{\addattributecontextlpunct}{()}
+\newcommand*{\addattributecontextrpunct}{)}
+
+% Value qualifier context delimiters [see 7.1.2.4.3 h), pp. 20–21]
+\newcommand*{\valuequalifiercontextlpunct}{\{}
+\newcommand*{\valuequalifiercontextrpunct}{\}}
+
+
+
+
+
+% [see 7.2.4 pp. 26–30; 7.2.5.1 to 7.2.5.2, pp. 30–31]
+\DeclareDelimFormat*{nameaddondelim}{\addspace}
+% [see 7.2.2 EXAMPLE 1, p. 26]
+\DeclareDelimFormat*{creatorroledelim}{\addspace}
+% [see 7.3.1, p. 35; 7.3.3, p. 35; 7.3.5 to 7.3.6, p. 36; 7.3.8 to 7.3.9, p. 37]
+\DeclareDelimFormat*{titleaddondelim}{\addspace}
+% [see 7.7.2.1 to 7.7.2.2, pp. 46–47; 7.7.5 to 7.7.6, pp. 48–49]
+\DeclareDelimFormat*{dateaddondelim}{\addspace}
+% [see 7.15.7 EXAMPLE 4, p. 79]
+\DeclareDelimFormat*{copyrightsymboldelim}{\addnbthinspace}
+% [see 7.2.4.1 EXAMPLE 23, p. 29]
+\DeclareDelimFormat*{ccdelim}{\addnbspace}
+
+\DeclareDelimFormat*{volumeissueyeardelim}{\addspace}
+\DeclareDelimFormat*{issueyeardelim}{\addspace}
+%\DeclareDelimFormat*{identifierdelim}{\addspace}
+
+
+
+\DeclareDelimFormat*{hostinfopaginationdelim}{\isdot\addcomma\space}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CREATOR [see 7.2, pp. 25–35]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\newcommand*{\familynameformat}[1]{\MakeUppercase{#1}}
+\newcommand*{\familynameformat}[1]{\textsc{#1}}
+\renewcommand*{\mkbibnamefamily}{\familynameformat}
+%\renewcommand*{\mkbibnameprefix}{\familynameformat}
+
+
+% [see 7.1.2.4.3 4) EXAMPLE 7, pp. 19–20; 7.12.1.2 EXAMPLE 17, p. 61]
+\renewbibmacro*{name:family-given}[4]
+{%
+    \usebibmacro{name:delim}{#1}%
+    \usebibmacro{name:hook}{#1}%
+    \mkbibcompletenamefamilygiven{%
+        \mkbibnamefamily{#1}\isdot%
+        \ifboolexpe{test {\ifdefvoid{#2}} and test {\ifdefvoid{#3}}}
+            {}
+            {\revsdnamepunct}%
+        \ifdefvoid{#2}
+            {}
+            {\bibnamedelimd\mkbibnamegiven{#2}\isdot}%
+        \ifdefvoid{#3}
+            {}
+            {\bibnamedelimd\mkbibnameprefix{#3}\isdot}}%
+        \ifdefvoid{#4}
+            {}
+            {\revsdnamepunct\bibnamedelimd\mkbibnamesuffix{#4}\isdot}%
+}
+
+
+% [see 7.2.6.1 to 7.2.6.2, p. 32]
+\DeclareNameAlias{sortname}{family-given/given-family}
+\DeclareNameAlias{author}{sortname}
+%\DeclareNameAlias{editor}{sortname}
+% [see 7.2.6.5, p. 33]
+\DeclareNameAlias{default}{given-family}
+
+
+
+\newbibmacro*{rolefromtype}[1]
+{%
+    \iffieldundef{#1type}
+        {}
+        {\printtext[#1type]{%
+        \ifbibxstring{\thefield{#1type}}
+            {\ifboolexpr{test {\ifnumgreater{\value{#1}}{1}} or
+                         test {\ifandothers{#1}}}
+                {\bibstring{\thefield{#1type}s}}
+                {\bibstring{\thefield{#1type}}}}
+            {\thefield{#1type}}}}%
+}
+
+\newbibmacro*{rolefromname}[1]
+{%
+    \ifnameundef{#1}
+        {}
+        {\printtext[roleformat]{%
+        \ifbibxstring{#1}
+            {\ifboolexpr{test {\ifnumgreater{\value{#1}}{1}} or
+                         test {\ifandothers{#1}}}
+                {\bibstring{#1s}}
+                {\bibstring{#1}}}
+            {#1}}}%
+}
+
+
+
+% [see 7.2.4, pp. 26–30; 7.2.5.1 to 7.2.5.2, pp. 30–31]
+\DeclareFieldAlias{nameaddon}{brackets}
+% [see 7.2.2 EXAMPLE 2, p. 26]
+\DeclareFieldAlias{authortype}{parens}
+\DeclareFieldAlias{nameatype}{parens}
+\DeclareFieldAlias{namebtype}{parens}
+\DeclareFieldAlias{namectype}{parens}
+% [see 7.2.2 EXAMPLE 2, p. 26; 7.1.2.4.3 g), p. 20]
+\DeclareFieldAlias{roleformat}{parens}
+
+\renewbibmacro*{author}
+{%
+    \ifnameundef{author}
+        {}
+        {\printnames{author}%
+        \iffieldundef{nameaddon}{}
+            {\setunit{\printdelim{nameaddondelim}}%
+            \printfield{nameaddon}}%
+        \setunit*{\printdelim{creatorroledelim}}%
+        \usebibmacro{rolefromtype}{author}%
+        \setunit*{\printdelim{multinamedelim}}%
+        %
+        \printnames{namea}%
+        \setunit*{\printdelim{creatorroledelim}}%
+        \usebibmacro{rolefromtype}{namea}%
+        \setunit*{\printdelim{multinamedelim}}%
+        %
+        \printnames{nameb}%
+        \setunit*{\printdelim{creatorroledelim}}%
+        \usebibmacro{rolefromtype}{nameb}%
+        \setunit*{\printdelim{multinamedelim}}%
+        %
+        \printnames{namec}%
+        \setunit*{\printdelim{creatorroledelim}}%
+        \usebibmacro{rolefromtype}{namec}%
+        \setunit*{\printdelim{multinamedelim}}%
+        %
+        \printnames{foreword}%
+        \setunit*{\printdelim{creatorroledelim}}%
+        \usebibmacro{rolefromname}{foreword}%
+        \setunit*{\printdelim{multinamedelim}}%
+        %
+        \printnames{introduction}%
+        \setunit*{\printdelim{creatorroledelim}}%
+        \usebibmacro{rolefromname}{introduction}%
+        \setunit*{\printdelim{multinamedelim}}%
+        %
+        \printnames{afterword}%
+        \setunit*{\printdelim{creatorroledelim}}%
+        \usebibmacro{rolefromname}{afterword}}%
+}
+
+
+% [see 7.2.2 EXAMPLE 2, p. 26]
+\DeclareFieldAlias{editortype}{parens}
+
+\renewbibmacro*{editor}
+{%
+    \ifnameundef{editor}
+        {}
+        {\DeclareNameAlias{editor}{sortname}%
+        \printnames{editor}%
+        \iffieldundef{nameaddon}
+            {\setunit{\printdelim{creatorroledelim}}}
+            {\setunit{\printdelim{nameaddondelim}}}%
+        \printfield{nameaddon}%
+        \setunit{\printdelim{creatorroledelim}}%
+        \usebibmacro{rolefromtype}{editor}%
+        \clearname{editor}%
+        \clearfield{editortype}%
+        \DeclareNameAlias{editor}{default}}%
+}
+
+
+% [see 7.2.8, pp. 34–35]
+\newbibmacro*{anonymous}
+{%
+    \printtext{\mkbibbrackets{\familynameformat{\bibstring{anonymous}}}}%
+}
+
+
+
+\newbibmacro*{primary_creators}
+{%
+    \ifboolexpr{not test {\ifnameundef{author}}}
+        {\usebibmacro{author}}
+        {\ifboolexpr{not test {\ifnameundef{editor}}}
+            {\usebibmacro{editor}}
+            {\iftoggle{bbx:shownocreator}
+                {\usebibmacro{anonymous}}
+                {}}}%
+}
+
+
+
+% [see 7.2.6.5, p. 33]
+\DeclareFieldAlias{editoratype}{parens}
+\DeclareFieldAlias{editorbtype}{parens}
+\DeclareFieldAlias{editorctype}{parens}
+
+% [see 7.2.2, pp. 25–26]
+\newbibmacro*{subsidiary_creators}
+{%
+    \printnames{editora}%
+    \setunit*{\printdelim{creatorroledelim}}%
+    \usebibmacro{rolefromtype}{editora}%
+    \setunit*{\printdelim{addvaldelim}}%
+    %
+    \printnames{holder}%
+    \setunit*{\printdelim{creatorroledelim}}%
+    \usebibmacro{rolefromname}{holder}%
+    \setunit*{\printdelim{addvaldelim}}%
+    %
+    \printnames{editorb}%
+    \setunit*{\printdelim{creatorroledelim}}%
+    \usebibmacro{rolefromtype}{editorb}%
+    \setunit*{\printdelim{addvaldelim}}%
+    %
+    \printnames{translator}%
+    \setunit*{\printdelim{creatorroledelim}}%
+    \usebibmacro{rolefromname}{translator}%
+    \setunit*{\printdelim{addvaldelim}}%
+    %
+    \printnames{editor}%
+    \setunit*{\printdelim{creatorroledelim}}%
+    \usebibmacro{rolefromtype}{editor}%
+    \setunit*{\printdelim{addvaldelim}}%
+    %
+    \printnames{commentator}%
+    \setunit*{\printdelim{creatorroledelim}}%
+    \usebibmacro{rolefromname}{commentator}%
+    \setunit*{\printdelim{addvaldelim}}%
+    %
+    \printnames{annotator}%
+    \setunit*{\printdelim{creatorroledelim}}%
+    \usebibmacro{rolefromname}{annotator}%
+    \setunit*{\printdelim{addvaldelim}}%
+    %
+    \printnames{editorc}%
+    \setunit*{\printdelim{creatorroledelim}}%
+    \usebibmacro{rolefromtype}{editorc}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TITLE [see 7.3, pp. 35–38]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newbibmacro*{complete_title}[2]
+{%
+    \ifboolexpr{not test {\iffieldundef{#1title}}}%
+        {\printfield[#2]{#1title}%
+        \ifboolexpr{not test {\iffieldundef{#1subtitle}}}
+            {\printtext[#2]{\setunit{\printdelim{subtitledelim}}%
+            \printfield{#1subtitle}}}
+            {}%
+        \ifboolexpr{not test {\iffieldundef{#1titleaddon}}}
+            {\setunit{\printdelim{titleaddondelim}}%
+            \printtext{\mkbibbrackets{\printfield[#2]{#1titleaddon}}}}
+            {}}
+        % [see 7.1.2.4.3 EXAMPLE 27, p. 22]
+        {\ifstrempty{#1}
+            {\ifboolexpr{not test {\iffieldundef{titleaddon}}}
+                {\printtext{\mkbibbrackets{\printfield[titlecase]{titleaddon}}}}
+                {}}
+            {}}%
+}
+
+
+
+\renewbibmacro*{title}
+{%
+    \ifboolexpr{not test {\ifentrytype{article}} and
+                not test {\ifentrytype{inbook}}}%
+        % [see 7.1.2.4.3 j), p. 21; 7.3.10, pp. 37–38]
+        {\usebibmacro{complete_title}{}{emph}}
+        % [see 7.1.2.4.3 j) EXAMPLE 22, p. 21; 7.4.2.1 EXAMPLE 6, p. 39]
+        {\usebibmacro{complete_title}{}{titlecase}}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% COMPONENT PARTS [see 7.4, pp. 38–40]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand*{\bibleftbrace}{%
+    \blx@postpunct\valuequalifiercontextlpunct\bibsentence}
+\newcommand*{\bibrightbrace}{%
+    \blx@postpunct\valuequalifiercontextrpunct\midsentence}
+
+\protected\def\bibopenbrace{\bibleftbrace}%
+\protected\def\bibclosebrace{\bibrightbrace}%
+
+\newrobustcmd{\mkbibbraces}[1]
+{%
+    \begingroup
+    \blx@blxinit
+    \blx@setsfcodes
+    \bibopenbrace#1\bibclosebrace
+    \endgroup%
+}
+
+
+\renewbibmacro*{in:}
+{%
+    \ifboolexpr{not test {\iffieldundef{booktitle}}
+    or not test {\iffieldundef{maintitle}}}
+        {\bibstring{in}%
+        \printunit{\intitlepunct}}
+        {}%
+}
+
+\newbibmacro*{host_creators}
+{%
+    \ifboolexpr{not test {\ifnameundef{bookauthor}}}
+        {\printnames{bookauthor}}
+        {}%
+}
+
+\newbibmacro*{host_title}
+{%
+    \ifentrytype{article}
+        {\usebibmacro{complete_title}{journal}{emph}%
+        \setunit{\printdelim{journalissuedelim}}%
+        \usebibmacro{complete_title}{issue}{emph}}
+        {}%
+    %
+    \ifboolexpr{test {\ifentrytype{misc}}
+    or test {\ifentrytype{inbook}} or test {\ifentrytype{bookinbook}}
+    or test {\ifentrytype{suppbook}} or test {\ifentrytype{incollection}}
+    or test {\ifentrytype{suppcollection}} or test {\ifentrytype{inreference}}}
+        {\usebibmacro{complete_title}{book}{emph}}
+        {}%
+}
+
+\DeclareFieldFormat*{mainvolume}{\bibsstring{volume}\addnbspace#1}
+
+\newbibmacro*{host_series_and_numeration}
+{%
+    \printfield[titlecase]{mainseries}%
+    \setunit*{\printdelim{seriesnumerationdelim}}%
+    \printfield{mainvolume}%
+}
+
+
+
+\newbibmacro*{host_info_resource}
+{%
+    \ifnameundef{bookauthor}
+        {}
+        {\usebibmacro{host_creators}%
+        \setunit*{\printdelim{nametitledelim}}\newblock}%
+    \usebibmacro{host_title}%
+    \newunit%
+    \usebibmacro{complete_title}{main}{titlecase}%
+    \newunit\newblock
+    \usebibmacro{host_series_and_numeration}%
+}
+
+\newbibmacro*{component_parts}
+{%
+    % [see 7.4.2.1 EXAMPLE 6, p. 39; 7.1.2.4.3 EXAMPLE 26, p. 22]
+    \ifboolexpr{test {\iffieldundef{maintitle}}
+    and test {\iffieldundef{mainseries}}}
+        {\usebibmacro{host_info_resource}}
+        {\printtext{\mkbibbraces{\usebibmacro{host_info_resource}}}}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FORMATS AND RESOURCE TYPES  [see 7.5, pp. 40–43]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareFieldFormat*{type}{\ifbibstring{#1}{\bibstring{#1}}{#1}}
+\DeclareFieldFormat*{mediumdesignator}{\ifbibstring{#1}{\bibstring{#1}}{#1}}
+
+
+\newbibmacro*{format_and_resource_type}
+{%
+    \printfield{type}%
+    \iffieldundef{howpublished}
+        % [see 8.2.5 EXAMPLE 3, p. 83; 8.7.9 EXAMPLE 6, p. 106]
+        {\setunit*{\printdelim{resourcetypeformatdelim}}}%
+        % [see 8.2.5 EXAMPLE 3, p. 83]
+        {\setunit*{\printdelim{resourcetypesdelim}}}%
+    \printfield{howpublished}%
+    % [see 8.2.5 EXAMPLE 3, p. 83; and 8.7.9 EXAMPLE 6, p. 106]
+    \setunit*{\printdelim{resourcetypeformatdelim}}%
+    \printfield{mediumdesignator}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% EDITION AND VERSION [see 7.6, pp. 43–45]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareFieldFormat*{version}{#1}
+
+\newbibmacro*{edition_and_version}
+{%
+    \printfield{edition}%
+    \iffieldundef{version}
+        {\setunit*{\printdelim{editionpubstatedelim}}}
+        {\setunit*{\printdelim{editionversiondelim}}}%
+    \printfield{version}%
+    \setunit*{\printdelim{versionpubstatedelim}}%
+    \printfield{pubstate}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DATE [see 7.7, pp. 45–49]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% [see 7.12.2.4 EXAMPLE 2, p. 65]
+\renewcommand*{\bibdatetimesep}{\addspace}
+
+% [see 7.7.2.3, p. 47]
+\renewcommand*{\dateuncertainprint}{\iftoggle{blx@dateuncertain}%
+    {\ifdateuncertain{\ifdatecirca{}{\bibdateuncertain}}{}}{}}
+\renewcommand*{\enddateuncertainprint}{\iftoggle{blx@dateuncertain}%
+    {\ifenddateuncertain{\ifenddatecirca{}{\bibdateuncertain}}{}}{}}
+\renewcommand*{\datecircaprintiso}{\iftoggle{blx@datecirca}%
+    {\ifdatecirca{\ifdateuncertain{}{\textasciitilde}}{}}{}}
+\renewcommand*{\enddatecircaprintiso}{\iftoggle{blx@datecirca}%
+    {\ifenddatecirca{\ifenddateuncertain{}{\textasciitilde}}{}}{}}
+\newcommand*{\dateuncertaincircaprintiso}
+{%
+    \iftoggle{blx@dateuncertain}
+        {\iftoggle{blx@datecirca}{\%}{\bibdateuncertain}}
+        {\iftoggle{blx@datecirca}{\textasciitilde}{}}%
+}
+
+
+
+% [see 7.7.4, p. 48]
+\DeclareFieldFormat*{urldate}{\mkbibbrackets{\bibncpstring{urlseen}\space#1}}
+%[see 7.7.5, pp. 48–49]
+%\DeclareFieldFormat*{origdate}{#1}
+% [see 7.7.5, pp. 48–49]
+\DeclareFieldFormat*{srrgtdate}{#1}
+
+\renewbibmacro*{urldate}{\iffieldundef{urlyear}{}{\printurldate}}
+\newbibmacro*{origdate}{\iffieldundef{origyear}{}{\printfield{origyear}}}
+\newbibmacro*{printsrrgtdatetime}{\printsrrgtdate\addspace\printsrrgttime}
+\newbibmacro*{srrgtdate}{%
+    \iffieldundef{srrgtyear}{}{
+        \hasdateannotation{srrgtdate}
+            %{\ifbibxstring{\getdateannotation{srrgtdate}} % doesn't work!?!
+            {\ifbibxstring{\abx@annotation@literal@field@srrgtdate@default}
+                %\bibcpstring{\getdateannotation{srrgtdate}} % doesn't work!?!
+                {\printtext{\mkbibbrackets{\bibncpstring{%
+                \abx@annotation@literal@field@srrgtdate@default}\space%
+                \usebibmacro{printsrrgtdatetime}}}}
+                {\printtext{\mkbibbrackets{%
+                \abx@annotation@literal@field@srrgtdate@default\space%
+                \usebibmacro{printsrrgtdatetime}}}}}
+            {\printtext{\mkbibbrackets{\bibncpstring{reprinted}\space%
+            \usebibmacro{printsrrgtdatetime}}}}}%
+}
+
+
+
+%\DeclareFieldFormat*{date}{#1}
+\DeclareFieldFormat*{date}
+{%
+    % [see 7.7.2.3 EXAMPLE 2, p. 47]
+    \ifboolexpr{test \ifdateuncertain and not test \ifdatecirca}
+        {\mkbibbrackets{#1}}
+        {}%
+    % [see 7.7.2.3 EXAMPLE 4, p. 47]
+    \ifboolexpr{not test \ifdateuncertain and test \ifdatecirca}
+        {\mkbibbrackets{#1}}
+        {}%
+    % [see 7.7.2.3 EXAMPLE 5, p. 47]
+    \ifboolexpr{test \ifdateuncertain and test \ifdatecirca}
+        {\mkbibbrackets{#1\dateuncertaincircaprintiso}}
+        {}%
+    % [see 7.7.3, p. 47]
+    \ifboolexpr{not test \ifdateuncertain and not test \ifdatecirca}
+        {#1}
+        {}%
+}
+% [see 7.7.2.1 to 7.7.2.2, pp. 46–47; 7.7.5 to 7.7.6, pp. 48–49]
+\DeclareFieldAlias{dateaddon}{brackets}
+
+\renewbibmacro*{date}
+{%
+    \ifboolexpr{not test {\iffieldundef{year}}}
+        % [see 7.15.7 EXAMPLE 4, p. 79]
+        {\ifdateannotation{date}{copyright}
+            {\printtext{\textcopyright}\printdelim{copyrightsymboldelim}}{}%
+        % [see 7.2.4.1 EXAMPLE 23, p. 29]
+        \ifdateannotation{date}{cc}
+            {\bibncpsstring{cc}\printdelim{ccdelim}}{}%
+        % [see 7.7.2.3 EXAMPLE 3, p. 47]
+        \ifboolexpr{test {\iffieldequalstr{dateunspecified}{yearindecade}}}
+            {\printtext{\mkbibbrackets{%
+            \number\numexpr\thefield{year}/10\relax X}}}{}%
+        \ifboolexpr{test {\iffieldequalstr{dateunspecified}{yearincentury}}}
+            {\printtext{\mkbibbrackets{%
+            \number\numexpr\thefield{year}/100\relax XX}}}{}%
+        \ifboolexpr{test {\iffieldequalstr{dateunspecified}{monthinyear}} or
+                     test {\iffieldequalstr{dateunspecified}{dayinmonth}} or
+                     test {\iffieldequalstr{dateunspecified}{dayinyear}}}
+            {\printfield{year}}{}%
+        \iffieldundef{dateunspecified}
+            {\printdate}{}%
+            %{\mkdaterangeiso{}\addspace\printdate}{}%
+        \iffieldundef{dateaddon}{}
+            {\setunit{\printdelim{dateaddondelim}}\printfield{dateeaddon}}}
+        % [see 7.7.2.3 EXAMPLE 6, p. 47]
+        {\iftoggle{bbx:shownodate}
+            {\printtext{\mkbibbrackets{\bibstring{nodate}}}}{}}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PRODUCTION INFORMATION [see 7.8, pp. 49–53]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcounter{i}
+\DeclareListFormat*{singlelocation}{#1}
+\DeclareListFormat*{singlepublisher}{#1}
+
+\newbibmacro*{production_information}
+{%
+    \ifboolexpr{test {\iflistundef{location}}
+    and test {\iflistundef{publisher}}}
+        {\iffieldundef{eventyear}
+            {\ifentrytype{article}{}{\usebibmacro{date}}}
+            % [see 7.13.3 EXAMPLE 8, p. 70]
+            {}}
+        {}%
+    \ifboolexpr{test {\iflistundef{location}}
+    and not test {\iflistundef{publisher}}}
+        {\iftoggle{bbx:publisherattr}
+            % [see 7.8.2.2 EXAMPLE 4, p. 50]
+            {\bibstring{publisher}\printdelim{publisherdelim}%
+            \printlist{publisher}}
+            {\printlist{publisher}}%
+        \setunit*{\printdelim{publisherdatedelim}}%
+        \ifentrytype{article}{}{\usebibmacro{date}}}
+        {}%
+    % [see 7.8.3.3 EXAMPLE 1, p. 53]
+    \ifboolexpr{not test {\iflistundef{location}}
+    and not test {\ifnumequal{\value{location}}{\value{publisher}}}}
+        {\printlist{location}%
+        \iflistundef{publisher}
+            {\setunit*{\printdelim{locationdatedelim}}}
+            {\setunit*{\printdelim{locationpublisherdelim}}}%
+        \printlist{publisher}%
+        \setunit*{\printdelim{publisherdatedelim}}%
+        \ifentrytype{article}{}{\usebibmacro{date}}}
+        {}%
+    \ifboolexpr{not test {\iflistundef{location}}
+    and test {\ifnumequal{\value{location}}{\value{publisher}}}}
+        {\ifboolexpr{ not test {\iffieldundef{origyear}} and
+        test {\ifnumequal{\value{location}}{2}}}
+            % [see 7.8.2.3, p. 50]
+            {\printlist[singlelocation][1-1]{location}%
+            \setunit{\printdelim{locationpublisherdelim}}%
+            \printlist[singlepublisher][1-1]{publisher}%
+            \setunit{\printdelim{addvaldelim}}%
+            \printorigdate%
+            \setunit{\printdelim{multiproductiondelim}}%
+            \printlist[singlelocation][2-2]{location}%
+            \setunit{\printdelim{locationpublisherdelim}}%
+            \printlist[singlepublisher][2-2]{publisher}%
+            \setunit{\printdelim{addvaldelim}}%
+            \ifentrytype{article}{}{\usebibmacro{date}}}
+            % [see 7.8.3.3, p. 53]
+            {\setcounter{i}{1}%
+            \whileboolexpr{test {\ifnumless{\value{i}}{\value{location}+1}}}
+                {\printlist[singlelocation][\value{i}-\value{i}]{location}%
+                \setunit{\printdelim{locationpublisherdelim}}%
+                \printlist[singlepublisher][\value{i}-\value{i}]{publisher}%
+                \setunit{\printdelim{addvaldelim}}%
+                \stepcounter{i}}%
+            \iflistundef{publisher}
+                {\newunit}
+                {\setunit{\printdelim{publisherdatedelim}}}%
+            \ifentrytype{article}{}{\usebibmacro{date}}}}
+        {}%
+    % [see 7.8.2.6 EXAMPLE 1, p. 51]
+    \setunit*{\printdelim{organizationdelim}}%
+    \printlist{organization}%
+    \setunit*{\printdelim{organizationdelim}}%
+    \printlist{institution}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% NUMERATION AND PAGINATION  [see 7.9, pp. 53–54]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareFieldFormat*{volume}{\bibsstring{volume}\addnbspace#1}
+\DeclareFieldFormat*{issue}{#1}
+%\DeclareFieldFormat*{number}{\bibsstring{number}\addnbspace#1}
+\DeclareFieldFormat*{number}{%
+    \ifnumeral{#1}{\bibsstring{number}\addnbspace#1}{#1}}
+\DeclareFieldFormat*{part}{\bibsstring{part}\addnbspace#1}
+\xpatchcmd*{\blx@mkpageprefix}{\bibstring}{\bibncpsstring}{}{}
+\DeclareFieldFormat*{pages}{\mkpageprefix[bookpagination]{#1}}
+
+% [see 7.9.2 EXAMPLE 1 to 2, p. 54; 8.4.3 EXAMPLE 9, p. 89;
+%  7.11.3 EXAMPLE 3, p. 59]
+\newbibmacro*{numeration_and_pagination}
+{%
+    \printfield{volume}%
+    \setunit*{\printdelim{volumeissueyeardelim}}%
+    \ifentrytype{article}
+        {\iffieldundef{volume}
+            {\printfield{issue}%
+            \setunit*{\printdelim{issueyeardelim}}%
+            \printdate}
+            {\printtext{\mkbibparens{\printfield{issue}%
+            \setunit*{\printdelim{issueyeardelim}}%
+            \iffieldundef{endyear}
+                {\printfield{year}}
+                {\printfield{endyear}}}}}%
+        }
+        {\iffieldundef{issue}{}{\printtext{\mkbibparens{\printfield{issue}}}}}%
+    \setunit*{\printdelim{numerationandpaginationdelim}}%
+    \printfield{number}%
+    \setunit*{\printdelim{numerationandpaginationdelim}}%
+    \printfield{part}%
+    \setunit*{\printdelim{numerationandpaginationdelim}}%
+    \printfield{pages}%
+    \setunit*{\printdelim{numerationandpaginationdelim}}%
+    \printfield{eid}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SERIALS AND SERIES [see 7.10, pp. 54–57]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% [see 7.10.5, p. 56]
+\newbibmacro*{conference_information}
+{%
+    \usebibmacro{complete_title}{event}{emph}%
+    \setunit*{\printdelim{eventtitledelim}}%
+    \printfield{venue}%
+    \setunit*{\printdelim{venueconferencedatedelim}}%
+    \printeventdate%
+}
+
+
+
+\newbibmacro*{serials_and_series}
+{%
+    % [see 7.2.4.1 EXAMPLE 21, p. 29]
+    \printfield[titlecase]{series}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  IDENTIFIERS [see 7.11, pp. 57–60]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand*{\mkbibacro}[1]{%
+    \iftoggle{bbx:bibacrosc}
+        {\ifcsundef{\f@encoding/\f@family/\f@series/sc}
+            {#1}
+            {\textsc{\MakeLowercase{#1}}}}%
+        {#1}%
+}
+
+
+
+% [see 7.11.2 EXAMPLE 8, p. 59]
+\DeclareFieldFormat*{eissn}{\mkbibacro{ISSN}\addspace#1%
+    \iffieldundef{issn}{}{\addspace\mkbibbrackets{\bibstring{online}}}}
+\DeclareFieldFormat*{issn}{\mkbibacro{ISSN}\addspace#1%
+    \iffieldundef{eissn}{}{\addspace\mkbibbrackets{\bibstring{print}}}}
+% [see 7.11.2 EXAMPLE 8, p. 59]
+\DeclareFieldFormat*{eisbn}{\mkbibacro{ISBN}\addspace#1%
+    \iffieldundef{isbn}{}{\addspace\mkbibbrackets{\bibstring{online}}}}
+\DeclareFieldFormat*{isbn}{\mkbibacro{ISBN}\addspace#1%
+    \iffieldundef{eisbn}{}{\addspace\mkbibbrackets{\bibstring{print}}}}
+% [see 7.11.1 EXAMPLE , p. 57]
+\DeclareFieldFormat*{lccn}{%
+    \mkbibacro{LCCN}\addspace%
+    \ifboolexpr{test \ifhyperref}
+        {\ifboolexpr{not bool {Hy@draft}}
+            {\href{http://lccn.loc.gov/#1}{\nolinkurl{#1}}}
+            {#1}}
+        {#1}%
+}
+\DeclareFieldFormat*{iswc}{\mkbibacro{ISWC}\addspace#1}
+\DeclareFieldFormat*{ismn}{\mkbibacro{ISMN}\addspace#1}
+\DeclareFieldFormat*{isan}{\mkbibacro{ISAN}\addspace#1}
+\DeclareFieldFormat*{isrn}{\mkbibacro{ISRN}\addspace#1}
+
+
+% eprint, eprintclass, eprinttype
+
+% [see 7.11.2, p. 58–59]
+\newbibmacro*{international_standard_identifiers}{%
+    \printfield{eissn}%
+    \newunit
+    \printfield{issn}%
+    \newunit
+    \printfield{eisbn}%
+    \newunit
+    \printfield{isbn}%
+    \newunit
+    \printfield{lccn}%
+    \newunit
+    \printfield{iswc}%
+    \newunit
+    \printfield{ismn}%
+    \newunit
+    \printfield{isan}%
+    \newunit
+    \printfield{isrn}%
+}
+
+
+
+% [see 7.11.3, p. 59–60]
+\DeclareFieldFormat*{doi}{%
+    \ifboolexpr{test \ifhyperref}
+        {\ifboolexpr{not bool {Hy@draft}}
+            {\url{https://doi.org/#1}}
+            {\mkbibacro{doi}\addcolon\nolinkurl{#1}}}
+        {\mkbibacro{doi}\addcolon\nolinkurl{#1}}%
+}
+
+\DeclareFieldFormat*{eprint}{%
+    \iffieldundef{eprinttype}{eprint}{\thefield{eprinttype}}%
+    \addcomma\space%
+    \ifboolexpr{test \ifhyperref}
+        {\ifboolexpr{not bool {Hy@draft}}
+            {\url{#1}}
+            {\nolinkurl{#1}}}
+        {\nolinkurl{#1}}%
+    \iffieldundef{eprintclass}
+        {}
+        {\addspace\mkbibbrackets{\thefield{eprintclass}}}%
+}
+\DeclareFieldFormat*{eprint:hdl}{%
+    \ifboolexpr{test \ifhyperref}
+        {\ifboolexpr{not bool {Hy@draft}}
+            {\url{http://hdl.handle.net/#1}}
+            {\mkbibacro{HDL}\addcolon\nolinkurl{#1}}}
+        {\mkbibacro{HDL}\addcolon\nolinkurl{#1}}%
+}
+\DeclareFieldFormat*{eprint:arxiv}{%
+    \ifboolexpr{test \ifhyperref}
+        {\ifboolexpr{not bool {Hy@draft}}
+            {\url{https://arxiv.org/abs/#1}}
+            {\mkbibacro{arXiv}\addcolon\nolinkurl{#1}}}
+        {\mkbibacro{arXiv}\addcolon\nolinkurl{#1}}%
+    \iffieldundef{eprintclass}
+        {}
+        {\addspace\texttt{\mkbibbrackets{\thefield{eprintclass}}}}
+}
+\DeclareFieldFormat*{eprint:jstor}{%
+    \ifboolexpr{test \ifhyperref}
+        {\ifboolexpr{not bool {Hy@draft}}
+            {\url{http://www.jstor.org/stable/#1}}
+            {\mkbibacro{JSTOR}\addcolon\nolinkurl{#1}}}
+        {\mkbibacro{JSTOR}\addcolon\nolinkurl{#1}}%
+}
+\DeclareFieldFormat*{eprint:pubmed}{%
+    \ifboolexpr{test \ifhyperref}
+        {\ifboolexpr{not bool {Hy@draft}}
+            {\url{http://www.ncbi.nlm.nih.gov/pubmed/#1}}
+            {\mkbibacro{PMID}\addcolon\nolinkurl{#1}}}
+        {\mkbibacro{PMID}\addcolon\nolinkurl{#1}}%
+}
+\DeclareFieldFormat*{eprint:googlebooks}{%
+    \ifboolexpr{test \ifhyperref}
+        {\ifboolexpr{not bool {Hy@draft}}
+            {\url{http://books.google.com/books?id=#1}}
+            {\mkbibacro{Google Books}\addcolon\nolinkurl{#1}}}
+        {\mkbibacro{Google Books}\addcolon\nolinkurl{#1}}%
+}
+% [see 7.14.2 EXAMPLE 10, p. 71]
+\DeclareFieldFormat*{eprint:googlebooks2}{%
+    Google\addspace Books\addspace\mkbibparens{\bibstring{distributor}}\addcomma\space%
+    \ifboolexpr{test \ifhyperref}
+        {\ifboolexpr{not bool {Hy@draft}}
+            {\url{#1}}
+            {\nolinkurl{#1}}}
+        {\nolinkurl{#1}}%
+}
+% [see 7.14.8 EXAMPLE 12, p. 75]
+\DeclareFieldFormat*{eprint:wikimedia}{%
+    Wikimedia\addspace\mkbibparens{\bibstring{distributor}}\addcomma\space%
+    \ifboolexpr{test \ifhyperref}
+        {\ifboolexpr{not bool {Hy@draft}}
+            {\url{#1}}
+            {\nolinkurl{#1}}}
+        {\nolinkurl{#1}}%
+}
+% [see 7.8.2.4 EXAMPLE 7, p. 50]
+\DeclareFieldFormat*{eprint:youtube}{%
+    YouTube\addspace\mkbibparens{\bibstring{distributor}}\addcomma\space%
+    \ifboolexpr{test \ifhyperref}
+        {\ifboolexpr{not bool {Hy@draft}}
+            {\url{#1}}
+            {\nolinkurl{#1}}}
+        {\nolinkurl{#1}}%
+}
+% [see 7.14.8 EXAMPLE 10, p. 75]
+\DeclareFieldFormat*{eprint:vimeo}{%
+    Vimeo\addspace\mkbibparens{\bibstring{distributor}}\addcomma\space%
+    \ifboolexpr{test \ifhyperref}
+        {\ifboolexpr{not bool {Hy@draft}}
+            {\url{#1}}
+            {\nolinkurl{#1}}}
+        {\nolinkurl{#1}}%
+}
+% [see 7.12.2.4 EXAMPLE 2, p. 65]
+\DeclareFieldFormat*{eprint:internetarchive}{%
+    Internet\addspace Archive\addspace%
+    \mkbibparens{\bibstring{distributor}}\addcomma\space%
+    \ifboolexpr{test \ifhyperref}
+        {\ifboolexpr{not bool {Hy@draft}}
+            {\url{#1}}
+            {\nolinkurl{#1}}}
+        {\nolinkurl{#1}}%
+}
+
+\DeclareFieldAlias{eprint:HDL}{eprint:hdl}
+\DeclareFieldAlias{eprint:arXiv}{eprint:arxiv}
+\DeclareFieldAlias{eprint:JSTOR}{eprint:jstor}
+\DeclareFieldAlias{eprint:PubMed}{eprint:pubmed}
+\DeclareFieldAlias{eprint:Google Books}{eprint:googlebooks}
+\DeclareFieldAlias{eprint:Wikimedia}{eprint:wikimedia}
+\DeclareFieldAlias{eprint:YouTube}{eprint:youtube}
+\DeclareFieldAlias{eprint:Vimeo}{eprint:vimeo}
+\DeclareFieldAlias{eprint:Internet Archive}{eprint:internetarchive}
+
+\DeclareFieldFormat*{url}{%
+    \ifboolexpr{test \ifhyperref}
+        {\ifboolexpr{not bool {Hy@draft}}
+            {\url{#1}}
+            {\nolinkurl{#1}}}
+        {\nolinkurl{#1}}%
+}
+
+
+
+% [see 7.11.3, p. 59–60]
+\newbibmacro*{persistent_identifiers}{%
+    % [see 7.11.3 EXAMPLE 1, p. 59]
+    \ifboolexpr{not test {\iffieldundef{doi}}}
+        {\bibstring{urlfrom}%
+        \printdelim{piddelim}%
+        \printfield{doi}%
+        \newunit%
+        \usebibmacro{access_restrictions:doi}}{}%
+    \newunit%
+    \ifboolexpr{not test {\iffieldundef{url}}}
+        {\usebibmacro{availability:url}%
+        \printdelim{piddelim}%
+        \printfield{url}%
+        \newunit%
+        \usebibmacro{access_restrictions:url}}{}%
+    \newunit%
+    \ifboolexpr{not test {\iffieldundef{eprint}}}
+        {\usebibmacro{availability:eprint}%
+        \printdelim{piddelim}%
+        \usebibmacro{eprint}%
+        \newunit%
+        \usebibmacro{access_restrictions:eprint}}{}%
+}
+
+
+
+
+\newbibmacro*{identifiers}{%
+    \usebibmacro{international_standard_identifiers}%
+    \newunit%
+    \usebibmacro{persistent_identifiers}%
+    % [see 7.11.1 EXAMPLE 2 + EXAMPLE 3, p. 59]
+    \newunit%
+    \usebibmacro{srrgtdate}%
+    \newunit%
+    \usebibmacro{urldate}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% AVAILABILITY AND LOCATION [see 7.12, pp. 60–68]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% [see 7.12.1.2, pp. 60–62]
+\newbibmacro*{place_and_repository}{%
+    \ifboolexpr{not test {\iffieldundef{venue}}
+    and test {\iffieldundef{eventtitle}} and test {\iffieldundef{eventyear}}}
+    {\bibstring{at}\printdelim{atdelim}\printfield{venue}}
+    {}%
+}
+
+
+% [see 7.12.2, pp. 63–66]
+\newbibmacro*{availability:eprint}{%
+    \hasfieldannotation[eprint][avail]
+        %{\ifbibxstring{\getfieldannotation[eprint][avail]} % doesn't work!?!
+        {\ifbibxstring{\abx@annotation@literal@field@eprint@avail}
+            %{\bibstring{\getfieldannotation[eprint][avail]}} % doesn't work!?!
+            {\bibstring{\abx@annotation@literal@field@eprint@avail}}
+            {\printtext{\getfieldannotation[eprint][avail]}}}
+        {\bibstring{urlfrom}}
+}
+
+% [see 7.12.2, pp. 63–66]
+\newbibmacro*{availability:url}{%
+    \hasfieldannotation[url][avail]
+        %{\ifbibxstring{\getfieldannotation[url][avail]} % doesn't work!?!
+        {\ifbibxstring{\abx@annotation@literal@field@url@avail}
+            %{\bibstring{\getfieldannotation[url][avail]}} % doesn't work!?!
+            {\bibstring{\abx@annotation@literal@field@url@avail}}
+            {\printtext{\getfieldannotation[url][avail]}}}
+        {\bibstring{urlfrom}}%
+}
+
+
+% [see 7.12.4, pp. 67–68]
+\newbibmacro*{access_restrictions:doi}{%
+    \hasfieldannotation[doi][access]
+        %{\ifbibxstring{\getfieldannotation[doi][access]} % doesn't work!?!
+        {\ifbibxstring{\abx@annotation@literal@field@doi@access}
+            %\bibstring{\getfieldannotation[doi][access]} % doesn't work!?!
+            {\printtext{\mkbibbrackets{\bibncpstring{%
+            \abx@annotation@literal@field@doi@access}}}}
+            {\printtext{\mkbibbrackets{\getfieldannotation[doi][access]}}}}
+        {}%
+}
+
+% [see 7.12.4, pp. 67–68]
+\newbibmacro*{access_restrictions:url}{%
+    \hasfieldannotation[url][access]
+        %{\ifbibxstring{\getfieldannotation[url][access]} % doesn't work!?!
+        {\ifbibxstring{\abx@annotation@literal@field@url@access}
+            %\bibstring{\getfieldannotation[url][access]} % doesn't work!?!
+            {\printtext{\mkbibbrackets{\bibncpstring{%
+            \abx@annotation@literal@field@url@access}}}}
+            {\printtext{\mkbibbrackets{\getfieldannotation[url][access]}}}}
+        {}%
+}
+
+% [see 7.12.4, pp. 67–68]
+\newbibmacro*{access_restrictions:eprint}{%
+    \hasfieldannotation[eprint][access]
+        %{\ifbibxstring{\getfieldannotation[eprint][access]} % doesn't work!?!
+        {\ifbibxstring{\abx@annotation@literal@field@eprint@access}
+            %\bibstring{\getfieldannotation[eprint][access]} % doesn't work!?!
+            {\printtext{\mkbibbrackets{\bibncpstring{%
+            \abx@annotation@literal@field@eprint@access}}}}
+            {\printtext{\mkbibbrackets{\getfieldannotation[eprint][access]}}}}
+        {}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ITEM AND EVENT ATTRIBUTES [see 7.13, pp. 68–70]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% [see 7.13.2, pp. 68–69]
+\newbibmacro*{item_attributes}{%
+    \ifboolexpr{not test {\iffieldundef{note}}
+    and test {\iffieldannotation[note]{item}}}
+        {\bibstring{item}\printdelim{itemdelim}\printfield{note}}
+        {}%
+}
+
+% [see 7.13.3, pp. 69–70]
+\newbibmacro*{event_attributes}{%
+    \ifboolexpr{not test {\iffieldundef{note}}
+    and test {\iffieldannotation[note]{event}}}
+        {\bibstring{event}\printdelim{eventdelim}\printfield{note}}
+        {}%
+}
+
+
+
+\newbibmacro*{item_and_events_attributes}{%
+    \ifboolexpr{not test {\iffieldundef{eventtitle}}}
+        {\usebibmacro{conference_information}}
+        {\usebibmacro{item_attributes}%
+        \newunit
+        \usebibmacro{event_attributes}%
+        \newunit
+        \usebibmacro*{place_and_repository}}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% RELATIONSHIP [see 7.14, pp. 70–76]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand*{\relatedpunct}{\labelvaluepunct\space}
+\newcommand*{\finrelentrypunct}{}
+\newbibmacro*{finrelentry}{\unspace\finrelentrypunct}
+
+
+\newbibmacro*{related_data}
+{%
+    \usebibmacro{primary_creators}%
+    \setunit{\printdelim{nametitledelim}}\newblock
+    \usebibmacro{complete_title}{}{titlecase}%
+    \newunit\newblock
+    \usebibmacro{production_information}%
+    \usebibmacro{finrelentry}%
+}
+
+\newbibmacro*{related_data_long}
+{%
+    \usebibmacro{primary_creators}%
+    \setunit{\printdelim{nametitledelim}}\newblock
+    \usebibmacro{complete_title}{}{titlecase}%
+    \newunit\newblock
+    \usebibmacro{component_parts}%
+    \iffieldundef{series}
+        {\setunit{\printdelim{hostinfopaginationdelim}}}
+        {\newunit\newblock
+        \usebibmacro{serials_and_series}%
+        \setunit{\printdelim{seriesnumerationdelim}}}%
+    \usebibmacro{numeration_and_pagination}%
+    \newunit\newblock
+    \usebibmacro{production_information}%
+    \usebibmacro{finrelentry}%
+}
+
+\newbibmacro*{related_data_complete}
+{%
+    \usebibmacro{primary_creators}%
+    \setunit{\printdelim{nametitledelim}}\newblock
+    \usebibmacro{complete_title}{}{titlecase}%
+    \newunit\newblock
+    \usebibmacro{format_and_resource_type}%
+    \newunit\newblock
+    \usebibmacro{edition_and_version}%
+    \newunit\newblock
+    \usebibmacro{other_elements_1}%
+    \newunit\newblock
+    \usebibmacro{subsidiary_creators}%
+    \newunit\newblock
+    \usebibmacro{component_parts}%
+    \iffieldundef{series}
+        {\setunit{\printdelim{hostinfopaginationdelim}}}
+        {\newunit\newblock
+        \usebibmacro{serials_and_series}%
+        \setunit{\printdelim{seriesnumerationdelim}}}%
+    \usebibmacro{numeration_and_pagination}%
+    \newunit\newblock
+    \usebibmacro{production_information}%
+    \newunit\newblock
+    \usebibmacro{identifiers}%
+    \newunit\newblock
+    \usebibmacro{item_and_events_attributes}%
+    \newunit\newblock
+    %\usebibmacro{relationship}%
+    %\newunit\newblock
+    \usebibmacro{other_elements_2}%
+    \usebibmacro{finrelentry}%
+}
+
+
+
+
+\renewbibmacro*{related:default}[1]{%
+    \entrydata{#1}{%
+        \printtext{\mkbibbraces{\usebibmacro{related_data_complete}}}%
+    }%
+}
+
+
+% [see 7.1.2.4.3 EXAMPLE 27, p. 22]
+\newbibmacro*{related:in}[1]{%
+    \entrydata{#1}{%
+        \printtext{\mkbibbraces{\usebibmacro{related_data_complete}}}%
+    }%
+}
+
+% [see 7.1.3.3 EXAMPLE 4, p. 25]
+\newbibmacro*{related:cataloguedin}[1]{%
+    \entrydata{#1}{%
+        \printtext{\mkbibbraces{\usebibmacro{related_data_complete}}}%
+    }%
+}
+
+% [see 7.12.1.3 EXAMPLE 3, p. 63]
+\newbibmacro*{related:listedat}[1]{%
+    \entrydata{#1}{%
+        \printtext{\mkbibbraces{\usebibmacro{related_data_complete}}}%
+    }%
+}
+
+% [see 7.14.2 EXAMPLE 6, p. 71]
+\newbibmacro*{related:translationof}[1]{%
+    \entrydata{#1}{%
+        \printtext{\mkbibbraces{\usebibmacro{related_data}}}%
+    }%
+}
+
+% [see 7.14.3 EXAMPLE 2, p. 72]
+\newbibmacro*{related:commentaryon}[1]{%
+    \entrydata{#1}{%
+        \printtext{\mkbibbraces{\usebibmacro{related_data}}}%
+    }%
+}
+
+% [see 7.14.4 EXAMPLE, p. 72]
+\newbibmacro*{related:annotationon}[1]{%
+    \entrydata{#1}{%
+        \printtext{\mkbibbraces{\usebibmacro{related_data_long}}}%
+    }%
+}
+
+% [see 7.14.6 EXAMPLE 1, p. 73]
+\newbibmacro*{related:abridgementof}[1]{%
+    \entrydata{#1}{%
+        \printtext{\mkbibbraces{\usebibmacro{related_data}}}%
+    }%
+}
+
+% [see 7.14.6 EXAMPLE 4, p. 73]
+\newbibmacro*{related:adaptationof}[1]{%
+    \entrydata{#1}{%
+        \printtext{\mkbibbraces{\usebibmacro{related_data}}}%
+    }%
+}
+
+% [see 7.14.7 EXAMPLE 4, p. 74]
+\newbibmacro*{related:reviewof}[1]{%
+    \entrydata{#1}{%
+        \printtext{\mkbibbraces{\usebibmacro{related_data_complete}}}%
+    }%
+}
+
+% [see 7.14.8 EXAMPLE 2, p. 74]
+\newbibmacro*{related:physicalsurrogate}[1]{%
+    \entrydata{#1}{%
+        \printtext{\mkbibbraces{\usebibmacro{related_data_complete}}}%
+    }%
+}
+
+% [see 7.14.8 EXAMPLE 3, p. 74]
+\newbibmacro*{related:reproductionof}[1]{%
+    \entrydata{#1}{%
+        \printtext{\mkbibbraces{\usebibmacro{related_data}}}%
+    }%
+}
+
+% [see 7.14.9 EXAMPLE 1, p. 75]
+\newbibmacro*{related:includes}[1]{%
+    \entrydata{#1}{%
+        \printtext{\mkbibbraces{\usebibmacro{related_data}}}%
+    }%
+}
+
+% [see 7.14.10 EXAMPLE 2, p. 76]
+\newbibmacro*{related:performanceof}[1]{%
+    \entrydata{#1}{%
+        \printtext{\mkbibbraces{\usebibmacro{related_data_long}}}%
+    }%
+}
+
+
+
+\newbibmacro*{relationship}{%
+    \usebibmacro{related:init}%
+    \usebibmacro{related}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% OTHER ELEMENTS [see 7.15, pp. 76–81]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newbibmacro*{other_elements_1}
+{%
+    %\printfield{type}%
+    %\newunit%
+    \ifboolexpr{test {\iffieldundef{venue}} and test {\iffieldundef{eventtitle}}
+    and test {\iffieldundef{eventyear}}
+    and not test {\iffieldannotation[note]{item}}}
+        {\printfield{note}}{}%
+}
+
+
+
+\newbibmacro*{other_elements_2}
+{%
+    \printfield{addendum}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% [see 8, pp. 81–143]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Metadata elements for a monograph
+% [see 8.2.1 Table 1, p. 82]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareBibliographyDriver{book}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  %
+  \usebibmacro{primary_creators}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \usebibmacro{format_and_resource_type}%
+  \newunit\newblock
+  \usebibmacro{edition_and_version}%
+  \newunit\newblock
+  \usebibmacro{other_elements_1}%
+  \newunit\newblock
+  \usebibmacro{subsidiary_creators}%
+  \newunit\newblock
+  \usebibmacro{serials_and_series}%
+  \setunit*{\printdelim{seriesnumerationdelim}}%
+  \usebibmacro{numeration_and_pagination}%
+  \newunit\newblock
+  \usebibmacro{production_information}%
+  \newunit\newblock
+  \usebibmacro{identifiers}%
+  \newunit\newblock
+  \usebibmacro{item_and_events_attributes}%
+  \newunit\newblock
+  \usebibmacro{relationship}%
+  \newunit\newblock
+  \usebibmacro{other_elements_2}%
+  %
+  \usebibmacro{finentry}%
+}
+
+
+
+\DeclareBibliographyAlias{mvbook}{book}
+\DeclareBibliographyAlias{booklet}{book}
+\DeclareBibliographyAlias{collection}{book}
+\DeclareBibliographyAlias{mvcollection}{book}
+\DeclareBibliographyAlias{reference}{book}
+\DeclareBibliographyAlias{mvreference}{book}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Metadata elements for a monograph component part
+% [see 8.3.1 Table 2, p. 85]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareBibliographyDriver{inbook}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  %
+  \usebibmacro{primary_creators}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \usebibmacro{other_elements_1}%
+  \newunit\newblock
+  \usebibmacro{in:}%
+  \usebibmacro{component_parts}%
+  \newunit\newblock
+  \usebibmacro{format_and_resource_type}%
+  \newunit\newblock
+  \usebibmacro{edition_and_version}%
+  \newunit\newblock
+  \usebibmacro{subsidiary_creators}%
+  \newunit\newblock
+  \usebibmacro{serials_and_series}%
+  \newunit\newblock
+  \usebibmacro{numeration_and_pagination}%
+  \newunit\newblock
+  \usebibmacro{production_information}%
+  \newunit\newblock
+  \usebibmacro{identifiers}%
+  \newunit\newblock
+  \usebibmacro{item_and_events_attributes}%
+  \newunit\newblock
+  \usebibmacro{relationship}%
+  \newunit\newblock
+  \usebibmacro{other_elements_2}%
+  %
+  \usebibmacro{finentry}%
+}
+
+
+
+\DeclareBibliographyAlias{bookinbook}{inbook}
+\DeclareBibliographyAlias{suppbook}{inbook}
+\DeclareBibliographyAlias{incollection}{inbook}
+\DeclareBibliographyAlias{suppcollection}{inbook}
+\DeclareBibliographyAlias{inreference}{inbook}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Metadata elements for an entire serial or entire issue of a serial
+% [see 8.4.2.1 Table 3, p. 87]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareBibliographyDriver{periodical}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  %
+  \usebibmacro{title}%
+  \newunit\newblock
+  \usebibmacro{format_and_resource_type}%
+  \newunit\newblock
+  \usebibmacro{edition_and_version}%
+  \newunit\newblock
+  \usebibmacro{production_information}%
+  \newunit\newblock
+  \usebibmacro{numeration_and_pagination}%
+  \newunit\newblock
+  \usebibmacro{other_elements_1}%
+  \newunit\newblock
+  \usebibmacro{identifiers}%
+  \newunit\newblock
+  \usebibmacro{item_and_events_attributes}%
+  \newunit\newblock
+  \usebibmacro{relationship}%
+  \newunit\newblock
+  \usebibmacro{other_elements_2}%
+  %
+  \usebibmacro{finentry}%
+}
+
+
+
+\DeclareBibliographyAlias{proceedings}{periodical}
+\DeclareBibliographyAlias{mvproceedings}{periodical}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Metadata elements for a component part within a serial
+% [see 8.4.2.2 Table 4, pp. 87–88]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareBibliographyDriver{article}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  %
+  \usebibmacro{primary_creators}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \usebibmacro{component_parts}%
+  \newunit\newblock
+  \iffieldundef{series}
+    {\setunit{\printdelim{hostinfopaginationdelim}}}
+    {\newunit\newblock
+    \usebibmacro{serials_and_series}%
+    \setunit{\printdelim{seriesnumerationdelim}}}%
+  \usebibmacro{numeration_and_pagination}%
+  \newunit\newblock
+  \usebibmacro{other_elements_1}%
+  \newunit\newblock
+  \usebibmacro{subsidiary_creators}%
+  \newunit\newblock
+  \usebibmacro{format_and_resource_type}%
+  \newunit\newblock
+  \usebibmacro{edition_and_version}%
+  \newunit\newblock
+  \usebibmacro{production_information}%
+  \newunit\newblock
+  \usebibmacro{identifiers}%
+  \newunit\newblock
+  \usebibmacro{item_and_events_attributes}%
+  \newunit\newblock
+  \usebibmacro{relationship}%
+  \newunit\newblock
+  \usebibmacro{other_elements_2}%
+  %
+  \usebibmacro{finentry}%
+}
+
+
+
+\DeclareBibliographyAlias{review}{article}
+\DeclareBibliographyAlias{commentary}{article}
+\DeclareBibliographyAlias{suppperiodical}{article}
+\DeclareBibliographyAlias{inproceedings}{article}
+\DeclareBibliographyAlias{conference}{article}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Metadata elements for programs
+% [see 8.5.2 Table 5, p. 91]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareBibliographyDriver{software}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  %
+  \usebibmacro{primary_creators}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \usebibmacro{format_and_resource_type}%
+  \newunit\newblock
+  \usebibmacro{edition_and_version}%
+  \newunit\newblock
+  \usebibmacro{subsidiary_creators}%
+  \newunit\newblock
+  \usebibmacro{production_information}%
+  \newunit\newblock
+  \usebibmacro{other_elements_1}%
+  \newunit\newblock
+  \usebibmacro{identifiers}%
+  \newunit\newblock
+  \usebibmacro{relationship}%
+  \newunit\newblock
+  \usebibmacro{other_elements_2}%
+  %
+  \usebibmacro{finentry}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Metadata elements for cartographic information resources
+% [see 8.6.2 Table 6, pp. 93–94]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Metadata elements for performances
+% [see 8.7.2.1 Table 7, p. 98]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareBibliographyDriver{performance}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  %
+  \usebibmacro{primary_creators}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \usebibmacro{format_and_resource_type}%
+  \newunit\newblock
+  \usebibmacro{other_elements_1}%
+  \newunit\newblock
+  \usebibmacro{subsidiary_creators}%
+  \newunit\newblock
+  \usebibmacro{identifiers}%
+  \newunit\newblock
+  \usebibmacro{serials_and_series}%
+  \setunit*{\printdelim{seriesnumerationdelim}}%
+  \usebibmacro{numeration_and_pagination}%
+  \newunit\newblock
+  \usebibmacro{item_and_events_attributes}%
+  \newunit\newblock
+  \usebibmacro{date}
+  \newunit\newblock
+  \usebibmacro{relationship}%
+  \newunit\newblock
+  \usebibmacro{other_elements_2}%
+  %
+  \usebibmacro{finentry}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Metadata elements for recordings and audio-visual materials
+% [see 8.7.2.2 Table 8, p. 99]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareBibliographyDriver{video}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  %
+  \usebibmacro{primary_creators}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \usebibmacro{format_and_resource_type}%
+  \newunit\newblock
+  \usebibmacro{edition_and_version}%
+  \newunit\newblock
+  \usebibmacro{other_elements_1}%
+  \newunit\newblock
+  \usebibmacro{subsidiary_creators}%
+  \newunit\newblock
+  \usebibmacro{serials_and_series}%
+  \setunit*{\printdelim{seriesnumerationdelim}}%
+  \usebibmacro{numeration_and_pagination}%
+  \newunit\newblock
+  \usebibmacro{production_information}%
+  \newunit\newblock
+  \usebibmacro{identifiers}%
+  \newunit\newblock
+  \usebibmacro{item_and_events_attributes}%
+  \newunit\newblock
+  \usebibmacro{relationship}%
+  \newunit\newblock
+  \usebibmacro{other_elements_2}%
+  %
+  \usebibmacro{finentry}%
+}
+
+
+
+\DeclareBibliographyAlias{movie}{video}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Metadata elements for art, graphic material and collectables
+% [see 8.8.2 Table 9, p. 107]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareBibliographyDriver{artwork}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  %
+  \usebibmacro{primary_creators}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \usebibmacro{format_and_resource_type}%
+  \newunit\newblock
+  \usebibmacro{other_elements_1}%
+  \newunit\newblock
+  \usebibmacro{edition_and_version}%
+  \newunit\newblock
+  \usebibmacro{subsidiary_creators}%
+  \newunit\newblock
+  \usebibmacro{serials_and_series}%
+  \setunit*{\printdelim{seriesnumerationdelim}}%
+  \usebibmacro{numeration_and_pagination}%
+  \newunit\newblock
+  \usebibmacro{item_and_events_attributes}%
+  \newunit\newblock
+  \usebibmacro{production_information}%
+  \newunit\newblock
+  \usebibmacro{identifiers}%
+  \newunit\newblock
+  \usebibmacro{relationship}%
+  \newunit\newblock
+  \usebibmacro{other_elements_2}%
+  %
+  \usebibmacro{finentry}%
+}
+
+
+
+\DeclareBibliographyAlias{image}{artwork}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Metadata elements for music material
+% [see 8.9.2 Table 10, pp. 114–115]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareBibliographyDriver{audio}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  %
+  \usebibmacro{primary_creators}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \usebibmacro{other_elements_1}%
+  \newunit\newblock
+  \usebibmacro{format_and_resource_type}%
+  \newunit\newblock
+  \usebibmacro{edition_and_version}%
+  \newunit\newblock
+  \usebibmacro{subsidiary_creators}%
+  \newunit\newblock
+  \usebibmacro{serials_and_series}%
+  \setunit*{\printdelim{seriesnumerationdelim}}%
+  \usebibmacro{numeration_and_pagination}%
+  \newunit\newblock
+  \usebibmacro{production_information}%
+  \newunit\newblock
+  \usebibmacro{identifiers}%
+  \newunit\newblock
+  \usebibmacro{item_and_events_attributes}%
+  \newunit\newblock
+  \usebibmacro{relationship}%
+  \newunit\newblock
+  \usebibmacro{other_elements_2}%
+  %
+  \usebibmacro{finentry}%
+}
+
+
+
+\DeclareBibliographyAlias{music}{audio}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Metadata elements for patents
+% [see 8.10.2 Table 11, pp. 118–119]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareBibliographyDriver{patent}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  %
+  \usebibmacro{primary_creators}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \usebibmacro{serials_and_series}%
+  \newunit\newblock
+  \usebibmacro{subsidiary_creators}%
+  \newunit\newblock
+  \usebibmacro{other_elements_1}%
+  \newunit\newblock
+  \usebibmacro{numeration_and_pagination}%
+  \newunit\newblock
+  \usebibmacro{identifiers}%
+  \newunit\newblock
+  \usebibmacro{item_and_events_attributes}%
+  \newunit\newblock
+  \usebibmacro{relationship}%
+  \newunit\newblock
+  \usebibmacro{other_elements_2}%
+  %
+  \usebibmacro{finentry}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Metadata elements for reports
+% [see 8.11.2 Table 12, pp. 120–121]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareBibliographyDriver{report}{%
+\usebibmacro{bibindex}%
+\usebibmacro{begentry}%
+%
+\usebibmacro{primary_creators}%
+\setunit{\printdelim{nametitledelim}}\newblock
+\usebibmacro{other_elements_1}%
+\setunit{\printdelim{reportidtitledelim}}\newblock
+\usebibmacro{title}%
+\newunit\newblock
+\usebibmacro{in:}%
+\usebibmacro{component_parts}%
+\newunit\newblock
+\usebibmacro{format_and_resource_type}%
+\newunit\newblock
+\usebibmacro{edition_and_version}%
+\newunit\newblock
+\usebibmacro{production_information}%
+\newunit\newblock
+\usebibmacro{numeration_and_pagination}%
+\newunit\newblock
+\usebibmacro{identifiers}%
+\newunit\newblock
+\usebibmacro{item_and_events_attributes}%
+\newunit\newblock
+\usebibmacro{relationship}%
+\newunit\newblock
+\usebibmacro{other_elements_2}%
+%
+\usebibmacro{finentry}%
+}
+
+
+
+\DeclareBibliographyAlias{rechreport}{report}
+\DeclareBibliographyAlias{manual}{report}
+\DeclareBibliographyAlias{standard}{report}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Metadata elements for archival sources
+% [see 8.12.2 Table 13, p. 126]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Metadata elements for research datasets
+% [see 8.13.2 Table 14, pp. 128–129]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareBibliographyDriver{dataset}{%
+\usebibmacro{bibindex}%
+\usebibmacro{begentry}%
+%
+\usebibmacro{primary_creators}%
+\setunit{\printdelim{nametitledelim}}\newblock
+\usebibmacro{title}%
+\newunit\newblock
+\usebibmacro{edition_and_version}%
+\newunit\newblock
+\usebibmacro{format_and_resource_type}%
+\newunit\newblock
+\usebibmacro{production_information}%
+\newunit\newblock
+\usebibmacro{other_elements_1}%
+\newunit\newblock
+\usebibmacro{relationship}%
+\newunit\newblock
+\usebibmacro{identifiers}%
+\newunit\newblock
+\usebibmacro{other_elements_2}%
+%
+\usebibmacro{finentry}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Metadata elements for Web sites
+% [see 8.14.2 Table 15, p. 132]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareBibliographyDriver{online}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  %
+  \usebibmacro{primary_creators}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \usebibmacro{edition_and_version}%
+  \newunit\newblock
+  \usebibmacro{format_and_resource_type}%
+  \newunit\newblock
+  \usebibmacro{other_elements_1}%
+  \newunit\newblock
+  \usebibmacro{subsidiary_creators}%
+  \newunit\newblock
+  \usebibmacro{production_information}%
+  \newunit\newblock
+  \usebibmacro{identifiers}%
+  \newunit\newblock
+  \usebibmacro{relationship}%
+  \newunit\newblock
+  \usebibmacro{other_elements_2}%
+  %
+  \usebibmacro{finentry}%
+}
+
+
+
+\DeclareBibliographyAlias{electronic}{online}
+\DeclareBibliographyAlias{www}{online}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Metadata elements for social media and services
+% [see 8.15.2 Table 16, p. 136]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Metadata elements for unpublished information resources
+% [see 8.16.2 Table 17, p. 141]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareBibliographyDriver{unpublished}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  %
+  \usebibmacro{primary_creators}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \usebibmacro{format_and_resource_type}%
+  \newunit\newblock
+  \usebibmacro{edition_and_version}%
+  \newunit\newblock
+  \usebibmacro{other_elements_1}%
+  \newunit\newblock
+  \usebibmacro{subsidiary_creators}%
+  \newunit\newblock
+  \usebibmacro{production_information}%
+  \newunit\newblock
+  \usebibmacro{item_and_events_attributes}%
+  \newunit\newblock
+  \usebibmacro{identifiers}%
+  \newunit\newblock
+  \usebibmacro{relationship}%
+  \newunit\newblock
+  \usebibmacro{other_elements_2}%
+  %
+  \usebibmacro{finentry}%
+}
+
+
+
+\DeclareBibliographyAlias{thesis}{unpublished}
+\DeclareBibliographyAlias{masterthesis}{unpublished}
+\DeclareBibliographyAlias{phdthesis}{unpublished}
+\DeclareBibliographyAlias{letter}{unpublished}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+
+
+\DeclareBibliographyDriver{misc}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  %
+  \usebibmacro{primary_creators}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \usebibmacro{format_and_resource_type}%
+  \newunit\newblock
+  \usebibmacro{edition_and_version}%
+  \newunit\newblock
+  \usebibmacro{other_elements_1}%
+  \newunit\newblock
+  \usebibmacro{subsidiary_creators}%
+  \newunit\newblock
+  \usebibmacro{in:}%
+  \usebibmacro{component_parts}%
+  \newunit\newblock
+  \usebibmacro{serials_and_series}%
+  \setunit*{\printdelim{seriesnumerationdelim}}%
+  \usebibmacro{numeration_and_pagination}%
+  \newunit\newblock
+  \usebibmacro{production_information}%
+  \newunit\newblock
+  \usebibmacro{identifiers}%
+  \newunit\newblock
+  \usebibmacro{item_and_events_attributes}%
+  \newunit\newblock
+  \usebibmacro{relationship}%
+  \newunit\newblock
+  \usebibmacro{other_elements_2}%
+  %\newunit\newblock
+  %\usebibmacro{mytest}%
+  %
+  \usebibmacro{finentry}%
+}
+
+
+
+\DeclareBibliographyAlias{*}{misc}
+
+
+
+
+
+\endinput
