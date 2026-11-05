@@ -772,7 +772,15 @@
 
 % Macro for printing full date (full = YYYY-MM-DD)
 \newbibmacro*{fulldate}{%
-  \mkdaterangeiso{}%
+  \iffieldundef{year}
+    {\iffieldundef{dateaddon}
+      {\bibstring[\mkbibbrackets]{nodate}}%
+      {\printfield{dateaddon}}}%
+    {\iffieldundef{month}
+       {\printdate}%            % en dash for ranges
+       {\mkdaterangeiso{}}%     % keep ISO YYYY-MM-DD for full dates
+     \setunit{\dateaddonpunct}%
+     \printfield{dateaddon}}%
 }
 
 % a)
