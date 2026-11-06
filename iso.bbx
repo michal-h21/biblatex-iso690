@@ -273,10 +273,11 @@
 \DeclareFieldFormat*{url}{%
   \iffieldundef{urlyear}
     {\iffieldequalstr{type}{eBook}
-      {\mainlangbibstring{urlfrom}}
-      {\mainlangbibstring{urlalso}}}%
-    {\mainlangbibstring{urlfrom}}%
-  \addcolon\space\url{#1}%
+      {\mainlangbibstringcolon{urlfrom}}
+      {\mainlangbibstringcolon{urlalso}}}%
+    {\mainlangbibstringcolon{urlfrom}}%
+  %\addcolon\space
+  \url{#1}%
 }
 
 % Format medium type in square brackets
@@ -913,18 +914,20 @@
 \newbibmacro*{from-doi}{%
   \ifentrytype{book}
     {\iffieldequalstr{type}{eBook}
-      {\mainlangbibstring{urlfrom}}
-      {\mainlangbibstring{urlalso}}}
-    {\mainlangbibstring{urlfrom}}%
-  \setunit{\addcolon\space}%
+      {\mainlangbibstringcolon{urlfrom}}
+      {\mainlangbibstringcolon{urlalso}}}
+    {\mainlangbibstringcolon{urlfrom}}%
+  %\setunit{\addcolon\space}%
+  % \addcolon\space%
   \printfield{doi}%
 }
+
 
 % Precedes eprint field with urlfrom localisation string
 % Use default eprint formatting macro
 \newbibmacro*{from-eprint}{%
-  \mainlangbibstring{urlfrom}
-  \setunit{\addcolon\space}%
+  \mainlangbibstringcolon{urlfrom}
+  % \setunit{\addcolon\space}%
   \usebibmacro{eprint}%
 }
 
@@ -1046,6 +1049,9 @@
 
 \newrobustcmd*{\blx@imc@mainlangbibsstring}[2][\@firstofone]{%
   \blx@mainlangbibstring{#1}{abx@sstr}{#2}}
+
+\newrobustcmd*{\mainlangbibstringcolon}[1]{\textmainlang{\bibstring{#1}\addcolon\space}}
+
 
 % We use Babel or Polyglossia main document language for some
 % bibliography strings. With currentlang option, the currently
