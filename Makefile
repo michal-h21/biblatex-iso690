@@ -39,9 +39,9 @@ build: $(doc_source) $(doc_file) $(bbx) $(cbx) $(lbx)
 	@cp README.md $(doc_source) $(doc_file) $(bib_file)  $(doc_dest_dir)
 	@cp  $(bbx) $(cbx) $(lbx) $(dbx) $(tds_dest_dir)
 	@cp README.md $(doc_source) $(doc_file) $(bib_file)  $(tds_doc_dest_dir)
-	@cd $(build_dir) && zip -r $(tds_dist_file) tex doc
-	# @cp $(build_dir)/$(tds_dist_file) $(dest_dir)
-	@cd $(build_dir) && zip -r $(dist_file) $(doc_root) $(tds_dist_file)
+	@rm -rf $(build_dir)/$(tds_dist_file)
+	@rm -rf $(build_dir)/$(dist_file)
+	@cd $(build_dir) && zip -r $(dist_file) $(doc_root) 
 	
 
 style-guide.tex: biblatex-iso690.wiki/Style-Guide.md biblatex-iso690.wiki
